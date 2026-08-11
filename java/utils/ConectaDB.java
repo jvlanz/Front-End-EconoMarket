@@ -10,6 +10,7 @@ public class ConectaDB {
 
 	public static Connection conectar() {
 		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			return DriverManager.getConnection(URL, USUARIO, SENHA);
 		} catch(Exception e) {
 			System.out.println("erro na conexão");
