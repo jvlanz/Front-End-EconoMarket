@@ -1,0 +1,467 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(135deg, #eef3f0, #dfe7e2);
+    font-family: "Inter", sans-serif;
+    color: #222;
+    overflow-x: hidden;
+}
+
+.topo,
+.container1,
+.secao-info,
+.titulo-secao {
+    width: 100%;
+    max-width: 1700px;
+
+    margin: 0 auto;
+
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.topo {
+    min-height: 150px;
+
+    display: flex;
+    align-items: center;
+    gap: 35px;
+
+    flex-wrap: wrap;
+}
+
+.topo-wrapper {
+    width: 100%;
+    background: #122448;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.icone-logo {
+    width: 180px;
+    object-fit: contain;
+}
+
+.container-pesquisa {
+    position: relative;
+    flex: 1;
+    max-width: 750px;
+}
+
+.pesquisa {
+    width: 100%;
+
+    padding: 15px 50px 15px 18px;
+
+    border: none;
+    border-radius: 999px;
+
+    background: #ffffff;
+
+    font-size: 15px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
+
+    transition: 0.2s;
+}
+
+.pesquisa:focus {
+    outline: none;
+
+    box-shadow: 0 0 0 4px rgba(58, 170, 53, 0.18), 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.icone-lupa {
+    width: 20px;
+    position: absolute;
+    right: 16px;
+    top: 38%;
+    transform: translateY(-50%);
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+/*.icone-lupa:focus {
+
+}*/
+
+.icone-cesta {
+    width: 32px;
+    height: 32px;
+    margin-top: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.icone-cesta:hover {
+    transform: scale(1.08);
+}
+
+#menu-head {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.menu {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+    margin-bottom: 10px;
+}
+
+.categorias {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.todas-categorias {
+    display: flex;
+    align-items: center;
+    color: white;
+    gap: 5px;
+    cursor: pointer;
+}
+
+#icons-toc {
+    rotate: 180deg;
+}
+
+.menu a {
+    text-decoration: none;
+    color: white;
+    font-weight: 700;
+    white-space: nowrap;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    position: relative;
+    transition: 0.2s;
+}
+
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background: #2d8f2d;
+    transition: 0.2s;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+.menu a:hover {
+    color: #2d8f2d;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-hortifruti-content {
+    position: absolute;
+    top: 140%;
+    left: 0;
+    min-width: 190px;
+    background: white;
+    border-radius: 16px;
+    padding: 10px 0;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: 0.22s ease;
+}
+
+.dropdown:hover .dropdown-hortifruti-content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-hortifruti-content a {
+    display: block;
+    padding: 12px 18px;
+    font-size: 14px;
+}
+
+.dropdown-hortifruti-content a:hover {
+    background: #f4f4f4;
+}
+
+.titulo-secao {
+    margin-top: 45px;
+    margin-bottom: 10px;
+}
+
+.titulo-secao h2 {
+    font-size: 34px;
+    font-weight: 800;
+    color: #1f1f1f;
+}
+
+/*Provisório o margin bottom, será necessário criar outros containers*/
+.container1 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 22px;
+    margin-top: 30px;
+    margin-bottom: 150px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.card-produto {
+    position: relative;
+    background: rgba(255, 255, 255, 0.75);
+    border-radius: 26px;
+    padding: 18px;
+    height: 130%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card-produto:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.10);
+}
+
+.card-produto img {
+    width: 80%;
+    object-fit: contain;
+    align-self: center;
+}
+
+.preco-produto {
+    font-size: 21px;
+    font-weight: 900;
+    color: #111;
+}
+
+.nome-produto {
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 5px;
+    color: #555;
+    font-family: "Montserrat", sans-serif;
+}
+
+.btn-add {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #203f75, #182f57);
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.18);
+    transition: 0.2s;
+}
+
+.btn-add:hover {
+    transform: scale(1.08);
+}
+
+.secao-info {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(10px);
+    border-radius: 28px;
+    padding-top: 45px;
+    padding-bottom: 45px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+}
+
+.secao-info h1 {
+    font-size: 38px;
+    margin-bottom: 22px;
+}
+
+.secao-info p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #555;
+}
+
+.destaque {
+    color: #38b000;
+    font-weight: 700;
+}
+
+.integrantes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 45px;
+    margin-top: 40px;
+}
+
+.membro {
+    text-align: center;
+}
+
+.membro img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 3px solid rgba(0, 0, 0, 0.08);
+    transition: 0.2s;
+}
+
+.membro img:hover {
+    transform: scale(1.03);
+}
+
+.membro p {
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+.footer-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .topo,
+    .container1,
+    .secao-info,
+    .titulo-secao {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .topo {
+        min-height: auto;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        gap: 18px;
+    }
+
+    .icone-logo {
+        width: 145px;
+    }
+
+    .container-pesquisa {
+        width: 100%;
+        order: 3;
+    }
+
+    .pesquisa {
+        padding: 14px 45px 14px 16px;
+    }
+
+    .menu {
+        width: 100%;
+        overflow-x: auto;
+        gap: 10px;
+        padding-bottom: 4px;
+        flex-wrap: nowrap;
+    }
+
+    .menu::-webkit-scrollbar {
+        display: none;
+    }
+
+    .menu a {
+        white-space: nowrap;
+        /*        background: white;*/
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .container1 {
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .container1::-webkit-scrollbar {
+        display: none;
+    }
+
+    .card-produto {
+        min-width: 190px;
+        max-width: 190px;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+    }
+
+    .secao-info {
+        border-radius: 20px;
+    }
+
+    .secao-info h1 {
+        font-size: 30px;
+    }
+
+    .secao-info p {
+        font-size: 16px;
+    }
+
+    .integrantes {
+        gap: 25px;
+    }
+
+    .membro img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .footer-nav {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 16px 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        z-index: 999;
+    }
+
+    .footer-nav a {
+        text-decoration: none;
+        color: #222;
+        font-size: 13px;
+        font-weight: 700;
+        font-family: "Montserrat", sans-serif;
+    }
+
+    body {
+        padding-bottom: 90px;
+    }
+}

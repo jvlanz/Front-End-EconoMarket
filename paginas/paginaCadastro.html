@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paginaCadastro</title>
+    <link rel="stylesheet" href="../estilos/paginaCadastro.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <form id="formularioLogin">
+        <h2 id="header">Cadastre-se</h2>
+    
+        <input type="text" id="nome-cadastro" placeholder="Nome e sobrenome">
+        <input type="text" id="email-cadastro" placeholder="E-mail">
+        <input type="password" id="senha-cadastro" placeholder="Senha">
+        <input type="text" id="telefone-cadastro" placeholder="Telefone">
+
+        <input type="button" id="cadastre-btn" onclick="cadastrar()" value="Criar Cadastro"/>
+        <p id="mensagem-erro"></p>
+        <p id="texto-voltar-login">Já tem uma conta?<span id="voltar-login" onclick="abrirLogin()">Faça login aqui</span></p>
+    </form>
+
+    <script src="../scripts/paginaCadastro.js"></script>
+</body>
+</html>

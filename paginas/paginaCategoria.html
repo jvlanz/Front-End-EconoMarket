@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src='../scripts/dados.js'></script>
+    <script src="../scripts/inserirHeader.js"></script>
+    <script src='../scripts/inserirProdutosCategoria.js'></script>
+    <link rel="stylesheet" href="../estilos/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const idCategoria = urlParams.get('categoria')
+    </script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <script>inserirHeader("header.html")</script>
+    <br>
+    <h1 id="categoria"></h1>
+    <script>inserirProdutos(idCategoria)</script>
+</body>
+</html>
