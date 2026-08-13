@@ -16,12 +16,12 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 
 	@Override
 	public Produto inserir(Produto prod) {
-		String sql = "insert into tb_produtos(descricao, medida, id_categoria) values (?, ?,?)";
+		String sql = "insert into tb_produtos(descricao, id_medida, id_categoria) values (?, ?,?)";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			stm.setString(1, prod.getDescricao());
-			stm.setString(2, prod.getMedida());
+			stm.setInt(2, prod.getIdMedida());
 			stm.setInt(3, prod.getIdCategoria());
 			stm.execute();
 			ResultSet rs = stm.getGeneratedKeys();
@@ -56,12 +56,12 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 
 	@Override
 	public void alterar(Produto prod) {
-		String sql = "update tb_produtos set descricao=?, medida=?, id_categoria=? where id=?";
+		String sql = "update tb_produtos set descricao=?, id_medida=?, id_categoria=? where id=?";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setString(1, prod.getDescricao());
-			stm.setString(2, prod.getMedida());
+			stm.setInt(2, prod.getIdMedida());
 			stm.setInt(3, prod.getIdCategoria());
 			stm.setInt(4, prod.getId());
 			stm.execute();
@@ -83,7 +83,7 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 			stm.setInt(1,id);
 			ResultSet rs = stm.executeQuery();
 			if(rs.next()) {
-				prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getString("medida"), rs.getInt("id_categoria"));
+				prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_medida"), rs.getInt("id_categoria"));
 			}
 			rs.close();
 			stm.close();
@@ -102,7 +102,7 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 			PreparedStatement stm = con.prepareStatement("select * from tb_produtos");
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				Produto prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getString("medida"), rs.getInt("id_categoria"));
+				Produto prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_medida"), rs.getInt("id_categoria"));
 				produtos.add(prod);
 			}
 			rs.close();

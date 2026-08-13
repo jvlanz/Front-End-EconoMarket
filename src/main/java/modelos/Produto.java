@@ -3,20 +3,20 @@ package modelos;
 public class Produto {
 	private int id;
 	private String descricao;
-	private String medida;
+	private int idMedida;
 	private int idCategoria;
 
 	public Produto() {
 	}
-	public Produto(String descricao, String medida, int idCategoria) {
+	public Produto(String descricao, int idMedida, int idCategoria) {
 		setDescricao(descricao);
-		setMedida(medida);
+		setIdMedida(idMedida);
 		setIdCategoria(idCategoria);
 	}
-	public Produto(int id, String descricao, String medida, int idCategoria) {
+	public Produto(int id, String descricao, int idMedida, int idCategoria) {
 		setId(id);
 		setDescricao(descricao);
-		setMedida(medida);
+		setIdMedida(idMedida);
 		setIdCategoria(idCategoria);
 	}
 
@@ -33,12 +33,11 @@ public class Produto {
 		if (descricao!=null && descricao.length()>0)
 			this.descricao = descricao;
 	}
-	public String getMedida() {
-		return medida;
+	public int getIdMedida() {
+		return idMedida;
 	}
-	public void setMedida(String medida) {
-		if (medida!=null && medida.length()>0)
-			this.medida = medida;
+	public void setIdMedida(int idMedida) {
+		this.idMedida = idMedida;
 	}
 	public int getIdCategoria() {
 		return idCategoria;

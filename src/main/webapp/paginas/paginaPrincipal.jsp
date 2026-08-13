@@ -1,5 +1,10 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="modelos.Categoria"%>
+<%@page import="modelos.Produto"%>
+<%@page import="dao.CategoriaDao"%>
+<%@page import="dao.ProdutoDao"%>
+<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -14,31 +19,25 @@
 
 <body>
     <jsp:include page="header.jsp" />
-    <!-- PRODUTOS -->
-    <div class="container1">
-        <div class="card-produto"> <img src="../imagens/ovos.png">
-            <div class="preco-produto">R$18,79</div>
-            <div class="nome-produto">Ovos Vermelhos</div> <button class="btn-add">+</button>
-        </div>
-        <div class="card-produto"> <img src="../imagens/ovos.png">
-            <div class="preco-produto">R$18,79</div>
-            <div class="nome-produto">Ovos Vermelhos</div> <button class="btn-add">+</button>
-        </div>
-    </div>
-    <!-- HORTIFRUTI -->
-    <div id="hortifruti" class="container1">
-        <div class="card-produto"> <img src="../imagens/banana-caturra.png">
-            <div class="preco-produto">R$5,29</div>
-            <div class="nome-produto">Banana Kg</div> <button class="btn-add">+</button>
-        </div>
-    </div>
-    <!-- AÇOUGUE -->
-    <div id="acougue" class="container1">
-        <div class="card-produto"> <img src="../imagens/coxao-mole.png">
-            <div class="preco-produto">R$39,99</div>
-            <div class="nome-produto">Coxão Mole Kg</div> <button class="btn-add">+</button>
-        </div>
-    </div>
+    <%
+    CategoriaDao catDao = new CategoriaDao();
+    List<Categoria> categorias = catDao.consultar();
+    ProdutoDao prodDao = new ProdutoDao();
+    List<Produto> produtos = prodDao.consultar();
+    for (Categoria cat : categorias) {
+        out.print("<div class=\"container1\", id="+cat.getCategoria()+">");
+        out.print("<h2>"+cat.getCategoria()+"</h2>");
+        for (Produto prod : produtos) {
+            if (prod.getIdCategoria()==cat.getId()) {
+                out.print("<div class=\"card-produto\"> <img src=\"../imagens/ovos.png\">"); // FIXME figura
+                out.print("<div class=\"preco-produto\">R$18,79</div>"); // FIXME preço
+                out.print("<div class=\"nome-produto\">"+prod.getDescricao()+"</div> <button class=\"btn-add\">+</button>");
+                out.print("</div>");
+            }
+        }
+        out.print("</div>");
+    }
+    %>
     <!-- SOBRE -->
     <div id="sobre" class="secao-info">
         <h1>Sobre nós</h1>
