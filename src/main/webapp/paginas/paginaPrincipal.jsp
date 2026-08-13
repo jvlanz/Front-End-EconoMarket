@@ -1,0 +1,76 @@
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="dao.CategoriaDao"%>
+<%@page import="modelos.Categoria"%>
+<%@page import="java.util.List"%>
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EconoMarket</title>
+    <link rel="stylesheet" href="../../../../estilos/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <jsp:include page="header1.html" />
+    <%
+    CategoriaDao dao = new CategoriaDao();
+    List<Categoria> categorias = dao.consultar();
+    for (Categoria cat : categorias) {
+        out.print("<a href=\"paginaCategoria.html?categoria="+cat.getId()+"\">"+cat.getCategoria()+"</a>");
+    }
+    %>
+    <jsp:include page="header2.html" />
+    <!-- PRODUTOS -->
+    <div class="container1">
+        <div class="card-produto"> <img src="../imagens/ovos.png">
+            <div class="preco-produto">R$18,79</div>
+            <div class="nome-produto">Ovos Vermelhos</div> <button class="btn-add">+</button>
+        </div>
+        <div class="card-produto"> <img src="../imagens/ovos.png">
+            <div class="preco-produto">R$18,79</div>
+            <div class="nome-produto">Ovos Vermelhos</div> <button class="btn-add">+</button>
+        </div>
+    </div>
+    <!-- HORTIFRUTI -->
+    <div id="hortifruti" class="container1">
+        <div class="card-produto"> <img src="../imagens/banana-caturra.png">
+            <div class="preco-produto">R$5,29</div>
+            <div class="nome-produto">Banana Kg</div> <button class="btn-add">+</button>
+        </div>
+    </div>
+    <!-- AÇOUGUE -->
+    <div id="acougue" class="container1">
+        <div class="card-produto"> <img src="../imagens/coxao-mole.png">
+            <div class="preco-produto">R$39,99</div>
+            <div class="nome-produto">Coxão Mole Kg</div> <button class="btn-add">+</button>
+        </div>
+    </div>
+    <!-- SOBRE -->
+    <div id="sobre" class="secao-info">
+        <h1>Sobre nós</h1>
+        <p> O <span class="destaque">EconoMarket</span> é um protótipo desenvolvido no programa Entra21, a ideia do
+            nosso projeto é ser um comparador de preços de diferentes mercados. </p>
+      
+    </div>
+    <!-- CONTATO -->
+    <div id="contato" class="secao-info">
+        <h1>Contato</h1>
+        <p>Ficou com alguma dúvida ou sugestão?</p>
+        <p>📧 Email: <span class="destaque">economarket@gmail.com</span></p>
+    </div>
+    <footer class="footer-nav">
+        <a href="#">Home</a>
+        <a href="#">Produtos</a>
+        <a href="#">Carrinho</a>
+        <a href="#">Perfil</a>
+    </footer>
+    
+</body>
+
+</html>
+
