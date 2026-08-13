@@ -104,12 +104,14 @@ insert into tb_medidas (medida) values ('g');
 insert into tb_medidas (medida) values ('kg');
 insert into tb_medidas (medida) values ('litro');
 insert into tb_medidas (medida) values ('duzia');
+insert into tb_medidas (medida) values ('pacote');
+insert into tb_medidas (medida) values ('sachê');
 
 
 -- PRODUTOS
 
 insert into tb_produtos (descricao, id_categoria, id_medida)
-     values ('Bananas', 1, 3);
+     values ('Banana', 1, 3);
 
 insert into tb_produtos (descricao, id_categoria, id_medida)
      values ('Coxão Mole', 2, 3);

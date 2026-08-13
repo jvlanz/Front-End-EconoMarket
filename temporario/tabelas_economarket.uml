@@ -18,13 +18,20 @@ entity mercados {
 entity produtos {
 	id: int
 	descricao: varchar(128)
-	medida: varchar(16)
+	fk_medida: int
 	fk_categoria: int
+}
+entity medidas {
+	id: int
+	medida: varchar(16)
 }
 entity categorias {
 	id: int
 	categoria: varchar(128)
 }
+categorias->produtos
+medidas-> produtos
+
 entity precos {
 	id: int
 	preco: float

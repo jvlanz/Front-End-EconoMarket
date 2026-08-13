@@ -29,8 +29,8 @@
         out.print("<h2>"+cat.getCategoria()+"</h2>");
         for (Produto prod : produtos) {
             if (prod.getIdCategoria()==cat.getId()) {
-                out.print("<div class=\"card-produto\"> <img src=\"../imagens/ovos.png\">"); // FIXME figura
-                out.print("<div class=\"preco-produto\">R$18,79/"+prod.getMedida()+"</div>"); // FIXME preço
+                out.print("<div class=\"card-produto\"> <img src=\"../imagens/"+prod.getDescricao().split(" ")[0].toLowerCase()+".jpg\">"); // FIXME: definir como chamar figuras
+                out.print("<div class=\"preco-produto\">R$99,99/"+prod.getMedida()+"</div>"); // FIXME: falta obter faixa de preços do banco de dados
                 out.print("<div class=\"nome-produto\">"+prod.getDescricao()+"</div> <button class=\"btn-add\">+</button>");
                 out.print("</div>");
             }
