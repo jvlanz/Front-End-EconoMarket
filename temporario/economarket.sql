@@ -10,16 +10,29 @@ create table tb_categorias (
 );
 
 
+create table tb_medidas (
+    id int primary key auto_increment,
+    medida varchar(16) not null
+)
+
+
 create table tb_produtos (
     id int primary key auto_increment,
     descricao varchar(128) not null,
-    medida varchar(16),
+    id_medida int not null,
     id_categoria int not null,
+
+    constraint fk_medida 
+        foreign key (id_medida) references tb_medidas(id),
 
     constraint fk_categoria 
         foreign key (id_categoria) references tb_categorias(id)
+
 );
 
+-- alter table tb_produtos drop column medida;
+-- alter table tb_produtos add column id_medida int;
+-- alter table tb_produtos add constraint fk_medida foreign key (id_medida) references tb_medidas(id);
 
 create table tb_mercados (
     id int primary key auto_increment,
@@ -69,7 +82,6 @@ create table tb_favoritos (
         unique (id_produto, id_cadastros)
 );
 
-
 -- CATEGORIAS
 
 insert into tb_categorias (categoria) values ('Hortifruti');
@@ -85,22 +97,32 @@ insert into tb_categorias (categoria) values ('Padaria');
 insert into tb_categorias (categoria) values ('Pets');
 
 
+-- MEDIDAS
+
+insert into tb_medidas (medida) values ('unidade');
+insert into tb_medidas (medida) values ('g');
+insert into tb_medidas (medida) values ('kg');
+insert into tb_medidas (medida) values ('litro');
+insert into tb_medidas (medida) values ('duzia');
+
+
 -- PRODUTOS
 
-insert into tb_produtos (id_categoria, descricao)
-values (1, 'Bananas');
+insert into tb_produtos (descricao, id_categoria, id_medida)
+     values ('Bananas', 1, 3);
 
-insert into tb_produtos (id_categoria, descricao)
-values (2, 'Coxão Mole');
+insert into tb_produtos (descricao, id_categoria, id_medida)
+     values ('Coxão Mole', 2, 3);
 
-insert into tb_produtos (id_categoria, descricao)
-values (1, 'Ovos Vermelhos');
+insert into tb_produtos (descricao, id_categoria, id_medida)
+     values ('Ovos Vermelhos', 1, 5);
 
-insert into tb_produtos (id_categoria, descricao)
-values (1, 'Banana Caturra');
+insert into tb_produtos (descricao, id_categoria, id_medida)
+     values ('Banana Caturra', 1, 3);
 
-insert into tb_produtos (id_categoria, descricao)
-values (1, 'Banana Prata');
+insert into tb_produtos (descricao, id_categoria, id_medida)
+     values ('Banana Prata', 1, 3);
 
-insert into tb_produtos (id_categoria, descricao)
-values (3, 'Queijo Fatiado');
+insert into tb_produtos (descricao, id_categoria, id_medida)
+     values ('Queijo Fatiado', 3, 2);
+
