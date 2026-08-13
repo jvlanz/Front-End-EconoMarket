@@ -76,14 +76,14 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 	@Override
 	public Produto consultar(Integer id) {
 		Produto prod = null;
-		String sql = "select * from tb_produtos where id=?";
+		String sql = "select * from tb_produtos inner join tb_medidas where id_medida = tb_medidas.id and id=?";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setInt(1,id);
 			ResultSet rs = stm.executeQuery();
 			if(rs.next()) {
-				prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_medida"), rs.getInt("id_categoria"));
+				prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_categoria"), rs.getInt("id_medida"), rs.getString("medida"));
 			}
 			rs.close();
 			stm.close();
@@ -99,10 +99,10 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 		List<Produto> produtos = new ArrayList<Produto>();
 		try {
 			Connection con = ConectaDB.conectar();
-			PreparedStatement stm = con.prepareStatement("select * from tb_produtos");
+			PreparedStatement stm = con.prepareStatement("select * from tb_produtos inner join tb_medidas where id_medida = tb_medidas.id");
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				Produto prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_medida"), rs.getInt("id_categoria"));
+				Produto prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_categoria"), rs.getInt("id_medida"), rs.getString("medida"));
 				produtos.add(prod);
 			}
 			rs.close();
