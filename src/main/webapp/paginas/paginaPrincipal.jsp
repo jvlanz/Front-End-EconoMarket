@@ -1,8 +1,5 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="dao.CategoriaDao"%>
-<%@page import="modelos.Categoria"%>
-<%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -10,21 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EconoMarket</title>
-    <link rel="stylesheet" href="../../../../estilos/index.css">
+    <link rel="stylesheet" href="../estilos/index.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-    <jsp:include page="header1.html" />
-    <%
-    CategoriaDao dao = new CategoriaDao();
-    List<Categoria> categorias = dao.consultar();
-    for (Categoria cat : categorias) {
-        out.print("<a href=\"paginaCategoria.html?categoria="+cat.getId()+"\">"+cat.getCategoria()+"</a>");
-    }
-    %>
-    <jsp:include page="header2.html" />
+    <jsp:include page="header.jsp" />
     <!-- PRODUTOS -->
     <div class="container1">
         <div class="card-produto"> <img src="../imagens/ovos.png">

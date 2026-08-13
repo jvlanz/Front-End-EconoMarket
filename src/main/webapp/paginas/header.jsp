@@ -1,3 +1,6 @@
+<%@page import="dao.CategoriaDao"%>
+<%@page import="modelos.Categoria"%>
+<%@page import="java.util.List"%>
 <header class="topo-wrapper">
     <div class="topo">
         <div id="menu-head">
@@ -20,3 +23,17 @@
             </div>
             <div class="categorias" id="divCategorias">
                 <!-- --- -->
+    <%
+    CategoriaDao dao = new CategoriaDao();
+    List<Categoria> categorias = dao.consultar();
+    for (Categoria cat : categorias) {
+        out.print("<a href=\"paginaCategoria.html?categoria="+cat.getId()+"\">"+cat.getCategoria()+"</a>");
+    }
+    %>
+                <!-- --- -->
+                <a href="paginaSobre.html">Sobre nós</a>
+                <a href="#contato">Contato</a>
+            </div>
+        </nav>
+    </div>
+</header>
