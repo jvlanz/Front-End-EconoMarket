@@ -16,13 +16,14 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 
 	@Override
 	public Produto inserir(Produto prod) {
-		String sql = "insert into tb_produtos(descricao, id_medida, id_categoria) values (?, ?,?)";
+		String sql = "insert into tb_produtos(descricao, id_medida, id_categoria, imagem) values (?, ?, ?, ?)";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 			stm.setString(1, prod.getDescricao());
 			stm.setInt(2, prod.getIdMedida());
 			stm.setInt(3, prod.getIdCategoria());
+			stm.setString(4, prod.getImagem());
 			stm.execute();
 			ResultSet rs = stm.getGeneratedKeys();
 			if(rs.next()) {
@@ -56,14 +57,15 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 
 	@Override
 	public void alterar(Produto prod) {
-		String sql = "update tb_produtos set descricao=?, id_medida=?, id_categoria=? where id=?";
+		String sql = "update tb_produtos set descricao=?, id_medida=?, id_categoria=?, imagem=? where id=?";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql);
 			stm.setString(1, prod.getDescricao());
 			stm.setInt(2, prod.getIdMedida());
 			stm.setInt(3, prod.getIdCategoria());
-			stm.setInt(4, prod.getId());
+			stm.setInt(4, prod.getIdCategoria());
+			stm.setString(5, prod.getImagem());
 			stm.execute();
 			stm.close();
 			con.close();
@@ -83,7 +85,7 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 			stm.setInt(1,id);
 			ResultSet rs = stm.executeQuery();
 			if(rs.next()) {
-				prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_categoria"), rs.getInt("id_medida"), rs.getString("medida"));
+				prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_categoria"), rs.getInt("id_medida"), rs.getString("imagem"), rs.getString("medida"));
 			}
 			rs.close();
 			stm.close();
@@ -102,7 +104,7 @@ public class ProdutoDao implements ICRUD<Produto,Integer> {
 			PreparedStatement stm = con.prepareStatement("select * from tb_produtos inner join tb_medidas where id_medida = tb_medidas.id");
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				Produto prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_categoria"), rs.getInt("id_medida"), rs.getString("medida"));
+				Produto prod = new Produto(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_categoria"), rs.getInt("id_medida"), rs.getString("imagem"), rs.getString("medida"));
 				produtos.add(prod);
 			}
 			rs.close();

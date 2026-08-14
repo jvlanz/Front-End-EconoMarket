@@ -5,21 +5,24 @@ public class Produto {
 	private String descricao;
 	private int idCategoria;
 	private int idMedida;
+	private String imagem;
 	private String medida;
 
 	public Produto() {
 	}
-	public Produto(String descricao, int idCategoria, int idMedida, String medida) {
+	public Produto(String descricao, int idCategoria, int idMedida, String imagem, String medida) {
 		setDescricao(descricao);
 		setIdCategoria(idCategoria);
 		setIdMedida(idMedida);
+		setImagem(imagem);
 		setMedida(medida);
 	}
-	public Produto(int id, String descricao, int idCategoria, int idMedida, String medida) {
+	public Produto(int id, String descricao, int idCategoria, int idMedida, String imagem, String medida) {
 		setId(id);
 		setDescricao(descricao);
 		setIdCategoria(idCategoria);
 		setIdMedida(idMedida);
+		setImagem(imagem);
 		setMedida(medida);
 	}
 
@@ -54,6 +57,13 @@ public class Produto {
 	public void setMedida(String medida) {
 		if (medida!=null && medida.length()>0)
 			this.medida = medida;
+	}
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		if (imagem!=null && imagem.length()>0)
+			this.imagem = imagem;
 	}
 
 }

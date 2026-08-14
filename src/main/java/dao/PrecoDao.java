@@ -16,7 +16,7 @@ public class PrecoDao implements ICRUD<Preco,Integer> {
 
 	@Override
 	public Preco inserir(Preco pre) {
-		String sql = "insert into tb_precos(preco, id_produto, id_mercado) values (?, ?,?)";
+		String sql = "insert into tb_precos(preco, id_produto, id_mercado) values (?, ?, ?)";
 		try {
 			Connection con = ConectaDB.conectar();
 			PreparedStatement stm = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);

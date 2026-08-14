@@ -38,7 +38,10 @@
                 if (preco > max) max = preco;
             }
             if (prod.getIdCategoria()==cat.getId()) {
-                out.print("<div class=\"card-produto\"> <img src=\"../imagens/"+prod.getDescricao().split(" ")[0].toLowerCase()+".jpg\">"); // FIXME: definir como chamar figuras
+                if (prod.getImagem()!=null && prod.getImagem().length()>0)
+	                out.print("<div class=\"card-produto\"> <img src=\"../imagens/"+prod.getImagem()+"\">"); // FIXME: definir como chamar figuras
+                else
+	                out.print("<div class=\"card-produto\"> <img src=\"../imagens/"+prod.getDescricao().split(" ")[0].toLowerCase()+".jpg\">"); // FIXME: definir como chamar figuras
                 if (min!=Float.POSITIVE_INFINITY && min!=max)
                     out.print("<div class=\"preco-produto\">R$"+min+"–"+max+"/"+prod.getMedida()+"</div>"); // FIXME: falta obter faixa de preços do banco de dados
                 else
