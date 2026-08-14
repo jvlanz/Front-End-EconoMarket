@@ -95,14 +95,18 @@ public class PrecoDao implements ICRUD<Preco,Integer> {
 	}
 
 	@Override
-	public List<Preco> consultar() {
-		List<Preco> precos = new ArrayList<Preco>();
+	public List<Preco> consultar() { return null; }
+
+	public List<Float> consultarPrecos(Integer id) {
+		List<Float> precos = new ArrayList<Float>();
+		String sql = "select * from tb_precos inner join tb_produtos inner join tb_mercados where id_produto = tb_produtos.id and id_mercado = tb_mercados.id and id_produto=?";
 		try {
 			Connection con = ConectaDB.conectar();
-			PreparedStatement stm = con.prepareStatement("select * from tb_precos inner join tb_produtos inner join tb_mercados where id_produto = tb_produtos.id and id_mercado = tb_mercados.id");
+			PreparedStatement stm = con.prepareStatement(sql);
+			stm.setInt(1,id);
 			ResultSet rs = stm.executeQuery();
 			while(rs.next()) {
-				Preco pre = new Preco(rs.getInt("id"), rs.getFloat("preco"), rs.getInt("id_produto"), rs.getInt("id_mercado"), rs.getString("produto"), rs.getString("mercado"));
+				Float pre = rs.getFloat("preco");
 				precos.add(pre);
 			}
 			rs.close();

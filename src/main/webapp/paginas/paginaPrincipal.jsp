@@ -4,6 +4,7 @@
 <%@page import="modelos.Produto"%>
 <%@page import="dao.CategoriaDao"%>
 <%@page import="dao.ProdutoDao"%>
+<%@page import="dao.PrecoDao"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -28,9 +29,20 @@
         out.print("<h2>"+cat.getCategoria()+"</h2>");
         out.print("<div class=\"container1\", id="+cat.getCategoria()+">");
         for (Produto prod : produtos) {
+            PrecoDao preDao = new PrecoDao();
+            List<Float> precos = preDao.consultarPrecos(prod.getId());
+            float min = Float.POSITIVE_INFINITY;
+            float max = 0;
+            for (Float preco : precos) {
+                if (preco < min) min = preco;
+                if (preco > max) max = preco;
+            }
             if (prod.getIdCategoria()==cat.getId()) {
                 out.print("<div class=\"card-produto\"> <img src=\"../imagens/"+prod.getDescricao().split(" ")[0].toLowerCase()+".jpg\">"); // FIXME: definir como chamar figuras
-                out.print("<div class=\"preco-produto\">R$99,99/"+prod.getMedida()+"</div>"); // FIXME: falta obter faixa de preços do banco de dados
+                if (min!=Float.POSITIVE_INFINITY && min!=max)
+                    out.print("<div class=\"preco-produto\">R$"+min+"–"+max+"/"+prod.getMedida()+"</div>"); // FIXME: falta obter faixa de preços do banco de dados
+                else
+                    out.print("<div class=\"preco-produto\">R$"+max+"/"+prod.getMedida()+"</div>"); // FIXME: falta obter faixa de preços do banco de dados
                 out.print("<div class=\"nome-produto\">"+prod.getDescricao()+"</div> <button class=\"btn-add\">+</button>");
                 out.print("</div>");
             }
