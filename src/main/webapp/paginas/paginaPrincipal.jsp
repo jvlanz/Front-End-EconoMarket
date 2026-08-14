@@ -25,8 +25,8 @@
     ProdutoDao prodDao = new ProdutoDao();
     List<Produto> produtos = prodDao.consultar();
     for (Categoria cat : categorias) {
-        out.print("<div class=\"container1\", id="+cat.getCategoria()+">");
         out.print("<h2>"+cat.getCategoria()+"</h2>");
+        out.print("<div class=\"container1\", id="+cat.getCategoria()+">");
         for (Produto prod : produtos) {
             if (prod.getIdCategoria()==cat.getId()) {
                 out.print("<div class=\"card-produto\"> <img src=\"../imagens/"+prod.getDescricao().split(" ")[0].toLowerCase()+".jpg\">"); // FIXME: definir como chamar figuras
