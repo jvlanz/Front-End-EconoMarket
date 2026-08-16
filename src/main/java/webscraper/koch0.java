@@ -1,0 +1,1 @@
+// obter IDs de cada categoria manualmente, e então fetch categorias / fetch items
