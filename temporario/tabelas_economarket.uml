@@ -35,6 +35,7 @@ medidas-> produtos
 entity precos {
 	id: int
 	preco: float
+	data: date
 	fk_produtos: int
 	fk_mercados: int
 }

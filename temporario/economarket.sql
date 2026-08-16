@@ -21,6 +21,7 @@ create table tb_produtos (
     descricao varchar(128) not null,
     id_medida int not null,
     id_categoria int not null,
+    imagem varchar(128),    -- pode ser null
 
     constraint fk_medida 
         foreign key (id_medida) references tb_medidas(id),
@@ -49,6 +50,7 @@ create table tb_precos (
     preco decimal(10,2) not null,
     id_produto int not null,
     id_mercado int not null,
+    data date,
 
     constraint fk_produto 
         foreign key (id_produto) references tb_produtos(id),
@@ -56,6 +58,8 @@ create table tb_precos (
     constraint fk_mercado 
         foreign key (id_mercado) references tb_mercados(id)
 );
+
+-- update tb_precos add column data date;
 
 
 create table tb_cadastros (
