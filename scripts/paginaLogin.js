@@ -15,6 +15,3 @@ function entrar(event) {
     window.location.href = "http://localhost:5500/index.html"; //Mudar o location
 }
 
-function abrirCadastro() {
-    window.location.href = "../paginaCadastro/paginaCadastro.html";
-}
