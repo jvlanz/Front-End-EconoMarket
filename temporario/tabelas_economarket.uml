@@ -1,65 +1,84 @@
 @startuml
+entity cadastros {
+	id: int
+	nome: string
+	rua: string
+	numero: int
+	cidade: string
+	CEP: string
+}
 entity clientes {
 	id: int
-	nome: varchar(256)
-	endereco: varchar(256)
-	cidade: varchar(128)
-	CEP: varchar(10)
+	fk_cadastro: int
 }
 entity mercados {
 	id: int
-	nome: varchar(256)
-	rua: varchar(256)
-	numero: int
-	cidade: varchar(128)
-	CEP: varchar(10)
-	validade: date
+	fk_cadastro: int
+	validade_assinatura: date
 }
+cadastros-->clientes
+cadastros-->mercados
+
 entity produtos {
 	id: int
-	descricao: varchar(128)
+	descricao: string
 	fk_medida: int
 	fk_categoria: int
 }
 entity medidas {
 	id: int
-	medida: varchar(16)
+	medida: string
+}
+entity produtos_marcas {
+	id: int
+	fk_produto: int
+	fk_marca: int
+}
+entity marcas {
+	id: int
+	marca: string
 }
 entity categorias {
 	id: int
-	categoria: varchar(128)
+	categoria: string
 }
-categorias->produtos
-medidas-> produtos
+categorias-->produtos
+medidas-->produtos
+produtos-->produtos_marcas
+marcas-->produtos_marcas
 
 entity precos {
 	id: int
 	preco: float
 	data: date
-	fk_produtos: int
-	fk_mercados: int
+	fk_produtomarca: int
+	fk_mercado: int
 }
-produtos->precos
-mercados->precos
+produtos_marcas-->precos
+mercados-->precos
 
 entity favoritos {
 	id: int
-	fk_produtos: int
-	fk_clientes: int
+	fk_produtomarca: int
+	fk_cliente: int
 }
-clientes->favoritos
-produtos->favoritos
-entity compra {
+clientes-->favoritos
+produtos_marcas-->favoritos
+
+entity compras {
 	id: int
 	data: date
 	fk_listaprodutos: int
-	fk_clientes: int
+	fk_cliente: int
 }
 entity lista_compras {
 	id: int
-	fk_produtos: int
-	fk_mercados: int
+	fk_produtomarca: int
+	fk_mercado: int
 }
-produtos->lista_compras
-mercados->lista_compras
+produtos_marcas-->lista_compras
+mercados-->lista_compras
+lista_compras-->compras
+clientes-->compras
 @enduml
+
