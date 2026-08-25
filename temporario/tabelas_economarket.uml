@@ -18,11 +18,19 @@ entity mercados {
 }
 cadastros-->clientes
 cadastros-->mercados
+entity links_mercado {
+	id: int
+	fk_mercado: int
+	link: string
+	query: string
+}
+mercados-->links_mercado
 
 entity produtos {
 	id: int
 	descricao: string
 	fk_medida: int
+	valor_medida: float
 	fk_categoria: int
 }
 entity medidas {
