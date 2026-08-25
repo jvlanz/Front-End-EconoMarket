@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +16,23 @@
     </script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
-    <script>inserirHeader("header.html")</script>
+    <script>
+        inserirHeader("header.html");
+        
+        function scrollNav(valor) {
+            const navMenu = document.querySelector('.nav-menu');
+
+            navMenu.scrollBy({
+                left: valor,
+                behavior: 'smooth'
+            });
+        }
+    </script>
     <br>
     <h1 id="categoria"></h1>
     <script>inserirProdutos(idCategoria)</script>
 </body>
+
 </html>

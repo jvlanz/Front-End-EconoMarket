@@ -13,8 +13,19 @@
 </head>
 
 <body>
-    <script>inserirHeader("header.html")</script>
-    
+    <script>
+        inserirHeader("header.html");
+        
+        function scrollNav(valor) {
+            const navMenu = document.querySelector('.nav-menu');
+
+            navMenu.scrollBy({
+                left: valor,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
     <!-- PRODUTOS -->
     <div class="container1">
         <div class="card-produto"> <img src="../imagens/ovos.png">
@@ -45,7 +56,7 @@
         <h1>Sobre nós</h1>
         <p> O <span class="destaque">EconoMarket</span> é um protótipo desenvolvido no programa Entra21, a ideia do
             nosso projeto é ser um comparador de preços de diferentes mercados. </p>
-      
+
     </div>
     <!-- CONTATO -->
     <div id="contato" class="secao-info">
@@ -59,7 +70,7 @@
         <a href="#">Carrinho</a>
         <a href="#">Perfil</a>
     </footer>
-    
+
 </body>
 
 </html>

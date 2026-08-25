@@ -27,12 +27,14 @@ body {
 }
 
 .menu-upper,
-.menu-lower {
+.nav-wrapper {
     background: #122448;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 
     padding: 1% 10%;
+
+    width: 100%;
 }
 
 .menu-upper {
@@ -45,27 +47,88 @@ body {
 
 }
 
-.menu-lower {
+.nav-wrapper {
+    position: relative;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 60px;
-
 }
 
-.categorias {
+.nav-wrapper a {
+    flex-shrink: 0;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+    transition: 0.2s;
+}
+
+.nav-wrapper a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background: #2d8f2d;
+    transition: 0.2s;
+}
+
+.nav-wrapper a:hover::after {
+    width: 100%;
+}
+
+.nav-wrapper a:hover {
+    color: #2d8f2d;
+}
+
+.nav-menu {
     display: flex;
     gap: 40px;
-    align-items: center;
 
+    overflow-x: hidden;
+    white-space: nowrap;
+
+    flex: 1;
+    min-width: 0;
+
+    scroll-behavior: smooth;
 }
 
-.todas-categorias a{
+.todas-categorias {
+    margin-right: 70px;
+}
+
+.todas-categorias a {
     display: flex;
     align-items: center;
     gap: 5px;
-    cursor: pointer;
+}
+
+.nav-arrow {
+    position: absolute;
+    z-index: 10;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #122448;
     color: white;
+
+    font-size: 25px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-arrow.right {
+    right: 9%;
 }
 
 .icone-logo {
@@ -116,7 +179,7 @@ body {
     transform: translateY(-50%);
     opacity: 0.7;
     cursor: pointer;
-    
+
 }
 
 /*.icone-lupa:focus {
@@ -138,36 +201,6 @@ body {
 
 #icons-toc {
     rotate: 180deg;
-}
-
-.menu-lower a {
-    text-decoration: none;
-    color: white;
-    font-weight: 700;
-    white-space: nowrap;
-    font-size: 16px;
-    font-family: "Montserrat", sans-serif;
-    position: relative;
-    transition: 0.2s;
-}
-
-.menu-lower a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 0%;
-    height: 2px;
-    background: #2d8f2d;
-    transition: 0.2s;
-}
-
-.menu-lower a:hover::after {
-    width: 100%;
-}
-
-.menu-lower a:hover {
-    color: #2d8f2d;
 }
 
 .dropdown {
