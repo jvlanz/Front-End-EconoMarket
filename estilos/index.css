@@ -15,37 +15,57 @@ body {
     overflow-x: hidden;
 }
 
-.topo,
+
 .container1,
 .secao-info,
 .titulo-secao {
     width: 100%;
-    max-width: 1700px;
 
     margin: 0 auto;
 
-    padding-left: 60px;
-    padding-right: 60px;
+    padding: 0 10%;
 }
 
-.topo {
-    min-height: 150px;
-
-    display: flex;
-    align-items: center;
-    gap: 35px;
-
-    flex-wrap: wrap;
-}
-
-.topo-wrapper {
-    width: 100%;
+.menu-upper,
+.menu-lower {
     background: #122448;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    padding: 1% 10%;
+}
+
+.menu-upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     position: sticky;
     top: 0;
     z-index: 999;
+    
+}
+
+.menu-lower {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 60px;
+         
+}
+
+.categorias {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+
+}
+
+.todas-categorias {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    color: white;
 }
 
 .icone-logo {
@@ -109,41 +129,12 @@ body {
     transform: scale(1.08);
 }
 
-#menu-head {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.menu {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 60px;
-    margin-bottom: 10px;
-}
-
-.categorias {
-    display: flex;
-    gap: 40px;
-    align-items: center;
-}
-
-.todas-categorias {
-    display: flex;
-    align-items: center;
-    color: white;
-    gap: 5px;
-    cursor: pointer;
-}
 
 #icons-toc {
     rotate: 180deg;
 }
 
-.menu a {
+.menu-lower a {
     text-decoration: none;
     color: white;
     font-weight: 700;
@@ -154,7 +145,7 @@ body {
     transition: 0.2s;
 }
 
-.menu a::after {
+.menu-lower a::after {
     content: "";
     position: absolute;
     left: 0;
@@ -165,11 +156,11 @@ body {
     transition: 0.2s;
 }
 
-.menu a:hover::after {
+.menu-lower a:hover::after {
     width: 100%;
 }
 
-.menu a:hover {
+.menu-lower a:hover {
     color: #2d8f2d;
 }
 
