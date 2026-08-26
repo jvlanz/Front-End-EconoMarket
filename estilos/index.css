@@ -489,4 +489,18 @@ body {
     body {
         padding-bottom: 90px;
     }
+
+}
+
+footer {
+    background: #1E315F;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.6;
+}
+
+footer p {
+    margin: 8px 0;
 }
