@@ -1,4 +1,4 @@
-function cadastrar() {
+async function cadastrar() {
 
 
     const email = document.getElementById("email-cadastro")
@@ -8,9 +8,9 @@ function cadastrar() {
     const msgerro = document.getElementById("mensagem-erro")
 
 
-    if (email.value === "") {
-        email.focus
-        msgerro.inner = "Por favor, Preencha todos os campos!"
+    if (email.value === "" || senha.value === "" || nome.value === "" || telefone.value === "") {
+        msgerro.innerText = "Por favor, preencha todos os campos!";
+        return;
     }
 
     const novoCliente = {
@@ -19,9 +19,31 @@ function cadastrar() {
         nome: nome.value,
         telefone: telefone.value
     }
-    localStorage.setItem("novoCliente", JSON.stringify(novoCliente))
+    try {
+        const resposta = await fetch("http://localhost:8080/clientes",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(novoCliente)
+        });
+        if (!resposta.ok) {
+            throw new Error("Erro ao cadastrar cliente");
+        }
 
-    //futura feature de verificação de login
+        const cliente = await resposta.json();
 
-    //window.location.href = "";
+        console.log("Cliente cadastrado:", cliente);
+
+        msgerro.innerText = "Cadastro concluido com sucesso";
+
+        window.location.href = "../paginas/paginaLogin.html";
+
+    } catch (erro) {
+        console.error(erro);
+
+        msgerro.innerText = "Erro ao realizar cadastro!";
+    }
+
+    
 }

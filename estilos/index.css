@@ -374,9 +374,7 @@ body {
     font-weight: 600;
 }
 
-.footer-nav {
-    display: none;
-}
+
 
 @media (max-width: 768px) {
 
@@ -469,6 +467,7 @@ body {
     }
 
     .footer-nav {
+        display: none;
         position: fixed;
         left: 0;
         bottom: 0;
@@ -481,14 +480,10 @@ body {
         backdrop-filter: blur(10px);
         border-top: 1px solid rgba(0, 0, 0, 0.05);
         z-index: 999;
-    }
-
-    .footer-nav a {
         text-decoration: none;
         color: #222;
         font-size: 13px;
         font-weight: 700;
-        font-family: "Montserrat", sans-serif;
     }
 
     body {
