@@ -1,37 +1,23 @@
 @startuml
-entity cadastros {
-	id: int
-	nome: string
-	rua: string
-	numero: int
-	cidade: string
-	CEP: string
-}
 entity clientes {
 	id: int
-	fk_cadastro: int
+	nome: string
+	email: string
+	senha: string
+	telefone: string
 }
 entity mercados {
 	id: int
-	fk_cadastro: int
-	validade_assinatura: date
-}
-cadastros-->clientes
-cadastros-->mercados
-entity links_mercado {
-	id: int
-	fk_mercado: int
+	nome: string
 	link: string
-	query: string
 }
-mercados-->links_mercado
-
 entity produtos {
 	id: int
 	descricao: string
-	fk_medida: int
+	id_categoria: int
+	id_medida: int
 	valor_medida: float
-	fk_categoria: int
+	figura: string
 }
 entity medidas {
 	id: int
@@ -39,8 +25,8 @@ entity medidas {
 }
 entity produtos_marcas {
 	id: int
-	fk_produto: int
-	fk_marca: int
+	id_produto: int
+	id_marca: int
 }
 entity marcas {
 	id: int
@@ -57,36 +43,42 @@ marcas-->produtos_marcas
 
 entity precos {
 	id: int
+	id_produto_marca: int
+	id_mercado: int
 	preco: float
 	data: date
-	fk_produtomarca: int
-	fk_mercado: int
 }
 produtos_marcas-->precos
 mercados-->precos
 
 entity favoritos {
 	id: int
-	fk_produtomarca: int
-	fk_cliente: int
+	id_produto_marca: int
+	id_cliente: int
 }
 clientes-->favoritos
 produtos_marcas-->favoritos
 
+entity status {
+	id: int
+	status: string
+}
 entity compras {
 	id: int
+	id_lista_produtos: int
+	id_cliente: int
+	id_status: int
 	data: date
-	fk_listaprodutos: int
-	fk_cliente: int
 }
 entity lista_compras {
 	id: int
-	fk_produtomarca: int
-	fk_mercado: int
+	id_produto_marca: int
+	id_mercado: int
+	quantidade: float
 }
+status-->compras
 produtos_marcas-->lista_compras
 mercados-->lista_compras
 lista_compras-->compras
 clientes-->compras
 @enduml
-
