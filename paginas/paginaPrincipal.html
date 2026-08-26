@@ -8,6 +8,7 @@
     <title>EconoMarket</title>
     <script src="../scripts/dados.js"></script>
     <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirProdutos.js"></script>
     <link rel="stylesheet" href="../estilos/index.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -15,6 +16,8 @@
 <body>
     <script>
         inserirHeader("header.html");
+        preencherProdutos();
+         console.log('opa')
 
         function scrollNav(valor) {
             const navMenu = document.querySelector('.nav-menu');
@@ -23,6 +26,8 @@
                 left: valor,
                 behavior: 'smooth'
             });
+           
+            
         }
     </script>
 

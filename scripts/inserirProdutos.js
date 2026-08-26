@@ -1,13 +1,15 @@
-async function preencherProdutos(id = null) {
-
+async function preencherProdutos() {
+    debugger
     const resposta = await fetch("http://localhost:8080/produtos");
 
+    console.log(resposta);
     if (!resposta.ok) {
         console.error("Erro ao buscar produtos");
         return;
     }
 
     const produtos = await resposta.json();
+    
 
     const container = document.createElement("div");
     container.setAttribute("class", "container1");
@@ -15,7 +17,7 @@ async function preencherProdutos(id = null) {
 
     produtos.forEach(produto => {
 
-        if (id != null && id != produto.idCategoria) return;
+    //    if (id != null && id != produto.idCategoria) return;
 
         const card = document.createElement("div");
         card.setAttribute("class", "card-produto");
