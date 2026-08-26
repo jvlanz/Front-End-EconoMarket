@@ -19,4 +19,5 @@ function inserirProdutos(id=null) {
         nome.innerHTML = produto.descricao
         card.appendChild(nome)
     })
+    
 }
