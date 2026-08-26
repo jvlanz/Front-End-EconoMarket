@@ -12,13 +12,13 @@
 <body>
 
 <%
-	CategoriaDao dao = new CategoriaDao();
-	List<Categoria> categorias = dao.consultar();
-	for (Categoria cat : categorias) {
-		out.print("<p>"+cat.getCategoria()+"</p>");
-	}
-	out.print("<hr />");
-	out.print("<a href='produto.jsp'>novo</a>");
+    CategoriaDao dao = new CategoriaDao();
+    List<Categoria> categorias = dao.consultar();
+    for (Categoria cat : categorias) {
+        out.print("<p>"+cat.getCategoria()+"</p>");
+    }
+    out.print("<hr />");
+    out.print("<a href='produto.jsp'>novo</a>");
 %>
 
 </body>
