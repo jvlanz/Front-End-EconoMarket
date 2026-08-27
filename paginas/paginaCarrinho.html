@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EconoMarket</title>
+    <script src="../scripts/dados.js"></script>
+    <script src="../scripts/inserirHeader.js"></script>
+    <link rel="stylesheet" href="../estilos/index.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        inserirHeader("header.html");
+        function scrollNav(valor) {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.scrollBy({
+                left: valor,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+<ul>
+	<li>input number número de mercados
+	<li>+ função para selecionar produtos e preços
+	<li>coluna para cada mercado selecionado:
+	<li>Nome mercado (link)
+	<li>lista itens (descrição / preço)
+	<li>total: R$
+	<li>final: total R$ e estimar R$ economizado (comparando com a média de preços por produto)
+</ul>
+
+    <footer>
+
+        <h1>Contato</h1>
+        <p>Ficou com alguma dúvida ou sugestão?</p>
+        <p>Email: <span class="destaque">economarket@gmail.com</span></p>
+
+    </footer>
+</body>
+
+</html>
