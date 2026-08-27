@@ -1,40 +1,48 @@
 async function preencherProdutos() {
-    debugger
     const resposta = await fetch("http://localhost:8080/produtos");
 
-    console.log(resposta);
     if (!resposta.ok) {
         console.error("Erro ao buscar produtos");
         return;
     }
 
     const produtos = await resposta.json();
-    
+    console.log(produtos)
 
-    const container = document.createElement("div");
-    container.setAttribute("class", "container1");
-    document.body.appendChild(container);
+    const container = document.getElementById("categoria-geral");
+
 
     produtos.forEach(produto => {
-
-    //    if (id != null && id != produto.idCategoria) return;
+        let subcontainer = document.getElementById("categoria" + produto.categoria.id);
+        if (subcontainer == null) {
+            subcontainer = document.createElement("div");
+            subcontainer.setAttribute("id", "categoria" + produto.categoria.id);
+            subcontainer.setAttribute("class", "container1")
+            container.appendChild(subcontainer);
+        }
+        //    if (id != null && id != produto.idCategoria) return;
 
         const card = document.createElement("div");
         card.setAttribute("class", "card-produto");
-        container.appendChild(card);
+        subcontainer.appendChild(card);
 
         const imagem = document.createElement("img");
-        imagem.src = produto.imagem;
+        imagem.src = "../imagens/"+produto.figura;
+        imagem.setAttribute("class", "formatacao-imagem-card")
         card.appendChild(imagem);
 
-        const preco = document.createElement("div");
-        preco.setAttribute("class", "preco-produto");
-        preco.innerHTML = produto.preco + " – " + produto.preco;
-        card.appendChild(preco);
+        //TO DO precos
 
         const nome = document.createElement("div");
         nome.setAttribute("class", "nome-produto");
         nome.innerHTML = produto.descricao;
         card.appendChild(nome);
+
+        const botaoCarrinho = document.createElement("button");
+        botaoCarrinho.setAttribute("class", "btn-add");
+        botaoCarrinho.innerHTML = "+";
+        card.appendChild(botaoCarrinho);
+        
     });
+
 }
