@@ -1,13 +1,18 @@
 function entrar(event) {
 
-
     const email = document.getElementById("emailinp")
     const senha = document.getElementById("senhainp")
+    const msgerro = document.getElementById("mensagem-erro")
 
-    const novoCliente = {
+    const novoLogin = {
         email: email.value,
         senha: senha.value
     }
+    if (email == "" || senha == ""){
+        msgerro.innerHTML = "Por favor, preencha todos os campos!";
+    }
+
+    
 
 
     //futura feature de verificação de login
