@@ -65,7 +65,7 @@ entity status {
 }
 entity compras {
 	id: int
-	id_lista_produtos: int
+'	id_lista_produtos: int
 	id_cliente: int
 	id_status: int
 	data: date
@@ -73,7 +73,8 @@ entity compras {
 entity lista_compras {
 	id: int
 	id_produto_marca: int
-	id_mercado: int
+'	id_mercado: int
+	id_compra: int
 	quantidade: float
 }
 status-->compras
