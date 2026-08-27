@@ -47,3 +47,7 @@ async function cadastrar() {
 
     
 }
+
+function abrirLogin() {
+    window.location.href = "../paginas/paginaLogin.html";
+}
