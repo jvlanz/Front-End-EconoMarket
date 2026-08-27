@@ -8,6 +8,7 @@
     <title>EconoMarket</title>
     <script src="../scripts/dados.js"></script>
     <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirProdutos.js"></script>
     <link rel="stylesheet" href="../estilos/index.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -15,6 +16,8 @@
 <body>
     <script>
         inserirHeader("header.html");
+        preencherProdutos();
+         console.log('opa')
 
         function scrollNav(valor) {
             const navMenu = document.querySelector('.nav-menu');
@@ -23,31 +26,33 @@
                 left: valor,
                 behavior: 'smooth'
             });
+           
+            
         }
     </script>
 
     <!-- PRODUTOS -->
     <div class="container1">
-        <div class="card-produto"> <img src="../imagens/ovos.png">
-            <div class="preco-produto">R$18,79</div>
+        <div class="card-produto"> <img src="../imagens/ovos.jpg">
+            <div class="preco-produto">R$18,79–R$21,19</div>
             <div class="nome-produto">Ovos Vermelhos</div> <button class="btn-add">+</button>
         </div>
-        <div class="card-produto"> <img src="../imagens/ovos.png">
-            <div class="preco-produto">R$18,79</div>
+        <div class="card-produto"> <img src="../imagens/ovos.jpg">
+            <div class="preco-produto">R$18,79–R$21,19</div>
             <div class="nome-produto">Ovos Vermelhos</div> <button class="btn-add">+</button>
         </div>
     </div>
     <!-- HORTIFRUTI -->
     <div id="hortifruti" class="container1">
-        <div class="card-produto"> <img src="../imagens/banana-caturra.png">
-            <div class="preco-produto">R$5,29</div>
+        <div class="card-produto"> <img src="../imagens/banana.jpg">
+            <div class="preco-produto">R$5,29–R$5,99</div>
             <div class="nome-produto">Banana Kg</div> <button class="btn-add">+</button>
         </div>
     </div>
     <!-- AÇOUGUE -->
     <div id="acougue" class="container1">
-        <div class="card-produto"> <img src="../imagens/coxao-mole.png">
-            <div class="preco-produto">R$39,99</div>
+        <div class="card-produto"> <img src="../imagens/carne,jpg">
+            <div class="preco-produto">R$39,99–R$49,99</div>
             <div class="nome-produto">Coxão Mole Kg</div> <button class="btn-add">+</button>
         </div>
     </div>
