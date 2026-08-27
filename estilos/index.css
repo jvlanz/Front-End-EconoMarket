@@ -226,29 +226,42 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
 
-    padding: 8px 12px;
-    border-radius: 10px;
+    padding: 8px 14px;
+
+    background-color: white;
+    color: #122448;
+
+    text-decoration: none;
+
+    border-radius: 20px;
 
     cursor: pointer;
 
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition: background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .div-cesta:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #f0f0f0;
     transform: scale(1.05);
 }
 
-.icone-cesta {
-    width: 32px;
-    height: 32px;
-
-    object-fit: contain;
-
-    cursor: pointer;
+.div-cesta .material-symbols-outlined {
+    font-size: 30px;
+    line-height: 1;
+    margin: 0;
 }
 
+.div-cesta p {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    line-height: 1;
+}
 
 #icons-toc {
     rotate: 180deg;
@@ -558,6 +571,7 @@ footer {
 footer p {
     margin: 8px 0;
 }
+
 #login {
     font-family: "Montserrat", sans-serif;
     padding: 10px 20px;
@@ -570,7 +584,7 @@ footer p {
     cursor: pointer;
     transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
 }
- 
+
 #login:hover {
     background: #2d8f2d;
     border-color: #2d8f2d;
