@@ -222,16 +222,31 @@ body {
 
 }*/
 
+.div-cesta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 12px;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.div-cesta:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.05);
+}
+
 .icone-cesta {
     width: 32px;
     height: 32px;
-    margin-top: 5px;
-    cursor: pointer;
-    transition: 0.2s;
-}
 
-.icone-cesta:hover {
-    transform: scale(1.08);
+    object-fit: contain;
+
+    cursor: pointer;
 }
 
 
