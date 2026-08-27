@@ -1,3 +1,22 @@
-function incluirnaLista()[
-    
-]
+async function incluirnaLista(idProduto, idCliente) {
+    const obterCarrinho = await fetch("http://localhost:8080/compras/"+idCliente);
+    const compras = await obterCarrinho.json();
+    const item = {
+        id_produto_marca: idProduto,
+        compra: compras,
+        quantidade: 1
+    }
+
+    const resposta = await fetch("http://localhost:8080/listaCompra", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(item)
+    });
+
+    if (!resposta.ok) {
+        console.error("Erro ao cadastrar produto");
+        return;
+    }
+}
