@@ -44,19 +44,20 @@ async function obterDadosCompra() {
 //      console.log(compra.produtoMarca.produto.descricao + ' marca ' + compra.produtoMarca.marca.marca + ': ' + compra.produtoMarca.produto.figura)
         mercados.forEach(mercado => {
           if (mercado.id<=nMercados) {
+            td = document.createElement('td')
+            tr.appendChild(td)
+            const mercadoRadio = document.createElement('input')
+            mercadoRadio.setAttribute('class', 'checkbox')
+            mercadoRadio.type = 'radio'
+            mercadoRadio.id = 'rad'+compra.id+mercado.id
+            mercadoRadio.name = 'rad'+compra.id
+            label = document.createElement('label')
+            label.innerHTML = '--'
+            td.appendChild(mercadoRadio)
+            td.appendChild(label)
             precos.forEach(preco => {
                 if (compra.produtoMarca.id==preco.produtoMarca.id && mercado.id==preco.mercado.id) {
-                    td = document.createElement('td')
-                    tr.appendChild(td)
-                    const mercadoRadio = document.createElement('input')
-                    mercadoRadio.setAttribute('class', 'checkbox')
-                    mercadoRadio.type = 'radio'
-                    mercadoRadio.id = 'rad'+compra.id+mercado.id
-                    mercadoRadio.name = 'rad'+mercado.id
-                    label = document.createElement('label')
                     label.innerHTML = 'R$'+preco.preco
-                    td.appendChild(mercadoRadio)
-                    td.appendChild(label)
                 }
             })
           }
