@@ -68,16 +68,17 @@ async function obterDadosCompra() {
 }
 
 function removerItem(id) {
-    console.log('remover '+id)
     fetch("http://localhost:8080/listaCompra/"+id, {
         method: 'DELETE'
-    }).then(response => {
-        if (!response.ok) {
-            throw new Error('erro ao remover produto '+id+' da lista')
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('item '+id+' removido')
+        } else {
+            console.error('erro ao remover produto:', response.status);
         }
-        return response.json();
-    }).then(data => console.log(data))
-    .catch(error => console.error('erro com a operação fetch', error))
+    })
+    .catch(error => console.error('erro com a operação fetch:', error))
 }
 
 function redistribuir() {
