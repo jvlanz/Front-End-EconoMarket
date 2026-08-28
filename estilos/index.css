@@ -210,7 +210,7 @@ body {
 .pesquisa:focus {
     outline: none;
 
-    box-shadow: 0 0 0 4px rgba(58, 170, 53, 0.18), 0 6px 18px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 0 3px #2d8f2d, 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .icone-lupa {
