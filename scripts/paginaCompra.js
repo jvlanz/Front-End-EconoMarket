@@ -59,6 +59,7 @@ async function obterDadosCompra() {
             mercadoRadio.type = 'radio'
             mercadoRadio.id = 'rad'+compra.id+mercado.id
             mercadoRadio.name = 'rad'+compra.id
+            mercadoRadio.disabled = true
             label = document.createElement('label')
             label.innerHTML = '----------'
             td.appendChild(mercadoRadio)
@@ -66,6 +67,7 @@ async function obterDadosCompra() {
             precos.forEach(preco => {
                 if (compra.produtoMarca.id==preco.produtoMarca.id && mercado.id==preco.mercado.id) {
                     label.innerHTML = 'R$'+preco.preco
+                    mercadoRadio.disabled = ''
                 }
             })
           }
