@@ -195,6 +195,8 @@ body {
     background: #ffffff;
 
     font-size: 15px;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
 
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 
@@ -202,9 +204,7 @@ body {
 }
 
 .pesquisa::placeholder {
-    color: rgba(0, 0, 0, .25);
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
+    color: rgba(0, 0, 0, .25);   
 }
 
 .pesquisa:focus {
@@ -214,19 +214,23 @@ body {
 }
 
 .icone-lupa {
-    width: 20px;
+    width: 30px;
     position: absolute;
-    left: 20px;
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 0.7;
+    opacity: 0.8;
     cursor: pointer;
 
+    padding: 5px;
+    border-radius: 12px;
+
+    transition: background-color 0.2s ease;
 }
 
-/*.icone-lupa:focus {
-
-}*/
+.icone-lupa:hover {
+    background-color: #f0f0f0;
+}
 
 .div-cesta {
     display: flex;
