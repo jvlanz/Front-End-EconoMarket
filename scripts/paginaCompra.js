@@ -74,6 +74,7 @@ function removerItem(id) {
     .then(response => {
         if (response.ok) {
             console.log('item '+id+' removido')
+            redistribuir()
         } else {
             console.error('erro ao remover produto:', response.status);
         }
