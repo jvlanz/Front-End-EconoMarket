@@ -13,15 +13,6 @@ async function obterDadosCompra() {
         return;
     }
     const mercados = await respostaM.json();
-//  console.log(mercados)
-
-//    const respostaP = await fetch("http://localhost:8080/precos");
-//    if (!respostaP.ok) {
-//        console.error("Erro ao buscar preços");
-//        return;
-//    }
-//  const precos = await respostaP.json();
-//  console.log(precos)
 
     nMercados = document.getElementById('nMercados').value
     if (nMercados>mercados.length) {
@@ -46,8 +37,17 @@ async function obterDadosCompra() {
         tr = document.createElement('tr')
         tbody.appendChild(tr)
         td = document.createElement('td')
-        td.innerHTML = '<img src=../imagens/'+compra.produtoMarca.produto.figura+' height=50px></img>'+compra.produtoMarca.produto.descricao + ' ' + compra.produtoMarca.marca.marca
+        td.innerHTML = '<img src=../imagens/'+compra.produtoMarca.produto.figura+' height=50px></img>'+compra.produtoMarca.produto.descricao
         tr.appendChild(td)
+        td = document.createElement('td')
+//        td.innerHTML = compra.produtoMarca.marca.marca
+        tr.appendChild(td)
+        sel = document.createElement('select')
+        td.appendChild(sel)
+        opt = document.createElement('option')
+        opt.value = ''
+        sel.appendChild(opt)
+        const marcas = []
 //      console.log(compra.produtoMarca.produto.descricao + ' marca ' + compra.produtoMarca.marca.marca + ': ' + compra.produtoMarca.produto.figura)
         mercados.forEach(mercado => {
           if (mercado.id<=nMercados) {
@@ -65,6 +65,13 @@ async function obterDadosCompra() {
             td.appendChild(mercadoRadio)
             td.appendChild(label)
             precos.forEach(preco => {
+                if (marcas.indexOf(preco.produtoMarca.id)==-1) {
+                    marcas.push(preco.produtoMarca.id)
+                    opt = document.createElement('option')
+                    opt.value = preco.produtoMarca.id
+                    opt.innerHTML = preco.produtoMarca.marca.marca
+                    sel.appendChild(opt)
+                }
                 if (compra.produtoMarca.id==preco.produtoMarca.id && mercado.id==preco.mercado.id) {
                     label.innerHTML = 'R$'+preco.preco
                     mercadoRadio.disabled = ''
@@ -103,7 +110,7 @@ function redistribuir() {
     tab.appendChild(thead)
     tr = document.createElement('tr')
     thead.appendChild(tr)
-    tr.innerHTML = '<th>Produto</th>'
+    tr.innerHTML = '<th>Produto</th><th>Marca</th>'
     tbody = document.createElement('tbody')
     tab.appendChild(tbody)
     obterDadosCompra()
