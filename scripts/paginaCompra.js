@@ -34,7 +34,6 @@ async function obterDadosCompra() {
     }
     tr.innerHTML += '<th></th>'    // coluna extra para botão remover
     tbody = document.getElementsByTagName('tbody')[0]
-    console.log('aqui', compras.listaCompra.length)
 //    compras.listaCompra.forEach(compra => {
     for (n=0; n<compras.listaCompra.length; n++) {
         compra = compras.listaCompra[n]
@@ -44,7 +43,6 @@ async function obterDadosCompra() {
             return;
         }
         const precos = await respostaP.json();
-console.log(precos)
         tr = document.createElement('tr')
         tbody.appendChild(tr)
         td = document.createElement('td')
@@ -54,6 +52,7 @@ console.log(precos)
         mercados.forEach(mercado => {
           if (mercado.id<=nMercados) {
             td = document.createElement('td')
+            td.style.textAlign = 'center'
             tr.appendChild(td)
             const mercadoRadio = document.createElement('input')
             mercadoRadio.setAttribute('class', 'checkbox')
@@ -61,11 +60,10 @@ console.log(precos)
             mercadoRadio.id = 'rad'+compra.id+mercado.id
             mercadoRadio.name = 'rad'+compra.id
             label = document.createElement('label')
-            label.innerHTML = '--'
+            label.innerHTML = '----------'
             td.appendChild(mercadoRadio)
             td.appendChild(label)
             precos.forEach(preco => {
-                console.log(preco)
                 if (compra.produtoMarca.id==preco.produtoMarca.id && mercado.id==preco.mercado.id) {
                     label.innerHTML = 'R$'+preco.preco
                 }
