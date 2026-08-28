@@ -7,7 +7,6 @@ async function preencherProdutos() {
     }
 
     const produtos = await resposta.json();
-    console.log(produtos)
 
     const container = document.getElementById("categoria-geral");
 
