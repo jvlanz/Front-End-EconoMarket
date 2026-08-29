@@ -19,13 +19,18 @@ async function obterDadosCompra() {
         nMercados = mercados.length
         document.getElementById('nMercados').value = mercados.length
     }
-    tr = document.getElementsByTagName('tr')[0]
+    tr = document.getElementById('trHead')
+    const total = []
+    const economia = []
     for (n=0; n<nMercados; n++) {
         tr.innerHTML += '<th>'+mercados[n].nome+'</th>'
+        total.push(0)
+        economia.push(0)
     }
     tr.innerHTML += '<th></th>'    // coluna extra para botão remover
     tbody = document.getElementsByTagName('tbody')[0]
-    for (n=0; n<cliente.listaCompra.length; n++) {
+    nItens = cliente.listaCompra.length
+    for (n=0; n<nItens; n++) {
         item = cliente.listaCompra[n]
         const respostaP = await fetch("http://localhost:8080/precos/"+item.produto.id);
         if (!respostaP.ok) {
@@ -56,13 +61,15 @@ async function obterDadosCompra() {
             const mercadoRadio = document.createElement('input')
             mercadoRadio.setAttribute('class', 'checkbox')
             mercadoRadio.type = 'radio'
-            mercadoRadio.id = 'rad'+item.id+mercado.id
-            mercadoRadio.name = 'rad'+item.id
+            mercadoRadio.id = 'rad'+n+(mercado.id-1)
+            mercadoRadio.name = 'rad'+n
             mercadoRadio.disabled = true
             label = document.createElement('label')
+            label.id = 'lab'+n+(mercado.id-1)
             label.innerHTML = ''
             td.appendChild(mercadoRadio)
             td.appendChild(label)
+            val = 0
             precos.forEach(preco => {
                 if (marcas.indexOf(preco.produtoMarca.marca.id)==-1) {
                     marcas.push(preco.produtoMarca.marca.id)
@@ -72,8 +79,9 @@ async function obterDadosCompra() {
                     sel.appendChild(opt)
                 }
                 if (item.produto.id==preco.produtoMarca.produto.id && mercado.id==preco.mercado.id) {
-                    label.innerHTML = 'R$'+preco.preco
+                    label.innerHTML = 'R$ '+preco.preco
                     mercadoRadio.disabled = ''
+                    mercadoRadio.onclick = function() { atualizarValores(nItens, nMercados) }
                 }
             })
           }
@@ -81,8 +89,50 @@ async function obterDadosCompra() {
         td = document.createElement('td')
         td.innerHTML = '<button id="remover" onclick="removerItem('+item.id+')">remover</button>'
         tr.appendChild(td)
-//    })
     }
+    selecionarMinimos(nItens, nMercados)
+    atualizarValores(nItens, nMercados)
+}
+
+function selecionarMinimos(nItens, nMercados) {
+    for (ni=0; ni<nItens; ni++) {
+        minVal = 99999
+        minRad = 0
+        for (nm=0; nm<nMercados; nm++) {
+            rad = document.getElementById('rad'+ni+nm).checked
+            val = Number(document.getElementById('lab'+ni+nm).innerHTML.split(' ')[1])
+            if (val && val < minVal) {
+                minVal = val
+                minRad = nm
+            }
+        }
+        document.getElementById('rad'+ni+minRad).checked = true
+    }
+}
+
+function atualizarValores(nItens, nMercados) {
+    console.log('calcular totais, medias e economias')
+    trT = document.getElementById('trTotal')
+    trE = document.getElementById('trEconomia')
+    trT.innerHTML = '<th>Total</th><th></th>'
+    trE.innerHTML = '<th>Economia</th><th></th>'
+    for (ni=0; ni<nItens; ni++) {
+        for (nm=0; nm<nMercados; nm++) {
+        }
+    }
+/*
+        precoMedio = 0 // FIXME
+        nPrecos = 0
+                    val = preco.preco
+                    precoMedio = (precoMedio*nPrecos + val) / (nPrecos+1)
+                    nPrecos += 1
+            total[mercado.id] = total[mercado.id] + val
+            economia[mercado.id] = economia[mercado.id] + (precoMedio - val)
+    for (n=0; n<nMercados; n++) {
+        trT.innerHTML += `<th>R$ ${total[n]}</th>`
+        trE.innerHTML += `<th>R$ ${economia[n].toFixed(2)}</th>`
+    }
+*/
 }
 
 function removerItem(id) {
@@ -111,9 +161,18 @@ function redistribuir() {
     thead = document.createElement('thead')
     tab.appendChild(thead)
     tr = document.createElement('tr')
+    tr.id = 'trHead'
     thead.appendChild(tr)
     tr.innerHTML = '<th>Produto</th><th>Marca</th>'
     tbody = document.createElement('tbody')
     tab.appendChild(tbody)
+    tfoot = document.createElement('tfoot')
+    tab.appendChild(tfoot)
+    tr = document.createElement('tr')
+    tr.id = 'trTotal'
+    tfoot.appendChild(tr)
+    tr = document.createElement('tr')
+    tr.id = 'trEconomia'
+    tfoot.appendChild(tr)
     obterDadosCompra()
 }
