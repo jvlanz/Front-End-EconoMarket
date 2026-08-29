@@ -1,11 +1,11 @@
 
 async function obterDadosCompra() {
-    const respostaC = await fetch("http://localhost:8080/compras/1");
+    const respostaC = await fetch("http://localhost:8080/clientes/1");
     if (!respostaC.ok) {
-        console.error("Erro ao buscar carrinho");
+        console.error("Erro ao buscar cliente");
         return;
     }
-    const compras = await respostaC.json();
+    const cliente = await respostaC.json();
 
     const respostaM = await fetch("http://localhost:8080/mercados");
     if (!respostaM.ok) {
@@ -25,22 +25,23 @@ async function obterDadosCompra() {
     }
     tr.innerHTML += '<th></th>'    // coluna extra para botão remover
     tbody = document.getElementsByTagName('tbody')[0]
-//    compras.listaCompra.forEach(compra => {
-    for (n=0; n<compras.listaCompra.length; n++) {
-        compra = compras.listaCompra[n]
-        const respostaP = await fetch("http://localhost:8080/precos/"+compra.produtoMarca.id);
+    for (n=0; n<cliente.listaCompra.length; n++) {
+        item = cliente.listaCompra[n]
+        console.log(n,item.produto)
+        const respostaP = await fetch("http://localhost:8080/precos/"+item.produto.id);
         if (!respostaP.ok) {
             console.error("Erro ao buscar preços");
             return;
         }
         const precos = await respostaP.json();
+        console.log(precos)
         tr = document.createElement('tr')
         tbody.appendChild(tr)
         td = document.createElement('td')
-        td.innerHTML = '<img src=../imagens/'+compra.produtoMarca.produto.figura+' height=50px></img>'+compra.produtoMarca.produto.descricao
+        td.innerHTML = '<img src=../imagens/'+item.produto.figura+' height=50px></img>'+item.produto.descricao
+        td.style.backgroundColor = 'white'
         tr.appendChild(td)
         td = document.createElement('td')
-//        td.innerHTML = compra.produtoMarca.marca.marca
         tr.appendChild(td)
         sel = document.createElement('select')
         td.appendChild(sel)
@@ -48,7 +49,6 @@ async function obterDadosCompra() {
         opt.value = ''
         sel.appendChild(opt)
         const marcas = []
-//      console.log(compra.produtoMarca.produto.descricao + ' marca ' + compra.produtoMarca.marca.marca + ': ' + compra.produtoMarca.produto.figura)
         mercados.forEach(mercado => {
           if (mercado.id<=nMercados) {
             td = document.createElement('td')
@@ -57,22 +57,22 @@ async function obterDadosCompra() {
             const mercadoRadio = document.createElement('input')
             mercadoRadio.setAttribute('class', 'checkbox')
             mercadoRadio.type = 'radio'
-            mercadoRadio.id = 'rad'+compra.id+mercado.id
-            mercadoRadio.name = 'rad'+compra.id
+            mercadoRadio.id = 'rad'+item.id+mercado.id
+            mercadoRadio.name = 'rad'+item.id
             mercadoRadio.disabled = true
             label = document.createElement('label')
-            label.innerHTML = '----------'
+            label.innerHTML = ''
             td.appendChild(mercadoRadio)
             td.appendChild(label)
             precos.forEach(preco => {
-                if (marcas.indexOf(preco.produtoMarca.id)==-1) {
-                    marcas.push(preco.produtoMarca.id)
-                    opt = document.createElement('option')
-                    opt.value = preco.produtoMarca.id
+                if (marcas.indexOf(preco.produtoMarca.marca.id)==-1) {
+                    marcas.push(preco.produtoMarca.marca.id)
+                    var opt = document.createElement('option')
+                    opt.value = preco.produtoMarca.produto.id
                     opt.innerHTML = preco.produtoMarca.marca.marca
                     sel.appendChild(opt)
                 }
-                if (compra.produtoMarca.id==preco.produtoMarca.id && mercado.id==preco.mercado.id) {
+                if (item.produto.id==preco.produtoMarca.produto.id && mercado.id==preco.mercado.id) {
                     label.innerHTML = 'R$'+preco.preco
                     mercadoRadio.disabled = ''
                 }
@@ -80,7 +80,7 @@ async function obterDadosCompra() {
           }
         })
         td = document.createElement('td')
-        td.innerHTML = '<button onclick="removerItem('+compra.id+')">remover</button>'
+        td.innerHTML = '<button onclick="removerItem('+item.id+')">remover</button>'
         tr.appendChild(td)
 //    })
     }
@@ -115,29 +115,3 @@ function redistribuir() {
     tab.appendChild(tbody)
     obterDadosCompra()
 }
-/*
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Descrição</th>
-                <th>R$ unitário</th>
-                <th>Qtd. disponível</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- preenchido pelo javascript -->
-        </tbody>
-    </table>
-    <script>
-        fetch('http://localhost:8080/produtos')
-            .then(resp => resp.json())
-            .then(dados => {
-                dados.forEach(e => {
-                    linha = `<tr><td>${e.id}</td><td>${e.descricao}</td><td>${e.preco}</td><td>${e.estoque}</td></tr>`
-//                  console.log(linha)
-                    document.getElementsByTagName('tbody')[0].innerHTML+=linha
-                })
-            })
-    </script>
-*/

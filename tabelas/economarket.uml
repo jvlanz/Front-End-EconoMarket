@@ -15,14 +15,14 @@ entity produtos {
 	id: int
 	descricao: string
 	id_categoria: int
-	id_medida: int
+'	id_medida: int
 	valor_medida: float
 	figura: string
 }
-entity medidas {
-	id: int
-	medida: string
-}
+'entity medidas {
+'	id: int
+'	medida: string
+'}
 entity produtos_marcas {
 	id: int
 	id_produto: int
@@ -37,7 +37,7 @@ entity categorias {
 	categoria: string
 }
 categorias-->produtos
-medidas-->produtos
+'medidas-->produtos
 produtos-->produtos_marcas
 marcas-->produtos_marcas
 
@@ -59,27 +59,27 @@ entity favoritos {
 clientes-->favoritos
 produtos_marcas-->favoritos
 
-entity status {
-	id: int
-	status: string
-}
-entity compras {
-	id: int
-'	id_lista_produtos: int
-	id_cliente: int
-	id_status: int
-	data: date
-}
+'entity status {
+'	id: int
+'	status: string
+'}
+'entity compras {
+'	id: int
+''	id_lista_produtos: int
+'	id_cliente: int
+'	id_status: int
+'	data: date
+'}
 entity lista_compras {
 	id: int
-	id_produto_marca: int
+	id_produto: int
 '	id_mercado: int
-	id_compra: int
+	id_cliente: int
 	quantidade: float
 }
-status-->compras
-produtos_marcas-->lista_compras
-mercados-->lista_compras
-lista_compras-->compras
-clientes-->compras
+'status-->compras
+produtos-->lista_compras
+'mercados-->lista_compras
+'lista_compras-->compras
+clientes-->lista_compras
 @enduml
