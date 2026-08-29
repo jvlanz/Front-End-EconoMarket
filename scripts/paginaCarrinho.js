@@ -20,12 +20,8 @@ async function obterDadosCompra() {
         document.getElementById('nMercados').value = mercados.length
     }
     tr = document.getElementById('trHead')
-    const total = []
-    const economia = []
     for (n=0; n<nMercados; n++) {
         tr.innerHTML += '<th>'+mercados[n].nome+'</th>'
-        total.push(0)
-        economia.push(0)
     }
     tr.innerHTML += '<th></th>'    // coluna extra para botão remover
     tbody = document.getElementsByTagName('tbody')[0]
@@ -111,28 +107,40 @@ function selecionarMinimos(nItens, nMercados) {
 }
 
 function atualizarValores(nItens, nMercados) {
-    console.log('calcular totais, medias e economias')
     trT = document.getElementById('trTotal')
     trE = document.getElementById('trEconomia')
     trT.innerHTML = '<th>Total</th><th></th>'
     trE.innerHTML = '<th>Economia</th><th></th>'
+    const total = []
+    const economia = []
+    for (nm=0; nm<nMercados; nm++) {
+        total.push(0)
+        economia.push(0)
+    }
     for (ni=0; ni<nItens; ni++) {
+        precoMedio = 0
+        nPrecos = 0
+        minVal = 99999
         for (nm=0; nm<nMercados; nm++) {
+            val = Number(document.getElementById('lab'+ni+nm).innerHTML.split(' ')[1])
+            if (val && val < minVal) {
+                precoMedio = (precoMedio*nPrecos + val) / (nPrecos+1)
+                nPrecos += 1
+            }
+        }
+        for (nm=0; nm<nMercados; nm++) {
+            rad = document.getElementById('rad'+ni+nm).checked
+            if (rad) {
+                val = Number(document.getElementById('lab'+ni+nm).innerHTML.split(' ')[1])
+                total[nm] += total[nm] + val
+                economia[nm] += economia[nm] + (precoMedio - val)
+            }
         }
     }
-/*
-        precoMedio = 0 // FIXME
-        nPrecos = 0
-                    val = preco.preco
-                    precoMedio = (precoMedio*nPrecos + val) / (nPrecos+1)
-                    nPrecos += 1
-            total[mercado.id] = total[mercado.id] + val
-            economia[mercado.id] = economia[mercado.id] + (precoMedio - val)
-    for (n=0; n<nMercados; n++) {
-        trT.innerHTML += `<th>R$ ${total[n]}</th>`
-        trE.innerHTML += `<th>R$ ${economia[n].toFixed(2)}</th>`
+    for (nm=0; nm<nMercados; nm++) {
+        trT.innerHTML += `<th>R$ ${total[nm].toFixed(2)}</th>`
+        trE.innerHTML += `<th>R$ ${economia[nm].toFixed(2)}</th>`
     }
-*/
 }
 
 function removerItem(id) {
