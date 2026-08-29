@@ -98,6 +98,9 @@ function removerItem(id) {
         }
     })
     .catch(error => console.error('erro com a operação fetch:', error))
+    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+    val = qtdCarrinho.innerHTML
+    qtdCarrinho.innerHTML = Number(val)-1
 }
 
 function redistribuir() {

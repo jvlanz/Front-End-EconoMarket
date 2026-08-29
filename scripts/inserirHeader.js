@@ -3,14 +3,23 @@ function inserirHeader(fname, element = document.body) {
         .then(r => r.ok ? r.text() : Promise.reject(r.status))
         .then(content => {
             element.insertAdjacentHTML('afterbegin', content);
-            const divCategoria = document.getElementById('divCategorias')
-            /* categorias.reverse().forEach ( item => {
+            /* const divCategoria = document.getElementById('divCategorias')
+            categorias.reverse().forEach ( item => {
                 alink = document.createElement('a')
                 alink.href = "paginaCategoria.html?categoria="+item.id
                 alink.innerHTML = item.descricao
                 divCategoria.insertBefore(alink,divCategoria.firstChild)
             }) */
-            return;
+            const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+            fetch("http://localhost:8080/clientes/1/size") // FIXME usar ID cliente
+            .then(resposta => {
+                if (!resposta.ok) {
+                    console.error("Erro ao buscar produtos");
+                } else {
+                    resposta.json()
+                    .then(qtd => qtdCarrinho.innerHTML = qtd)
+                }
+            })
         })
         .catch(e => console.error('Include failed:', e));
 

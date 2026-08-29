@@ -19,4 +19,7 @@ async function incluirnaLista(idProduto, idCliente) {
         console.error("Erro ao cadastrar produto");
         return;
     }
+    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+    val = qtdCarrinho.innerHTML
+    qtdCarrinho.innerHTML = Number(val)+1
 }
