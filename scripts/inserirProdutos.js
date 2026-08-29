@@ -8,8 +8,20 @@ async function preencherProdutos() {
 
     const produtos = await resposta.json();
 
-    const container = document.getElementById("categoria-geral");
+    const respostaC = await fetch("http://localhost:8080/clientes/1");
+    if (!respostaC.ok) {
+        console.error("Erro ao buscar cliente");
+        return;
+    }
+    cliente = await respostaC.json();
+    listaCompra = cliente.listaCompra
+    produtosID = []
+    for (n=0; n<listaCompra.length; n++) {
+        produtosID.push(listaCompra[n].produto.id)
+    }
 
+
+    const container = document.getElementById("categoria-geral");
 
     produtos.forEach(produto => {
         let subcontainer = document.getElementById("categoria" + produto.categoria.id);
@@ -39,9 +51,12 @@ async function preencherProdutos() {
 
         const botaoCarrinho = document.createElement("button");
         botaoCarrinho.setAttribute("class", "btn-add");
-        botaoCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1)')  //Cliente: 1
+        botaoCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1,1)')  //Cliente: 1, quantidade: 1
+        botaoCarrinho.id = 'bt'+produto.id
         botaoCarrinho.innerHTML = "+";
         card.appendChild(botaoCarrinho);
+        if (produtosID.indexOf(produto.id)>=0)
+            botaoCarrinho.style.display = 'none'
         
     });
 
