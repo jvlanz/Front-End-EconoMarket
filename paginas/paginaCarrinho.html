@@ -25,9 +25,17 @@
     </script>
 
     <label for='nMercados'>Número de mercados</label>
-    <input id='nMercados' type=number value=3 min=1 style="width:25px" onchange="redistribuir()">
-    <div id='listaCompra'></div>
-    <script>redistribuir()</script>
+    <input id='nMercados' type=number value=3 min=1 style="width:25px" onchange="gerarTabelaCarrinho()">
+    <br>
+    <table id='tabelaCarrinho'></table>
+    <script>obterDadosCarrinho()</script>
+
+    <br>
+    <center>
+    <a href="paginaCarrinho.html#lista">
+        <button id="login" onclick="abrirLista()">Gerar lista</button>
+    </a>
+    </center>
 
     <footer>
 
