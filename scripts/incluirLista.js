@@ -1,9 +1,9 @@
-async function incluirnaLista(idProdutoMarca, idCliente) {
+async function incluirnaLista(idProduto, idCliente) {
 //  const obterCarrinho = await fetch("http://localhost:8080/compras/"+idCliente);
 //  const compras = await obterCarrinho.json();
     const item = {
-        idProdutoMarca: idProdutoMarca,
-        idCompra: 1,
+        idProduto: idProduto,
+        idCliente: idCliente,
         quantidade: 1
     }
 
