@@ -140,6 +140,7 @@ function preencherValores(nItens, nMercados) {
             rad = document.getElementById('rad'+n+mercado.id)
             lab.innerHTML = ''
             rad.disabled = true
+//          rad.checked = ''
             val = 99999
             for (p=0; p<listaPrecos.length; p++)
                 if (listaPrecos[p].id==item.produto.id) {
