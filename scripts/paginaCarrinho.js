@@ -132,8 +132,8 @@ function atualizarValores(nItens, nMercados) {
             rad = document.getElementById('rad'+ni+nm).checked
             if (rad) {
                 val = Number(document.getElementById('lab'+ni+nm).innerHTML.split(' ')[1])
-                total[nm] += total[nm] + val
-                economia[nm] += economia[nm] + (precoMedio - val)
+                total[nm] += val
+                economia[nm] += (precoMedio - val)
             }
         }
     }
