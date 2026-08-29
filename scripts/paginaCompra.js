@@ -27,19 +27,18 @@ async function obterDadosCompra() {
     tbody = document.getElementsByTagName('tbody')[0]
     for (n=0; n<cliente.listaCompra.length; n++) {
         item = cliente.listaCompra[n]
-        console.log(n,item.produto)
         const respostaP = await fetch("http://localhost:8080/precos/"+item.produto.id);
         if (!respostaP.ok) {
             console.error("Erro ao buscar preços");
             return;
         }
         const precos = await respostaP.json();
-        console.log(precos)
         tr = document.createElement('tr')
         tbody.appendChild(tr)
         td = document.createElement('td')
         td.innerHTML = '<img src=../imagens/'+item.produto.figura+' height=50px></img>'+item.produto.descricao
         td.style.backgroundColor = 'white'
+        td.style.borderRadius = '10px'
         tr.appendChild(td)
         td = document.createElement('td')
         tr.appendChild(td)
@@ -80,7 +79,7 @@ async function obterDadosCompra() {
           }
         })
         td = document.createElement('td')
-        td.innerHTML = '<button onclick="removerItem('+item.id+')">remover</button>'
+        td.innerHTML = '<button id="remover" onclick="removerItem('+item.id+')">remover</button>'
         tr.appendChild(td)
 //    })
     }

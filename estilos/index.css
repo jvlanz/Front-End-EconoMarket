@@ -296,6 +296,25 @@ body {
     transform: translateY(-1px);
 }
 
+#remover {
+    font-family: "Montserrat", sans-serif;
+    padding: 5px 10px;
+    border: 2px solid #b02020;
+    border-radius: 8px;
+    background: #b02020;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+#remover:hover {
+    background: #8f2d2d;
+    border-color: #8f2d2d;
+    transform: translateY(-1px);
+}
+
 #icons-toc {
     rotate: 180deg;
 }
