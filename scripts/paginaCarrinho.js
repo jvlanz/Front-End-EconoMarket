@@ -94,15 +94,15 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
         document.getElementById('nMercados').value = mercados.length
     }
     tr = document.getElementById('trHead')
-    for (n=0; n<nMercados; n++) {
-        tr.innerHTML += '<th>'+mercados[n].nome+'</th>'
+    for (nm=0; nm<nMercados; nm++) {
+        tr.innerHTML += '<th>'+mercados[nm].nome+'</th>'
     }
     tr.innerHTML += '<th></th>'    // coluna extra para botão remover
     tbody = document.getElementsByTagName('tbody')[0]
     nItens = cliente.listaCompra.length
-    for (n=0; n<nItens; n++) {
-        item = cliente.listaCompra[n]
-        const precos = listaPrecos[n].precos
+    for (ni=0; ni<nItens; ni++) {
+        item = cliente.listaCompra[ni]
+        const precos = listaPrecos[ni].precos
         tr = document.createElement('tr')
         tbody.appendChild(tr)
         td = document.createElement('td')
@@ -113,7 +113,7 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
         td = document.createElement('td')
         tr.appendChild(td)
         sel = document.createElement('select')
-        sel.onchange = function () { preencherValores(nItens, nMercados) }
+        sel.onchange = function () { preencherValores() }
         sel.id = 'sel'+item.produto.id
         td.appendChild(sel)
         opt = document.createElement('option')
@@ -134,53 +134,55 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
             td = document.createElement('td')
             td.style.textAlign = 'center'
             tr.appendChild(td)
-            const mercadoRadio = document.createElement('input')
-            mercadoRadio.setAttribute('class', 'checkbox')
-            mercadoRadio.type = 'radio'
-            mercadoRadio.id = 'rad'+n+mercado.id
-            mercadoRadio.name = 'rad'+n
-            mercadoRadio.disabled = true
+            const rad = document.createElement('input')
+            rad.setAttribute('class', 'checkbox')
+            rad.type = 'radio'
+            rad.id = 'rad'+ni+mercado.id
+            rad.name = 'rad'+ni
+            rad.disabled = true
             label = document.createElement('label')
-            label.id = 'lab'+n+mercado.id
+            label.id = 'lab'+ni+mercado.id
             label.innerHTML = ''
-            td.appendChild(mercadoRadio)
+            td.appendChild(rad)
             td.appendChild(label)
         }
         td = document.createElement('td')
-        td.innerHTML = '<button id="remover" onclick="removerItem('+item.id+','+n+')">remover</button>'
+        td.innerHTML = '<button id="remover" onclick="removerItem('+item.id+','+ni+')">remover</button>'
         tr.appendChild(td)
     }
-    preencherValores(nItens, nMercados)
-    selecionarMinimos(nItens, nMercados)
-    atualizarValores(nItens, nMercados)
+    preencherValores()
+    selecionarMinimos()
+    atualizarValores()
 }
 
-function preencherValores(nItens, nMercados) { // insere valores dos produtos para cada mercado (se estiverem disponíveis)
+function preencherValores() { // insere valores dos produtos para cada mercado (se estiverem disponíveis)
+    nMercados = document.getElementById('nMercados').value
     nItens = cliente.listaCompra.length
-    for (n=0; n<nItens; n++) {
-        item = cliente.listaCompra[n]
+    for (ni=0; ni<nItens; ni++) {
+        item = cliente.listaCompra[ni]
         marca = document.getElementById('sel'+item.produto.id).value
         for (nm=0; nm<nMercados; nm++) {
             mercado = mercados[nm]
-            lab = document.getElementById('lab'+n+mercado.id)
-            rad = document.getElementById('rad'+n+mercado.id)
+            lab = document.getElementById('lab'+ni+mercado.id)
+            rad = document.getElementById('rad'+ni+mercado.id)
             lab.innerHTML = ''
             rad.disabled = true
             val = 99999
-            for (p=0; p<listaPrecos.length; p++)
-                if (listaPrecos[p].id==item.produto.id) {
-                    precos = listaPrecos[p].precos
+            for (np=0; np<listaPrecos.length; np++)
+                if (listaPrecos[np].id==item.produto.id) {
+                    precos = listaPrecos[np].precos
                     break
                 }
             precos.forEach(preco => {
-                if (item.produto.id==preco.produtoMarca.produto.id && mercado.id==preco.mercado.id) {
+                if (preco.produtoMarca.produto.id==item.produto.id && preco.mercado.id==mercado.id) {
                     if (marca!='' && marca!=preco.produtoMarca.marca.marca)
                         return
                     if (preco.preco<val) {
                         val = preco.preco * item.quantidade / preco.produtoMarca.produto.valorMedida
                         lab.innerHTML = 'R$ '+val.toFixed(2)
                         rad.disabled = ''
-                        rad.onclick = function() { atualizarValores(nItens, nMercados) }
+                        rad.value = preco.id
+                        rad.onclick = function() { atualizarValores() }
                     }
                 }
             })
@@ -188,7 +190,9 @@ function preencherValores(nItens, nMercados) { // insere valores dos produtos pa
     }
 }
 
-function selecionarMinimos(nItens, nMercados) { // seleção automática dos radio buttons
+function selecionarMinimos() { // seleção automática dos radio buttons
+    nMercados = document.getElementById('nMercados').value
+    nItens = cliente.listaCompra.length
     for (ni=0; ni<nItens; ni++) {
         minVal = 99999
         minRad = 0
@@ -205,17 +209,19 @@ function selecionarMinimos(nItens, nMercados) { // seleção automática dos rad
     }
 }
 
-function atualizarValores(nItens, nMercados) { // altera valores no rodapé da tabela, que mudam conforme a seleção de produtos
+function atualizarValores() { // altera valores no rodapé da tabela, que mudam conforme a seleção de produtos
     trT = document.getElementById('trTotal')
     trE = document.getElementById('trEconomia')
     trT.innerHTML = '<th>Total/Mercado</th><th></th>'
     trE.innerHTML = '<th>Economia</th><th></th>'
     const total = []
     const economia = []
+    nMercados = document.getElementById('nMercados').value
     for (nm=0; nm<nMercados; nm++) {
         total.push(0)
         economia.push(0)
     }
+    nItens = cliente.listaCompra.length
     for (ni=0; ni<nItens; ni++) {
         precoMedio = 0
         nPrecos = 0
@@ -260,4 +266,44 @@ function removerItem(id,n) { // remove item da listaCompra no banco de dados, be
     cliente.listaCompra.splice(n,1)
     listaPrecos.splice(n,1)
     qtdCarrinho.innerHTML = Number(val)-1
+}
+
+function gerarLista() {
+    listas = []
+    for (ni=0; ni<cliente.listaCompra.length; ni++) {
+        selRad = document.querySelector('input[name=rad'+ni+']:checked')
+        if (selRad==null)
+            continue
+        idPreco = selRad.value
+        for (np=0; np<listaPrecos[ni].precos.length; np++) {
+            if (listaPrecos[ni].precos[np].id==idPreco) {
+                textoItem  = listaPrecos[ni].precos[np].produtoMarca.produto.descricao + ' '
+                textoItem += listaPrecos[ni].precos[np].produtoMarca.marca.marca + ' '
+                textoItem += listaPrecos[ni].precos[np].mercado.nome + ' '
+                textoItem += cliente.listaCompra[ni].quantidade
+                textoItem += listaPrecos[ni].precos[np].produtoMarca.produto.medida + ' '
+                textoItem += 'R$ ' + (listaPrecos[ni].precos[np].preco * cliente.listaCompra[ni].quantidade / listaPrecos[ni].precos[np].produtoMarca.produto.valorMedida).toFixed(2) + ' '
+                textoItem += '(R$ ' + listaPrecos[ni].precos[np].preco
+                textoItem += '/' + listaPrecos[ni].precos[np].produtoMarca.produto.valorMedida
+                textoItem += listaPrecos[ni].precos[np].produtoMarca.produto.medida + ')'
+                if (listas[listaPrecos[ni].precos[np].mercado.id]==null) {
+                    listas[listaPrecos[ni].precos[np].mercado.id] = []
+                }
+                listas[listaPrecos[ni].precos[np].mercado.id].push(textoItem)
+                break
+            }
+        }
+    }
+    nMercados = document.getElementById('nMercados').value
+    div = document.getElementById('listaCompra')
+    div.innerHTML = ''
+    for (nm=0; nm<nMercados; nm++) {
+        if (listas[mercados[nm].id]==null)
+            continue
+        div.innerHTML += '<h2>'+mercados[nm].nome+'</h2>'
+        ul = document.createElement('ol')
+        div.appendChild(ul)
+        for (np=0; np<listas[mercados[nm].id].length; np++)
+            ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
+    }
 }
