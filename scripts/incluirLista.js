@@ -7,6 +7,8 @@ async function incluirnaLista(idProduto, idCliente, quantidade) {
         quantidade: quantidade
     }
 
+// TODO checar se produto já está na lista; se estiver, apenas ajustar a quantidade
+
     const resposta = await fetch("http://localhost:8080/listaCompra", {
         method: "POST",
         headers: {

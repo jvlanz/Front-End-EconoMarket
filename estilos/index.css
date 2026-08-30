@@ -416,7 +416,7 @@ body {
     font-family: "Montserrat", sans-serif;
 }
 
-.btn-add {
+.btn-add, .btn-rem {
     position: absolute;
     right: 18px;
     bottom: 18px;
@@ -432,7 +432,11 @@ body {
     transition: 0.2s;
 }
 
-.btn-add:hover {
+.btn-rem {
+    left: 18px;
+}
+
+.btn-add:hover,.btn-rem:hover {
     transform: scale(1.08);
 }
 
