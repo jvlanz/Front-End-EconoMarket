@@ -294,6 +294,11 @@ function gerarLista() {
             }
         }
     }
+    return listas
+}
+
+function mostrarLista() {
+    listas = gerarLista()
     nMercados = document.getElementById('nMercados').value
     div = document.getElementById('listaCompra')
     div.innerHTML = ''
@@ -306,4 +311,18 @@ function gerarLista() {
         for (np=0; np<listas[mercados[nm].id].length; np++)
             ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
     }
+}
+
+function copiarLista() {
+    listas = gerarLista()
+    texto = ''
+    for (nm=0; nm<nMercados; nm++) {
+        if (listas[mercados[nm].id]==null)
+            continue
+        texto += '\n'+mercados[nm].nome+'\n'
+        for (np=0; np<listas[mercados[nm].id].length; np++)
+            texto += '- ' + listas[mercados[nm].id][np]+'\n'
+    }
+    navigator.clipboard.writeText(texto)
+    window.alert('lista copiada para o clipboard')
 }
