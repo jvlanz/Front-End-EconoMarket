@@ -9,6 +9,7 @@
     <script src="../scripts/inserirHeader.js"></script>
     <script src="../scripts/paginaCarrinho.js"></script>
     <link rel="stylesheet" href="../estilos/index.css">
+    <link rel="stylesheet" href="../estilos/modal.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -36,7 +37,15 @@
         <button id="login" onclick="gerarLista()">Gerar lista</button>
     </a>
     </center>
-    <div id='listaCompra'></div> <!-- TODO transformar em um modal -->
+
+    <div class='modal' id='lista'>
+        <a href='#' style='font-size:2000px; color:#0000'>___</a> <!-- hack para 'fechar' modal ao clicar fora do conteúdo -->
+        <div class='modalContent'>
+            <div id='listaCompra'></div>
+            <a href='#' class='closeButton'>&times;</a>
+        </div>
+    </div>
+
 
     <footer>
 
