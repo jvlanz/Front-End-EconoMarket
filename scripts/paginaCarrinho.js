@@ -73,7 +73,7 @@ function gerarTabelaCarrinho() { // insere thead, tbody e tfoot
     tr = document.createElement('tr')
     tr.id = 'trHead'
     thead.appendChild(tr)
-    tr.innerHTML = '<th>Produto</th><th>Marca</th>'
+    tr.innerHTML = '<th>Produto</th><th>Marca</th><th>Quantidade</th>'
     tbody = document.createElement('tbody')
     tab.appendChild(tbody)
     tfoot = document.createElement('tfoot')
@@ -110,7 +110,7 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
         td.style.backgroundColor = 'white'
         td.style.borderRadius = '10px'
         tr.appendChild(td)
-        td = document.createElement('td')
+        td = document.createElement('td')   // marca
         tr.appendChild(td)
         sel = document.createElement('select')
         sel.onchange = function () { preencherValores() }
@@ -129,6 +129,12 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
                 sel.appendChild(opt)
             }
         })
+        td = document.createElement('td')   // quantidade
+        td.style.textAlign = 'center'
+        tr.appendChild(td)
+        qtd = document.createElement('span')
+        qtd.id = 'qtd'+ni
+        td.appendChild(qtd)
         for (nm=0; nm<nMercados; nm++) {
             mercado = mercados[nm]
             td = document.createElement('td')
@@ -159,7 +165,9 @@ function preencherValores() { // insere valores dos produtos para cada mercado (
     nMercados = document.getElementById('nMercados').value
     nItens = cliente.listaCompra.length
     for (ni=0; ni<nItens; ni++) {
+        qtd = document.getElementById('qtd'+ni)
         item = cliente.listaCompra[ni]
+        qtd.innerHTML = item.quantidade + item.produto.medida
         marca = document.getElementById('sel'+item.produto.id).value
         for (nm=0; nm<nMercados; nm++) {
             mercado = mercados[nm]
@@ -212,8 +220,8 @@ function selecionarMinimos() { // seleção automática dos radio buttons
 function atualizarValores() { // altera valores no rodapé da tabela, que mudam conforme a seleção de produtos
     trT = document.getElementById('trTotal')
     trE = document.getElementById('trEconomia')
-    trT.innerHTML = '<th>Total/Mercado</th><th></th>'
-    trE.innerHTML = '<th>Economia</th><th></th>'
+    trT.innerHTML = '<th>Total/Mercado</th><th></th><th></th>'
+    trE.innerHTML = '<th>Economia</th><th></th><th></th>'
     const total = []
     const economia = []
     nMercados = document.getElementById('nMercados').value
