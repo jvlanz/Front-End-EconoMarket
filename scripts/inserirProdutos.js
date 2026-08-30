@@ -49,14 +49,22 @@ async function preencherProdutos() {
         nome.innerHTML = produto.descricao;
         card.appendChild(nome);
 
-        const botaoCarrinho = document.createElement("button");
-        botaoCarrinho.setAttribute("class", "btn-add");
-        botaoCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1,'+produto.valorMedida+')')  //Cliente: 1, quantidade: 1unidade
-        botaoCarrinho.id = 'bt'+produto.id
-        botaoCarrinho.innerHTML = "+";
-        card.appendChild(botaoCarrinho);
-        if (produtosID.indexOf(produto.id)>=0)
-            botaoCarrinho.style.display = 'none'
+        const botaoAddCarrinho = document.createElement("button");
+        botaoAddCarrinho.setAttribute("class", "btn-add");
+        botaoAddCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1,'+produto.valorMedida+')')  //Cliente: 1, quantidade: 1unidade
+        botaoAddCarrinho.id = 'bt'+produto.id
+        botaoAddCarrinho.innerHTML = "+";
+        card.appendChild(botaoAddCarrinho);
+
+
+        const botaoRemCarrinho = document.createElement("button");
+        botaoRemCarrinho.setAttribute("class", "btn-rem");
+//      botaoRemCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1,'+produto.valorMedida+')')  //Cliente: 1, quantidade: 1unidade
+        botaoRemCarrinho.id = 'rem'+produto.id
+        botaoRemCarrinho.innerHTML = "–";
+        card.appendChild(botaoRemCarrinho);
+        if (produtosID.indexOf(produto.id)==-1)
+            botaoRemCarrinho.style.display = 'none'
         
     });
 
