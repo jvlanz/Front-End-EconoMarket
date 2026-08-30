@@ -51,7 +51,7 @@ async function preencherProdutos() {
 
         const botaoCarrinho = document.createElement("button");
         botaoCarrinho.setAttribute("class", "btn-add");
-        botaoCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1,1)')  //Cliente: 1, quantidade: 1
+        botaoCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1,'+produto.valorMedida+')')  //Cliente: 1, quantidade: 1unidade
         botaoCarrinho.id = 'bt'+produto.id
         botaoCarrinho.innerHTML = "+";
         card.appendChild(botaoCarrinho);
