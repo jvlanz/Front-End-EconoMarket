@@ -278,10 +278,10 @@ function gerarLista() {
         for (np=0; np<listaPrecos[ni].precos.length; np++) {
             if (listaPrecos[ni].precos[np].id==idPreco) {
                 textoItem  = listaPrecos[ni].precos[np].produtoMarca.produto.descricao + ' '
-                textoItem += listaPrecos[ni].precos[np].produtoMarca.marca.marca + ' '
-                textoItem += listaPrecos[ni].precos[np].mercado.nome + ' '
+                textoItem += listaPrecos[ni].precos[np].produtoMarca.marca.marca + ', '
+//              textoItem += listaPrecos[ni].precos[np].mercado.nome + ' '
                 textoItem += cliente.listaCompra[ni].quantidade
-                textoItem += listaPrecos[ni].precos[np].produtoMarca.produto.medida + ' '
+                textoItem += listaPrecos[ni].precos[np].produtoMarca.produto.medida + ' por '
                 textoItem += 'R$ ' + (listaPrecos[ni].precos[np].preco * cliente.listaCompra[ni].quantidade / listaPrecos[ni].precos[np].produtoMarca.produto.valorMedida).toFixed(2) + ' '
                 textoItem += '(R$ ' + listaPrecos[ni].precos[np].preco
                 textoItem += '/' + listaPrecos[ni].precos[np].produtoMarca.produto.valorMedida
@@ -301,7 +301,7 @@ function gerarLista() {
         if (listas[mercados[nm].id]==null)
             continue
         div.innerHTML += '<h2>'+mercados[nm].nome+'</h2>'
-        ul = document.createElement('ol')
+        ul = document.createElement('ul')
         div.appendChild(ul)
         for (np=0; np<listas[mercados[nm].id].length; np++)
             ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
