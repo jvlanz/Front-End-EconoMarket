@@ -1,4 +1,4 @@
-async function incluirnaLista(idProduto, idCliente, quantidade) {
+async function incluirLista(idProduto, idCliente, quantidade) {
 //  const obterCarrinho = await fetch("http://localhost:8080/compras/"+idCliente);
 //  const compras = await obterCarrinho.json();
     const item = {
@@ -41,6 +41,12 @@ async function alterarQuantidade(idCompra, quantidade) {
     }
     const item = await respostaG.json();
     item.quantidade += quantidade
+    if (item.quantidade<=0) { // remover produto da lista
+        removerdaLista(idCompra)
+        botaoRemCarrinho.style.display = ''
+        botaoAddCarrinho.setAttribute("onclick", 'incluirLista('+item.idProduto+',1,'+quantidade+')')  //Cliente: 1
+        return
+    }
     item.idCliente = 1
 //  console.log(item)
     const respostaP = await fetch("http://localhost:8080/listaCompra/"+idCompra, {
@@ -55,3 +61,17 @@ async function alterarQuantidade(idCompra, quantidade) {
     }
 }
 
+async function removerItemLista(idCompra) {
+    fetch("http://localhost:8080/listaCompra/"+idCompra, {  // FIXME consolidar com função em paginaCarrinho.js
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('item '+idCompra+' removido')
+            gerarTabelaCarrinho()
+        } else {
+            console.error('erro ao remover produto:', response.status);
+        }
+    })
+    .catch(error => console.error('erro com a operação fetch:', error))
+}
