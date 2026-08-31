@@ -15,10 +15,6 @@ async function preencherProdutos() {
     }
     cliente = await respostaC.json();
     listaCompra = cliente.listaCompra
-    produtosID = []
-    for (n=0; n<listaCompra.length; n++) {
-        produtosID.push(listaCompra[n].produto.id)
-    }
 
 
     const container = document.getElementById("categoria-geral");
@@ -51,21 +47,27 @@ async function preencherProdutos() {
 
         const botaoAddCarrinho = document.createElement("button");
         botaoAddCarrinho.setAttribute("class", "btn-add");
-        botaoAddCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1,'+produto.valorMedida+')')  //Cliente: 1, quantidade: 1unidade
-        botaoAddCarrinho.id = 'bt'+produto.id
+        botaoAddCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1,'+produto.valorMedida+')')  //Cliente: 1
+        botaoAddCarrinho.id = 'add'+produto.id
         botaoAddCarrinho.innerHTML = "+";
         card.appendChild(botaoAddCarrinho);
 
 
         const botaoRemCarrinho = document.createElement("button");
         botaoRemCarrinho.setAttribute("class", "btn-rem");
-//      botaoRemCarrinho.setAttribute("onclick", 'incluirnaLista('+produto.id+',1,'+produto.valorMedida+')')  //Cliente: 1, quantidade: 1unidade
         botaoRemCarrinho.id = 'rem'+produto.id
         botaoRemCarrinho.innerHTML = "–";
+        botaoRemCarrinho.style.display = 'none'
         card.appendChild(botaoRemCarrinho);
-        if (produtosID.indexOf(produto.id)==-1)
-            botaoRemCarrinho.style.display = 'none'
-        
+        for (n=0; n<listaCompra.length; n++) {
+            if (listaCompra[n].produto.id==produto.id) {
+                botaoRemCarrinho.style.display = ''
+                botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade('+listaCompra[n].id+','+produto.valorMedida+')')
+                botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade('+listaCompra[n].id+','+(-produto.valorMedida)+')')
+                break
+            }
+        }
+
     });
 
 }
