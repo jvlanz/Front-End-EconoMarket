@@ -7,8 +7,6 @@ async function incluirnaLista(idProduto, idCliente, quantidade) {
         quantidade: quantidade
     }
 
-// TODO checar se produto já está na lista; se estiver, apenas ajustar a quantidade
-
     const resposta = await fetch("http://localhost:8080/listaCompra", {
         method: "POST",
         headers: {
@@ -21,10 +19,39 @@ async function incluirnaLista(idProduto, idCliente, quantidade) {
         console.error("Erro ao cadastrar produto");
         return;
     }
+    const itemDB = await resposta.json();
+//  console.log(itemDB)
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
     val = qtdCarrinho.innerHTML
     qtdCarrinho.innerHTML = Number(val)+1
-    botaoCarrinho = document.getElementById('bt'+idProduto)
-    botaoCarrinho.style.display = 'none'
+
+    botaoAddCarrinho = document.getElementById('add'+idProduto)
+    botaoRemCarrinho = document.getElementById('rem'+idProduto)
+    botaoRemCarrinho.style.display = ''
+    botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade('+itemDB.id+','+itemDB.produto.valorMedida+')')
+    botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade('+itemDB.id+','+(-itemDB.produto.valorMedida)+')')
 
 }
+
+async function alterarQuantidade(idCompra, quantidade) {
+    const respostaG = await fetch("http://localhost:8080/listaCompra/"+idCompra);
+    if (!respostaG.ok) {
+        console.error("Erro ao buscar item da lista");
+        return;
+    }
+    const item = await respostaG.json();
+    item.quantidade += quantidade
+    item.idCliente = 1
+//  console.log(item)
+    const respostaP = await fetch("http://localhost:8080/listaCompra/"+idCompra, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(item)
+    });
+
+    if (!respostaP.ok) {
+        console.error("Erro ao cadastrar item");
+        return;
+    }
+}
+
