@@ -92,12 +92,12 @@ async function alterarQuantidade(idCompra, quantidade) {
     if (item.quantidade<=0) { // remover produto da lista
         removerItem(idCompra)
         botaoRemCarrinho.style.display = 'none'
-        botaoAddCarrinho.setAttribute("onclick", 'incluirItem('+item.produto.id+',1,'+quantidade+')')  //Cliente: 1
+        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto('+item.produto.id+',1,'+quantidade+')')  //Cliente: 1
         const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
         val = qtdCarrinho.innerHTML
         qtdCarrinho.innerHTML = Number(val)-1
         return
     }
     botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
-    alterarItem(idCompra, item)
+    alterarItem(idCompra, item.produto.id, 1, item.quantidade)  //Cliente: 1
 }
