@@ -263,6 +263,7 @@ function remover(id,n) { // remove item da listaCompra no banco de dados, bem co
     cliente.listaCompra.splice(n,1)
     listaPrecos.splice(n,1)
     qtdCarrinho.innerHTML = Number(val)-1
+    gerarTabelaCarrinho()
 }
 
 function gerarLista() {
