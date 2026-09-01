@@ -2,6 +2,8 @@
 var cliente
 var mercados
 var listaPrecos = []
+const total = []
+const economia = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
     const respostaC = await fetch("http://localhost:8080/clientes/1");
@@ -17,6 +19,10 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         return;
     }
     mercados = await respostaM.json()
+    for (nm=0; nm<mercados.length; nm++) {
+        total.push(0)
+        economia.push(0)
+    }
 
     nItens = cliente.listaCompra.length
     for (n=0; n<nItens; n++) {
@@ -222,13 +228,7 @@ function atualizarValores() { // altera valores no rodapé da tabela, que mudam 
     trE = document.getElementById('trEconomia')
     trT.innerHTML = '<th>Total/Mercado</th><th></th><th></th>'
     trE.innerHTML = '<th>Economia</th><th></th><th></th>'
-    const total = []
-    const economia = []
     nMercados = document.getElementById('nMercados').value
-    for (nm=0; nm<nMercados; nm++) {
-        total.push(0)
-        economia.push(0)
-    }
     nItens = cliente.listaCompra.length
     for (ni=0; ni<nItens; ni++) {
         precoMedio = 0
@@ -303,7 +303,7 @@ function mostrarLista() {
     for (nm=0; nm<nMercados; nm++) {
         if (listas[mercados[nm].id]==null)
             continue
-        div.innerHTML += '<h2>'+mercados[nm].nome+'</h2>'
+        div.innerHTML += '<h3>'+mercados[nm].nome+' (R$ '+total[nm].toFixed(2)+')</h3>'
         ul = document.createElement('ul')
         div.appendChild(ul)
         for (np=0; np<listas[mercados[nm].id].length; np++)
