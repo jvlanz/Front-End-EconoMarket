@@ -13,7 +13,6 @@
 <body>
     <form class="formularioLogin">
         <div class="topo">
-
             <div class="logo">
                 <a href="paginaPrincipal.html">
                     <img src="/imagens/LogoEconoMarket.png" alt="" class="icone-logo">
@@ -21,10 +20,9 @@
             </div>
 
             <div class="title">
-                <h1 id="header">Seja bem-vindo</h1>
+                <h1>Seja bem-vindo</h1>
                 <p>Já sou cliente</p>
             </div>
-
         </div>
 
         <div class="inputs">
@@ -45,19 +43,11 @@
 
         <input type="button" class="btnentrar" onclick="entrar()" value="Entrar" />
 
+        <p class="mensagem-erro"></p>
 
-
-
-        <p id="mensagem-erro"></p>
-
-        <p id="texto-cadastre">Ainda não tem uma conta?
-            <a href="paginaCadastro.html">
-                <span id="cadastre">
-                    Cadastre-se aqui
-                </span>
-            </a>
-        </p>
-
+        <a href="paginaCadastro.html" class="link-cadastre">
+            <p>Ainda não tem uma conta?<span class="cadastre">Cadastre-se aqui</span></p>
+        </a>
     </form>
 
     <script src="../scripts/paginaLogin.js"></script>
