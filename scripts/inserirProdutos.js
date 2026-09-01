@@ -1,4 +1,4 @@
-async function preencherProdutos() {
+async function preencherProdutos(id=null) {
     const resposta = await fetch("http://localhost:8080/produtos");
 
     if (!resposta.ok) {
@@ -20,6 +20,7 @@ async function preencherProdutos() {
     const container = document.getElementById("categoria-geral");
 
     produtos.forEach(produto => {
+        if (id!=null && id!=produto.categoria.id) return
         let subcontainer = document.getElementById("categoria" + produto.categoria.id);
         if (subcontainer == null) {
             subcontainer = document.createElement("div");
