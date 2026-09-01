@@ -11,18 +11,53 @@
 </head>
 
 <body>
-    <form id="formularioLogin">
-        <h2 id="header">Seja Bem Vindo</h2>
-        <p></p>
-        <input type="text" id="emailinp" placeholder="E-mail">
-        <input type="password" id="senhainp" placeholder="Senha">
-        <input type="button" id="btnentrar" onclick="entrar()" value="Acessar a conta" />
-        
+    <form class="formularioLogin">
+        <div class="topo">
+
+            <div class="logo">
+                <a href="paginaPrincipal.html">
+                    <img src="/imagens/LogoEconoMarket.png" alt="" class="icone-logo">
+                </a>
+            </div>
+
+            <div class="title">
+                <h1 id="header">Seja bem-vindo</h1>
+                <p>Já sou cliente</p>
+            </div>
+
+        </div>
+
+        <div class="inputs">
+            <div class="email">
+                <p>E-mail</p>
+                <input type="email" class="emailinp">
+            </div>
+            <div class="senha">
+                <p>Senha</p>
+                <input type="password" class="senhainp">
+            </div>
+        </div>
+
+        <div class="recuperar">
+            <p>Recuperar e-mail</p>
+            <p>Recuperar senha</p>
+        </div>
+
+        <input type="button" class="btnentrar" onclick="entrar()" value="Entrar" />
+
+
+
+
         <p id="mensagem-erro"></p>
-            <p id="texto-cadastre">Ainda não tem uma conta?
-                <a href="paginaCadastro.html"><span id="cadastre">Cadastre-se
-                    aqui</span></p>
-        </a>
+
+        <p id="texto-cadastre">Ainda não tem uma conta?
+            <a href="paginaCadastro.html">
+                <span id="cadastre">
+                    Cadastre-se aqui
+                </span>
+            </a>
+        </p>
+
     </form>
 
     <script src="../scripts/paginaLogin.js"></script>
