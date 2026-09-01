@@ -11,12 +11,16 @@
     <script src="../scripts/listaCompra.js"></script>
     <link rel="stylesheet" href="../estilos/index.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const idCategoria = urlParams.get('categoria')
+    </script>
 </head>
 
 <body>
     <script>
         inserirHeader("header.html");
-        preencherProdutos();
+        preencherProdutos(idCategoria);
 
         function scrollNav(valor) {
             const navMenu = document.querySelector('.nav-menu');
