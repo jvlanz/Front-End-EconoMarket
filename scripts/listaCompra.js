@@ -33,7 +33,12 @@ async function obterItem(idCompra) {
     return item
 }
 
-async function alterarItem(idCompra, item) {
+async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
+    const item = {
+        idProduto: idProduto,
+        idCliente: idCliente,
+        quantidade: quantidade
+    }
     const respostaP = await fetch("http://localhost:8080/listaCompra/"+idCompra, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
