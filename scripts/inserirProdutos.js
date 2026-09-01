@@ -47,7 +47,7 @@ async function preencherProdutos() {
 
         const botaoAddCarrinho = document.createElement("button");
         botaoAddCarrinho.setAttribute("class", "btn-add");
-        botaoAddCarrinho.setAttribute("onclick", 'incluirLista('+produto.id+',1,'+produto.valorMedida+')')  //Cliente: 1
+        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto('+produto.id+',1,'+produto.valorMedida+')')  //Cliente: 1
         botaoAddCarrinho.id = 'add'+produto.id
         botaoAddCarrinho.innerHTML = "+";
         card.appendChild(botaoAddCarrinho);
@@ -70,4 +70,34 @@ async function preencherProdutos() {
 
     });
 
+}
+
+async function incluirProduto(idProduto, idCliente, quantidade) {
+    item = await incluirItem(idProduto, idCliente, quantidade)
+    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+    val = qtdCarrinho.innerHTML
+    qtdCarrinho.innerHTML = Number(val)+1
+    botaoAddCarrinho = document.getElementById('add'+idProduto)
+    botaoRemCarrinho = document.getElementById('rem'+idProduto)
+    botaoRemCarrinho.style.display = ''
+    botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade('+item.id+','+item.produto.valorMedida+')')
+    botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade('+item.id+','+(-item.produto.valorMedida)+')')
+}
+
+async function alterarQuantidade(idCompra, quantidade) {
+    item = await obterItem(idCompra)
+    item.quantidade += quantidade
+    botaoAddCarrinho = document.getElementById('add'+item.produto.id)
+    botaoRemCarrinho = document.getElementById('rem'+item.produto.id)
+    if (item.quantidade<=0) { // remover produto da lista
+        removerItem(idCompra)
+        botaoRemCarrinho.style.display = 'none'
+        botaoAddCarrinho.setAttribute("onclick", 'incluirItem('+item.produto.id+',1,'+quantidade+')')  //Cliente: 1
+        const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+        val = qtdCarrinho.innerHTML
+        qtdCarrinho.innerHTML = Number(val)-1
+        return
+    }
+    botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
+    alterarItem(idCompra, item)
 }

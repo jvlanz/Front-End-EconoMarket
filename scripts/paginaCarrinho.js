@@ -153,7 +153,7 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
             td.appendChild(label)
         }
         td = document.createElement('td')
-        td.innerHTML = '<button id="remover" onclick="removerItem('+item.id+','+ni+')">remover</button>'
+        td.innerHTML = '<button id="remover" onclick="remover('+item.id+','+ni+')">remover</button>'
         tr.appendChild(td)
     }
     preencherValores()
@@ -256,19 +256,8 @@ function atualizarValores() { // altera valores no rodapé da tabela, que mudam 
     }
 }
 
-function removerItem(id,n) { // remove item da listaCompra no banco de dados, bem como da listaCompra local (e da lista de preços)
-    fetch("http://localhost:8080/listaCompra/"+id, {
-        method: 'DELETE'
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log('item '+id+' removido')
-            gerarTabelaCarrinho()
-        } else {
-            console.error('erro ao remover produto:', response.status);
-        }
-    })
-    .catch(error => console.error('erro com a operação fetch:', error))
+function remover(id,n) { // remove item da listaCompra no banco de dados, bem como da listaCompra local (e da lista de preços)
+    removerItem(id)
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
     val = qtdCarrinho.innerHTML
     cliente.listaCompra.splice(n,1)
