@@ -24,24 +24,39 @@ async function preencherProdutos( args ) { // args é um objeto, que pode ter os
         if (args.id!=null && args.id!=produto.categoria.id) return
 
 // filtrar por busca
+        let subcontainer = document.getElementById("busca"); // usar mesmo subcontainer para todos os resultados da busca
         if (args.busca!=null) {
-            sel = true
+            if (subcontainer == null) {
+                subcontainer = document.createElement("div");
+                subcontainer.setAttribute("id", "busca");
+                subcontainer.setAttribute("class", "container1")
+                tituloCat = document.createElement('h2')
+                tituloCat.setAttribute("class", "titulo-secao");
+                tituloCat.innerHTML = 'Resultados da busca'
+                container.appendChild(tituloCat)
+                container.appendChild(subcontainer);
+            }
             args.busca.split(' ').forEach(filtro => {
+            sel = true
                 if (! produto.descricao.toLowerCase().includes(filtro.toLowerCase()))
                     sel = false
             })
             if (!sel)
                 return
+        } else {
+            subcontainer = document.getElementById("categoria" + produto.categoria.id);
         }
 
-        let subcontainer = document.getElementById("categoria" + produto.categoria.id);
         if (subcontainer == null) {
             subcontainer = document.createElement("div");
             subcontainer.setAttribute("id", "categoria" + produto.categoria.id);
             subcontainer.setAttribute("class", "container1")
+            tituloCat = document.createElement('h2')
+            tituloCat.setAttribute("class", "titulo-secao");
+            tituloCat.innerHTML = produto.categoria.categoria
+            container.appendChild(tituloCat)
             container.appendChild(subcontainer);
         }
-        //    if (id != null && id != produto.idCategoria) return;
 
         const card = document.createElement("div");
         card.setAttribute("class", "card-produto");

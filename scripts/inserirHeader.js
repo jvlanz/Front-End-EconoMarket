@@ -29,7 +29,7 @@ function inserirHeader(fname, element = document.body) {
 
 function buscar(input) {
     if (event.key==="Enter") {
-        window.open('paginaBusca.html?busca='+input.value, '_self')
+        window.open('paginaPrincipal.html?busca='+input.value, '_self')
     }
 }
 
