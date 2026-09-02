@@ -440,6 +440,13 @@ body {
     transform: scale(1.08);
 }
 
+.quantidade-produto {
+    position: absolute;
+    left: 18px;
+    bottom: 30px;
+    font-size: 20px;
+}
+
 .secao-info {
     margin-top: 40px;
     margin-bottom: 40px;

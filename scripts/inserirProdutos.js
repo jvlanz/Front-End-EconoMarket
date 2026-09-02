@@ -39,12 +39,17 @@ async function preencherProdutos(id=null) {
         imagem.setAttribute("class", "formatacao-imagem-card")
         card.appendChild(imagem);
 
-        //TO DO precos
+        //TODO informar faixa de preços
 
         const nome = document.createElement("div");
         nome.setAttribute("class", "nome-produto");
         nome.innerHTML = produto.descricao;
         card.appendChild(nome);
+
+        const quant = document.createElement("span")
+        quant.setAttribute("class", "quantidade-produto");
+        quant.id = 'qtd'+produto.id
+        card.appendChild(quant)
 
         const botaoAddCarrinho = document.createElement("button");
         botaoAddCarrinho.setAttribute("class", "btn-add");
@@ -52,7 +57,6 @@ async function preencherProdutos(id=null) {
         botaoAddCarrinho.id = 'add'+produto.id
         botaoAddCarrinho.innerHTML = "+";
         card.appendChild(botaoAddCarrinho);
-
 
         const botaoRemCarrinho = document.createElement("button");
         botaoRemCarrinho.setAttribute("class", "btn-rem");
@@ -65,6 +69,7 @@ async function preencherProdutos(id=null) {
                 botaoRemCarrinho.style.display = ''
                 botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade('+listaCompra[n].id+','+produto.valorMedida+')')
                 botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade('+listaCompra[n].id+','+(-produto.valorMedida)+')')
+                quant.innerHTML = listaCompra[n].quantidade+produto.medida
                 break
             }
         }
@@ -83,6 +88,8 @@ async function incluirProduto(idProduto, idCliente, quantidade) {
     botaoRemCarrinho.style.display = ''
     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade('+item.id+','+item.produto.valorMedida+')')
     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade('+item.id+','+(-item.produto.valorMedida)+')')
+    quant = document.getElementById('qtd'+idProduto)
+    quant.innerHTML = item.produto.valorMedida+item.produto.medida
 }
 
 async function alterarQuantidade(idCompra, quantidade) {
@@ -90,6 +97,7 @@ async function alterarQuantidade(idCompra, quantidade) {
     item.quantidade += quantidade
     botaoAddCarrinho = document.getElementById('add'+item.produto.id)
     botaoRemCarrinho = document.getElementById('rem'+item.produto.id)
+    quant = document.getElementById('qtd'+item.produto.id)
     if (item.quantidade<=0) { // remover produto da lista
         removerItem(idCompra)
         botaoRemCarrinho.style.display = 'none'
@@ -97,8 +105,10 @@ async function alterarQuantidade(idCompra, quantidade) {
         const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
         val = qtdCarrinho.innerHTML
         qtdCarrinho.innerHTML = Number(val)-1
+        quant.innerHTML = ''
         return
     }
     botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
     alterarItem(idCompra, item.produto.id, 1, item.quantidade)  // FIXME Cliente=1
+    quant.innerHTML = item.quantidade+item.produto.medida
 }
