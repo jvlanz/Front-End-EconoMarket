@@ -18,9 +18,13 @@
 </head>
 
 <body>
+    <!-- PRODUTOS -->
+    <div class="" id="categoria-geral">
+    </div>
+
     <script>
         inserirHeader("header.html");
-        preencherProdutos(idCategoria);
+        preencherProdutos({ id:idCategoria });
 
         function scrollNav(valor) {
             const navMenu = document.querySelector('.nav-menu');
@@ -29,14 +33,9 @@
                 left: valor,
                 behavior: 'smooth'
             });
-
-
         }
     </script>
 
-    <!-- PRODUTOS -->
-    <div class="" id="categoria-geral">
-    </div>
     <!-- HORTIFRUTI -->
     <div id="hortifruti" class="container1">
         <div class="card-produto"> <img src="../imagens/banana.jpg">

@@ -1,4 +1,4 @@
-async function preencherProdutos(id=null) {
+async function preencherProdutos( args ) { // args é um objeto, que pode ter os parâmetros 'id' e 'busca'
     const resposta = await fetch("http://localhost:8080/produtos");
 
     if (!resposta.ok) {
@@ -16,11 +16,24 @@ async function preencherProdutos(id=null) {
     cliente = await respostaC.json();
     listaCompra = cliente.listaCompra
 
-
     const container = document.getElementById("categoria-geral");
 
     produtos.forEach(produto => {
-        if (id!=null && id!=produto.categoria.id) return
+
+// filtrar por categoria
+        if (args.id!=null && args.id!=produto.categoria.id) return
+
+// filtrar por busca
+        if (args.busca!=null) {
+            sel = true
+            args.busca.split(' ').forEach(filtro => {
+                if (! produto.descricao.toLowerCase().includes(filtro.toLowerCase()))
+                    sel = false
+            })
+            if (!sel)
+                return
+        }
+
         let subcontainer = document.getElementById("categoria" + produto.categoria.id);
         if (subcontainer == null) {
             subcontainer = document.createElement("div");
