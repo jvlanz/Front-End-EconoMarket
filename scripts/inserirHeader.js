@@ -11,6 +11,8 @@ function inserirHeader(fname, element = document.body) {
                 divCategoria.insertBefore(alink,divCategoria.firstChild)
             }) */
             const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+            const input = document.getElementById("pesquisa");
+            input.addEventListener("keydown", () => { buscar(input) } )
             fetch("http://localhost:8080/clientes/1/size") // FIXME usar ID cliente
             .then(resposta => {
                 if (!resposta.ok) {
@@ -24,3 +26,10 @@ function inserirHeader(fname, element = document.body) {
         .catch(e => console.error('Include failed:', e));
 
 }
+
+function buscar(input) {
+    if (event.key==="Enter") {
+        window.open('paginaBusca.html?busca='+input.value, '_self')
+    }
+}
+
