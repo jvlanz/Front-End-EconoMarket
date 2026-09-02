@@ -141,7 +141,7 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
         qtd = document.createElement('span')
         qtd.id = 'qtd'+ni
         td.appendChild(qtd)
-        for (nm=0; nm<nMercados; nm++) {
+        for (nm=0; nm<mercados.length; nm++) {
             mercado = mercados[nm]
             td = document.createElement('td')
             td.style.textAlign = 'center'
@@ -157,6 +157,7 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
             label.innerHTML = ''
             td.appendChild(rad)
             td.appendChild(label)
+            if (nm>=nMercados) { td.style.display='none' }
         }
         td = document.createElement('td')
         td.innerHTML = '<button id="remover" onclick="remover('+item.id+','+ni+')">remover</button>'
@@ -175,7 +176,7 @@ function preencherValores() { // insere valores dos produtos para cada mercado (
         item = cliente.listaCompra[ni]
         qtd.innerHTML = item.quantidade + item.produto.medida
         marca = document.getElementById('sel'+item.produto.id).value
-        for (nm=0; nm<nMercados; nm++) {
+        for (nm=0; nm<mercados.length; nm++) {
             mercado = mercados[nm]
             lab = document.getElementById('lab'+ni+mercado.id)
             rad = document.getElementById('rad'+ni+mercado.id)
@@ -230,11 +231,15 @@ function atualizarValores() { // altera valores no rodapé da tabela, que mudam 
     trE.innerHTML = '<th>Economia</th><th></th><th></th>'
     nMercados = document.getElementById('nMercados').value
     nItens = cliente.listaCompra.length
+    for (nm=0; nm<nMercados; nm++) {
+        total[nm] = 0
+        economia[nm] = 0
+    }
     for (ni=0; ni<nItens; ni++) {
         precoMedio = 0
         nPrecos = 0
         minVal = 99999
-        for (nm=0; nm<nMercados; nm++) {
+        for (nm=0; nm<mercados.length; nm++) {
             val = Number(document.getElementById('lab'+ni+mercados[nm].id).innerHTML.split(' ')[1])
             if (val && val < minVal) {
                 precoMedio = (precoMedio*nPrecos + val) / (nPrecos+1)
