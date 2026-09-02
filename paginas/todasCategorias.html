@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirContato.js"></script>
     <link rel="stylesheet" href="../estilos/index.css">
     <link rel="stylesheet" href="../estilos/todasCategorias.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -14,7 +15,7 @@
 
 <body>
     <script>
-        inserirHeader("header.html");
+        inserirHeader();
         function scrollNav(valor) {
             const navMenu = document.querySelector('.nav-menu');
 
@@ -73,6 +74,15 @@
     </div>
 
 
+    <script>
+        inserirContato()
+    </script>
+
+    <footer>
+        <h1>Contato</h1>
+        <p>Ficou com alguma dúvida ou sugestão?</p>
+        <p>Email: <span class="destaque">economarket@gmail.com</span></p>
+    </footer>
 
 </body>
 

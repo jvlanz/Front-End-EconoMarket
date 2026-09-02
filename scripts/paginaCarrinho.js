@@ -160,7 +160,7 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
             if (nm>=nMercados) { td.style.display='none' }
         }
         td = document.createElement('td')
-        td.innerHTML = '<button id="remover" onclick="remover('+item.id+','+ni+')">remover</button>'
+        td.innerHTML = '<button class="remover" onclick="remover('+item.id+','+ni+')">remover</button>'
         tr.appendChild(td)
     }
     preencherValores()

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EconoMarket</title>
     <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirContato.js"></script>
     <script src="../scripts/paginaCarrinho.js"></script>
     <script src="../scripts/listaCompra.js"></script>
     <link rel="stylesheet" href="../estilos/index.css">
@@ -16,7 +17,7 @@
 
 <body>
     <script>
-        inserirHeader("header.html");
+        inserirHeader();
         function scrollNav(valor) {
             const navMenu = document.querySelector('.nav-menu');
             navMenu.scrollBy({
@@ -35,9 +36,9 @@
     <br>
     <center>
     <a href="paginaCarrinho.html#lista">
-        <button id="login" onclick="mostrarLista()">Gerar lista</button>
+        <button class="botao" onclick="mostrarLista()">Gerar lista</button>
     </a>
-    <button id="login" onclick="copiarLista()">Copiar lista</button>
+    <button class="botao" onclick="copiarLista()">Copiar lista</button>
     </center>
 
     <div class='modal' id='lista'>
@@ -48,14 +49,10 @@
         </div>
     </div>
 
+    <script>
+        inserirContato()
+    </script>
 
-    <footer>
-
-        <h1>Contato</h1>
-        <p>Ficou com alguma dúvida ou sugestão?</p>
-        <p>Email: <span class="destaque">economarket@gmail.com</span></p>
-
-    </footer>
 </body>
 
 </html>
