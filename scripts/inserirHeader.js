@@ -1,8 +1,8 @@
-function inserirHeader(fname, element = document.body) {
-    return fetch(fname)
+function inserirHeader() {
+    return fetch('header.html')
         .then(r => r.ok ? r.text() : Promise.reject(r.status))
         .then(content => {
-            element.insertAdjacentHTML('afterbegin', content);
+            document.body.insertAdjacentHTML('afterbegin', content);
             /* const divCategoria = document.getElementById('divCategorias')
             categorias.reverse().forEach ( item => {
                 alink = document.createElement('a')
@@ -24,7 +24,6 @@ function inserirHeader(fname, element = document.body) {
             })
         })
         .catch(e => console.error('Include failed:', e));
-
 }
 
 function buscar(input) {

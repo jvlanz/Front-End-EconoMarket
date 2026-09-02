@@ -277,7 +277,7 @@ body {
     line-height: 1;
 }
 
-#login {
+.botao {
     font-family: "Montserrat", sans-serif;
     padding: 10px 20px;
     border: 2px solid #38b000;
@@ -290,13 +290,13 @@ body {
     transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
 }
 
-#login:hover {
+.botao:hover {
     background: #2d8f2d;
     border-color: #2d8f2d;
     transform: translateY(-1px);
 }
 
-#remover {
+.remover {
     font-family: "Montserrat", sans-serif;
     padding: 5px 10px;
     border: 2px solid #b02020;
@@ -309,7 +309,7 @@ body {
     transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
 }
 
-#remover:hover {
+.remover:hover {
     background: #8f2d2d;
     border-color: #8f2d2d;
     transform: translateY(-1px);
