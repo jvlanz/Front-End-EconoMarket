@@ -1,15 +1,51 @@
+a {
+    text-decoration: none;
+}
+
+.categorias, h2, h3 {
+    padding: 1% 10%;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: lighter;
+
+    margin-left: 20px;
+}
 
 .categorias {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    row-gap: 30px;
-
-    padding: 1% 10%;
+    row-gap: 30px;   
 }
 
 .categoria {
-    border: .5px solid rgba(0, 0, 0, .3);
-    width: 70%;
+    border: .5px solid rgba(0, 0, 0, .1);
+    width: 90%;
+}
+
+.categoria img {
+    object-fit: contain;
+    width: 100%;  
+}
+
+.nome-categoria {
+    color: rgba(0, 0, 0, .8);
+    margin-bottom: 5px;
+}
+
+.categoria p {
+    padding: 10px 15px;
+}
+
+.sub-categorias p {
+    font-size: 14px;
+
+    color: rgba(0, 0, 0, .4);
 }
 
 
