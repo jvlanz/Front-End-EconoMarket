@@ -62,7 +62,10 @@ async function preencherProdutos( args ) { // args é um objeto, que pode ter os
         imagem.setAttribute("class", "formatacao-imagem-card")
         card.appendChild(imagem);
 
-        //TODO informar faixa de preços
+        const faixaPrecos = document.createElement("div");
+        faixaPrecos.setAttribute("class", "preco-produto");
+        faixaPrecos.innerHTML = produto.precoMin+'–'+produto.precoMax;
+        card.appendChild(faixaPrecos);
 
         const nome = document.createElement("div");
         nome.setAttribute("class", "nome-produto");
