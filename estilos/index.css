@@ -141,8 +141,6 @@ body {
 .nav-arrow {
     position: absolute;
 
-    right: 9%;
-
     z-index: 10;
 
     width: 40px;
@@ -171,9 +169,12 @@ body {
     color: #f0f0f0;
 }
 
-
 .nav-arrow.right {
     right: 9%;
+}
+
+.nav-arrow.left {
+    left: 21%;
 }
 
 .icone-logo {
