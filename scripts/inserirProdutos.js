@@ -26,23 +26,18 @@ async function preencherProdutos( args ) { // args é um objeto, que pode ter os
 // filtrar por busca
         let subcontainer = document.getElementById("busca"); // usar mesmo subcontainer para todos os resultados da busca
         if (args.busca!=null) {
-            if (subcontainer == null) {
-                subcontainer = document.createElement("div");
-                subcontainer.setAttribute("id", "busca");
-                subcontainer.setAttribute("class", "container1")
-                tituloCat = document.createElement('h2')
-                tituloCat.setAttribute("class", "titulo-secao");
-                tituloCat.innerHTML = 'Resultados da busca'
-                container.appendChild(tituloCat)
-                container.appendChild(subcontainer);
-            }
-            args.busca.split(' ').forEach(filtro => {
-            sel = true
-                if (! produto.descricao.toLowerCase().includes(filtro.toLowerCase()))
-                    sel = false
-            })
-            if (!sel)
-                return
+            if (filtrar(produto.descricao, args.busca)) {
+                if (subcontainer == null) {
+                    subcontainer = document.createElement("div");
+                    subcontainer.setAttribute("id", "busca");
+                    subcontainer.setAttribute("class", "container1")
+                    tituloCat = document.createElement('h2')
+                    tituloCat.setAttribute("class", "titulo-secao");
+                    tituloCat.innerHTML = 'Resultados da busca'
+                    container.appendChild(tituloCat)
+                    container.appendChild(subcontainer);
+                }
+              } else return
         } else {
             subcontainer = document.getElementById("categoria" + produto.categoria.id);
         }
@@ -139,4 +134,14 @@ async function alterarQuantidade(idCompra, quantidade) {
     botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
     alterarItem(idCompra, item.produto.id, 1, item.quantidade)  // FIXME Cliente=1
     quant.innerHTML = item.quantidade+item.produto.medida
+}
+
+function filtrar(nomeProduto, filtros) {
+    res = true
+    filtros.split(' ').forEach(filtro => {
+        if (! nomeProduto.toLowerCase().includes(filtro.toLowerCase()))
+            res = false
+            return
+    })
+    return res
 }
