@@ -1,77 +1,55 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: #f5f5f5;
-
-    min-height: 100vh;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#formularioLogin {
-    width: 380px;
-    padding: 35px;
-
+.formularioLogin-cadastro {
+    width: 25%;
+    height: 80%;
+    padding: 20px;
     background-color: white;
+    border-radius: 18px;
 
-    border-radius: 10px;
-
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
-    display: flex;
-    flex-direction: column;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-#header {
-    text-align: center;
-    margin-bottom: 25px;
-
-    color: #333;
+p {
+    font-size: 12px;
 }
 
-#formularioLogin input {
+input {
+
     width: 100%;
-    height: 45px;
+    height: 50px;
 
-    margin-bottom: 15px;
-    padding: 0 12px;
+    padding: 12px;
 
-    border: 1px solid #ccc;
-    border-radius: 5px;
-
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-
+    border: none;
     outline: none;
+
+    background-color: rgb(0, 0, 0, 0.04);
+    transition: .3s;
+
+    border-radius: 30px;
 }
 
-#formularioLogin input:focus {
-    border-color: #777;
+.termos {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
 }
 
-#cadastre-btn {
-    background-color: #333;
-    color: white;
+.termos input {
+    width: 20px;
+}
 
-    border: none !important;
+.termos span {
+    text-decoration: underline;
+    color: #084d92;
+}
 
-    cursor: pointer;
-
+.voltar-login {
+    color: #084d92;
     font-weight: bold;
-
-    transition: 0.2s;
+    margin-left: 5px;
 }
 
-#cadastre-btn:hover {
-    background-color: #555;
-}
 
 #mensagem-erro {
     color: #d32f2f;
