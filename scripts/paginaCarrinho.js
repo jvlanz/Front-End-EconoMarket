@@ -238,10 +238,9 @@ function atualizarValores() { // altera valores no rodapé da tabela, que mudam 
     for (ni=0; ni<nItens; ni++) {
         precoMedio = 0
         nPrecos = 0
-        minVal = 99999
         for (nm=0; nm<mercados.length; nm++) {
             val = Number(document.getElementById('lab'+ni+mercados[nm].id).innerHTML.split(' ')[1])
-            if (val && val < minVal) {
+            if (val) {
                 precoMedio = (precoMedio*nPrecos + val) / (nPrecos+1)
                 nPrecos += 1
             }
