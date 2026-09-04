@@ -15,8 +15,8 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     }
     id = await respostaLog.json();
     listaCompra = []
-    if (id > 0) {
-        const respostaC = await fetch("http://localhost:8080/clientes/" + id);
+    if (id>0) {
+        const respostaC = await fetch("http://localhost:8080/clientes/"+id);
         if (!respostaC.ok) {
             console.error("Erro ao buscar cliente");
             return;
@@ -24,7 +24,10 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         cliente = await respostaC.json();
         listaCompra = cliente.listaCompra
         const login = document.getElementById("login");
-        login.innerHTML = "Olá, " + cliente.nome.split(' ')[0]
+        login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
+    } else {
+        const cesta = document.getElementsByClassName("div-cesta")[0];
+        cesta.href = "paginaLogin.html"
     }
 
     const container = document.getElementById("categoria-geral");
