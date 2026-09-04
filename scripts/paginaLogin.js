@@ -1,18 +1,38 @@
-function entrar(event) {
+async function entrar(event) {
 
     const email = document.getElementById("emailinp")
-    const senha = document.getElementById("senhainp")
+    const password = document.getElementById("senhainp")
     const msgerro = document.getElementById("mensagem-erro")
 
     const novoLogin = {
         email: email.value,
-        senha: senha.value
+        password: password.value
     }
-    if (email == "" || senha == ""){
+    if (email === "" || password === "") {
         msgerro.innerHTML = "Por favor, preencha todos os campos!";
     }
 
-    
+    try {
+        console.log(novoLogin)
+        
+        const resposta = await fetch("http://localhost:8080/auth/login",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(novoLogin)
+        });
+        console.log("oi")
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao logar cliente");
+        }
+        window.location.href = "../paginas/paginaPrincipal.html";
+    } catch (erro) {
+        console.error(erro);
+
+        msgerro.innerText = "Erro ao realizar login!";
+    }
 
 
     //futura feature de verificação de login

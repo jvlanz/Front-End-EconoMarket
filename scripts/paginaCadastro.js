@@ -2,25 +2,26 @@ async function cadastrar() {
 
 
     const email = document.getElementById("email-cadastro")
-    const senha = document.getElementById("senha-cadastro")
+    const password = document.getElementById("senha-cadastro")
     const nome = document.getElementById("nome-cadastro")
     const telefone = document.getElementById("telefone-cadastro")
     const msgerro = document.getElementById("mensagem-erro")
 
 
-    if (email.value === "" || senha.value === "" || nome.value === "" || telefone.value === "") {
+    if (email.value === "" || password.value === "" || nome.value === "" || telefone.value === "") {
         msgerro.innerText = "Por favor, preencha todos os campos!";
         return;
     }
 
     const novoCliente = {
         email: email.value,
-        senha: senha.value,
+        password: password.value,
         nome: nome.value,
         telefone: telefone.value
     }
+    console.log(novoCliente);
     try {
-        const resposta = await fetch("http://localhost:8080/clientes",{
+        const resposta = await fetch("http://localhost:8080/auth/cadastro",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -30,15 +31,9 @@ async function cadastrar() {
         if (!resposta.ok) {
             throw new Error("Erro ao cadastrar cliente");
         }
-
-        const cliente = await resposta.json();
-
-        console.log("Cliente cadastrado:", cliente);
-
-        msgerro.innerText = "Cadastro concluido com sucesso";
-
+        //const cliente = await resposta.json();
         window.location.href = "../paginas/paginaLogin.html";
-
+        
     } catch (erro) {
         console.error(erro);
 
