@@ -13,6 +13,8 @@ body {
     font-family: "Inter", sans-serif;
     color: #222;
     overflow-x: hidden;
+
+    height: 1vh;
 }
 
 
@@ -643,6 +645,9 @@ footer {
     padding: 35px 20px;
     font-family: "Montserrat", sans-serif;
     line-height: 1.6;
+
+    position: relative;
+    bottom: -200px;   
 }
 
 footer p {
