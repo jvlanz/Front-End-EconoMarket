@@ -23,6 +23,8 @@ async function preencherProdutos( args ) { // args é um objeto, que pode ter os
         }
         cliente = await respostaC.json();
         listaCompra = cliente.listaCompra
+        const login = document.getElementById("login");
+        login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
     }
 
     const container = document.getElementById("categoria-geral");

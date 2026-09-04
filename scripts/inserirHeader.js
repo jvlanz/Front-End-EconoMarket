@@ -23,6 +23,8 @@ function inserirHeader() {
                 respostaLog.json()
                 .then(id => {
                     if (id>0) {
+                        const login = document.getElementById("login");
+                        login.innerHTML = "Olá"
                         fetch("http://localhost:8080/clientes/"+id+"/size") // FIXME usar ID cliente
                         .then(resposta => {
                             if (!resposta.ok) {
