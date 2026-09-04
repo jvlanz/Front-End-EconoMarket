@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
+</head>
+
+<body>
+    <div class="menu-upper">
+        <a href="paginaPrincipal.html"><img src="../imagens/LogoEconoMarket.png" alt="IconeLogo" class="icone-logo"></a>
+
+        <div class="container-pesquisa">
+            <input type="text" id="pesquisa" class="pesquisa" placeholder="Buscar Produtos...">
+            <img src="../imagens/IconeLupa.png" alt="IconeLupa" class="icone-lupa">
+        </div>
+        <a href="paginaLogin.html">
+            <button class="botao" id="login" onclick="abrirLogin()">Login</button>
+        </a>
+        <a href="paginaCarrinho.html" class="div-cesta">
+            <span class="material-symbols-outlined">
+                grocery
+            </span>
+            <p class="quantidade-carrinho">0</p>
+        </a>
+    </div>
+
+
+    <nav class="nav-wrapper">
+
+        <div class="todas-categorias">
+            <a href="todasCategorias.html"><i class="material-icons" id="icons-toc">toc</i>Todas as Categorias</a>
+        </div>
+
+        <button class="nav-arrow left" onclick="scrollNav(-100)">
+            &#10094;
+        </button>
+
+        <div class="nav-menu">
+            <a href="paginaPrincipal.html?categoria=1" id="categoria-hortifruti">Hortifruti</a>
+            <a href="paginaPrincipal.html?categoria=2" id="categoria-acougue">Açougue</a>
+            <a href="paginaPrincipal.html?categoria=3" id="categoria-frios-laticinios">Frios e Laticínios</a>
+            <a href="paginaPrincipal.html?categoria=4" id="categoria-congelados">Congelados</a>
+            <a href="paginaPrincipal.html?categoria=5" id="categoria-mercearia">Mercearia</a>
+            <a href="paginaPrincipal.html?categoria=6" id="categoria-limpeza">Limpeza</a>
+            <a href="paginaPrincipal.html?categoria=7" id="categoria-higiene-beleza">Higiene e Beleza</a>
+            <a href="paginaPrincipal.html?categoria=8" id="categoria-bebidas">Bebidas</a>
+            <a href="paginaPrincipal.html?categoria=9" id="categoria-utilidades">Utilidades</a>
+            <a href="paginaPrincipal.html?categoria=10" id="categoria-padaria">Padaria</a>
+            <a href="paginaPrincipal.html?categoria=11" id="categoria-pets">Pets</a>
+            <a href="paginaSobre.html">Sobre nós</a>
+            <a href="#contato">Contato</a>
+        </div>
+
+        <button class="nav-arrow right" onclick="scrollNav(100)">
+            &#10095;
+        </button>
+    </nav>
+</body>
+
+</html>

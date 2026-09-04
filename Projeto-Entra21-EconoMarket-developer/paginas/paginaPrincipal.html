@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EconoMarket</title>
+    <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirContato.js"></script>
+    <script src="../scripts/inserirProdutos.js"></script>
+    <script src="../scripts/listaCompra.js"></script>
+    <link rel="stylesheet" href="../estilos/index.css">
+    <link rel="stylesheet" href="../estilos/modal.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const idCategoria = urlParams.get('categoria')
+        const textoBusca = urlParams.get('busca')
+    </script>
+</head>
+
+<body>
+
+    <div class="" id="categoria-geral">
+    </div>
+
+    <script>
+        inserirHeader();
+        preencherProdutos({ id:idCategoria , busca:textoBusca });
+
+        function scrollNav(valor) {
+            const navMenu = document.querySelector('.nav-menu');
+
+            navMenu.scrollBy({
+                left: valor,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+    <script>
+        inserirContato()
+    </script>
+
+</body>
+
+</html>
