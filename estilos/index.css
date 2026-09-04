@@ -630,8 +630,6 @@ body {
         color: #222;
         font-size: 13px;
         font-weight: 700;
-
-
     }
 
     body {
@@ -649,7 +647,7 @@ footer {
     line-height: 1.6;
 
     position: relative;
-    bottom: -250px;   
+    bottom: -200px;   
 }
 
 footer p {
