@@ -28,35 +28,35 @@
         <div class="inputs">
             <div class="nome">
                 <p>Nome e sobrenome*</p>
-                <input type="text" id="nome-cadastro">
+                <input type="text" id="nome-cadastro" required>
             </div>
 
             <div class="email">
                 <p>E-mail*</p>
-                <input type="text" id="email-cadastro">
+                <input type="text" id="email-cadastro" required>
             </div>
 
             <div class="senha">
                 <p>Senha*</p>
-                <input type="password" id="senha-cadastro">
+                <input type="password" id="senha-cadastro" required>
             </div>
 
             <div class="telefone">
                 <p>Telefone*</p>
-                <input type="text" id="telefone-cadastro">
+                <input type="text" id="telefone-cadastro" required>
             </div>
         </div>
 
         <div class="termos">
-            <input type="checkbox"></button>
+            <input type="checkbox" required></button>
             <p>
                 Ao cadastrar-se, você concorda com os <span>Termos de Uso</span>
                 e a <span>Política de Privacidade<span>.
-            <p>
+                        <p>
         </div>
 
-        <input type="button" class="btnentrar" onclick="cadastrar()" value="Criar Cadastro" />
- 
+        <input type="submit" class="btnentrar" onclick="cadastrar()" value="Criar Cadastro" />
+
         <p id="mensagem-erro"></p>
 
         <p id="texto-voltar-login">Já tem uma conta?<span class="voltar-login" onclick="abrirLogin()">Faça login
