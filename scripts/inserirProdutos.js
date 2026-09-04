@@ -81,7 +81,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         const faixaPrecos = document.createElement("div");
         faixaPrecos.setAttribute("class", "preco-produto");
-        faixaPrecos.innerHTML = produto.precoMin + '–' + produto.precoMax;
+        faixaPrecos.innerHTML = `R$ ${produto.precoMin}-${produto.precoMax}`;
         card.appendChild(faixaPrecos);
 
         const nome = document.createElement("div");

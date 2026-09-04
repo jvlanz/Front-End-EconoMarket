@@ -51,8 +51,14 @@ h3 {
     font-size: 14px;
 
     color: rgba(0, 0, 0, .4);
+
+    transition: .3s;
 }
 
+.sub-categorias p:hover {
+    color: rgba(0, 0, 0, .7);
+    background-color: rgba(0, 0, 0, 0.1);
+}
 
 @media (max-width: 600px) {
     .container-categorias {
