@@ -13,14 +13,27 @@ function inserirHeader() {
             const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
             const input = document.getElementById("pesquisa");
             input.addEventListener("keydown", () => { buscar(input) } )
-            fetch("http://localhost:8080/clientes/1/size") // FIXME usar ID cliente
-            .then(resposta => {
-                if (!resposta.ok) {
-                    console.error("Erro ao buscar produtos");
-                } else {
-                    resposta.json()
-                    .then(qtd => qtdCarrinho.innerHTML = qtd)
+
+            fetch("http://localhost:8080/auth/status")
+            .then(respostaLog => {
+                if (!respostaLog.ok) {
+                    console.error("Erro ao determinar status");
+                    return;
                 }
+                respostaLog.json()
+                .then(id => {
+                    if (id>0) {
+                        fetch("http://localhost:8080/clientes/"+id+"/size") // FIXME usar ID cliente
+                        .then(resposta => {
+                            if (!resposta.ok) {
+                                console.error("Erro ao buscar produtos");
+                            } else {
+                                resposta.json()
+                                .then(qtd => qtdCarrinho.innerHTML = qtd)
+                            }
+                        })
+                    }
+                })
             })
         })
         .catch(e => console.error('Include failed:', e));

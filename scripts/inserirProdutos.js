@@ -8,14 +8,22 @@ async function preencherProdutos( args ) { // args é um objeto, que pode ter os
 
     const produtos = await resposta.json();
 
-//    const respostaC = await fetch("http://localhost:8080/clientes/1");
-//    if (!respostaC.ok) {
-//        console.error("Erro ao buscar cliente");
-//        return;
-//    }
-//    cliente = await respostaC.json();
-//    listaCompra = cliente.listaCompra
+    const respostaLog = await fetch("http://localhost:8080/auth/status");
+    if (!respostaLog.ok) {
+        console.error("Erro ao determinar status");
+        return;
+    }
+    id = await respostaLog.json();
     listaCompra = []
+    if (id>0) {
+        const respostaC = await fetch("http://localhost:8080/clientes/"+id);
+        if (!respostaC.ok) {
+            console.error("Erro ao buscar cliente");
+            return;
+        }
+        cliente = await respostaC.json();
+        listaCompra = cliente.listaCompra
+    }
 
     const container = document.getElementById("categoria-geral");
 
