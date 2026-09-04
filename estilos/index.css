@@ -16,7 +16,7 @@ body {
 }
 
 
-.container1,
+
 .secao-info,
 .titulo-secao {
     width: 100%;
@@ -368,26 +368,39 @@ body {
 
 /*Provisório o margin bottom, será necessário criar outros containers*/
 .container1 {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-    gap: 22px;
-    row-gap: 100px;
-    margin-top: 30px;
-    margin-bottom: 150px;
-    padding-top: 20px;
-    padding-bottom: 30px;
+    display: flex;
+    gap: 20px;
+
+    overflow-x: hidden;
+
+    width: 85%;
+
+    scroll-behavior: smooth;
+
+    scroll-snap-type: x mandatory;
+
+    margin-left: 10%;
 }
 
 .card-produto {
-    position: relative;
-    background: rgba(255, 255, 255, 0.75);
-    border-radius: 26px;
-    padding: 18px;
-    height: 130%;
     display: flex;
     flex-direction: column;
+
+    position: relative;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    border-radius: 26px;
+
+    padding: 18px;
+
+    flex: 0 0 250px;
+
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+
     transition: transform 0.18s ease, box-shadow 0.18s ease;
+
+    scroll-snap-align: start;
 }
 
 .card-produto:hover {
