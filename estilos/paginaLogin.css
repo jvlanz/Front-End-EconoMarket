@@ -76,8 +76,8 @@ body {
 }
 
 
-.emailinp,
-.senhainp,
+#emailinp,
+#senhainp,
 .btnentrar {
 
     width: 100%;
@@ -91,8 +91,8 @@ body {
     border-radius: 30px;
 }
 
-.emailinp,
-.senhainp {
+#emailinp,
+#senhainp {
     background-color: rgb(0, 0, 0, 0.04);
     transition: .3s;
 }
