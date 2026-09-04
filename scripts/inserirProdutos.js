@@ -13,8 +13,10 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         console.error("Erro ao determinar status");
         return;
     }
-    id = await respostaLog.json();
+//    id = await respostaLog.json();
+    id = await respostaLog.text();
     listaCompra = []
+    console.log(id)
     if (id>0) {
         const respostaC = await fetch("http://localhost:8080/clientes/"+id);
         if (!respostaC.ok) {
@@ -22,6 +24,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             return;
         }
         cliente = await respostaC.json();
+        console.log(cliente)
         listaCompra = cliente.listaCompra
         const login = document.getElementById("login");
         login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
