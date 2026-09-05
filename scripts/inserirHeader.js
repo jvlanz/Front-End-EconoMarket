@@ -31,7 +31,7 @@ function inserirHeader() {
                         login.innerHTML = "Olá"
                         fetch("http://localhost:8080/clientes/"+id+"/size", {
                             method: "GET",
-                            headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" }
+                            headers: { "Authorization": `Bearer ${token}` }
                         })
                         .then(resposta => {
                             if (!resposta.ok) {

@@ -6,12 +6,27 @@ const total = []
 const economia = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
-    const respostaC = await fetch("http://localhost:8080/clientes/1");
+    const token = sessionStorage.getItem("jwt");
+    const respostaLog = await fetch("http://localhost:8080/auth/status", {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!respostaLog.ok) {
+        console.error("Erro ao determinar status");
+        return;
+    }
+    id = await respostaLog.text();
+    const respostaC = await fetch("http://localhost:8080/clientes/"+id, {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
     if (!respostaC.ok) {
         console.error("Erro ao buscar cliente");
         return;
     }
     cliente = await respostaC.json();
+    const login = document.getElementById("login");
+    login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
 
     const respostaM = await fetch("http://localhost:8080/mercados");
     if (!respostaM.ok) {

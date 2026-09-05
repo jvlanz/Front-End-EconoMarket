@@ -1,4 +1,5 @@
 async function incluirItem(idProduto, idCliente, quantidade) {
+    const token = sessionStorage.getItem("jwt");
 //  const obterCarrinho = await fetch("http://localhost:8080/compras/"+idCliente);
 //  const compras = await obterCarrinho.json();
     const item = {
@@ -10,6 +11,7 @@ async function incluirItem(idProduto, idCliente, quantidade) {
     const resposta = await fetch("http://localhost:8080/listaCompra", {
         method: "POST",
         headers: {
+            "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
         },
         body: JSON.stringify(item)
@@ -24,7 +26,11 @@ async function incluirItem(idProduto, idCliente, quantidade) {
 }
 
 async function obterItem(idCompra) {
-    const resposta = await fetch("http://localhost:8080/listaCompra/"+idCompra);
+    const token = sessionStorage.getItem("jwt");
+    const resposta = await fetch("http://localhost:8080/listaCompra/"+idCompra, {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
     if (!resposta.ok) {
         console.error("Erro ao buscar item da lista");
         return;
@@ -34,6 +40,7 @@ async function obterItem(idCompra) {
 }
 
 async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
+    const token = sessionStorage.getItem("jwt");
     const item = {
         idProduto: idProduto,
         idCliente: idCliente,
@@ -41,7 +48,10 @@ async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
     }
     const respostaP = await fetch("http://localhost:8080/listaCompra/"+idCompra, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
         body: JSON.stringify(item)
     });
 
@@ -52,8 +62,10 @@ async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
 }
 
 async function removerItem(idCompra) {
+    const token = sessionStorage.getItem("jwt");
     await fetch("http://localhost:8080/listaCompra/"+idCompra, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: { "Authorization": `Bearer ${token}` }
     })
     .then(response => {
         if (response.ok) {
