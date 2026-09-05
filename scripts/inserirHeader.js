@@ -14,7 +14,11 @@ function inserirHeader() {
             const input = document.getElementById("pesquisa");
             input.addEventListener("keydown", () => { buscar(input) } )
 
-            fetch("http://localhost:8080/auth/status")
+            const token = sessionStorage.getItem("jwt");
+            fetch("http://localhost:8080/auth/status", {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` }
+            })
             .then(respostaLog => {
                 if (!respostaLog.ok) {
                     console.error("Erro ao determinar status");
@@ -25,7 +29,10 @@ function inserirHeader() {
                     if (id>0) {
                         const login = document.getElementById("login");
                         login.innerHTML = "Olá"
-                        fetch("http://localhost:8080/clientes/"+id+"/size") // FIXME usar ID cliente
+                        fetch("http://localhost:8080/clientes/"+id+"/size", {
+                            method: "GET",
+                            headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" }
+                        })
                         .then(resposta => {
                             if (!resposta.ok) {
                                 console.error("Erro ao buscar produtos");

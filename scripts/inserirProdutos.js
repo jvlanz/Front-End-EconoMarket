@@ -1,6 +1,7 @@
 async function preencherProdutos(args) { // args é um objeto, que pode ter os parâmetros 'id' e 'busca'
-    const resposta = await fetch("http://localhost:8080/produtos");
+    const token = sessionStorage.getItem("jwt");
 
+    const resposta = await fetch("http://localhost:8080/produtos");
     if (!resposta.ok) {
         console.error("Erro ao buscar produtos");
         return;
@@ -8,7 +9,10 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
     const produtos = await resposta.json();
 
-    const respostaLog = await fetch("http://localhost:8080/auth/status");
+    const respostaLog = await fetch("http://localhost:8080/auth/status", {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
     if (!respostaLog.ok) {
         console.error("Erro ao determinar status");
         return;
@@ -16,9 +20,11 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 //    id = await respostaLog.json();
     id = await respostaLog.text();
     listaCompra = []
-    console.log(id)
     if (id>0) {
-        const respostaC = await fetch("http://localhost:8080/clientes/"+id);
+        const respostaC = await fetch("http://localhost:8080/clientes/"+id, {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}`, "Content-Type": "application/json" }
+        });
         if (!respostaC.ok) {
             console.error("Erro ao buscar cliente");
             return;
