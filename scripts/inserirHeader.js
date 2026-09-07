@@ -15,33 +15,20 @@ function inserirHeader() {
             input.addEventListener("keydown", () => { buscar(input) } )
 
             const token = sessionStorage.getItem("jwt");
-            fetch("http://localhost:8080/auth/status", {
+            fetch("http://localhost:8080/auth/cliente", {
                 method: "GET",
                 headers: { "Authorization": `Bearer ${token}` }
             })
             .then(respostaLog => {
                 if (!respostaLog.ok) {
-                    console.error("Erro ao determinar status");
+                    console.error("Erro ao checar login");
                     return;
                 }
                 respostaLog.json()
-                .then(id => {
-                    if (id>0) {
-                        const login = document.getElementById("login");
-                        login.innerHTML = "Olá"
-                        fetch("http://localhost:8080/clientes/"+id+"/size", {
-                            method: "GET",
-                            headers: { "Authorization": `Bearer ${token}` }
-                        })
-                        .then(resposta => {
-                            if (!resposta.ok) {
-                                console.error("Erro ao buscar produtos");
-                            } else {
-                                resposta.json()
-                                .then(qtd => qtdCarrinho.innerHTML = qtd)
-                            }
-                        })
-                    }
+                .then(cliente => {
+                    const login = document.getElementById("login");
+                    login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
+                    qtdCarrinho.innerHTML = cliente.listaCompra.length
                 })
             })
         })

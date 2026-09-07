@@ -9,35 +9,17 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
     const produtos = await resposta.json();
 
-    const respostaLog = await fetch("http://localhost:8080/auth/status", {
+    listaCompra = []
+    const respostaC = await fetch("http://localhost:8080/auth/cliente", {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     });
-    if (!respostaLog.ok) {
-        console.error("Erro ao determinar status");
-        return;
+    if (!respostaC.ok) {
+        console.error("Erro ao buscar cliente");
+//      return;
     }
-//  idCliente = await respostaLog.json();
-    idCliente = await respostaLog.text();
-    listaCompra = []
-    if (idCliente>0) {
-        const respostaC = await fetch("http://localhost:8080/clientes/"+idCliente, {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-        if (!respostaC.ok) {
-            console.error("Erro ao buscar cliente");
-            return;
-        }
-        cliente = await respostaC.json();
-        console.log(cliente)
-        listaCompra = cliente.listaCompra
-        const login = document.getElementById("login");
-        login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
-    } else {
-        const cesta = document.getElementsByClassName("div-cesta")[0];
-        cesta.href = "paginaLogin.html"
-    }
+    cliente = await respostaC.json();
+    listaCompra = cliente.listaCompra
 
     const container = document.getElementById("categoria-geral");
 
@@ -102,7 +84,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         const botaoAddCarrinho = document.createElement("button");
         botaoAddCarrinho.setAttribute("class", "btn-add");
-        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ','+idCliente+',' + produto.valorMedida + ')')
+        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ','+cliente.id+',' + produto.valorMedida + ')')
         botaoAddCarrinho.id = 'add' + produto.id
         botaoAddCarrinho.innerHTML = "+";
         card.appendChild(botaoAddCarrinho);
@@ -116,8 +98,8 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         for (n = 0; n < listaCompra.length; n++) {
             if (listaCompra[n].produto.id == produto.id) {
                 botaoRemCarrinho.style.display = ''
-                botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + idCliente + ',' + produto.valorMedida + ')')
-                botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + idCliente + ',' + (-produto.valorMedida) + ')')
+                botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + produto.valorMedida + ')')
+                botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + (-produto.valorMedida) + ')')
                 quant.innerHTML = listaCompra[n].quantidade + produto.medida
                 break
             }

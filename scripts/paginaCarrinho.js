@@ -7,16 +7,7 @@ const economia = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
     const token = sessionStorage.getItem("jwt");
-    const respostaLog = await fetch("http://localhost:8080/auth/status", {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    });
-    if (!respostaLog.ok) {
-        console.error("Erro ao determinar status");
-        return;
-    }
-    id = await respostaLog.text();
-    const respostaC = await fetch("http://localhost:8080/clientes/"+id, {
+    const respostaC = await fetch("http://localhost:8080/auth/cliente", {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     });
@@ -25,8 +16,6 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         return;
     }
     cliente = await respostaC.json();
-    const login = document.getElementById("login");
-    login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
 
     const respostaM = await fetch("http://localhost:8080/mercados");
     if (!respostaM.ok) {
