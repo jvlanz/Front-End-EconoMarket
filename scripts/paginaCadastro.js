@@ -21,7 +21,7 @@ async function cadastrar() {
     }
     console.log(novoCliente);
     try {
-        const resposta = await fetch("http://localhost:8080/auth/cadastro",{
+        const resposta = await fetch("http://localhost:8080/auth/cadastro", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -31,9 +31,12 @@ async function cadastrar() {
         if (!resposta.ok) {
             throw new Error("Erro ao cadastrar cliente");
         }
-        //const cliente = await resposta.json();
-        window.location.href = "../paginas/paginaLogin.html";
-        
+
+        const data = await resposta.json();
+        console.log(data.token)
+        sessionStorage.setItem("jwt", data.token);
+        window.location.href = "../paginas/paginaPrincipal.html";
+
     } catch (erro) {
         console.error(erro);
 
@@ -43,6 +46,6 @@ async function cadastrar() {
     
 }
 
-function abrirLogin() {
-    window.location.href = "../paginas/paginaLogin.html";
-}
+//function abrirLogin() {
+//    window.location.href = "../paginas/paginaLogin.html";
+//}
