@@ -317,6 +317,7 @@ function mostrarLista() {
         for (np=0; np<listas[mercados[nm].id].length; np++)
             ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
     }
+    window.location.href = "paginaCarrinho.html#lista"
 }
 
 function copiarLista() {
