@@ -69,7 +69,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         const faixaPrecos = document.createElement("div");
         faixaPrecos.setAttribute("class", "preco-produto");
-        faixaPrecos.innerHTML = `R$ ${produto.precoMin}-${produto.precoMax}`;
+        faixaPrecos.innerHTML = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.',',');
         card.appendChild(faixaPrecos);
 
         const nome = document.createElement("div");
@@ -89,19 +89,6 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoAddCarrinho.innerHTML = "+";
         card.appendChild(botaoAddCarrinho);
 
-        botaoFavorito.id = 'fav' + produto.id;
-        botaoFavorito.className = "btn-favorito";
-        botaoFavorito.innerHTML = "♡";
-        card.appendChild(botaoFavorito);
-
-        botaoFavorito.addEventListener("click", function () {
-            if (botaoFavorito.innerHTML === "♡") {
-                botaoFavorito.innerHTML = "♥";
-            } else {
-                botaoFavorito.innerHTML = "♡";
-            }
-        });
-
         const botaoRemCarrinho = document.createElement("button");
         botaoRemCarrinho.setAttribute("class", "btn-rem");
         botaoRemCarrinho.id = 'rem' + produto.id
@@ -118,6 +105,19 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             }
         }
 
+        const botaoFavorito = document.createElement("button");
+        botaoFavorito.id = 'fav' + produto.id;
+        botaoFavorito.className = "btn-favorito";
+        botaoFavorito.innerHTML = "♡";
+        card.appendChild(botaoFavorito);
+
+        botaoFavorito.addEventListener("click", function () {
+            if (botaoFavorito.innerHTML === "♡") {
+                botaoFavorito.innerHTML = "♥";
+            } else {
+                botaoFavorito.innerHTML = "♡";
+            }
+        });
     });
 
 }
