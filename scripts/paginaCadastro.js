@@ -1,4 +1,5 @@
-async function cadastrar() {
+async function cadastrar(evento) {
+    evento.preventDefault();
 
 
     const email = document.getElementById("email-cadastro")
@@ -19,7 +20,6 @@ async function cadastrar() {
         nome: nome.value,
         telefone: telefone.value
     }
-    console.log(novoCliente);
     try {
         const resposta = await fetch("http://localhost:8080/auth/cadastro", {
             method: "POST",
@@ -33,19 +33,16 @@ async function cadastrar() {
         }
 
         const data = await resposta.json();
-        console.log(data.token)
         sessionStorage.setItem("jwt", data.token);
         window.location.href = "../paginas/paginaPrincipal.html";
 
     } catch (erro) {
         console.error(erro);
-
         msgerro.innerText = "Erro ao realizar cadastro!";
     }
 
-    
 }
 
-//function abrirLogin() {
-//    window.location.href = "../paginas/paginaLogin.html";
-//}
+function abrirLogin() {
+    window.location.href = "../paginas/paginaLogin.html";
+}

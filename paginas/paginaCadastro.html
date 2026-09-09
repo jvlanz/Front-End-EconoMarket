@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <form class="formularioLogin-cadastro">
+    <form id="formulario" class="formularioLogin-cadastro">
         <div class="topo">
             <div class="logo">
                 <a href="paginaPrincipal.html">
@@ -55,12 +55,15 @@
                         <p>
         </div>
 
-        <input type="submit" class="btnentrar" onclick="cadastrar()" value="Criar Cadastro" />
+        <input type="submit" class="btnentrar" value="Criar Cadastro" />
+        <script>
+            const formulario = document.getElementById("formulario");
+            formulario.addEventListener("submit", (evento) => { cadastrar(evento) })
+        </script>
 
         <p id="mensagem-erro"></p>
 
-        <p id="texto-voltar-login">Já tem uma conta?<span class="voltar-login" onclick="abrirLogin()">Faça login
-                aqui</span></p>
+        <p id="texto-voltar-login">Já tem uma conta?<span class="voltar-login" onclick="abrirLogin()">Faça login aqui</span></p>
     </form>
 
     <script src="../scripts/paginaCadastro.js"></script>
