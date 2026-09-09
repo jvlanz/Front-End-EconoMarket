@@ -89,6 +89,11 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoAddCarrinho.innerHTML = "+";
         card.appendChild(botaoAddCarrinho);
 
+        const botaoFavorito = document.createElement("button");
+        botaoFavorito.id = 'fav' + produto.id
+        botaoFavorito.innerHTML = "*"; // trocar para estrela/coração, vazado ou sólido
+        card.appendChild(botaoFavorito);
+
         const botaoRemCarrinho = document.createElement("button");
         botaoRemCarrinho.setAttribute("class", "btn-rem");
         botaoRemCarrinho.id = 'rem' + produto.id
