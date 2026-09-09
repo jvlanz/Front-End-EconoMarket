@@ -1,0 +1,78 @@
+a {
+    text-decoration: none;
+}
+
+.categorias, h2, h3 {
+    padding: 1% 10%;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: lighter;
+
+    margin-left: 20px;
+}
+
+.categorias {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    row-gap: 30px;   
+}
+
+.categoria {
+    width: 90%;
+
+    border: solid .1px rgba(0, 0, 0, .05);
+    border-radius: 20px;
+}
+
+.categoria img {
+    object-fit: contain;
+    width: 100%;  
+}
+
+.nome-categoria {
+    font-weight: 600;
+
+    color: rgba(0, 0, 0, .7);
+
+    margin-bottom: 5px;
+}
+
+.categoria p {
+    padding: 10px 15px;
+}
+
+.sub-categorias p {
+    font-size: 14px;
+
+    color: rgba(0, 0, 0, .4);
+
+    transition: .3s;
+}
+
+.sub-categorias p:hover {
+    color: rgba(0, 0, 0, .7);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 600px) {
+    .container-categorias {
+        padding: 25px 15px;
+        gap: 18px;
+    }
+
+    .card-categorias {
+        width: 100%;
+        max-width: 350px;
+        height: 120px;
+    }
+
+    .card-categorias a {
+        font-size: 16px;
+    }
+}

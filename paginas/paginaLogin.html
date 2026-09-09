@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paginaLogin</title>
+    <link rel="stylesheet" href="../estilos/paginaLogin.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <form id="formularioLogin" class="formularioLogin">
+        <div class="topo">
+            <div class="logo">
+                <a href="paginaPrincipal.html">
+                    <img src="../imagens/LogoEconoMarket.png" alt="" class="icone-logo">
+                </a>
+            </div>
+
+            <div class="title">
+                <h1>Seja bem-vindo</h1>
+                <p>Já sou cliente</p>
+            </div>
+        </div>
+
+        <div class="inputs">
+            <div class="email">
+                <p>E-mail</p>
+                <input type="email" id="emailinp" required />
+            </div>
+            <div class="senha">
+                <p>Senha</p>
+                <input type="password" id="senhainp" required />
+            </div>
+        </div>
+
+        <div class="recuperar">
+            <p>Recuperar e-mail</p>
+            <p>Recuperar senha</p>
+        </div>
+
+        <input type="submit" id="entrar" class="btnentrar" value="Entrar" />
+        <script>
+            formulario = document.getElementById("formularioLogin")
+            formulario.addEventListener("submit", (evento) => { entrar(evento) })
+        </script>
+
+        <p id="mensagem-erro"></p>
+
+        <a href="paginaCadastro.html" class="link-cadastre">
+            <p>Ainda não tem uma conta?<span class="cadastre">Cadastre-se aqui</span></p>
+        </a>
+    </form>
+
+    <script src="../scripts/paginaLogin.js"></script>
+</body>
+
+</html>

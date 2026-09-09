@@ -1,0 +1,335 @@
+
+var cliente
+var mercados
+var listaPrecos = []
+const total = []
+const economia = []
+
+async function obterDadosCarrinho() { // buscas no banco de dados
+    const token = sessionStorage.getItem("jwt");
+    const respostaC = await fetch("http://localhost:8080/auth/cliente", {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!respostaC.ok) {
+        console.error("Erro ao buscar cliente");
+        return;
+    }
+    cliente = await respostaC.json();
+
+    const respostaM = await fetch("http://localhost:8080/mercados");
+    if (!respostaM.ok) {
+        console.error("Erro ao buscar mercados");
+        return;
+    }
+    mercados = await respostaM.json()
+    for (nm=0; nm<mercados.length; nm++) {
+        total.push(0)
+        economia.push(0)
+    }
+
+    nItens = cliente.listaCompra.length
+    for (n=0; n<nItens; n++) {
+        item = cliente.listaCompra[n]
+        const respostaP = await fetch("http://localhost:8080/precos/"+item.produto.id);
+        if (!respostaP.ok) {
+            console.error("Erro ao buscar preços");
+            return;
+        }
+        const precos = await respostaP.json();
+        listaPrecos.push( {id:item.produto.id, precos:precos} )
+    }
+    ordenarMercados()
+    gerarTabelaCarrinho()
+}
+
+function ordenarMercados() { // coloca lista de mercados em ordem decrescente de 'economia'...
+    let economia = []
+    for (nm=0; nm<mercados.length; nm++)
+        economia.push(0)
+    nItens = listaPrecos.length
+    for (ni=0; ni<nItens; ni++) {
+        precoMedio = 0
+        nPrecos = 0
+        precos = listaPrecos[ni].precos
+        for (np=0; np<precos.length; np++) {
+            precoMedio = (precoMedio*nPrecos + precos[np].preco) / (nPrecos+1)
+            nPrecos += 1
+        }
+        for (nm=0; nm<mercados.length; nm++) {
+            for (np=0; np<precos.length; np++) {
+                if (precos[np].mercado.id==mercados[nm].id) {
+                    economia[nm] += (precoMedio - precos[np].preco)
+                    break
+                }
+            }
+        }
+    }
+    fmercados = []
+    minVal = Math.min(...economia)
+    while (fmercados.length<mercados.length) {
+        maxVal = Math.max(...economia)
+        fmercados.push(mercados[economia.indexOf(maxVal)])
+        economia[economia.indexOf(maxVal)] = minVal-1
+    }
+    mercados = fmercados
+}
+
+function gerarTabelaCarrinho() { // insere thead, tbody e tfoot
+    tab = document.getElementById('tabelaCarrinho')
+    tab.innerHTML = ''
+    thead = document.createElement('thead')
+    tab.appendChild(thead)
+    tr = document.createElement('tr')
+    tr.id = 'trHead'
+    thead.appendChild(tr)
+    tr.innerHTML = '<th>Produto</th><th>Marca</th><th>Quantidade</th>'
+    tbody = document.createElement('tbody')
+    tab.appendChild(tbody)
+    tfoot = document.createElement('tfoot')
+    tab.appendChild(tfoot)
+    tr = document.createElement('tr')
+    tr.id = 'trTotal'
+    tfoot.appendChild(tr)
+    tr = document.createElement('tr')
+    tr.id = 'trEconomia'
+    tfoot.appendChild(tr)
+    preencherTabelaCarrinho()
+}
+
+async function preencherTabelaCarrinho() { // preenche tbody com produtos e campos para N mercados
+    nMercados = document.getElementById('nMercados').value
+    if (nMercados>mercados.length) {
+        nMercados = mercados.length
+        document.getElementById('nMercados').value = mercados.length
+    }
+    tr = document.getElementById('trHead')
+    for (nm=0; nm<nMercados; nm++) {
+        tr.innerHTML += '<th>'+mercados[nm].nome+'</th>'
+    }
+    tr.innerHTML += '<th></th>'    // coluna extra para botão remover
+    tbody = document.getElementsByTagName('tbody')[0]
+    nItens = cliente.listaCompra.length
+    for (ni=0; ni<nItens; ni++) {
+        item = cliente.listaCompra[ni]
+        const precos = listaPrecos[ni].precos
+        tr = document.createElement('tr')
+        tbody.appendChild(tr)
+        td = document.createElement('td')
+        td.innerHTML = '<img src=../imagens/'+item.produto.figura+' height=50px></img>'+item.produto.descricao
+        td.style.backgroundColor = 'white'
+        td.style.borderRadius = '10px'
+        tr.appendChild(td)
+        td = document.createElement('td')   // marca
+        tr.appendChild(td)
+        sel = document.createElement('select')
+        sel.onchange = function () { preencherValores() }
+        sel.id = 'sel'+item.produto.id
+        td.appendChild(sel)
+        opt = document.createElement('option')
+        opt.value = ''
+        sel.appendChild(opt)
+        const marcas = []
+        precos.forEach(preco => {
+            if (marcas.indexOf(preco.produtoMarca.marca.id)==-1) {
+                marcas.push(preco.produtoMarca.marca.id)
+                var opt = document.createElement('option')
+                opt.value = preco.produtoMarca.marca.marca
+                opt.innerHTML = preco.produtoMarca.marca.marca
+                sel.appendChild(opt)
+            }
+        })
+        td = document.createElement('td')   // quantidade
+        td.style.textAlign = 'center'
+        tr.appendChild(td)
+        qtd = document.createElement('span')
+        qtd.id = 'qtd'+ni
+        td.appendChild(qtd)
+        for (nm=0; nm<mercados.length; nm++) {
+            mercado = mercados[nm]
+            td = document.createElement('td')
+            td.style.textAlign = 'center'
+            tr.appendChild(td)
+            const rad = document.createElement('input')
+            rad.setAttribute('class', 'checkbox')
+            rad.type = 'radio'
+            rad.id = 'rad'+ni+mercado.id
+            rad.name = 'rad'+ni
+            rad.disabled = true
+            label = document.createElement('label')
+            label.id = 'lab'+ni+mercado.id
+            label.innerHTML = ''
+            td.appendChild(rad)
+            td.appendChild(label)
+            if (nm>=nMercados) { td.style.display='none' }
+        }
+        td = document.createElement('td')
+        td.innerHTML = '<button class="remover" onclick="remover('+item.id+','+ni+')">remover</button>'
+        tr.appendChild(td)
+    }
+    preencherValores()
+    selecionarMinimos()
+    atualizarValores()
+}
+
+function preencherValores() { // insere valores dos produtos para cada mercado (se estiverem disponíveis)
+    nMercados = document.getElementById('nMercados').value
+    nItens = cliente.listaCompra.length
+    for (ni=0; ni<nItens; ni++) {
+        qtd = document.getElementById('qtd'+ni)
+        item = cliente.listaCompra[ni]
+        qtd.innerHTML = item.quantidade + item.produto.medida
+        marca = document.getElementById('sel'+item.produto.id).value
+        for (nm=0; nm<mercados.length; nm++) {
+            mercado = mercados[nm]
+            lab = document.getElementById('lab'+ni+mercado.id)
+            rad = document.getElementById('rad'+ni+mercado.id)
+            lab.innerHTML = ''
+            rad.disabled = true
+            val = 99999
+            for (np=0; np<listaPrecos.length; np++)
+                if (listaPrecos[np].id==item.produto.id) {
+                    precos = listaPrecos[np].precos
+                    break
+                }
+            precos.forEach(preco => {
+                if (preco.produtoMarca.produto.id==item.produto.id && preco.mercado.id==mercado.id) {
+                    if (marca!='' && marca!=preco.produtoMarca.marca.marca)
+                        return
+                    if (preco.preco<val) {
+                        val = preco.preco * item.quantidade / preco.produtoMarca.produto.valorMedida
+                        lab.innerHTML = 'R$ '+val.toFixed(2)
+                        rad.disabled = ''
+                        rad.value = preco.id
+                        rad.onclick = function() { atualizarValores() }
+                    }
+                }
+            })
+        }
+    }
+}
+
+function selecionarMinimos() { // seleção automática dos radio buttons
+    nMercados = document.getElementById('nMercados').value
+    nItens = cliente.listaCompra.length
+    for (ni=0; ni<nItens; ni++) {
+        minVal = 99999
+        minRad = 0
+        for (nm=0; nm<nMercados; nm++) {
+            rad = document.getElementById('rad'+ni+mercados[nm].id).checked
+            val = Number(document.getElementById('lab'+ni+mercados[nm].id).innerHTML.split(' ')[1])
+            if (val && val < minVal) {
+                minVal = val
+                minRad = mercados[nm].id
+            }
+        }
+        if (minRad>0)
+            document.getElementById('rad'+ni+minRad).checked = true
+    }
+}
+
+function atualizarValores() { // altera valores no rodapé da tabela, que mudam conforme a seleção de produtos
+    trT = document.getElementById('trTotal')
+    trE = document.getElementById('trEconomia')
+    trT.innerHTML = '<th>Total/Mercado</th><th></th><th></th>'
+    trE.innerHTML = '<th>Economia</th><th></th><th></th>'
+    nMercados = document.getElementById('nMercados').value
+    nItens = cliente.listaCompra.length
+    for (nm=0; nm<nMercados; nm++) {
+        total[nm] = 0
+        economia[nm] = 0
+    }
+    for (ni=0; ni<nItens; ni++) {
+        precoMedio = 0
+        nPrecos = 0
+        for (nm=0; nm<mercados.length; nm++) {
+            val = Number(document.getElementById('lab'+ni+mercados[nm].id).innerHTML.split(' ')[1])
+            if (val) {
+                precoMedio = (precoMedio*nPrecos + val) / (nPrecos+1)
+                nPrecos += 1
+            }
+        }
+        for (nm=0; nm<nMercados; nm++) {
+            rad = document.getElementById('rad'+ni+mercados[nm].id).checked
+            if (rad) {
+                val = Number(document.getElementById('lab'+ni+mercados[nm].id).innerHTML.split(' ')[1])
+                total[nm] += val
+                economia[nm] += (precoMedio - val)
+            }
+        }
+    }
+    for (nm=0; nm<nMercados; nm++) {
+        trT.innerHTML += `<th>R$ ${total[nm].toFixed(2)}</th>`
+        trE.innerHTML += `<th>R$ ${economia[nm].toFixed(2)}</th>`
+    }
+}
+
+function remover(id,n) { // remove item da listaCompra no banco de dados, bem como da listaCompra local (e da lista de preços)
+    removerItem(id)
+    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+    val = qtdCarrinho.innerHTML
+    cliente.listaCompra.splice(n,1)
+    listaPrecos.splice(n,1)
+    qtdCarrinho.innerHTML = Number(val)-1
+    gerarTabelaCarrinho()
+}
+
+function gerarLista() {
+    listas = []
+    for (ni=0; ni<cliente.listaCompra.length; ni++) {
+        selRad = document.querySelector('input[name=rad'+ni+']:checked')
+        if (selRad==null)
+            continue
+        idPreco = selRad.value
+        for (np=0; np<listaPrecos[ni].precos.length; np++) {
+            if (listaPrecos[ni].precos[np].id==idPreco) {
+                textoItem  = listaPrecos[ni].precos[np].produtoMarca.produto.descricao + ' '
+                textoItem += listaPrecos[ni].precos[np].produtoMarca.marca.marca + ', '
+//              textoItem += listaPrecos[ni].precos[np].mercado.nome + ' '
+                textoItem += cliente.listaCompra[ni].quantidade
+                textoItem += listaPrecos[ni].precos[np].produtoMarca.produto.medida + ' por '
+                textoItem += 'R$ ' + (listaPrecos[ni].precos[np].preco * cliente.listaCompra[ni].quantidade / listaPrecos[ni].precos[np].produtoMarca.produto.valorMedida).toFixed(2) + ' '
+                textoItem += '(R$ ' + listaPrecos[ni].precos[np].preco
+                textoItem += '/' + listaPrecos[ni].precos[np].produtoMarca.produto.valorMedida
+                textoItem += listaPrecos[ni].precos[np].produtoMarca.produto.medida + ')'
+                if (listas[listaPrecos[ni].precos[np].mercado.id]==null) {
+                    listas[listaPrecos[ni].precos[np].mercado.id] = []
+                }
+                listas[listaPrecos[ni].precos[np].mercado.id].push(textoItem)
+                break
+            }
+        }
+    }
+    return listas
+}
+
+function mostrarLista() {
+    listas = gerarLista()
+    nMercados = document.getElementById('nMercados').value
+    div = document.getElementById('listaCompra')
+    div.innerHTML = ''
+    for (nm=0; nm<nMercados; nm++) {
+        if (listas[mercados[nm].id]==null)
+            continue
+        div.innerHTML += '<h3>'+mercados[nm].nome+' (R$ '+total[nm].toFixed(2)+')</h3>'
+        ul = document.createElement('ul')
+        div.appendChild(ul)
+        for (np=0; np<listas[mercados[nm].id].length; np++)
+            ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
+    }
+    window.location.href = "paginaCarrinho.html#lista"
+}
+
+function copiarLista() {
+    listas = gerarLista()
+    texto = ''
+    for (nm=0; nm<nMercados; nm++) {
+        if (listas[mercados[nm].id]==null)
+            continue
+        texto += '\n'+mercados[nm].nome+'\n'
+        for (np=0; np<listas[mercados[nm].id].length; np++)
+            texto += '- ' + listas[mercados[nm].id][np]+'\n'
+    }
+    navigator.clipboard.writeText(texto)
+    window.alert('lista copiada para o clipboard')
+}
