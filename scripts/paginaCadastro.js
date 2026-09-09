@@ -1,4 +1,5 @@
-async function cadastrar() {
+async function cadastrar(evento) {
+    evento.preventDefault();
 
 
     const email = document.getElementById("email-cadastro")
@@ -19,9 +20,8 @@ async function cadastrar() {
         nome: nome.value,
         telefone: telefone.value
     }
-    console.log(novoCliente);
     try {
-        const resposta = await fetch("http://localhost:8080/auth/cadastro",{
+        const resposta = await fetch("http://localhost:8080/auth/cadastro", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -31,16 +31,16 @@ async function cadastrar() {
         if (!resposta.ok) {
             throw new Error("Erro ao cadastrar cliente");
         }
-        //const cliente = await resposta.json();
-        window.location.href = "../paginas/paginaLogin.html";
-        
+
+        const data = await resposta.json();
+        sessionStorage.setItem("jwt", data.token);
+        window.location.href = "../paginas/paginaPrincipal.html";
+
     } catch (erro) {
         console.error(erro);
-
         msgerro.innerText = "Erro ao realizar cadastro!";
     }
 
-    
 }
 
 function abrirLogin() {

@@ -11,7 +11,7 @@
     <script src="../scripts/paginaCarrinho.js"></script>
     <script src="../scripts/listaCompra.js"></script>
     <link rel="stylesheet" href="../estilos/index.css">
-    <link rel="stylesheet" href="../estilos/modal.css">
+    <link rel="stylesheet" href="../estilos/formularios.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -28,17 +28,15 @@
     </script>
 
     <label for='nMercados'>Número de mercados</label>
-    <input id='nMercados' type=number value=3 min=1 style="width:25px" onchange="gerarTabelaCarrinho()">
+    <input id='nMercados' type=number value=3 min=1 style="width:60px" onchange="gerarTabelaCarrinho()">
     <br>
     <table id='tabelaCarrinho'></table>
     <script>obterDadosCarrinho()</script>
 
     <br>
     <center>
-    <a href="paginaCarrinho.html#lista">
         <button class="botao" onclick="mostrarLista()">Gerar lista</button>
-    </a>
-    <button class="botao" onclick="copiarLista()">Copiar lista</button>
+        <button class="botao" onclick="copiarLista()">Copiar lista</button>
     </center>
 
     <div class='modal' id='lista'>

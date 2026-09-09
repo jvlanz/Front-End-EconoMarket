@@ -6,7 +6,11 @@ const total = []
 const economia = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
-    const respostaC = await fetch("http://localhost:8080/clientes/1");
+    const token = sessionStorage.getItem("jwt");
+    const respostaC = await fetch("http://localhost:8080/auth/cliente", {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
     if (!respostaC.ok) {
         console.error("Erro ao buscar cliente");
         return;
@@ -313,6 +317,7 @@ function mostrarLista() {
         for (np=0; np<listas[mercados[nm].id].length; np++)
             ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
     }
+    window.location.href = "paginaCarrinho.html#lista"
 }
 
 function copiarLista() {
