@@ -1,5 +1,5 @@
 async function incluirFavorito(idProduto, idCliente) {
-    const token = sessionStorage.getItem("jwt");
+    const token = sessionStorage.getItem("token");
     const item = {
         idProduto: idProduto,
         idCliente: idCliente
@@ -23,7 +23,7 @@ async function incluirFavorito(idProduto, idCliente) {
 }
 
 async function removerFavorito(idFavorito) {
-    const token = sessionStorage.getItem("jwt");
+    const token = sessionStorage.getItem("token");
     await fetch("http://localhost:8080/favoritos/"+idFavorito, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${token}` }

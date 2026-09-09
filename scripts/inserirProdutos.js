@@ -1,5 +1,5 @@
 async function preencherProdutos(args) { // args é um objeto, que pode ter os parâmetros 'id' e 'busca'
-    const token = sessionStorage.getItem("jwt");
+    const token = sessionStorage.getItem("token");
 
     const resposta = await fetch("http://localhost:8080/produtos");
     if (!resposta.ok) {
@@ -9,17 +9,20 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
     const produtos = await resposta.json();
 
+    cliente = {id:null}
     listaCompra = []
-    const respostaC = await fetch("http://localhost:8080/auth/cliente", {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    });
-    if (!respostaC.ok) {
-        console.error("Erro ao buscar cliente");
-        //      return;
+    if (token!=null) {
+        const respostaC = await fetch("http://localhost:8080/auth/cliente", {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        if (!respostaC.ok) {
+            console.error("Erro ao buscar cliente");
+    //      return;
+        }
+        cliente = await respostaC.json();
+        listaCompra = cliente.listaCompra
     }
-    cliente = await respostaC.json();
-    listaCompra = cliente.listaCompra
 
     const container = document.getElementById("categoria-geral");
 
@@ -84,7 +87,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         const botaoAddCarrinho = document.createElement("button");
         botaoAddCarrinho.setAttribute("class", "btn-add");
-        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
+        if (token!=null) {
+            botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
+        }
         botaoAddCarrinho.id = 'add' + produto.id
         botaoAddCarrinho.innerHTML = "+";
         card.appendChild(botaoAddCarrinho);
@@ -105,28 +110,30 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             }
         }
 
-        const botaoFavorito = document.createElement("button");
-        botaoFavorito.id = 'fav' + produto.id;
-        botaoFavorito.className = "btn-favorito";
-        botaoFavorito.innerHTML = "♡";
-        card.appendChild(botaoFavorito);
-        var favId = null
-        cliente.favoritos.forEach(favorito => {
-            if (favorito.produto.id==produto.id) {
-                botaoFavorito.innerHTML = "♥";
-                favId = favorito.id
-            }
-        })
+        if (token!=null) {
+            const botaoFavorito = document.createElement("button");
+            botaoFavorito.id = 'fav' + produto.id;
+            botaoFavorito.className = "btn-favorito";
+            botaoFavorito.innerHTML = "♡";
+            card.appendChild(botaoFavorito);
+            var favId = null
+            cliente.favoritos.forEach(favorito => {
+                if (favorito.produto.id==produto.id) {
+                    botaoFavorito.innerHTML = "♥";
+                    favId = favorito.id
+                }
+            })
 
-        botaoFavorito.addEventListener("click", function () {
-            if (botaoFavorito.innerHTML === "♡") {
-                incluirFavorito(produto.id, cliente.id)
-                botaoFavorito.innerHTML = "♥";
-            } else {
-                removerFavorito(`${favId}`)
-                botaoFavorito.innerHTML = "♡";
-            }
-        });
+            botaoFavorito.addEventListener("click", function () {
+                if (botaoFavorito.innerHTML === "♡") {
+                    incluirFavorito(produto.id, cliente.id)
+                    botaoFavorito.innerHTML = "♥";
+                } else {
+                    removerFavorito(`${favId}`)
+                    botaoFavorito.innerHTML = "♡";
+                }
+            });
+        }
     });
 
 }

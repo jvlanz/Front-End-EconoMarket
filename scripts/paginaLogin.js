@@ -30,7 +30,7 @@ async function entrar(event) {
 
         const data = await resposta.json();
         console.log(data.token)
-        sessionStorage.setItem("jwt", data.token);
+        sessionStorage.setItem("token", data.token);
         window.location.href = "../paginas/paginaPrincipal.html";
     } catch (erro) {
         console.error(erro);

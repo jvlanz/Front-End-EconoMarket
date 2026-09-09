@@ -6,7 +6,7 @@ const total = []
 const economia = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
-    const token = sessionStorage.getItem("jwt");
+    const token = sessionStorage.getItem("token");
     const respostaC = await fetch("http://localhost:8080/auth/cliente", {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }

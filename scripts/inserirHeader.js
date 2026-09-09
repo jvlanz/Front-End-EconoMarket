@@ -14,7 +14,7 @@ function inserirHeader() {
             const input = document.getElementById("pesquisa");
             input.addEventListener("keydown", () => { buscar(input) } )
 
-            const token = sessionStorage.getItem("jwt");
+            const token = sessionStorage.getItem("token");
             fetch("http://localhost:8080/auth/cliente", {
                 method: "GET",
                 headers: { "Authorization": `Bearer ${token}` }
@@ -26,9 +26,11 @@ function inserirHeader() {
                 }
                 respostaLog.json()
                 .then(cliente => {
-                    const login = document.getElementById("login");
-                    login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
-                    qtdCarrinho.innerHTML = cliente.listaCompra.length
+                    if (cliente.nome!=null) {
+                        const login = document.getElementById("login");
+                        login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
+                        qtdCarrinho.innerHTML = cliente.listaCompra.length
+                    }
                 })
             })
         })

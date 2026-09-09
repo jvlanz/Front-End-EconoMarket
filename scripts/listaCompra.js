@@ -1,5 +1,5 @@
 async function incluirItem(idProduto, idCliente, quantidade) {
-    const token = sessionStorage.getItem("jwt");
+    const token = sessionStorage.getItem("token");
 //  const obterCarrinho = await fetch("http://localhost:8080/compras/"+idCliente);
 //  const compras = await obterCarrinho.json();
     const item = {
@@ -26,7 +26,7 @@ async function incluirItem(idProduto, idCliente, quantidade) {
 }
 
 async function obterItem(idCompra) {
-    const token = sessionStorage.getItem("jwt");
+    const token = sessionStorage.getItem("token");
     const resposta = await fetch("http://localhost:8080/listaCompra/"+idCompra, {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
@@ -40,7 +40,7 @@ async function obterItem(idCompra) {
 }
 
 async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
-    const token = sessionStorage.getItem("jwt");
+    const token = sessionStorage.getItem("token");
     const item = {
         idProduto: idProduto,
         idCliente: idCliente,
@@ -62,7 +62,7 @@ async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
 }
 
 async function removerItem(idCompra) {
-    const token = sessionStorage.getItem("jwt");
+    const token = sessionStorage.getItem("token");
     await fetch("http://localhost:8080/listaCompra/"+idCompra, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${token}` }

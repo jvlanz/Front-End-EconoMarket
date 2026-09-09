@@ -33,7 +33,7 @@ async function cadastrar(evento) {
         }
 
         const data = await resposta.json();
-        sessionStorage.setItem("jwt", data.token);
+        sessionStorage.setItem("token", data.token);
         window.location.href = "../paginas/paginaPrincipal.html";
 
     } catch (erro) {
@@ -44,7 +44,7 @@ async function cadastrar(evento) {
 }
 
 function abrirLogin() {
-    const token = sessionStorage.getItem("jwt");
+    const token = sessionStorage.getItem("token");
     if (!token) {
         window.location.href = "../paginas/paginaLogin.html";
     }
