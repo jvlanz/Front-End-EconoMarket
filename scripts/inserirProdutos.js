@@ -110,11 +110,20 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoFavorito.className = "btn-favorito";
         botaoFavorito.innerHTML = "♡";
         card.appendChild(botaoFavorito);
+        var favId = null
+        cliente.favoritos.forEach(favorito => {
+            if (favorito.produto.id==produto.id) {
+                botaoFavorito.innerHTML = "♥";
+                favId = favorito.id
+            }
+        })
 
         botaoFavorito.addEventListener("click", function () {
             if (botaoFavorito.innerHTML === "♡") {
+                incluirFavorito(produto.id, cliente.id)
                 botaoFavorito.innerHTML = "♥";
             } else {
+                removerFavorito(`${favId}`)
                 botaoFavorito.innerHTML = "♡";
             }
         });
