@@ -8,10 +8,6 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-p {
-    font-size: 12px;
-}
-
 input {
 
     width: 100%;
@@ -32,6 +28,8 @@ input {
     display: flex;
     align-items: center;
 
+    font-size: 14px;
+
     gap: 10px;
 }
 
@@ -44,13 +42,6 @@ input {
     color: #084d92;
 }
 
-.voltar-login {
-    color: #084d92;
-    font-weight: bold;
-    margin-left: 5px;
-}
-
-
 #mensagem-erro {
     color: #d32f2f;
 
@@ -61,28 +52,4 @@ input {
     min-height: 18px;
 
     margin-bottom: 10px;
-}
-
-#texto-voltar-login {
-    text-align: center;
-
-    font-size: 13px;
-
-    color: #555;
-
-    margin-top: 5px;
-}
-
-#voltar-login {
-    color: #333;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-    margin-left: 5px;
-}
-
-#voltar-login:hover {
-    text-decoration: underline;
 }

@@ -123,15 +123,18 @@ body {
     transition: .3s;
 }
 
-.link-cadastre {
+.link-cadastre,
+.link-login {
     text-align: center;
     text-decoration: none;
 
     color: black;
 
+    font-size: 14px;  
 }
 
-.cadastre {
+.cadastre,
+.login {
     color: #084d92;
     font-weight: bold;
     margin-left: 5px;
@@ -149,13 +152,23 @@ body {
     margin-bottom: 10px;
 }
 
-.inputs input:focus {
-    background-color: white;
-    border: 2px solid black;
+#emailinp:hover,
+#senhainp:hover,
+#nome-cadastro:hover,
+#email-cadastro:hover,
+#senha-cadastro:hover,
+#telefone-cadastro:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
-.inputs input:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+#emailinp:focus,
+#senhainp:focus,
+#nome-cadastro:focus,
+#email-cadastro:focus,
+#senha-cadastro:focus,
+#telefone-cadastro:focus {
+    background-color: white;
+    border: 2px solid black;
 }
 
 .recuperar p:hover {
@@ -166,7 +179,8 @@ body {
     background-color: #056200;
 }
 
-.cadastre:hover {
+.cadastre:hover,
+.login:hover {
     text-decoration: underline;
     cursor: pointer;
 }
