@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+
+    box-sizing: border-box;
+
+    font-family: "Montserrat", sans-serif;
+}
+
+.imagem-produto {
+    width: 600px;
+    position: relative;
+}
+
+.paginaProduto {
+    padding: 7% 15%;
+
+    display: flex;
+    gap: 100px;
+}
+
+.informacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.nome p {
+    font-size: 24px;
+}
+
+.preco p {
+    font-size: 18px;
+}
+
+.quantidade {
+    display: flex;
+    gap: 60px;
+
+    align-items: center;
+
+}
+
+.set-quantidade {
+    display: flex;
+    gap: 40px;
+
+    border: .5px solid rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+
+    padding: 10px;
+
+    font-size: 18px;
+
+    align-items: center;
+}
+
+.set-quantidade button {
+    font-size: 24px;
+    font-weight: 500;
+    
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.adicionar-carrinho {
+    padding: 10px 15px;
+
+    border-radius: 30px;
+
+    background-color: #099801;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    border: none;
+}
+
+.set-quantidade button:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.adicionar-carrinho:hover {
+    background-color: #056200;
+}
+
+.btn-favorito {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: none;
+    color: #182f57;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-favorito:hover {
+    transform: scale(1.1);
+/*    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);*/
+}
