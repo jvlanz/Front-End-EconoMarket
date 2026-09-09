@@ -14,7 +14,6 @@ body {
     color: #222;
     overflow-x: hidden;
 
-    height: 1vh;
 }
 
 .secao-info,
@@ -602,7 +601,7 @@ footer {
     line-height: 1.6;
 
     position: relative;
-    bottom: -200px;
+    bottom: -250px;
 }
 
 footer p {
