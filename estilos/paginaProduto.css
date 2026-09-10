@@ -9,7 +9,9 @@
     font-family: "Montserrat", sans-serif;
 }
 
-.imagem-produto img {
+
+
+.imagem-produto {
     width: 600px;
     position: relative;
 }
@@ -32,6 +34,7 @@
 
 .nome p {
     font-size: 24px;
+    font-weight: 700;
 }
 
 .comparativo-preco {
@@ -51,7 +54,7 @@
     display: flex;
     justify-content: space-between;
 
-    padding: 10px 20px;
+    padding: 10px 15px;
 
     transition: .3s;
 }
