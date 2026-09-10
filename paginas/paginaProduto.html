@@ -6,17 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/estilos/paginaProduto.css">
-    <link rel="stylesheet" href="/estilos/index.css">
-    <script src="/scripts/inserirHeader.js"></script>
-    <script src="/scripts/inserirContato.js"></script>
+    <link rel="stylesheet" href="../estilos/paginaProduto.css">
+    <link rel="stylesheet" href="../estilos/index.css">
+    <script src="../scripts/paginaProduto.js"></script>
+    <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirContato.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const idProduto = urlParams.get('produto')
+    </script>
 </head>
 
 <body>
-    <script>inserirHeader()
+    <script>
+        inserirHeader()
+        inserirProduto(idProduto)
     </script>
 
-    <div class="paginaProduto">
+    <div id="paginaProduto" class="paginaProduto">
 
         <div class="imagem-produto">
             <img src="/imagens/arroz.jpg" alt="">
