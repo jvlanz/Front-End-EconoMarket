@@ -21,11 +21,22 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         cliente = await respostaC.json();
         listaCompra = cliente.listaCompra
     } else {
-        cliente = { id:null }
+        cliente = {id:null}
         listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     }
 
     const container = document.getElementById("categoria-geral");
+
+// subcontainer para favoritos, inicialmente invisível
+    subcontainerFav = document.createElement("div");
+    subcontainerFav.setAttribute("class", "container1")
+    tituloFav = document.createElement('h2')
+    tituloFav.setAttribute("class", "titulo-secao");
+    tituloFav.innerHTML = 'Produtos favoritos'
+    container.appendChild(tituloFav)
+    container.appendChild(subcontainerFav);
+    tituloFav.style.display = 'none'
+    subcontainerFav.style.display = 'none'
 
     produtos.forEach(produto => {
 
@@ -125,6 +136,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 if (favorito.produto.id==produto.id) {
                     botaoFavorito.innerHTML = "♥";
                     favId = favorito.id
+                    tituloFav.style.display = ''
+                    subcontainerFav.style.display = ''
+                    subcontainerFav.appendChild(card.cloneNode(true))
                 }
             })
 
