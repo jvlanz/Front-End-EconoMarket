@@ -9,8 +9,8 @@
     font-family: "Montserrat", sans-serif;
 }
 
-.imagem-produto {
-    width: 6px;
+.imagem-produto img {
+    width: 600px;
     position: relative;
 }
 

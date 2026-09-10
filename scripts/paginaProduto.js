@@ -28,20 +28,10 @@ async function inserirProduto(produtoId) {
 
     produtos.forEach(produto => {
         if (produto.id===Number(produtoId)) {
-            divPagina = document.getElementById("paginaProduto")
-            divImagem = document.createElement("div")
-            divImagem.setAttribute("class", "imagem-produto")
-            divPagina.appendChild(divImagem)
-            imagem = document.createElement("img")
-            imagem.src = `../imagens/${produto.figura}`
-            imagem.alt = ""
-            divImagem.appendChild(imagem)
-
-/*
-<div class="paginaProduto">
-
+            const html = `
+    
         <div class="imagem-produto">
-            <img src="/imagens/arroz.jpg" alt="">
+            <img src="/imagens/${produto.figura}" alt="">
             <button class="btn-favorito">♡</button>
         </div>
         
@@ -49,7 +39,7 @@ async function inserirProduto(produtoId) {
         <div class="informacoes">
 
             <div class="nome">
-                <p>Leite UHT Semidesnatado Zero Lactose Tirol Premiare Caixa com Tampa 1l</p>
+                <p>${produto.descricao}</p>
             </div>
 
             <div class="comparativo-preco">
@@ -78,9 +68,9 @@ async function inserirProduto(produtoId) {
 
             <input class="adicionar-carrinho" type="button" value="Adicionar carrinho">
         </div>
-
-    </div>
-*/
+ `
+            
+            document.querySelector(".paginaProduto").innerHTML = html
         } else {
             return
         }
