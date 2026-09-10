@@ -88,16 +88,14 @@ input {
 #senhainp:hover,
 #nome-cadastro:hover,
 #email-cadastro:hover,
-#senha-cadastro:hover,
-#telefone-cadastro:hover {
+#senha-cadastro:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 #emailinp:focus,
 #senhainp:focus,
 #nome-cadastro:focus,
 #email-cadastro:focus,
-#senha-cadastro:focus,
-#telefone-cadastro:focus {
+#senha-cadastro:focus {
     background-color: white;
     border: 2px solid black;
 }
