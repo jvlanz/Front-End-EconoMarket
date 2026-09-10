@@ -1,10 +1,20 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+}
 .formularioLogin-editar {
     width: 25%;
-    height: 80%;
-    padding: 20px;
+    max-width: 450px;
+    min-width: 320px;
+    padding: 30px;
     background-color: white;
     border-radius: 18px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 .topo {
     display: flex;
