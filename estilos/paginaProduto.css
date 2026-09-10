@@ -9,16 +9,19 @@
     font-family: "Montserrat", sans-serif;
 }
 
-.imagem-produto {
-    width: 6px;
+.imagem-produto img {
+    width: 600px;
     position: relative;
 }
 
 .paginaProduto {
-    padding: 7% 15%;
+    padding: 5% 15%;
 
     display: flex;
     gap: 100px;
+
+    justify-content: center;
+    align-items: center;
 }
 
 .informacoes {
@@ -42,12 +45,15 @@
     border: .5px solid rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 
-    padding: 10px;
 }
 
 .mercado {
     display: flex;
     justify-content: space-between;
+
+    padding: 10px 20px;
+
+    transition: .3s;
 }
 
 .quantidade {
@@ -107,6 +113,10 @@
 
 .adicionar-carrinho:hover {
     background-color: #056200;
+}
+
+.mercado:hover {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .btn-favorito {
