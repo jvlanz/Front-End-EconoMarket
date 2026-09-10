@@ -9,8 +9,6 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
     const produtos = await resposta.json();
 
-    cliente = {id:null}
-    listaCompra = []
     if (token!=null) {
         const respostaC = await fetch("http://localhost:8080/auth/cliente", {
             method: "GET",
@@ -22,6 +20,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         }
         cliente = await respostaC.json();
         listaCompra = cliente.listaCompra
+    } else {
+        cliente = { id:null }
+        listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     }
 
     const container = document.getElementById("categoria-geral");
@@ -87,9 +88,6 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         const botaoAddCarrinho = document.createElement("button");
         botaoAddCarrinho.setAttribute("class", "btn-add");
-        if (token!=null) {
-            botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
-        }
         botaoAddCarrinho.id = 'add' + produto.id
         botaoAddCarrinho.innerHTML = "+";
         card.appendChild(botaoAddCarrinho);
@@ -100,17 +98,19 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoRemCarrinho.innerHTML = "–";
         botaoRemCarrinho.style.display = 'none'
         card.appendChild(botaoRemCarrinho);
-        for (n = 0; n < listaCompra.length; n++) {
-            if (listaCompra[n].produto.id == produto.id) {
-                botaoRemCarrinho.style.display = ''
-                botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + produto.valorMedida + ')')
-                botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + (-produto.valorMedida) + ')')
-                quant.innerHTML = listaCompra[n].quantidade + produto.medida
-                break
-            }
-        }
 
-        if (token!=null) {
+        if (token!=null) { // cliente logado
+            botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
+            for (n=0; n<listaCompra.length; n++) {
+                if (listaCompra[n].produto.id == produto.id) {
+                    botaoRemCarrinho.style.display = ''
+                    botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + produto.valorMedida + ')')
+                    botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + (-produto.valorMedida) + ')')
+                    quant.innerHTML = listaCompra[n].quantidade + produto.medida
+                    break
+                }
+            }
+
             const botaoFavorito = document.createElement("button");
             botaoFavorito.id = 'fav' + produto.id;
             botaoFavorito.className = "btn-favorito";
@@ -133,9 +133,29 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     botaoFavorito.innerHTML = "♡";
                 }
             });
+        } else { // cliente não logado
+            botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
+            for (n=0; n<listaCompra.length; n++) {
+                if (listaCompra[n].id == produto.id) {
+                    botaoRemCarrinho.style.display = ''
+                    botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
+                    botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + produto.id + ',' + (-produto.valorMedida) + ', "' + produto.medida + '")')
+                    quant.innerHTML = listaCompra[n].quantidade + produto.medida
+                    break
+                }
+            }
         }
     });
+}
 
+function filtrar(nomeProduto, filtros) {
+    res = true
+    filtros.split(' ').forEach(filtro => {
+        if (!nomeProduto.toLowerCase().includes(filtro.toLowerCase()))
+            res = false
+        return
+    })
+    return res
 }
 
 async function incluirProduto(idProduto, idCliente, quantidade) {
@@ -149,7 +169,7 @@ async function incluirProduto(idProduto, idCliente, quantidade) {
     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + item.produto.valorMedida + ')')
     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + (-item.produto.valorMedida) + ')')
     quant = document.getElementById('qtd' + idProduto)
-    quant.innerHTML = item.produto.valorMedida + item.produto.medida
+    quant.innerHTML = item.quantidade + item.produto.medida
 }
 
 async function alterarQuantidade(idCompra, idCliente, quantidade) {
@@ -161,7 +181,7 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
     if (item.quantidade <= 0) { // remover produto da lista
         removerItem(idCompra)
         botaoRemCarrinho.style.display = 'none'
-        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + quantidade + ')')  // FIXME Cliente=1
+        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + quantidade + ')')
         const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
         val = qtdCarrinho.innerHTML
         qtdCarrinho.innerHTML = Number(val) - 1
@@ -169,16 +189,56 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
         return
     }
     botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
-    alterarItem(idCompra, item.produto.id, idCliente, item.quantidade)  // FIXME Cliente=1
+    alterarItem(idCompra, item.produto.id, idCliente, item.quantidade)
     quant.innerHTML = item.quantidade + item.produto.medida
 }
 
-function filtrar(nomeProduto, filtros) {
-    res = true
-    filtros.split(' ').forEach(filtro => {
-        if (!nomeProduto.toLowerCase().includes(filtro.toLowerCase()))
-            res = false
-        return
-    })
-    return res
+
+// funções para salvar lista de compras em sessionStorage, não no banco de dados
+
+async function incluirProdutoLocal(idProduto, quantidade, medida) {
+    item = {id:idProduto, quantidade:quantidade, medida:medida}
+    listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+    listaCompra.push(item)
+    sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra));
+//
+    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+    val = qtdCarrinho.innerHTML
+    qtdCarrinho.innerHTML = Number(val) + 1
+    botaoAddCarrinho = document.getElementById('add' + idProduto)
+    botaoRemCarrinho = document.getElementById('rem' + idProduto)
+    botaoRemCarrinho.style.display = ''
+    botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + quantidade + ', "' + medida + '")')
+    botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + (-quantidade) + ', "' + medida + '")')
+    quant = document.getElementById('qtd' + idProduto)
+    quant.innerHTML = item.quantidade + medida
 }
+
+async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
+    listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+    for (n=0; n<listaCompra.length; n++) {
+        if (listaCompra[n].id==idProduto) {
+            item = listaCompra[n]
+            item.quantidade += quantidade
+            break
+        }
+    }
+    botaoAddCarrinho = document.getElementById('add' + idProduto)
+    botaoRemCarrinho = document.getElementById('rem' + idProduto)
+    quant = document.getElementById('qtd' + idProduto)
+    if (item.quantidade <= 0) { // remover produto da lista
+        listaCompra.splice(n,1)
+        sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
+        botaoRemCarrinho.style.display = 'none'
+        botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + quantidade + ', "' + medida + '")')
+        const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+        val = qtdCarrinho.innerHTML
+        qtdCarrinho.innerHTML = Number(val) - 1
+        quant.innerHTML = ''
+        return
+    }
+    botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
+    sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
+    quant.innerHTML = item.quantidade + medida
+}
+

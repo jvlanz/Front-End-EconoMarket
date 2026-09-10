@@ -15,24 +15,29 @@ function inserirHeader() {
             input.addEventListener("keydown", () => { buscar(input) } )
 
             const token = sessionStorage.getItem("token");
-            fetch("http://localhost:8080/auth/cliente", {
-                method: "GET",
-                headers: { "Authorization": `Bearer ${token}` }
-            })
-            .then(respostaLog => {
-                if (!respostaLog.ok) {
-                    console.error("Erro ao checar login");
-                    return;
-                }
-                respostaLog.json()
-                .then(cliente => {
-                    if (cliente.nome!=null) {
-                        const login = document.getElementById("login");
-                        login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
-                        qtdCarrinho.innerHTML = cliente.listaCompra.length
-                    }
+            if (token!=null) {
+                fetch("http://localhost:8080/auth/cliente", {
+                    method: "GET",
+                    headers: { "Authorization": `Bearer ${token}` }
                 })
-            })
+                .then(respostaLog => {
+                    if (!respostaLog.ok) {
+                        console.error("Erro ao checar login");
+                        return;
+                    }
+                    respostaLog.json()
+                    .then(cliente => {
+                        if (cliente.nome!=null) {
+                            const login = document.getElementById("login");
+                            login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
+                            qtdCarrinho.innerHTML = cliente.listaCompra.length
+                        }
+                    })
+                })
+            } else {
+                listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+                qtdCarrinho.innerHTML = listaCompra.length
+            }
         })
         .catch(e => console.error('Include failed:', e));
 }
