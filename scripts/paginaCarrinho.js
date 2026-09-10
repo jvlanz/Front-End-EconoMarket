@@ -7,15 +7,26 @@ const economia = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
     const token = sessionStorage.getItem("token");
-    const respostaC = await fetch("http://localhost:8080/auth/cliente", {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    });
-    if (!respostaC.ok) {
-        console.error("Erro ao buscar cliente");
-        return;
+    if (token!=null) {
+        const respostaC = await fetch("http://localhost:8080/auth/cliente", {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+        if (!respostaC.ok) {
+            console.error("Erro ao buscar cliente");
+            return;
+        }
+        cliente = await respostaC.json();
+    } else { // recriar lista de compras a partir de dados salvos em sessionStorage
+        cliente = {listaCompra:[]}
+//      cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+        lista = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+        lista.forEach(item => {
+            item.produto = {}
+            item.produto.id = item.id
+            cliente.listaCompra.push(item)
+        })
     }
-    cliente = await respostaC.json();
 
     const respostaM = await fetch("http://localhost:8080/mercados");
     if (!respostaM.ok) {
@@ -38,6 +49,11 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         }
         const precos = await respostaP.json();
         listaPrecos.push( {id:item.produto.id, precos:precos} )
+        if (token==null && precos.length>0) {
+            cliente.listaCompra[n].produto.descricao = precos[0].produtoMarca.produto.descricao
+            cliente.listaCompra[n].produto.medida = precos[0].produtoMarca.produto.medida
+            cliente.listaCompra[n].produto.figura = precos[0].produtoMarca.produto.figura
+        }
     }
     ordenarMercados()
     gerarTabelaCarrinho()

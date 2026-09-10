@@ -197,11 +197,10 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
 // funções para salvar lista de compras em sessionStorage, não no banco de dados
 
 async function incluirProdutoLocal(idProduto, quantidade, medida) {
-    item = {id:idProduto, quantidade:quantidade, medida:medida}
+    item = {id:idProduto, quantidade:quantidade} //, produto:{id:idProduto,medida:medida,valorMedida:quantidade}}
     listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     listaCompra.push(item)
     sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra));
-//
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
     val = qtdCarrinho.innerHTML
     qtdCarrinho.innerHTML = Number(val) + 1
@@ -230,7 +229,7 @@ async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
         listaCompra.splice(n,1)
         sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
         botaoRemCarrinho.style.display = 'none'
-        botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + quantidade + ', "' + medida + '")')
+        botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + Math.abs(quantidade) + ', "' + medida + '")')
         const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
         val = qtdCarrinho.innerHTML
         qtdCarrinho.innerHTML = Number(val) - 1
