@@ -9,6 +9,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
     const produtos = await resposta.json();
 
+    listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     if (token!=null) {
         const respostaC = await fetch("http://localhost:8080/auth/cliente", {
             method: "GET",
@@ -16,13 +17,10 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         });
         if (!respostaC.ok) {
             console.error("Erro ao buscar cliente");
-    //      return;
         }
+        console.log(respostaC)
         cliente = await respostaC.json();
         listaCompra = cliente.listaCompra
-    } else {
-        cliente = {id:null}
-        listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     }
 
     const container = document.getElementById("categoria-geral");
