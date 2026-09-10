@@ -478,6 +478,11 @@ body {
 
 @media (max-width: 768px) {
 
+    .menu-upper {
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
     .topo,
     .container1,
     .secao-info,
@@ -493,13 +498,23 @@ body {
         gap: 18px;
     }
 
-    .icone-logo {
+    .menu-upper .icone-logo {
         width: 145px;
+        order: 1;
     }
 
-    .container-pesquisa {
+    .menu-upper .container-pesquisa {
         width: 100%;
+        flex-basis: 100%;
+        order: 2;
+    }
+
+    .menu-upper > a[href="paginaLogin.html"] {
         order: 3;
+    }
+
+    .menu-upper > .div-cesta {
+        order: 4;
     }
 
     .pesquisa {
