@@ -15,6 +15,6 @@ function checarTokenExpirado(token) {
 
 token = sessionStorage.getItem("token")
 if (token!=null && checarTokenExpirado(token)) {
-	window.alert("Login expirado")
+	window.alert("Token expirado. Faça login novamente.")
 	sessionStorage.removeItem("token")
 }
