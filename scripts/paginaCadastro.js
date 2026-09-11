@@ -43,12 +43,3 @@ async function cadastrar(evento) {
 
 }
 
-function abrirLogin() {
-    const token = sessionStorage.getItem("token");
-    if (!token) {
-        window.location.href = "../paginas/paginaLogin.html";
-    }
-    else {
-        window.location.href = "../paginas/paginaEditarPerfil.html"
-    }
-}
