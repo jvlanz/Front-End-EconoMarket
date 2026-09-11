@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EconoMarket</title>
+    <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirContato.js"></script>
+    <script src="../scripts/paginaCarrinho.js"></script>
+    <script src="../scripts/checarTokenExpirado.js"></script>
+    <script src="../scripts/listaCompra.js"></script>
+    <link rel="stylesheet" href="../estilos/index.css">
+    <link rel="stylesheet" href="../estilos/formularios.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        inserirHeader();
+        function scrollNav(valor) {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.scrollBy({
+                left: valor,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+    <label for='nMercados'>Número de mercados</label>
+    <input id='nMercados' type=number value=3 min=1 style="width:60px" onchange="gerarTabelaCarrinho()">
+    <br>
+    <table id='tabelaCarrinho'></table>
+    <script>obterDadosCarrinho()</script>
+
+    <br>
+    <center>
+        <button class="botao" onclick="mostrarLista()">Gerar lista</button>
+        <button class="botao" onclick="copiarLista()">Copiar lista</button>
+    </center>
+
+    <div class='modal' id='lista'>
+        <a href='#' style='font-size:2000px; color:#0000'>___</a> <!-- hack para 'fechar' modal ao clicar fora do conteúdo -->
+        <div class='modalContent'>
+            <div id='listaCompra'></div>
+            <a href='#' class='closeButton'>&times;</a>
+        </div>
+    </div>
+
+    <script>
+        inserirContato()
+    </script>
+
+</body>
+
+</html>

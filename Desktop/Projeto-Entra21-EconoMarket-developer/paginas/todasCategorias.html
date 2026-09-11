@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirContato.js"></script>
+    <script src="../scripts/checarTokenExpirado.js"></script>
+    <link rel="stylesheet" href="../estilos/index.css">
+    <link rel="stylesheet" href="../estilos/formularios.css">
+    <link rel="stylesheet" href="../estilos/todasCategorias.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        inserirHeader();
+        function scrollNav(valor) {
+            const navMenu = document.querySelector('.nav-menu');
+
+            navMenu.scrollBy({
+                left: valor,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+
+
+    <h2>Categorias</h2>
+
+    <div class="categorias">
+        <a class="categoria" href="paginaPrincipal.html?categoria=1">
+            <img src="../imagens/categorias-hortifruti.webp" alt="">
+            <p class="nome-categoria">Hortifruti</p>
+            <div class="sub-categorias">
+                <p>Frutas</p>
+                <p>Legumes</p>
+                <p>Ovos</p>
+                <p>Verduras</p>
+                <p>Orgânicos</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=2">
+            <img src="../imagens/categorias-acougue.webp" alt="">
+            <p class="nome-categoria">Açougue</p>
+            <div class="sub-categorias">
+                <p>Carnes bovinas</p>
+                <p>Frango</p>
+                <p>Carne suína</p>
+                <p>Linguiça</p>
+                <p>Pão de alho</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=3">
+            <img src="../imagens/categorias-frios-e-aticinios.webp" alt="">
+            <p class="nome-categoria">Frios e Laticínios</p>
+            <div class="sub-categorias">
+                <p>Leite</p>
+                <p>Queijo</p>
+                <p>Iogurte</p>
+                <p>Embutidos</p>
+                <p>Requeijão & queijo cremoso</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=4">
+            <img src="../imagens/categorias-congelados.webp" alt="">
+            <p class="nome-categoria">Congelados</p>
+            <div class="sub-categorias">
+                <p>Pizza</p>
+                <p>Pratos prontos</p>
+                <p>Empanados</p>
+                <p>Batatas congeladas</p>
+                <p>Pão de queijo</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=5">
+            <img src="../imagens/categorias-mercearia.webp" alt="">
+            <p class="nome-categoria">Mercearia</p>
+            <div class="sub-categorias">
+                <p>Cafés</p>
+                <p>Alimentos básicos</p>
+                <p>Azeite, óleo e vinagre</p>
+                <p>Chocolates e doces</p>
+                <p>Biscoitos e torradas</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=6">
+            <img src="../imagens/categorias-limpeza.webp" alt="">
+            <p class="nome-categoria">Limpeza</p>
+            <div class="sub-categorias">
+                <p>Limpeza de roupas</p>
+                <p>Limpeza da casa</p>
+                <p>Limpeza da cozinha</p>
+                <p>Limpeza de banheiro</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=7">
+            <img src="../imagens/categorias-higiene-e-beleza.webp" alt="">
+            <p class="nome-categoria">Higiene e Beleza</p>
+            <div class="sub-categorias">
+                <p>Papel higiênico</p>
+                <p>Corpo</p>
+                <p>Cabelo</p>
+                <p>Higiene bucal</p>
+                <p>Intímo</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=8">
+            <img src="../imagens/categorias-bebidas.webp" alt="">
+            <p class="nome-categoria">Bebidas</p>
+            <div class="sub-categorias">
+                <p>Refrigerantes</p>
+                <p>Água</p>
+                <p>Sucos e refrescos</p>
+                <p>Energéticos</p>
+                <p>Água de coco</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=9">
+            <img src="../imagens/categorias-utilidades.webp" alt="">
+            <p class="nome-categoria">Utilidades</p>
+            <div class="sub-categorias">
+                <p>Têxtil</p>
+                <p>Proteção contra chuva</p>
+                <p>Cozinha</p>
+                <p>Chimarrão e café</p>
+                <p>Churrasco</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=10">
+            <img src="../imagens/categorias-padaria.webp" alt="">
+            <p class="nome-categoria">Padaria</p>
+            <div class="sub-categorias">
+                <p>Padaria</p>
+                <p>Confeitaria</p>
+            </div>
+        </a>
+
+        <a class="categoria" href="paginaPrincipal.html?categoria=11">
+            <img src="../imagens/categorias-pets.webp" alt="">
+            <p class="nome-categoria">Pets</p>
+            <div class="sub-categorias">
+                <p>Cães</p>
+                <p>Gatos</p>
+            </div>
+        </a>
+    </div>
+
+    <script>
+        inserirContato()
+    </script>
+
+</body>
+
+</html>
