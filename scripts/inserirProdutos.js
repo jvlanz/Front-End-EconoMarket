@@ -18,7 +18,6 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         if (!respostaC.ok) {
             console.error("Erro ao buscar cliente");
         }
-        console.log(respostaC)
         cliente = await respostaC.json();
         listaCompra = cliente.listaCompra
     }
@@ -136,26 +135,15 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     favId = favorito.id
                     tituloFav.style.display = ''
                     subcontainerFav.style.display = ''
-                    favCard = card.cloneNode(true) // FIXME clonar dá problemas para favoritar e adicionar quantidade pq cria elementos com mesmo ID
-/* TESTAR
-                    favCard.quant.id = 'favqtd' + produto.id
-                    favCard.botaoRemCarrinho.id = 'favrem' + produto.id
-                    favCard.botaoAddCarrinho.id = 'favadd' + produto.id
-                    favCard.botaoFavorito.id = 'favfav' + produto.id
-*/
+                    favCard = card.cloneNode(true) // clonar dá problemas adicionar quantidade pq cria elementos com mesmo ID; favoritar é adicionado apenas depois...
+                    favCard.getElementsByTagName('span')[0].id = 'favqtd'+produto.id
+                    cloneFavorito = favCard.getElementsByClassName('btn-favorito')[0]
+                    cloneFavorito.id = 'favfav'+produto.id
+                    cloneFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${favId}`) }
+                    botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${favId}`) }
                     subcontainerFav.appendChild(favCard)
                 }
             })
-
-            botaoFavorito.addEventListener("click", function () {
-                if (botaoFavorito.innerHTML === "♡") {
-                    incluirFavorito(produto.id, cliente.id)
-                    botaoFavorito.innerHTML = "♥";
-                } else {
-                    removerFavorito(`${favId}`)
-                    botaoFavorito.innerHTML = "♡";
-                }
-            });
         } else { // cliente não logado
             botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
             for (n=0; n<listaCompra.length; n++) {
@@ -169,6 +157,20 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             }
         }
     });
+}
+
+function toggleFavorito(idProduto, idCliente, favId) {
+    botaoFavorito = document.getElementById('fav'+idProduto)
+    cloneFavorito = document.getElementById('favfav'+idProduto)
+    if (botaoFavorito.innerHTML === "♡") {
+        incluirFavorito(idProduto, idCliente)
+        botaoFavorito.innerHTML = "♥";
+        cloneFavorito.innerHTML = "♥";
+    } else {
+        removerFavorito(`${favId}`)
+        botaoFavorito.innerHTML = "♡";
+        cloneFavorito.innerHTML = "♡";
+    }
 }
 
 function filtrar(nomeProduto, filtros) {
@@ -193,6 +195,8 @@ async function incluirProduto(idProduto, idCliente, quantidade) {
     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + (-item.produto.valorMedida) + ')')
     quant = document.getElementById('qtd' + idProduto)
     quant.innerHTML = item.quantidade + item.produto.medida
+    fquant = document.getElementById('favqtd' + idProduto) || quant
+    fquant.innerHTML = item.quantidade + item.produto.medida
 }
 
 async function alterarQuantidade(idCompra, idCliente, quantidade) {
@@ -201,6 +205,7 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
     botaoAddCarrinho = document.getElementById('add' + item.produto.id)
     botaoRemCarrinho = document.getElementById('rem' + item.produto.id)
     quant = document.getElementById('qtd' + item.produto.id)
+    fquant = document.getElementById('favqtd' + item.produto.id) || quant
     if (item.quantidade <= 0) { // remover produto da lista
         removerItem(idCompra)
         botaoRemCarrinho.style.display = 'none'
@@ -209,11 +214,13 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
         val = qtdCarrinho.innerHTML
         qtdCarrinho.innerHTML = Number(val) - 1
         quant.innerHTML = ''
+        fquant.innerHTML = ''
         return
     }
     botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
     alterarItem(idCompra, item.produto.id, idCliente, item.quantidade)
     quant.innerHTML = item.quantidade + item.produto.medida
+    fquant.innerHTML = item.quantidade + item.produto.medida
 }
 
 
