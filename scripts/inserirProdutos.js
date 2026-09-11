@@ -136,7 +136,14 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     favId = favorito.id
                     tituloFav.style.display = ''
                     subcontainerFav.style.display = ''
-                    subcontainerFav.appendChild(card.cloneNode(true))
+                    favCard = card.cloneNode(true) // FIXME clonar dá problemas para favoritar e adicionar quantidade pq cria elementos com mesmo ID
+/* TESTAR
+                    favCard.quant.id = 'favqtd' + produto.id
+                    favCard.botaoRemCarrinho.id = 'favrem' + produto.id
+                    favCard.botaoAddCarrinho.id = 'favadd' + produto.id
+                    favCard.botaoFavorito.id = 'favfav' + produto.id
+*/
+                    subcontainerFav.appendChild(favCard)
                 }
             })
 
