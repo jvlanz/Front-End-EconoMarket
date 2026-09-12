@@ -6,8 +6,14 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         console.error("Erro ao buscar produtos");
         return;
     }
-
     const produtos = await resposta.json();
+
+    const respostaP = await fetch("http://localhost:8080/promocoes");
+    if (!resposta.ok) {
+        console.error("Erro ao buscar promocoeos");
+        return;
+    }
+    const promocoes = await respostaP.json();
 
     listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     if (token!=null) {
@@ -34,6 +40,17 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     container.appendChild(subcontainerFav);
     tituloFav.style.display = 'none'
     subcontainerFav.style.display = 'none'
+
+// subcontainer para promocoes, inicialmente invisível
+    subcontainerPromo = document.createElement("div");
+    subcontainerPromo.setAttribute("class", "container1")
+    tituloPromo = document.createElement('h2')
+    tituloPromo.setAttribute("class", "titulo-secao");
+    tituloPromo.innerHTML = 'Promoções de Hoje'
+    container.appendChild(tituloPromo)
+    container.appendChild(subcontainerPromo);
+    tituloPromo.style.display = 'none'
+    subcontainerPromo.style.display = 'none'
 
     produtos.forEach(produto => {
 
@@ -128,20 +145,23 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             botaoFavorito.className = "btn-favorito";
             botaoFavorito.innerHTML = "♡";
             card.appendChild(botaoFavorito);
-            var favId = null
+            var idFav = null
             cliente.favoritos.forEach(favorito => {
                 if (favorito.produto.id==produto.id) {
                     botaoFavorito.innerHTML = "♥";
-                    favId = favorito.id
+                    idFav = favorito.id
                     tituloFav.style.display = ''
                     subcontainerFav.style.display = ''
+                    clonarCartaoFavorito(card, subcontainerFav, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                    /*
                     favCard = card.cloneNode(true) // clonar dá problemas adicionar quantidade pq cria elementos com mesmo ID; favoritar é adicionado apenas depois...
                     favCard.getElementsByTagName('span')[0].id = 'favqtd'+produto.id
                     cloneFavorito = favCard.getElementsByClassName('btn-favorito')[0]
                     cloneFavorito.id = 'favfav'+produto.id
                     cloneFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${favId}`) }
-                    botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${favId}`) }
                     subcontainerFav.appendChild(favCard)
+                    */
+                    botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${idFav}`) }
                 }
             })
         } else { // cliente não logado
@@ -156,7 +176,30 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 }
             }
         }
+
+        promocoes.forEach(promocao => {
+            tituloPromo.style.display = ''
+            subcontainerPromo.style.display = ''
+            if (promocao.preco.produtoMarca.produto.id==produto.id) {
+                clonarCartao(card, 'promo', subcontainerPromo)
+            }
+        })
     });
+}
+
+function clonarCartaoFavorito(card, subcontainer, idProduto, idCliente, idFav) {
+    cloneCard = clonarCarcao(card, 'fav', subcontainer)
+    cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
+    cloneFavorito.id = prefixo+cloneFavorito.id
+    cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente, idFav) }
+    subcontainer.appendChild(cloneCard)
+}
+function clonarCartao(card, prefixo, subcontainer) {
+    cloneCard = card.cloneNode(true)
+    quantidade = cloneCard.getElementsByTagName('span')[0]
+    quantidade.id = prefixo+quantidade.id
+    subcontainer.appendChild(cloneCard)
+    return cloneCard
 }
 
 function toggleFavorito(idProduto, idCliente, favId) {
