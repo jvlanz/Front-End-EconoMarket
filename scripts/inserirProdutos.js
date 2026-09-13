@@ -9,8 +9,8 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     const produtos = await resposta.json();
 
     const respostaP = await fetch("http://localhost:8080/promocoes");
-    if (!resposta.ok) {
-        console.error("Erro ao buscar promocoeos");
+    if (!respostaP.ok) {
+        console.error("Erro ao buscar promoções");
         return;
     }
     const promocoes = await respostaP.json();
@@ -32,7 +32,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
 // subcontainer para favoritos, inicialmente invisível
     subcontainerFav = document.createElement("div");
-    subcontainerFav.setAttribute("class", "container1 divDestaque")
+    subcontainerFav.setAttribute("class", "container1 fundoDestaque")
     tituloFav = document.createElement('h2')
     tituloFav.setAttribute("class", "titulo-secao");
     tituloFav.innerHTML = 'Produtos favoritos'
@@ -43,7 +43,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
 // subcontainer para promocoes, inicialmente invisível
     subcontainerPromo = document.createElement("div");
-    subcontainerPromo.setAttribute("class", "container1 divDestaque")
+    subcontainerPromo.setAttribute("class", "container1 fundoDestaque")
     tituloPromo = document.createElement('h2')
     tituloPromo.setAttribute("class", "titulo-secao");
     tituloPromo.innerHTML = 'Promoções de Hoje'
@@ -181,6 +181,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             tituloPromo.style.display = ''
             subcontainerPromo.style.display = ''
             if (promocao.preco.produtoMarca.produto.id==produto.id) {
+                nome.innerHTML += "<br>"+promocao.preco.mercado.nome
                 clonarCartao(card, 'promo', subcontainerPromo)
             }
         })

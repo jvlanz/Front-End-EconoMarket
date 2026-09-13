@@ -1,6 +1,7 @@
 
 var cliente
 var mercados
+var promocoes
 var listaPrecos = []
 const total = []
 const economia = []
@@ -38,6 +39,12 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         total.push(0)
         economia.push(0)
     }
+    const respostaP = await fetch("http://localhost:8080/promocoes");
+    if (!respostaP.ok) {
+        console.error("Erro ao buscar promoções");
+        return;
+    }
+    promocoes = await respostaP.json();
 
     nItens = cliente.listaCompra.length
     for (n=0; n<nItens; n++) {
@@ -166,6 +173,12 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
             td = document.createElement('td')
             td.style.textAlign = 'center'
             tr.appendChild(td)
+            promocoes.forEach(promocao => {
+                console.log(promocao.preco.produtoMarca.produto.id , item.produto.id , promocao.preco.mercado.id , mercado.id)
+                if (promocao.preco.produtoMarca.produto.id==item.produto.id && promocao.preco.mercado.id==mercado.id) {
+                    td.setAttribute("class", "fundoDestaque")
+                }
+            })
             const rad = document.createElement('input')
             rad.setAttribute('class', 'checkbox')
             rad.type = 'radio'
