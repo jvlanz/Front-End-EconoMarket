@@ -32,7 +32,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
 // subcontainer para favoritos, inicialmente invisível
     subcontainerFav = document.createElement("div");
-    subcontainerFav.setAttribute("class", "container1")
+    subcontainerFav.setAttribute("class", "container1 divDestaque")
     tituloFav = document.createElement('h2')
     tituloFav.setAttribute("class", "titulo-secao");
     tituloFav.innerHTML = 'Produtos favoritos'
@@ -43,7 +43,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
 // subcontainer para promocoes, inicialmente invisível
     subcontainerPromo = document.createElement("div");
-    subcontainerPromo.setAttribute("class", "container1")
+    subcontainerPromo.setAttribute("class", "container1 divDestaque")
     tituloPromo = document.createElement('h2')
     tituloPromo.setAttribute("class", "titulo-secao");
     tituloPromo.innerHTML = 'Promoções de Hoje'

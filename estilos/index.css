@@ -326,6 +326,12 @@ body {
     margin-left: 10%;
 }
 
+.divDestaque {
+    padding: 10px;
+    border-radius: 30px;
+    background-color: lightgreen;
+}
+
 .card-produto {
     display: flex;
     flex-direction: column;
