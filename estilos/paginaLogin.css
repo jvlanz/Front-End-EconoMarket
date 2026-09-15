@@ -16,8 +16,7 @@ body {
 }
 
 
-.formularioLogin,
-#formulario-editar {
+.formulario {
     width: 25%;
     height: 60%;
     padding: 20px;
@@ -25,6 +24,10 @@ body {
     border-radius: 18px;
 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.formulario-cadastro {
+    height: 80%;
 }
 
 .topo {
@@ -82,11 +85,7 @@ body {
 }
 
 
-#emailinp,
-#senhainp,
-#nome-editar,
-#email-editar,
-#senha-editar,
+.inputs input,
 .btnentrar {
 
     width: 100%;
@@ -100,11 +99,7 @@ body {
     border-radius: 30px;
 }
 
-#emailinp,
-#senhainp,
-#nome-editar,
-#email-editar,
-#senha-editar {
+.inputs input {
     background-color: rgb(0, 0, 0, 0.04);
     transition: .3s;
 }
@@ -137,8 +132,7 @@ body {
     transition: .3s;
 }
 
-.link-cadastre,
-.link-login {
+.link {
     text-align: center;
     text-decoration: none;
 
@@ -148,8 +142,7 @@ body {
     font-weight: 600;
 }
 
-.cadastre,
-.login {
+.link a {
     color: #084d92;
     font-weight: bold;
     margin-left: 5px;
@@ -167,27 +160,30 @@ body {
     margin-bottom: 10px;
 }
 
-#emailinp:hover,
-#senhainp:hover,
-#nome-cadastro:hover,
-#email-cadastro:hover,
-#senha-cadastro:hover,
-#telefone-cadastro,
-#nome-editar,
-#email-editar,
-#senha-editar:hover {
+.termos {
+    display: flex;
+    align-items: center;
+
+    font-size: 12px;
+
+    gap: 10px;
+}
+
+.termos input {
+    width: 20px;
+}
+
+.termos span {
+    text-decoration: underline;
+    color: #084d92;
+}
+
+
+.inputs input:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-#emailinp:focus,
-#senhainp:focus,
-#nome-cadastro:focus,
-#email-cadastro:focus,
-#senha-cadastro:focus,
-#telefone-cadastro,
-#nome-editar,
-#email-editar,
-#senha-editar:focus {
+.inputs input:focus {
     background-color: white;
     border: 2px solid black;
 }
@@ -200,8 +196,7 @@ body {
     background-color: #056200;
 }
 
-.cadastre:hover,
-.login:hover {
+.link a:hover {
     text-decoration: underline;
     cursor: pointer;
 }

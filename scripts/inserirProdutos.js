@@ -107,6 +107,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         const nome = document.createElement("div");
         nome.setAttribute("class", "nome-produto");
+        nome.id = "nome"+produto.id;
         nome.innerHTML = produto.descricao;
         card.appendChild(nome);
 
@@ -181,8 +182,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             tituloPromo.style.display = ''
             subcontainerPromo.style.display = ''
             if (promocao.preco.produtoMarca.produto.id==produto.id) {
-                nome.innerHTML += "<br>"+promocao.preco.mercado.nome
                 clonarCartao(card, 'promo', subcontainerPromo)
+                nomePromo = document.getElementById('promonome'+produto.id)
+                nomePromo.innerHTML += "<br>"+promocao.preco.mercado.nome
             }
         })
     });
@@ -199,6 +201,8 @@ function clonarCartao(card, prefixo, subcontainer) {
     cloneCard = card.cloneNode(true)
     quantidade = cloneCard.getElementsByTagName('span')[0]
     quantidade.id = prefixo+quantidade.id
+    nome = cloneCard.getElementsByClassName('nome-produto')[0]
+    nome.id = prefixo+nome.id
     subcontainer.appendChild(cloneCard)
     return cloneCard
 }
