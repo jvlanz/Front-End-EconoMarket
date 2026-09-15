@@ -45,8 +45,8 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     subcontainerPromo = document.createElement("div");
     subcontainerPromo.setAttribute("class", "container1 fundoDestaque")
     tituloPromo = document.createElement('h2')
-    tituloPromo.setAttribute("class", "titulo-secao");
-    tituloPromo.innerHTML = 'Promoções de Hoje'
+    tituloPromo.setAttribute("class", "titulo-secao promocao");
+    tituloPromo.innerHTML = 'Promoções do Dia'
     container.appendChild(tituloPromo)
     container.appendChild(subcontainerPromo);
     tituloPromo.style.display = 'none'
@@ -153,18 +153,10 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     idFav = favorito.id
                     tituloFav.style.display = ''
                     subcontainerFav.style.display = ''
-                    clonarCartaoFavorito(card, subcontainerFav, `${produto.id}`, `${cliente.id}`, `${idFav}`)
-                    /*
-                    favCard = card.cloneNode(true) // clonar dá problemas adicionar quantidade pq cria elementos com mesmo ID; favoritar é adicionado apenas depois...
-                    favCard.getElementsByTagName('span')[0].id = 'favqtd'+produto.id
-                    cloneFavorito = favCard.getElementsByClassName('btn-favorito')[0]
-                    cloneFavorito.id = 'favfav'+produto.id
-                    cloneFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${favId}`) }
-                    subcontainerFav.appendChild(favCard)
-                    */
-                    botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${idFav}`) }
+                    clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`, `${idFav}`)
                 }
             })
+            botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${idFav}`) }
         } else { // cliente não logado
             botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
             for (n=0; n<listaCompra.length; n++) {
@@ -182,7 +174,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             tituloPromo.style.display = ''
             subcontainerPromo.style.display = ''
             if (promocao.preco.produtoMarca.produto.id==produto.id) {
-                clonarCartao(card, 'promo', subcontainerPromo)
+                clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`, `${idFav}`)
                 nomePromo = document.getElementById('promonome'+produto.id)
                 nomePromo.innerHTML += "<br>"+promocao.preco.mercado.nome
             }
@@ -190,34 +182,36 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     });
 }
 
-function clonarCartaoFavorito(card, subcontainer, idProduto, idCliente, idFav) {
-    cloneCard = clonarCarcao(card, 'fav', subcontainer)
-    cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
-    cloneFavorito.id = prefixo+cloneFavorito.id
-    cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente, idFav) }
-    subcontainer.appendChild(cloneCard)
-}
-function clonarCartao(card, prefixo, subcontainer) {
+function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente, idFav) {
     cloneCard = card.cloneNode(true)
     quantidade = cloneCard.getElementsByTagName('span')[0]
     quantidade.id = prefixo+quantidade.id
     nome = cloneCard.getElementsByClassName('nome-produto')[0]
     nome.id = prefixo+nome.id
+    cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
+    cloneFavorito.id = prefixo+cloneFavorito.id
+    cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente, idFav) }
     subcontainer.appendChild(cloneCard)
-    return cloneCard
 }
 
 function toggleFavorito(idProduto, idCliente, favId) {
     botaoFavorito = document.getElementById('fav'+idProduto)
     cloneFavorito = document.getElementById('favfav'+idProduto)
+    promoFavorito = document.getElementById('promofav'+idProduto)
     if (botaoFavorito.innerHTML === "♡") {
         incluirFavorito(idProduto, idCliente)
         botaoFavorito.innerHTML = "♥";
-        cloneFavorito.innerHTML = "♥";
+        if (cloneFavorito!=null)
+            cloneFavorito.innerHTML = "♥";
+        if (promoFavorito!=null)
+            promoFavorito.innerHTML = "♥";
     } else {
         removerFavorito(`${favId}`)
         botaoFavorito.innerHTML = "♡";
-        cloneFavorito.innerHTML = "♡";
+        if (cloneFavorito!=null)
+            cloneFavorito.innerHTML = "♡";
+        if (promoFavorito!=null)
+            cloneFavorito.innerHTML = "♡";
     }
 }
 
