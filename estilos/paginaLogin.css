@@ -16,7 +16,8 @@ body {
 }
 
 
-.formularioLogin {
+.formularioLogin,
+#formulario-editar {
     width: 25%;
     height: 60%;
     padding: 20px;
@@ -83,6 +84,9 @@ body {
 
 #emailinp,
 #senhainp,
+#nome-editar,
+#email-editar,
+#senha-editar,
 .btnentrar {
 
     width: 100%;
@@ -97,7 +101,10 @@ body {
 }
 
 #emailinp,
-#senhainp {
+#senhainp,
+#nome-editar,
+#email-editar,
+#senha-editar {
     background-color: rgb(0, 0, 0, 0.04);
     transition: .3s;
 }
@@ -165,7 +172,10 @@ body {
 #nome-cadastro:hover,
 #email-cadastro:hover,
 #senha-cadastro:hover,
-#telefone-cadastro:hover {
+#telefone-cadastro,
+#nome-editar,
+#email-editar,
+#senha-editar:hover {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -174,7 +184,10 @@ body {
 #nome-cadastro:focus,
 #email-cadastro:focus,
 #senha-cadastro:focus,
-#telefone-cadastro:focus {
+#telefone-cadastro,
+#nome-editar,
+#email-editar,
+#senha-editar:focus {
     background-color: white;
     border: 2px solid black;
 }
