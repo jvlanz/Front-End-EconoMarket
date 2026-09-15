@@ -15,8 +15,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     }
     const promocoes = await respostaP.json();
 
+    cliente = { id: null }
     listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-    if (token!=null) {
+    if (token != null) {
         const respostaC = await fetch("http://localhost:8080/auth/cliente", {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` }
@@ -30,7 +31,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
     const container = document.getElementById("categoria-geral");
 
-// subcontainer para favoritos, inicialmente invisível
+    // subcontainer para favoritos, inicialmente invisível
     subcontainerFav = document.createElement("div");
     subcontainerFav.setAttribute("class", "container1 fundoDestaque")
     tituloFav = document.createElement('h2')
@@ -41,7 +42,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     tituloFav.style.display = 'none'
     subcontainerFav.style.display = 'none'
 
-// subcontainer para promocoes, inicialmente invisível
+    // subcontainer para promocoes, inicialmente invisível
     subcontainerPromo = document.createElement("div");
     subcontainerPromo.setAttribute("class", "container1 fundoDestaque")
     tituloPromo = document.createElement('h2')
@@ -92,7 +93,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         subcontainer.appendChild(card);
 
         const link = document.createElement("a")
-        link.href = "paginaProduto.html?produto="+produto.id
+        link.href = "paginaProduto.html?produto=" + produto.id
         card.appendChild(link);
 
         const imagem = document.createElement("img");
@@ -102,12 +103,12 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         const faixaPrecos = document.createElement("div");
         faixaPrecos.setAttribute("class", "preco-produto");
-        faixaPrecos.innerHTML = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.',',');
+        faixaPrecos.innerHTML = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.', ',');
         card.appendChild(faixaPrecos);
 
         const nome = document.createElement("div");
         nome.setAttribute("class", "nome-produto");
-        nome.id = "nome"+produto.id;
+        nome.id = "nome" + produto.id;
         nome.innerHTML = produto.descricao;
         card.appendChild(nome);
 
@@ -129,9 +130,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoRemCarrinho.style.display = 'none'
         card.appendChild(botaoRemCarrinho);
 
-        if (token!=null) { // cliente logado
+        if (token != null) { // cliente logado
             botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
-            for (n=0; n<listaCompra.length; n++) {
+            for (n = 0; n < listaCompra.length; n++) {
                 if (listaCompra[n].produto.id == produto.id) {
                     botaoRemCarrinho.style.display = ''
                     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + produto.valorMedida + ')')
@@ -148,7 +149,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             card.appendChild(botaoFavorito);
             var idFav = null
             cliente.favoritos.forEach(favorito => {
-                if (favorito.produto.id==produto.id) {
+                if (favorito.produto.id == produto.id) {
                     botaoFavorito.innerHTML = "♥";
                     idFav = favorito.id
                     tituloFav.style.display = ''
@@ -159,7 +160,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${idFav}`) }
         } else { // cliente não logado
             botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
-            for (n=0; n<listaCompra.length; n++) {
+            for (n = 0; n < listaCompra.length; n++) {
                 if (listaCompra[n].id == produto.id) {
                     botaoRemCarrinho.style.display = ''
                     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
@@ -173,11 +174,12 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         promocoes.forEach(promocao => {
             tituloPromo.style.display = ''
             subcontainerPromo.style.display = ''
-            if (promocao.preco.produtoMarca.produto.id==produto.id) {
+            if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
                 clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`, `${idFav}`)
-                nomePromo = document.getElementById('promonome'+produto.id)
-                nomePromo.innerHTML += "<br>"+promocao.preco.mercado.nome
+                nomePromo = document.getElementById('promonome' + produto.id)
+                nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
             }
+
         })
     });
 }
@@ -185,32 +187,34 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente, idFav) {
     cloneCard = card.cloneNode(true)
     quantidade = cloneCard.getElementsByTagName('span')[0]
-    quantidade.id = prefixo+quantidade.id
+    quantidade.id = prefixo + quantidade.id
     nome = cloneCard.getElementsByClassName('nome-produto')[0]
-    nome.id = prefixo+nome.id
-    cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
-    cloneFavorito.id = prefixo+cloneFavorito.id
-    cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente, idFav) }
+    nome.id = prefixo + nome.id
+    if (idCliente != "null") {
+        cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
+        cloneFavorito.id = prefixo + cloneFavorito.id
+        cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente, idFav) }
+    }
     subcontainer.appendChild(cloneCard)
 }
 
 function toggleFavorito(idProduto, idCliente, favId) {
-    botaoFavorito = document.getElementById('fav'+idProduto)
-    cloneFavorito = document.getElementById('favfav'+idProduto)
-    promoFavorito = document.getElementById('promofav'+idProduto)
+    botaoFavorito = document.getElementById('fav' + idProduto)
+    cloneFavorito = document.getElementById('favfav' + idProduto)
+    promoFavorito = document.getElementById('promofav' + idProduto)
     if (botaoFavorito.innerHTML === "♡") {
         incluirFavorito(idProduto, idCliente)
         botaoFavorito.innerHTML = "♥";
-        if (cloneFavorito!=null)
+        if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♥";
-        if (promoFavorito!=null)
+        if (promoFavorito != null)
             promoFavorito.innerHTML = "♥";
     } else {
         removerFavorito(`${favId}`)
         botaoFavorito.innerHTML = "♡";
-        if (cloneFavorito!=null)
+        if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♡";
-        if (promoFavorito!=null)
+        if (promoFavorito != null)
             cloneFavorito.innerHTML = "♡";
     }
 }
@@ -269,7 +273,7 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
 // funções para salvar lista de compras em sessionStorage, não no banco de dados
 
 async function incluirProdutoLocal(idProduto, quantidade, medida) {
-    item = {id:idProduto, quantidade:quantidade} //, produto:{id:idProduto,medida:medida,valorMedida:quantidade}}
+    item = { id: idProduto, quantidade: quantidade } //, produto:{id:idProduto,medida:medida,valorMedida:quantidade}}
     listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     listaCompra.push(item)
     sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra));
@@ -287,8 +291,8 @@ async function incluirProdutoLocal(idProduto, quantidade, medida) {
 
 async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
     listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-    for (n=0; n<listaCompra.length; n++) {
-        if (listaCompra[n].id==idProduto) {
+    for (n = 0; n < listaCompra.length; n++) {
+        if (listaCompra[n].id == idProduto) {
             item = listaCompra[n]
             item.quantidade += quantidade
             break
@@ -298,7 +302,7 @@ async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
     botaoRemCarrinho = document.getElementById('rem' + idProduto)
     quant = document.getElementById('qtd' + idProduto)
     if (item.quantidade <= 0) { // remover produto da lista
-        listaCompra.splice(n,1)
+        listaCompra.splice(n, 1)
         sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
         botaoRemCarrinho.style.display = 'none'
         botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + Math.abs(quantidade) + ', "' + medida + '")')
