@@ -310,12 +310,6 @@ body {
     margin-bottom: 10px;
 }
 
-.titulo-secao h2 {
-    font-size: 34px;
-    font-weight: 800;
-    color: #1f1f1f;
-}
-
 .container1 {
     display: flex;
     gap: 20px;
@@ -327,10 +321,17 @@ body {
 }
 
 .fundoDestaque {
-    padding: 10px;
+    padding: 20px 30px;
     border-radius: 30px;
-    background-color: lightgreen;
+
+    border: 2px solid rgba(0, 0, 0, 0.3);
 }
+
+.promocao {
+    text-align: center;
+    font-size: 28px;
+}
+
 
 .card-produto {
     display: flex;

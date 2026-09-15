@@ -5,13 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PaginaEditarPerfil</title>
-    <link rel="stylesheet" href="../estilos/paginaEditarPerfil.css">
-    <link rel="stylesheet" href="/estilos/paginaLogin.css">
+    <link rel="stylesheet" href="/estilos/formularios.css">
     <script src="../scripts/paginaEditar.js"></script>
 </head>
 
 <body>
-    <form id="formulario-editar">
+    <form class="formulario formulario-editar">
         <div class="topo">
             <div class="logo">
                 <a href="paginaPrincipal.html">
@@ -39,12 +38,18 @@
                 <p>Senha</p>
                 <input type="password" id="senha-editar">
             </div>
+
+             <div class="senha">
+                <p>Senha Atual*</p>
+                <input type="password" id="senha-atual">
+            </div>
         </div>
 
         <input type="submit" class="btnentrar" value="Editar Cadastro" />
 
 
     </form>
+    <input type="button" name="" id="">
     <script>preencherDados()</script>
 
 </body>

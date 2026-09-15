@@ -45,8 +45,8 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     subcontainerPromo = document.createElement("div");
     subcontainerPromo.setAttribute("class", "container1 fundoDestaque")
     tituloPromo = document.createElement('h2')
-    tituloPromo.setAttribute("class", "titulo-secao");
-    tituloPromo.innerHTML = 'Promoções de Hoje'
+    tituloPromo.setAttribute("class", "titulo-secao promocao");
+    tituloPromo.innerHTML = 'Promoções do Dia'
     container.appendChild(tituloPromo)
     container.appendChild(subcontainerPromo);
     tituloPromo.style.display = 'none'
