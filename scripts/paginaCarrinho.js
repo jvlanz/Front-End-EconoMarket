@@ -174,7 +174,6 @@ async function preencherTabelaCarrinho() { // preenche tbody com produtos e camp
             td.style.textAlign = 'center'
             tr.appendChild(td)
             promocoes.forEach(promocao => {
-                console.log(promocao.preco.produtoMarca.produto.id , item.produto.id , promocao.preco.mercado.id , mercado.id)
                 if (promocao.preco.produtoMarca.produto.id==item.produto.id && promocao.preco.mercado.id==mercado.id) {
                     td.setAttribute("class", "fundoDestaque")
                 }
