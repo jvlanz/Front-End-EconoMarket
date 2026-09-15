@@ -169,10 +169,6 @@
     transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
 }
 
-#icons-toc {
-    rotate: 180deg;
-}
-
 .nav-wrapper a::after {
     content: "";
     position: absolute;

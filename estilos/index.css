@@ -13,7 +13,10 @@ body {
     font-family: "Inter", sans-serif;
     color: #222;
     overflow-x: hidden;
+}
 
+#icons-toc {
+    rotate: 180deg;
 }
 
 .secao-info,
@@ -21,6 +24,10 @@ body {
     width: 100%;
     margin: 0 auto;
     padding: 0 10%;
+}
+
+.titulo-secao {
+    margin-bottom: 20px;
 }
 
 .remover {
@@ -40,50 +47,6 @@ body {
     background: #8f2d2d;
     border-color: #8f2d2d;
     transform: translateY(-1px);
-}
-
-#icons-toc {
-    rotate: 180deg;
-}
-
-.dropdown {
-    position: relative;
-}
-
-.dropdown-hortifruti-content {
-    position: absolute;
-    top: 140%;
-    left: 0;
-    min-width: 190px;
-    background: white;
-    border-radius: 16px;
-    padding: 10px 0;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: 0.22s ease;
-}
-
-.dropdown:hover .dropdown-hortifruti-content {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.dropdown-hortifruti-content a {
-    display: block;
-    padding: 12px 18px;
-    font-size: 14px;
-}
-
-.dropdown-hortifruti-content a:hover {
-    background: #f4f4f4;
-}
-
-.titulo-secao {
-    margin-top: 45px;
-    margin-bottom: 10px;
 }
 
 .container1 {
