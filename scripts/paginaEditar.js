@@ -27,13 +27,16 @@ async function editarCadastro() {
     const nome = document.getElementById("nome-editar").value;
     const email = document.getElementById("email-editar").value;
     const senha = document.getElementById("senha-editar").value;
+    const senhaAtual = document.getElementById("senha-atual").value;
 
     const cliente = {
         id: id,
         nome: nome,
         email: email,
-        senha: senha
+        senha: senha,
+        senhaAtual: senhaAtual
     };
+
     try {
         const resposta = await fetch(`http://localhost:8080/auth/editar`, {
             method: "PUT",
@@ -60,7 +63,6 @@ async function editarCadastro() {
         window.location.href = "paginaPrincipal.html";
 
     } catch (erro) {
-        console.error("Erro:", erro);
-        alert("Não foi possível conectar ao servidor.");
+        console.error(erro);
     }
 }
