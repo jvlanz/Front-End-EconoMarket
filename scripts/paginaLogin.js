@@ -3,19 +3,17 @@ async function entrar(event) {
 
     const email = document.getElementById("emailinp")
     const password = document.getElementById("senhainp")
-    const msgerro = document.getElementById("mensagem-erro")
+    const msgerro = document.getElementById("msg-erro-login")
 
     const novoLogin = {
         email: email.value,
         password: password.value
     }
-    if (email === "" || password === "") {
+    if (email.value === "" || password.value === "") {
         msgerro.innerHTML = "Por favor, preencha todos os campos!";
     }
 
     try {
-        console.log(novoLogin)
-
         const resposta = await fetch("http://localhost:8080/auth/login", {
             method: "POST",
             headers: {
@@ -25,9 +23,9 @@ async function entrar(event) {
         });
 
         if (!resposta.ok) {
-            throw new Error("Erro ao logar cliente");
+            msgerro.innerHTML("Erro ao fazer login");
         }
-
+        
         const data = await resposta.json();
         console.log(data.token)
         sessionStorage.setItem("token", data.token);
@@ -39,7 +37,7 @@ async function entrar(event) {
     } catch (erro) {
         console.error(erro);
 
-        msgerro.innerText = "Erro ao realizar login!";
+        msgerro.innerText = "Email ou senha inválidos!";
     }
 
 

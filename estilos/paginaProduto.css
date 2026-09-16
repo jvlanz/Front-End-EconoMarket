@@ -10,10 +10,10 @@
 
 .btn-favorito {
     position: absolute;
-    top: 18px;
+    top: 5px;
     right: 18px;
-    width: 45px;
-    height: 45px;
+    width: 30px;
+    height: 30px;
     border: none;
     border-radius: 50%;
     background: none;
