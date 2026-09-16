@@ -19,6 +19,25 @@ body {
     rotate: 180deg;
 }
 
+.icone-logo-mobile {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    .icone-logo {
+        display: none;
+    }
+
+    .icone-logo-mobile {
+        display: block;
+        width: 45px;
+        height: 45px;
+        object-fit: contain;
+    }
+
+}
+
 @media (max-width: 768px) {
 
     .topo,

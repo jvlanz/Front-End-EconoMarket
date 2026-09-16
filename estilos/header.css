@@ -16,6 +16,22 @@
     z-index: 999;
 }
 
+.icone-logo {
+    order: 1;
+}
+
+.container-pesquisa {
+    order: 2;
+}
+
+#login {
+    order: 3;
+}
+
+.div-cesta {
+    order: 4;
+}
+
 .nav-wrapper {
     position: relative;
     display: flex;
@@ -24,7 +40,7 @@
     padding: 1% 10%;
     width: 100%;
 
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
 
 .nav-wrapper a {
