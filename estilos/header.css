@@ -16,6 +16,22 @@
     z-index: 999;
 }
 
+.icone-logo {
+    order: 1;
+}
+
+.container-pesquisa {
+    order: 2;
+}
+
+#login {
+    order: 3;
+}
+
+.div-cesta {
+    order: 4;
+}
+
 .nav-wrapper {
     position: relative;
     display: flex;
