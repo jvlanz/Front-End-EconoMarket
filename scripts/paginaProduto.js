@@ -32,7 +32,7 @@ async function inserirProduto(produtoId) {
     
         <div class="imagem-produto">
             <img src="/imagens/${produto.figura}" alt="">
-            <button class="btn-favorito">♡</button>
+            <button class="btn-favorito" onclick="toggleFavorito(${produto.id}, ${cliente.id}, ${idFav}) }">♡</button>
         </div>
         
 
