@@ -25,14 +25,15 @@
     margin-bottom: 60px;
 }
 
-.preco-produto {
-    font-size: 15px;
-    font-weight: 700;   
+.preco-produto,
+.quantidade-produto {
+    font-size: 16px;
+    font-weight: 700;  
 }
 
 .nome-produto {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 700;
 
     margin-top: 5px;
 
@@ -74,8 +75,6 @@
 
 .quantidade-produto {
     text-align: center;
-    
-    font-size: 18px;
 
     color: rgba(0, 0, 0, .7);
 }
