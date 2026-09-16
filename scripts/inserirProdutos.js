@@ -243,6 +243,8 @@ async function incluirProduto(idProduto, idCliente, quantidade) {
     quant.innerHTML = item.quantidade + item.produto.medida
     fquant = document.getElementById('favqtd' + idProduto) || quant
     fquant.innerHTML = item.quantidade + item.produto.medida
+    pquant = document.getElementById('promoqtd' + idProduto) || quant
+    pquant.innerHTML = item.quantidade + item.produto.medida
 }
 
 async function alterarQuantidade(idCompra, idCliente, quantidade) {
@@ -252,10 +254,11 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
     botaoRemCarrinho = document.getElementById('rem' + item.produto.id)
     quant = document.getElementById('qtd' + item.produto.id)
     fquant = document.getElementById('favqtd' + item.produto.id) || quant
-    if (item.quantidade <= 0) { // remover produto da lista
+    pquant = document.getElementById('promoqtd' + item.produto.id) || quant
+        if (item.quantidade <= 0) { // remover produto da lista
         removerItem(idCompra)
         botaoRemCarrinho.style.display = 'none'
-        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + quantidade + ')')
+        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + Math.abs(quantidade) + ')')
         const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
         val = qtdCarrinho.innerHTML
         qtdCarrinho.innerHTML = Number(val) - 1
@@ -267,6 +270,7 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
     alterarItem(idCompra, item.produto.id, idCliente, item.quantidade)
     quant.innerHTML = item.quantidade + item.produto.medida
     fquant.innerHTML = item.quantidade + item.produto.medida
+    pquant.innerHTML = item.quantidade + item.produto.medida
 }
 
 
@@ -287,6 +291,10 @@ async function incluirProdutoLocal(idProduto, quantidade, medida) {
     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + (-quantidade) + ', "' + medida + '")')
     quant = document.getElementById('qtd' + idProduto)
     quant.innerHTML = item.quantidade + medida
+    fquant = document.getElementById('favqtd' + idProduto) || quant
+    fquant.innerHTML = item.quantidade + item.produto.medida
+    pquant = document.getElementById('promoqtd' + idProduto) || quant
+    pquant.innerHTML = item.quantidade + item.produto.medida
 }
 
 async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
@@ -301,6 +309,8 @@ async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
     botaoAddCarrinho = document.getElementById('add' + idProduto)
     botaoRemCarrinho = document.getElementById('rem' + idProduto)
     quant = document.getElementById('qtd' + idProduto)
+    fquant = document.getElementById('favqtd' + quant.id) || quant
+    pquant = document.getElementById('promoqtd' + quant.id) || quant
     if (item.quantidade <= 0) { // remover produto da lista
         listaCompra.splice(n, 1)
         sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
@@ -315,5 +325,7 @@ async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
     botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
     sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
     quant.innerHTML = item.quantidade + medida
+    fquant.innerHTML = item.quantidade + medida
+    pquant.innerHTML = item.quantidade + medida
 }
 
