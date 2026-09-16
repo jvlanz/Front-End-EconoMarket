@@ -59,11 +59,16 @@ async function editarCadastro(evento) {
         //atualiza o token no sessionStorage
         const dados = await resposta.json();
         sessionStorage.setItem("token", dados.token);
-        
+
 
         window.location.href = "paginaPrincipal.html";
 
     } catch (erro) {
         console.error(erro);
     }
+}
+
+function logout() {
+    sessionStorage.removeItem("token");
+    window.location.href = "paginaLogin.html";
 }
