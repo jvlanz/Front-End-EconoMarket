@@ -28,7 +28,6 @@ function obterTokenNome(token) {
 }
 
 token = sessionStorage.getItem("token")
-console.log(token)
 if (token!=null && checarTokenExpirado(token)) {
 	window.alert("Token expirado. Faça login novamente.")
 	sessionStorage.removeItem("token")

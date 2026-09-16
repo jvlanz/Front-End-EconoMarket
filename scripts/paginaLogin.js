@@ -30,7 +30,7 @@ async function entrar(event) {
         console.log(data.token)
         sessionStorage.setItem("token", data.token);
         const payload = JSON.parse(atob(data.token.split(".")[1]));
-        if (payload.role=='admin')
+        if (payload.role=='ADMIN')
             window.location.href = "../paginas/paginaAdmin.html";
         else
             window.location.href = "../paginas/paginaPrincipal.html";
