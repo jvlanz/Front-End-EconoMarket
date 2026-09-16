@@ -31,7 +31,11 @@ async function entrar(event) {
         const data = await resposta.json();
         console.log(data.token)
         sessionStorage.setItem("token", data.token);
-        window.location.href = "../paginas/paginaPrincipal.html";
+        const payload = JSON.parse(atob(data.token.split(".")[1]));
+        if (payload.role=='admin')
+            window.location.href = "../paginas/paginaAdmin.html";
+        else
+            window.location.href = "../paginas/paginaPrincipal.html";
     } catch (erro) {
         console.error(erro);
 
