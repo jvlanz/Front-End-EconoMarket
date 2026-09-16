@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <form class="formulario formulario-editar">
+    <form class="formulario formulario-editar" id="formulario-editar">
         <div class="topo">
             <div class="logo">
                 <a href="paginaPrincipal.html">
@@ -40,7 +40,7 @@
                 <input type="password" id="senha-editar">
             </div>
 
-             <div class="senha">
+            <div class="senha">
                 <p>Senha Atual*</p>
                 <input type="password" id="senha-atual">
             </div>
@@ -51,7 +51,11 @@
 
     </form>
     <input type="button" name="" id="">
-    <script>preencherDados()</script>
+    <script>
+        preencherDados()
+        const formulario = document.getElementById("formulario-editar");
+        formulario.addEventListener("submit", (evento) => { editarCadastro(evento) })
+    </script>
 
 </body>
 

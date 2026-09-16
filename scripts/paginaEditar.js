@@ -13,7 +13,8 @@ function preencherDados() {
     document.getElementById("email-editar").value = payload.sub;
 }
 
-async function editarCadastro() {
+async function editarCadastro(evento) {
+    evento.preventDefault();
     const token = sessionStorage.getItem("token");
 
     if (!token) {
@@ -33,7 +34,7 @@ async function editarCadastro() {
         id: id,
         nome: nome,
         email: email,
-        senha: senha,
+        password: senha,
         senhaAtual: senhaAtual
     };
 
