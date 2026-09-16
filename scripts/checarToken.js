@@ -11,7 +11,6 @@ function decodeToken(token) {
 function checarTokenExpirado(token) {
 	try {
 		const decoded = decodeToken(token);
-		console.log(decoded)
 		return !decoded.exp || decoded.exp <= Math.floor(Date.now() / 1000);
 	} catch {
 		return true; // Treat malformed tokens as expired
@@ -29,7 +28,6 @@ function obterTokenNome(token) {
 }
 
 token = sessionStorage.getItem("token")
-console.log(token)
 if (token!=null && checarTokenExpirado(token)) {
 	window.alert("Token expirado. Faça login novamente.")
 	sessionStorage.removeItem("token")
