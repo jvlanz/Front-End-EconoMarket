@@ -86,7 +86,7 @@ body {
 
 
 .inputs input,
-.btnentrar {
+.btn {
 
     width: 100%;
     height: 50px;
@@ -104,8 +104,8 @@ body {
     transition: .3s;
 }
 
-.btnentrar {
-    margin: 30px 0px;
+.btn {
+    margin-top: 30px;
 
     background-color: #099801;
     color: white;
@@ -113,6 +113,10 @@ body {
     transition: 0.3s;
 
     font-weight: 700;
+}
+
+.btn-sair {
+    background-color: rgba(255, 0, 0, 0.8);
 }
 
 .recuperar {
@@ -191,8 +195,12 @@ body {
     color: black;
 }
 
-.btnentrar:hover {
+.btn:hover {
     background-color: #056200;
+}
+
+.btn-sair:hover {
+    background-color: red;
 }
 
 .link a:hover {
