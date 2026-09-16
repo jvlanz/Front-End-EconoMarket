@@ -29,6 +29,7 @@ async function editarCadastro(evento) {
     const email = document.getElementById("email-editar").value;
     const senha = document.getElementById("senha-editar").value;
     const senhaAtual = document.getElementById("senha-atual").value;
+    const msgerro = document.getElementById("msg-erro-editar");
 
     const cliente = {
         id: id,
@@ -49,12 +50,9 @@ async function editarCadastro(evento) {
         });
 
         if (!resposta.ok) {
-            console.error("Erro ao editar cadastro:", resposta.status);
-            alert("Erro ao editar cadastro.");
+            msgerro.innerHTML = "Erro ao editar o cadastro";
             return;
         }
-
-        alert("Cadastro editado com sucesso!");
 
         //atualiza o token no sessionStorage
         const dados = await resposta.json();
@@ -64,7 +62,7 @@ async function editarCadastro(evento) {
         window.location.href = "paginaPrincipal.html";
 
     } catch (erro) {
-        console.error(erro);
+        msgerro.innerHTML = "Erro ao editar o cadastro";
     }
 }
 

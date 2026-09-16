@@ -61,7 +61,7 @@ async function inserirProduto(produtoId) {
                 <p>Quantidade:</p>
                 <div class="set-quantidade">
                     <button id="menos-button">-</button>
-                    <p id="quantidade-setada">5</p>
+                    <p id="quantidade-setada">1</p>
                     <button id="mais-button">+</button>
                 </div>
             </div>
