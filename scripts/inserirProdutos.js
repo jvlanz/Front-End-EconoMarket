@@ -117,18 +117,18 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         quant.id = 'qtd' + produto.id
         card.appendChild(quant)
 
-        const botaoAddCarrinho = document.createElement("button");
-        botaoAddCarrinho.setAttribute("class", "btn-add");
-        botaoAddCarrinho.id = 'add' + produto.id
-        botaoAddCarrinho.innerHTML = "+";
-        card.appendChild(botaoAddCarrinho);
-
         const botaoRemCarrinho = document.createElement("button");
         botaoRemCarrinho.setAttribute("class", "btn-rem");
         botaoRemCarrinho.id = 'rem' + produto.id
         botaoRemCarrinho.innerHTML = "–";
         botaoRemCarrinho.style.display = 'none'
         card.appendChild(botaoRemCarrinho);
+
+        const botaoAddCarrinho = document.createElement("button");
+        botaoAddCarrinho.setAttribute("class", "btn-add");
+        botaoAddCarrinho.id = 'add' + produto.id
+        botaoAddCarrinho.innerHTML = "+";
+        card.appendChild(botaoAddCarrinho);
 
         if (token != null) { // cliente logado
             botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
