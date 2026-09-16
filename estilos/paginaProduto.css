@@ -1,150 +1,170 @@
+.paginaProduto {
+    min-height: 70vh;
+    padding: 60px 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+}
+
+/* IMAGEM DO PRODUTO */
+
 .imagem-produto {
     position: relative;
-
-    width: 500px;
+    width: 450px;
+    min-width: 350px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
 }
 
 .imagem-produto img {
-    width: 70%;
+    width: 100%;
+    max-width: 350px;
+    height: 350px;
+    object-fit: contain;
 }
 
-.btn-favorito {
-    position: absolute;
-    top: 5px;
-    right: 18px;
-    width: 30px;
-    height: 30px;
-    border: none;
-    border-radius: 50%;
-    background: none;
-    color: #182f57;
-    font-size: 40px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-
-.paginaProduto {
-    padding: 5% 15%;
-
-    display: flex;
-    gap: 100px;
-
-    justify-content: center;
-    align-items: center;
-}
-
-.informacoes {
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-}
-
-.nome p {
-    font-size: 24px;
-    font-weight: 700;
-}
-
-.comparativo-preco {
-    font-size: 18px;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 5px;
-
-    border: .5px solid rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-
-}
-
-.mercado {
-    display: flex;
-    justify-content: space-between;
-
-    padding: 10px 15px;
-
-    transition: .3s;
-}
-
-.quantidade {
-    display: flex;
-    gap: 60px;
-
-    align-items: center;
-
-}
-
-.set-quantidade {
-    display: flex;
-    gap: 40px;
-
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-
-    padding: 10px;
-
-    font-size: 18px;
-
-    align-items: center;
-}
-
-.set-quantidade button {
-    font-size: 24px;
-    font-weight: 500;
-
-    padding: 5px 10px;
-
-    border-radius: 20px;
-
-    cursor: pointer;
-
-    transition: .3s;
-}
-
-.adicionar-carrinho {
-    padding: 10px 15px;
-
-    border-radius: 30px;
-
-    background-color: #099801;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-
-    font-size: 16px;
-    font-weight: 600;
-
-    border: none;
-}
-
-.set-quantidade button:hover {
-    background-color: rgba(0, 0, 0, .1);
-}
-
-.adicionar-carrinho:hover {
-    background-color: #056200;
-}
-
-.mercado:hover {
-    background-color: rgba(0, 0, 0, 0.3);
-}
+/* BOTÃO FAVORITO */
 
 .btn-favorito {
     position: absolute;
     top: 18px;
     right: 18px;
+
     width: 45px;
     height: 45px;
+
     border: none;
     border-radius: 50%;
-    background: none;
+
+    background-color: #f1f4f8;
     color: #182f57;
+
+    font-size: 28px;
     cursor: pointer;
+
     transition: 0.2s;
 }
 
 .btn-favorito:hover {
     transform: scale(1.1);
-    /*    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.25);*/
+    background-color: #e2e7ee;
+}
+
+
+/* INFORMAÇÕES DO PRODUTO */
+
+.informacoes {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.nome p {
+    font-size: 28px;
+    font-weight: 700;
+    color: #182f57;
+}
+
+
+/* COMPARAÇÃO DE PREÇOS */
+
+.comparativo-preco {
+    font-size: 17px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.mercado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 20px;
+
+    transition: 0.3s;
+}
+
+.mercado:hover {
+    background-color: #f1f4f8;
+}
+
+
+/* QUANTIDADE */
+
+.quantidade {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.set-quantidade {
+    display: flex;
+    gap: 25px;
+
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+
+    padding: 8px 12px;
+
+    font-size: 18px;
+    align-items: center;
+}
+
+.set-quantidade button {
+    border: none;
+    background: none;
+
+    font-size: 24px;
+    font-weight: 500;
+
+    padding: 3px 8px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.set-quantidade button:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+
+/* BOTÃO ADICIONAR AO CARRINHO */
+
+.adicionar-carrinho {
+    padding: 13px 25px;
+
+    border: none;
+    border-radius: 30px;
+
+    background-color: #099801;
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.adicionar-carrinho:hover {
+    background-color: #056200;
+    transform: translateY(-2px);
 }
