@@ -20,9 +20,13 @@ function inserirProdutos(busca) {
     tab = document.getElementById('tabProdutos')
     tab.innerHTML = ''
     tab.innerHTML += '<thead><td>Produto</td><td>Categoria</td><td>Figura</td></thead>'
+    if (busca==null||busca=='') {
+        tab.innerHTML = 'filtre os produtos usando a barra de busca'
+        return
+    }
     produtos.forEach(produto => {
         // filtrar por busca
-        if (busca!=null && !filtrar(produto.descricao, busca)) {
+        if (!filtrar(produto.descricao, busca)) {
              return
         }
         tab.innerHTML += '<tr><td>'+produto.descricao+'</td><td>'+produto.categoria.categoria+'</td><td>'+produto.figura+'</td><td><button>ALTERAR</button></td></tr>'
