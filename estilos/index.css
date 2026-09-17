@@ -169,11 +169,14 @@ footer {
     padding: 35px 20px;
     font-family: "Montserrat", sans-serif;
     line-height: 1.6;
-
     position: relative;
     bottom: -250px;
 }
 
 footer p {
     margin: 8px 0;
+}
+
+footer a {
+    color: #099801;
 }
