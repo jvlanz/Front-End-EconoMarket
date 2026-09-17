@@ -235,3 +235,18 @@
     border-color: #2d8f2d;
     transform: translateY(-1px);
 }
+
+.login-icone {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .login-texto {
+        display: none;
+    }
+
+    .login-icone {
+        display: block;
+        font-size: 28px;
+    }
+}
