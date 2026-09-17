@@ -12,28 +12,29 @@ function inserirHeader() {
             }) */
             const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
             const input = document.getElementById("pesquisa");
-            input.addEventListener("keydown", () => { buscar(input) } )
+            input.addEventListener("keydown", () => { buscar(input) })
 
             const token = sessionStorage.getItem("token");
-            if (token!=null) {
+            if (token != null) {
                 fetch("http://localhost:8080/auth/cliente", {
                     method: "GET",
                     headers: { "Authorization": `Bearer ${token}` }
                 })
-                .then(respostaLog => {
-                    if (!respostaLog.ok) {
-                        console.error("Erro ao checar login");
-                        return;
-                    }
-                    respostaLog.json()
-                    .then(cliente => {
-                        if (cliente.nome!=null) {
-                            const login = document.getElementById("login");
-                            login.innerHTML = "Olá, "+cliente.nome.split(' ')[0]
-                            qtdCarrinho.innerHTML = cliente.listaCompra.length
+                    .then(respostaLog => {
+                        if (!respostaLog.ok) {
+                            console.error("Erro ao checar login");
+                            return;
                         }
+                        respostaLog.json()
+                            .then(cliente => {
+                                if (cliente.nome != null) {
+                                    const login = document.getElementById("login");
+                                    const loginTexto = login.querySelector(".login-texto");
+                                    loginTexto.innerHTML = "Olá, " + cliente.nome.split(' ')[0];
+                                    qtdCarrinho.innerHTML = cliente.listaCompra.length
+                                }
+                            })
                     })
-                })
             } else {
                 listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
                 qtdCarrinho.innerHTML = listaCompra.length
@@ -43,8 +44,8 @@ function inserirHeader() {
 }
 
 function buscar(input) {
-    if (event.key==="Enter") {
-        window.open('paginaPrincipal.html?busca='+input.value, '_self')
+    if (event.key === "Enter") {
+        window.open('paginaPrincipal.html?busca=' + input.value, '_self')
     }
 }
 

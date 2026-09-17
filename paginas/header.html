@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/estilos/index.css">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined">
     <script src="../scripts/paginaCadastro.js"></script>
 </head>
@@ -18,14 +17,19 @@
             <img src="../imagens/LogoEconoMarket.png" alt="IconeLogo" class="icone-logo">
             <img src="../imagens/LogoEconoMarketIcone.png" alt="IconeLogo" class="icone-logo-mobile">
         </a>
-        
+
         <div class="container-pesquisa">
             <input type="text" id="pesquisa" class="pesquisa" placeholder="Buscar Produtos...">
-            <img src="../imagens/IconeLupa.png" alt="IconeLupa" class="icone-lupa">
+            <span class="material-icons lupa">
+                search
+            </span>
         </div>
-        
-            <button class="botao" id="login" onclick="abrirLogin()">Login</button>
-        
+
+        <button class="botao" id="login" onclick="abrirLogin()">
+            <span class="login-texto">Login</span>
+            <i class="bi bi-person-circle login-icone"></i>
+        </button>
+
         <a href="paginaCarrinho.html" class="div-cesta">
             <span class="material-symbols-outlined">
                 grocery
