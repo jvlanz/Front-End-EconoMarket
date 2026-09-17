@@ -6,40 +6,42 @@ if (obterTokenRole(token)!='ADMIN') {
 var produtos = []
 var clientes = []
 
-async function preencherDadosAdmin() {
-    const respostaP = await fetch("http://localhost:8080/produtos");
-    if (!respostaP.ok) {
+async function preencherDadosAdmin(busca=null) {
+    const resposta = await fetch("http://localhost:8080/produtos");
+    if (!resposta.ok) {
         console.error("Erro ao buscar produtos");
         return;
     }
-    produtos = await respostaP.json();
-    //console.log(produtos.length)
-    const respostaC = await fetch("http://localhost:8080/clientes", {
-        method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
-    });
-    if (!respostaC.ok) {
-        console.error("Erro ao buscar clientes");
-    }
-    clientes = await respostaC.json();
-    inserirClientes()
-    inserirProdutos()
+    produtos = await resposta.json();
+    inserirProdutos(busca)
 }
 
-function inserirClientes() {
-    tab = document.getElementById('tabClientes')
-    tab.innerHTML = ''
-    tab.innerHTML += '<thead><td>Login</td><td>Nome</td><td>Role</td></thead>'
-    clientes.forEach(cliente => {
-        tab.innerHTML += '<tr><td>'+cliente.email+'</td><td>'+cliente.nome+'</td><td>'+cliente.role+'</td><td><button>ALTERAR</button></td><td><button>REMOVER</button></td></tr>'
-    })
-}
-
-function inserirProdutos() {
+function inserirProdutos(busca) {
     tab = document.getElementById('tabProdutos')
     tab.innerHTML = ''
     tab.innerHTML += '<thead><td>Produto</td><td>Categoria</td><td>Figura</td></thead>'
     produtos.forEach(produto => {
+        // filtrar por busca
+        if (busca!=null && !filtrar(produto.descricao, busca)) {
+             return
+        }
         tab.innerHTML += '<tr><td>'+produto.descricao+'</td><td>'+produto.categoria.categoria+'</td><td>'+produto.figura+'</td><td><button>ALTERAR</button></td></tr>'
     })
 }
+
+function buscar(input) {
+    if (event.key==="Enter") {
+        window.open('paginaAdmin.html?busca='+input.value, '_self')
+    }
+}
+
+function filtrar(nomeProduto, filtros) {
+    res = true
+    filtros.split(' ').forEach(filtro => {
+        if (!nomeProduto.toLowerCase().includes(filtro.toLowerCase()))
+            res = false
+        return
+    })
+    return res
+}
+

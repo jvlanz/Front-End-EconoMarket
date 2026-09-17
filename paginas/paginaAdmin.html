@@ -12,8 +12,12 @@
     <script src="../scripts/upload.js"></script>
     <link rel="stylesheet" href="../estilos/header.css">
     <link rel="stylesheet" href="../estilos/form.css">
-    <link rel="stylesheet" href="../estilos/index">
+    <link rel="stylesheet" href="../estilos/index.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const textoBusca = urlParams.get('busca')
+    </script>
 </head>
 
 <body>
@@ -27,14 +31,11 @@
     <input style='width:80%' type="file" id="fileInput" />
     <button class="botao" onclick="uploadFile()">Upload</button>
 
-    <h2>Usuários</h2>
-    <table id="tabClientes"></table>
-
     <h2>Produtos</h2>
     <table id="tabProdutos"></table>
 
     <script>
-        preencherDadosAdmin()
+        preencherDadosAdmin(textoBusca)
         inserirContato()
     </script>
 
