@@ -19,11 +19,12 @@ async function preencherDadosAdmin(busca=null) {
 function inserirProdutos(busca) {
     tab = document.getElementById('tabProdutos')
     tab.innerHTML = ''
-    tab.innerHTML += '<thead><td>Produto</td><td>Categoria</td><td>Figura</td></thead>'
+    tab.innerHTML += '<thead><th>Produto</th><th>Categoria</th><th>Figura</th></thead>'
     if (busca==null||busca=='') {
         tab.innerHTML = 'filtre os produtos usando a barra de busca'
         return
     }
+    produtos.sort((a, b) => a.descricao.localeCompare(b.descricao));
     produtos.forEach(produto => {
         // filtrar por busca
         if (!filtrar(produto.descricao, busca)) {
