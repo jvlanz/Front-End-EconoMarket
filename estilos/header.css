@@ -115,12 +115,13 @@
 .container-pesquisa {
     position: relative;
     flex: 1;
+    min-width: 0;
     max-width: 750px;
 }
 
 .pesquisa {
-    width: 110%;
-    padding: 15px 50px;
+    width: 100%;
+    padding: 15px 50px 15px 20px;
     border: none;
     border-radius: 999px;
     background: #ffffff;
@@ -129,19 +130,17 @@
     font-family: "Montserrat", sans-serif;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
     transition: 0.2s;
+    box-sizing: border-box;
 }
 
-.icone-lupa {
-    width: 30px;
+.lupa {
     position: absolute;
-    left: 10px;
+    right: 18px;
     top: 50%;
     transform: translateY(-50%);
-    opacity: 0.8;
+    color: #182f57;
+    font-size: 24px;
     cursor: pointer;
-    padding: 5px;
-    border-radius: 12px;
-    transition: background-color 0.2s ease;
 }
 
 .div-cesta {
@@ -235,4 +234,19 @@
     background: #2d8f2d;
     border-color: #2d8f2d;
     transform: translateY(-1px);
+}
+
+.login-icone {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .login-texto {
+        display: none;
+    }
+
+    .login-icone {
+        display: block;
+        font-size: 28px;
+    }
 }
