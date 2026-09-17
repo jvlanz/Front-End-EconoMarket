@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <script>
+    <!--<script>
         inserirHeader();
         function scrollNav(valor) {
             const navMenu = document.querySelector('.nav-menu');
@@ -27,9 +27,136 @@
                 behavior: 'smooth'
             });
         }
-    </script>
+    </script>!-->
 
-    <label for='nMercados'>Número de mercados</label>
+    <div class="pagina-toda">
+        <div class="parte-superior">
+            <button><-< /button>
+
+            <p>Sua lista</p>
+
+            <div class="quantidades">
+                <p>6 items</p>
+                <p>9 unidades</p>
+            </div>
+        </div>
+
+
+        <div class="parte-inferior">
+            <div class="parte-esquerda">
+                <div class="barra-pesquisa">
+                    <input type="text" value="Digite um produto (ex: arroz, leite, café...)">
+                    <button>+ Adicionar</button>
+                </div>
+
+                <div class="produtos">
+                    <div class="produto">
+                        <div class="desc">
+                            <img src="" alt="">
+
+                            <div class="nome-categoria">
+                                <p>Picanha bovina</p>
+                                <p>Carnes</p>
+                            </div>
+                        </div>
+
+                        <div class="quantidade-lixo">
+                            <div class="quantidade-div">
+                                <p>-</p>
+                                <p>4</p>
+                                <p>+</p>
+                            </div>
+
+                            <img src="" alt=""> <!--Icon lixo-->
+                        </div>
+                    </div>
+
+                    <div class="produto">
+                        <div class="desc">
+                            <img src="" alt="">
+
+                            <div class="nome-categoria">
+                                <p>Maçã</p>
+                                <p>Hortifruti</p>
+                            </div>
+                        </div>
+
+                        <div class="quantidade-lixo">
+                            <div class="quantidade-div">
+                                <p>-</p>
+                                <p>4</p>
+                                <p>+</p>
+                            </div>
+
+                            <img src="" alt=""> <!--Icon lixo-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parte-direita">
+                <button>Limpar lista</button>
+
+                <div class="superior-direita">
+                    <div class="selecionar-mercados">
+                        <p>Selecionar mercados</p>
+
+                        <div class="mercados">
+                            <div class="mercado">
+                                <p>Giassi</p>
+                            </div>
+                            <div class="mercado">
+                                <p>Angeloni</p>
+                            </div>
+                            <div class="mercado">
+                                <p>Koch</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="quantidade-mercados">
+                        <div class="texto">
+                            <p>Máximo de mercados</p>
+                            <p>Em até quantos mercados você aceita comprar</p>
+                        </div>
+
+                        <div class="selecionador-quantidade">
+                            <p>1</p>
+                            <p>2</p>
+                            <p>3</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="inferior-direita">
+                    <p>TOTAL ESTIMADO EM CADA MERCADO</p>
+
+                    <div class="mercados">
+                        <div class="mercado">
+                            <p>Giassi</p>
+                            <p>R$220</p>
+                        </div>
+                        <div class="mercado">
+                            <p>Angeloni</p>
+                            <p>R$220</p>
+                        </div>
+                        <div class="mercado">
+                            <p>Koch</p>
+                            <p>R$220</p>
+                        </div>
+                    </div>
+
+                    <p>Valores se você comprasse tudo em um único mercado. Use Calcular melhor compra para distribuir e
+                        economizar mais.</p>
+                </div>
+
+                <button>Calcular melhor compra</button>
+            </div>
+        </div>
+    </div>
+
+    <!--<label for='nMercados'>Número de mercados</label>
     <input id='nMercados' type=number value=3 min=1 style="width:60px" onchange="gerarTabelaCarrinho()">
     <br>
     <table id='tabelaCarrinho'></table>
@@ -42,12 +169,12 @@
     </center>
 
     <div class='modal' id='lista'>
-        <a href='#' style='font-size:2000px; color:#0000'>___</a> <!-- hack para 'fechar' modal ao clicar fora do conteúdo -->
+        <a href='#' style='font-size:2000px; color:#0000'>___</a> 
         <div class='modalContent'>
             <div id='listaCompra'></div>
             <a href='#' class='closeButton'>&times;</a>
         </div>
-    </div>
+    </div>!-->
 
     <script>
         inserirContato()
