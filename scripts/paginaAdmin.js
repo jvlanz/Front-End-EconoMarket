@@ -38,13 +38,15 @@ function inserirProdutos(busca) {
         tdCateg = document.createElement('td')
         selCateg = document.createElement('select')
         selCateg.id = 'categ'+produto.id
+        id = 1
         categorias.forEach(categoria => {
             var opt = document.createElement('option')
-            opt.value = categoria
             opt.innerHTML = categoria
+            opt.value = `${id}`
             selCateg.appendChild(opt)
+            id += 1
         })
-        selCateg.value = produto.categoria.categoria
+        selCateg.value = produto.categoria.id
         tdCateg.appendChild(selCateg)
         tdFigura = document.createElement('td')
         figInput = document.createElement('input')
@@ -55,7 +57,7 @@ function inserirProdutos(busca) {
         btAlterar = document.createElement('button')
         btAlterar.innerHTML = 'alterar'
         btAlterar.setAttribute('class', 'botao')
-        btAlterar.onclick = () => { alterar(`${produto.id}`) }
+        btAlterar.onclick = () => { alterar(produto) }
         tdAlterar.appendChild(btAlterar)
         tr.appendChild(tdDescr)
         tr.appendChild(tdCateg)
@@ -64,10 +66,21 @@ function inserirProdutos(busca) {
     })
 }
 
-function alterar(idProduto) {
+function alterar(produto) {
+    idProduto = produto.id
     selCateg = document.getElementById('categ'+idProduto)
     figInput = document.getElementById('fig'+idProduto)
-    console.log(idProduto + ' ' + selCateg.value + ' ' + figInput.value)
+    produtoRequest = {}
+    produtoRequest.id = produto.id
+    produtoRequest.descricao = produto.descricao
+    produtoRequest.idCategoria = selCateg.value
+    produtoRequest.medida = produto.medida
+    produtoRequest.valorMedida = produto.valorMedida
+    produtoRequest.precoMin = produto.precoMin
+    produtoRequest.precoMax = produto.precoMax
+    produtoRequest.figura = figInput.value
+    res = alterarProduto(produtoRequest)
+//  console.log(idProduto + ' ' + selCateg.value + ' ' + figInput.value)
 }
 function buscar(input) {
     if (event.key==="Enter") {
