@@ -5,6 +5,7 @@ if (token==null || obterTokenRole(token)!='ADMIN') {
 
 var produtos = []
 var clientes = []
+var categorias = ['Hortifruti', 'Açougue', 'Frios e Laticínios', 'Congelados', 'Mercearia', 'Limpeza', 'Higiene e Beleza', 'Bebidas', 'Utilidades', 'Padaria', 'Pets']
 
 async function preencherDadosAdmin(busca=null) {
     const resposta = await fetch("http://localhost:8080/produtos");
@@ -30,10 +31,44 @@ function inserirProdutos(busca) {
         if (!filtrar(produto.descricao, busca)) {
              return
         }
-        tab.innerHTML += '<tr><td>'+produto.descricao+'</td><td>'+produto.categoria.categoria+'</td><td>'+produto.figura+'</td><td><button>ALTERAR</button></td></tr>'
+        tr = document.createElement('tr')
+        tab.appendChild(tr)
+        tdDescr = document.createElement('td')
+        tdDescr.innerHTML = produto.descricao
+        tdCateg = document.createElement('td')
+        selCateg = document.createElement('select')
+        selCateg.id = 'categ'+produto.id
+        categorias.forEach(categoria => {
+            var opt = document.createElement('option')
+            opt.value = categoria
+            opt.innerHTML = categoria
+            selCateg.appendChild(opt)
+        })
+        selCateg.value = produto.categoria.categoria
+        tdCateg.appendChild(selCateg)
+        tdFigura = document.createElement('td')
+        figInput = document.createElement('input')
+        figInput.value = produto.figura
+        figInput.id = 'fig'+produto.id
+        tdFigura.appendChild(figInput)
+        tdAlterar = document.createElement('td')
+        btAlterar = document.createElement('button')
+        btAlterar.innerHTML = 'alterar'
+        btAlterar.setAttribute('class', 'botao')
+        btAlterar.onclick = () => { alterar(`${produto.id}`) }
+        tdAlterar.appendChild(btAlterar)
+        tr.appendChild(tdDescr)
+        tr.appendChild(tdCateg)
+        tr.appendChild(tdFigura)
+        tr.appendChild(tdAlterar)
     })
 }
 
+function alterar(idProduto) {
+    selCateg = document.getElementById('categ'+idProduto)
+    figInput = document.getElementById('fig'+idProduto)
+    console.log(idProduto + ' ' + selCateg.value + ' ' + figInput.value)
+}
 function buscar(input) {
     if (event.key==="Enter") {
         window.open('paginaAdmin.html?busca='+input.value, '_self')
