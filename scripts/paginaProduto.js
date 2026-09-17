@@ -26,13 +26,23 @@ async function inserirProduto(produtoId) {
 
     const container = document.getElementById("categoria-geral");
 
+
     produtos.forEach(produto => {
         if (produto.id === Number(produtoId)) {
+            var idFav = null;
+            if (cliente.id != null) {
+                cliente.favoritos.forEach(favorito => {
+                    if (favorito.produto.id == produto.id) {
+                        idFav = favorito.id;
+                    }
+                })
+            }
+
             const html = `
     
         <div class="imagem-produto">
             <img src="/imagens/${produto.figura}" alt="">
-            <button class="btn-favorito" onclick="toggleFavorito(${produto.id}, ${cliente.id}, ${idFav}) }">♡</button>
+            <button class="btn-favorito" onclick="toggleFavorito(${produto.id}, ${cliente.id}, ${idFav})">♡</button>
         </div>
         
 
@@ -68,8 +78,17 @@ async function inserirProduto(produtoId) {
 
             <input class="adicionar-carrinho" type="button" value="Adicionar carrinho">
         </div>
+
  `
             document.querySelector(".paginaProduto").innerHTML = html
+            const botaoFav = document.getElementsByClassName("btn-favorito")[0];
+            if (idFav != null) {
+                botaoFav.innerHTML = "♥";
+            }
+
+            if (cliente.id == null) {
+                botaoFav.style.display = "none";
+            }
 
             const botaoMais = document.querySelector("#mais-button")
             botaoMais.addEventListener("click", () => {
@@ -78,6 +97,10 @@ async function inserirProduto(produtoId) {
 
                 document.querySelector("#quantidade-setada")
                     .innerHTML = quantidade + 1;
+
+
+
+
             });
 
             const botaoMenos = document.querySelector("#menos-button")
@@ -87,7 +110,8 @@ async function inserirProduto(produtoId) {
 
                 document.querySelector("#quantidade-setada")
                     .innerHTML = quantidade - 1;
-        })
+            })
+
 
 
         } else {
@@ -97,6 +121,16 @@ async function inserirProduto(produtoId) {
 }
 
 
-
+function toggleFavorito(idProduto, idCliente, favId) {
+    console.log(idProduto + ' ' + idCliente + " " + favId)
+    botaoFavorito = document.getElementsByClassName("btn-favorito")[0];
+    if (botaoFavorito.innerHTML === "♡") {
+        incluirFavorito(idProduto, idCliente)
+        botaoFavorito.innerHTML = "♥";
+    } else {
+        removerFavorito(`${favId}`)
+        botaoFavorito.innerHTML = "♡";
+    }
+}
 
 
