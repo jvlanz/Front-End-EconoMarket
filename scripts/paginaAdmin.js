@@ -1,5 +1,5 @@
 const token = sessionStorage.getItem("token");
-if (obterTokenRole(token)!='ADMIN') {
+if (token==null || obterTokenRole(token)!='ADMIN') {
     window.location.href = "../paginas/paginaPrincipal.html";
 }
 
