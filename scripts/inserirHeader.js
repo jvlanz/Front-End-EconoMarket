@@ -58,3 +58,12 @@ function abrirLogin() {
         window.location.href = "paginaEditarPerfil.html"
     }
 }
+
+function scrollNav(valor) {
+    const navMenu = document.querySelector('.nav-menu');
+    navMenu.scrollBy({
+        left: valor,
+        behavior: 'smooth'
+    });
+}
+
