@@ -101,23 +101,27 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         imagem.setAttribute("class", "formatacao-imagem-card")
         link.appendChild(imagem);
 
+        const divQtd = document.createElement('div')
+        divQtd.setAttribute('class', 'div-quantidade')
+        card.appendChild(divQtd)
+
         const botaoRemCarrinho = document.createElement("button");
         botaoRemCarrinho.setAttribute("class", "btn-rem");
         botaoRemCarrinho.id = 'rem' + produto.id
         botaoRemCarrinho.innerHTML = "–";
         botaoRemCarrinho.style.display = 'none'
-        card.appendChild(botaoRemCarrinho);
+        divQtd.appendChild(botaoRemCarrinho);
 
         const quant = document.createElement("span")
         quant.setAttribute("class", "quantidade-produto");
         quant.id = 'qtd' + produto.id
-        card.appendChild(quant)
+        divQtd.appendChild(quant)
 
         const botaoAddCarrinho = document.createElement("button");
         botaoAddCarrinho.setAttribute("class", "btn-add");
         botaoAddCarrinho.id = 'add' + produto.id
         botaoAddCarrinho.innerHTML = "+";
-        card.appendChild(botaoAddCarrinho);
+        divQtd.appendChild(botaoAddCarrinho);
 
         const faixaPrecos = document.createElement("div");
         faixaPrecos.setAttribute("class", "preco-produto");
