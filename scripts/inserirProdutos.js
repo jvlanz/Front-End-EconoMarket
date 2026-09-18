@@ -186,16 +186,16 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
 function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente, idFav) {
     cloneCard = card.cloneNode(true)
-    nome = document.getElementById('nome'+idProduto)
+    nome = cloneCard.getElementsByClassName('nome-produto')[0]
     nome.id = prefixo + nome.id
-    remover = document.getElementById('rem'+idProduto)
+    remover = cloneCard.getElementsByClassName('btn-rem')[0]
     remover.id = prefixo + remover.id
-    quantidade = document.getElementById('qtd'+idProduto)
+    quantidade = cloneCard.getElementsByClassName('quantidade-produto')[0]
     quantidade.id = prefixo + quantidade.id
-    adicionar = document.getElementById('add'+idProduto)
+    adicionar = cloneCard.getElementsByClassName('btn-add')[0]
     adicionar.id = prefixo + adicionar.id
     if (idCliente != "null") {
-        cloneFavorito = document.getElementById('fav'+idProduto)
+        cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
         cloneFavorito.id = prefixo + cloneFavorito.id
         cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente, idFav) }
     }
