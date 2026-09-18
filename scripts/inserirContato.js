@@ -2,7 +2,7 @@ function inserirContato() {
 
     const token = sessionStorage.getItem("token");
     if (!token) {
-        window.location.href = "paginaLogin.html";
+//      window.location.href = "paginaLogin.html";
         return;
     }
 
