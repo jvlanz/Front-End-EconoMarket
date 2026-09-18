@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="../estilos/header.css">
     <link rel="stylesheet" href="../estilos/index.css">
     <link rel="stylesheet" href="../estilos/form.css">
-    <link rel="stylesheet" href="/estilos/containerProduto.css">
-    <link rel="stylesheet" href="/estilos/paginaPrincipal.css">
+    <link rel="stylesheet" href="../estilos/containerProduto.css">
+    <link rel="stylesheet" href="../estilos/paginaPrincipal.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -33,15 +33,6 @@
     <script>
         inserirHeader();
         preencherProdutos({ id:idCategoria , busca:textoBusca });
-
-        function scrollNav(valor) {
-            const navMenu = document.querySelector('.nav-menu');
-
-            navMenu.scrollBy({
-                left: valor,
-                behavior: 'smooth'
-            });
-        }
     </script>
 
     <script>

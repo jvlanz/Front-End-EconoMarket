@@ -9,6 +9,14 @@ async function inserirProduto(produtoId) {
 
     const produtos = await resposta.json();
 
+
+    const respostaP = await fetch("http://localhost:8080/precos/"+produtoId);
+    if (!respostaP.ok) {
+        console.error("Erro ao buscar preços");
+        return;
+    }
+    const precos = await respostaP.json();
+
     if (token != null) {
         const respostaC = await fetch("http://localhost:8080/auth/cliente", {
             method: "GET",
@@ -41,7 +49,7 @@ async function inserirProduto(produtoId) {
             const html = `
     
         <div class="imagem-produto">
-            <img src="/imagens/${produto.figura}" alt="">
+            <img src="../imagens/${produto.figura}" alt="">
             <button class="btn-favorito" onclick="toggleFavorito(${produto.id}, ${cliente.id}, ${idFav})">♡</button>
         </div>
         
@@ -52,19 +60,7 @@ async function inserirProduto(produtoId) {
                 <p>${produto.descricao}</p>
             </div>
 
-            <div class="comparativo-preco">
-                <div class="mercado">
-                    <p>Giassi</p>
-                    <p>R$20</p>
-                </div>
-                <div class="mercado">
-                    <p>Koch</p>
-                    <p>R$15</p>
-                </div>
-                <div class="mercado">
-                    <p>Angeloni</p>
-                    <p>R$15</p>
-                </div>
+            <div id="mercados" class="comparativo-preco">
             </div>
 
             <div class="quantidade">
@@ -90,6 +86,23 @@ async function inserirProduto(produtoId) {
                 botaoFav.style.display = "none";
             }
 
+            const divMercados = document.getElementById("mercados")
+            mercados = [] // solução temporária, pois o banco de dados possui entradas repetidas para produtos no mesmo mercado
+            precos.forEach(preco => {
+              if (!mercados.includes(preco.mercado.nome)) {
+                mercados.push(preco.mercado.nome)
+                const divMercado = document.createElement("div")
+                divMercado.setAttribute("class", "mercado")
+                divMercados.appendChild(divMercado)
+                pMercado = document.createElement("p")
+                pMercado.innerHTML = preco.mercado.nome
+                pPreco = document.createElement("p")
+                pPreco.innerHTML = `R$ ${preco.preco}`.replaceAll('.',',')
+                divMercado.appendChild(pMercado)
+                divMercado.appendChild(pPreco)
+              }
+            })
+
             const botaoMais = document.querySelector("#mais-button")
             botaoMais.addEventListener("click", () => {
                 const quantidade = Number(document.querySelector("#quantidade-setada")
@@ -97,10 +110,6 @@ async function inserirProduto(produtoId) {
 
                 document.querySelector("#quantidade-setada")
                     .innerHTML = quantidade + 1;
-
-
-
-
             });
 
             const botaoMenos = document.querySelector("#menos-button")

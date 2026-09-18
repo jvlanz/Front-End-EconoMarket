@@ -1,0 +1,185 @@
+.pagina-toda {
+    display: flex;
+    flex-direction: column;
+
+    gap: 50px;
+}
+
+.parte-superior {
+    align-items: center;
+
+    width: 100%;
+
+    gap: 10px;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.parte-superior div {
+    display: flex;
+
+    gap: 5px;
+}
+
+
+.parte-superior,
+.parte-inferior {
+    display: flex;
+
+    padding: 15px 25%;
+}
+
+.parte-inferior {
+    gap: 50px;
+}
+
+.parte-esquerda {
+    flex: 1.5;
+}
+
+.barra-pesquisa {
+    position: relative;
+}
+
+.barra-pesquisa button {
+    position: absolute;
+
+    top: 20px;
+    right: 10px;
+}
+
+.produtos {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.produtos .produto {
+    display: flex;
+    justify-content: space-between;
+}
+
+.quantidade-div {
+    display: flex;
+    gap: 10px;
+
+}
+
+.parte-direita {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+    flex: 1;
+}
+
+.botao-limpar {
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+.botao-limpar button {
+    font-size: 12px;
+
+
+    padding: 8px 12px;
+
+    border-radius: 12px;
+    border: 1px solid rgba(0.0 0.0 0, 0.3);
+}
+
+.superior-direita {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.superior-direita h2 {
+    font-size: 14px;
+    font-weight: 600;
+
+    color: rgba(0, 0, 0, .7);
+
+    margin-bottom: 10px;
+}
+
+
+
+.mercados-cima {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mercados-cima div {
+    border: 1px solid oklch(0.55 0.17 145);
+}
+
+
+.mercados-baixo {
+    display: flex;
+    flex-direction: column;
+}
+
+.mercado {
+    display: flex;
+    justify-content: space-between;
+}
+
+.quantidade-mercados {
+    display: flex;
+    align-items: center;
+}
+
+.selecionador-quantidade {
+    display: flex;
+}
+
+.texto .title {
+    font-size: 14px;
+    font-weight: 600;
+
+    margin-bottom: 5px;
+}
+
+.texto p {
+    font-size: 12px;
+
+}
+
+.selecionador-quantidade {
+    width: 50%;
+
+    display: flex;
+    justify-content: space-between;
+
+    padding: 4px;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.inferior-direita {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    padding: 20px;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.inferior-direita p {
+    font-size: 12px;
+}
+
+.letras-pequenas {
+    font-size: 11px;
+}
