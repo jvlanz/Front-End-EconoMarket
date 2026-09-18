@@ -18,9 +18,45 @@ function inserirContato() {
         .catch(e => console.error('Include failed:', e));
 }
 
-function enviarMensagem(evento) {
+async function enviarMensagem(evento) {
+
     evento.preventDefault();
-    console.log('falta enviar mensagem a email')
+
+    const nome = document.getElementById("nome-contato").value;
+    const email = document.getElementById("email-contato").value;
+    const titulo = document.getElementById("titulo-contato").value;
+    const mensagem = document.getElementById("mensagem-contato").value;
+
+    const dados = {
+        nome: nome,
+        email: email,
+        titulo: titulo,
+        mensagem: mensagem
+    };
+
+    try {
+
+        const resposta = await fetch("http://localhost:8080/contato", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        });
+
+        if (!resposta.ok) {
+            throw new Error("Erro ao enviar mensagem");
+        }
+
+        document.getElementById("formulario").reset();
+        preencherDados();
+
+        window.Location.href("#");
+
+    } catch (erro) {
+
+        console.error("Erro:", erro);
+    }
 }
 
 
