@@ -44,6 +44,18 @@
 
 .barra-pesquisa {
     position: relative;
+
+    margin-bottom: 20px;
+}
+
+.barra-pesquisa-carrinho {
+    padding: 8px 20px;
+
+    background-color: white;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+
+    font-size: 14px;
 }
 
 .button-adicionar-produto {
@@ -68,8 +80,6 @@
     margin-right: 5px;
 }
 
-
-
 .produtos {
     display: flex;
     flex-direction: column;
@@ -77,15 +87,80 @@
     gap: 5px;
 }
 
-.produtos .produto {
+.produto {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    background: white;
+
+    padding: 12px;
+
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.descricao-produto {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.produto img {
+    width: 48px;
+}
+
+.nome-produto {
+    font-size: 15px;
+    font-weight: 700;
+
+    margin-bottom: 3px;
+}
+
+.categoria-produto {
+    font-size: 12px;
+}
+
+.quantidade-lixo {
+    display: flex;
+    align-items: center;
 }
 
 .quantidade-div {
-    display: flex;
-    gap: 10px;
+    width: 100px;
 
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 5px;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+.quantidade-div p {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.button-quantidade {
+    font-size: 16px;
+
+    width: 26px;
+    height: 26px;
+
+    cursor: pointer;
+
+    background: white;
+}
+
+.selecionado {
+    background: rgb(56, 176, 0);
+    color: white;
+
+    border-radius: 50%;
 }
 
 .body-direita {
