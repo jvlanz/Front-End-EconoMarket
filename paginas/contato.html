@@ -1,11 +1,15 @@
 <div class='modal' id='contato'>
-    <a href='#' style='font-size:2000px; color:#0000'>___</a> <!-- hack para 'fechar' modal ao clicar fora do conteúdo -->
+    <a href='#' style='font-size:2000px; color:#0000'>___</a>
+    <!-- hack para 'fechar' modal ao clicar fora do conteúdo -->
     <div class='modalContent'>
         <h2>Contato</h2>
         <form id='formulario'>
-            <input class=contato type='text' name='nome' placeholder='nome' required />
-            <input class=contato type='email' name='email' placeholder='email' required />
-            <textarea class=contato style='height:200px;' placeholder='Escreva aqui a sua mensagem:' required></textarea>
+            <input class=contato type='text' name='nome' placeholder='Nome' id="nome-contato" required />
+            <input class=contato type='email' name='email' placeholder='E-mail' id="email-contato" readonly />
+            <input class=contato type='text' name='titulo' placeholder='Título do E-mail' id="titulo-contato" required />
+            <textarea class=contato style='height:200px;' placeholder='Escreva aqui a sua mensagem:'
+                id="mensagem-contato" required></textarea>
+            
             <div style='display:flex;justify-content:center'>
                 <input type='submit' class='botao' style='width:30%' value='Enviar mensagem' />
             </div>
@@ -19,4 +23,3 @@
     <p>Ficou com alguma dúvida ou sugestão?</p>
     <p><a href="#contato" class="destaque">Entre em contato</a></p>
 </footer>
-
