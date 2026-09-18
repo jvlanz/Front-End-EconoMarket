@@ -186,12 +186,16 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
 function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente, idFav) {
     cloneCard = card.cloneNode(true)
-    quantidade = cloneCard.getElementsByTagName('span')[0]
-    quantidade.id = prefixo + quantidade.id
-    nome = cloneCard.getElementsByClassName('nome-produto')[0]
+    nome = document.getElementById('nome'+idProduto)
     nome.id = prefixo + nome.id
+    remover = document.getElementById('rem'+idProduto)
+    remover.id = prefixo + remover.id
+    quantidade = document.getElementById('qtd'+idProduto)
+    quantidade.id = prefixo + quantidade.id
+    adicionar = document.getElementById('add'+idProduto)
+    adicionar.id = prefixo + adicionar.id
     if (idCliente != "null") {
-        cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
+        cloneFavorito = document.getElementById('fav'+idProduto)
         cloneFavorito.id = prefixo + cloneFavorito.id
         cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente, idFav) }
     }
@@ -235,15 +239,25 @@ async function incluirProduto(idProduto, idCliente, quantidade) {
     val = qtdCarrinho.innerHTML
     qtdCarrinho.innerHTML = Number(val) + 1
     botaoAddCarrinho = document.getElementById('add' + idProduto)
+    fbotaoAddCarrinho = document.getElementById('favadd' + idProduto) || botaoAddCarrinho
+    pbotaoAddCarrinho = document.getElementById('promoadd' + idProduto) || botaoAddCarrinho
     botaoRemCarrinho = document.getElementById('rem' + idProduto)
+    fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
+    pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
     botaoRemCarrinho.style.display = ''
+    fbotaoRemCarrinho.style.display = ''
+    pbotaoRemCarrinho.style.display = ''
     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + item.produto.valorMedida + ')')
+    fbotaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + item.produto.valorMedida + ')')
+    pbotaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + item.produto.valorMedida + ')')
     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + (-item.produto.valorMedida) + ')')
+    fbotaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + (-item.produto.valorMedida) + ')')
+    pbotaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + (-item.produto.valorMedida) + ')')
     quant = document.getElementById('qtd' + idProduto)
-    quant.innerHTML = item.quantidade + item.produto.medida
     fquant = document.getElementById('favqtd' + idProduto) || quant
-    fquant.innerHTML = item.quantidade + item.produto.medida
     pquant = document.getElementById('promoqtd' + idProduto) || quant
+    quant.innerHTML = item.quantidade + item.produto.medida
+    fquant.innerHTML = item.quantidade + item.produto.medida
     pquant.innerHTML = item.quantidade + item.produto.medida
 }
 
@@ -251,19 +265,28 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
     item = await obterItem(idCompra)
     item.quantidade += quantidade
     botaoAddCarrinho = document.getElementById('add' + item.produto.id)
+    fbotaoAddCarrinho = document.getElementById('favadd' + item.produto.id) || botaoAddCarrinho
+    pbotaoAddCarrinho = document.getElementById('promoadd' + item.produto.id) || botaoAddCarrinho
     botaoRemCarrinho = document.getElementById('rem' + item.produto.id)
+    fbotaoRemCarrinho = document.getElementById('favrem' + item.produto.id) || botaoRemCarrinho
+    pbotaoRemCarrinho = document.getElementById('promorem' + item.produto.id) || botaoRemCarrinho
     quant = document.getElementById('qtd' + item.produto.id)
     fquant = document.getElementById('favqtd' + item.produto.id) || quant
     pquant = document.getElementById('promoqtd' + item.produto.id) || quant
         if (item.quantidade <= 0) { // remover produto da lista
         removerItem(idCompra)
         botaoRemCarrinho.style.display = 'none'
+        fbotaoRemCarrinho.style.display = 'none'
+        pbotaoRemCarrinho.style.display = 'none'
         botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + Math.abs(quantidade) + ')')
+        fbotaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + Math.abs(quantidade) + ')')
+        pbotaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + Math.abs(quantidade) + ')')
         const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
         val = qtdCarrinho.innerHTML
         qtdCarrinho.innerHTML = Number(val) - 1
         quant.innerHTML = ''
         fquant.innerHTML = ''
+        pquant.innerHTML = ''
         return
     }
     botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
@@ -274,7 +297,9 @@ async function alterarQuantidade(idCompra, idCliente, quantidade) {
 }
 
 
-// funções para salvar lista de compras em sessionStorage, não no banco de dados
+// funções para quando não estiver logado:
+//    alterar quantidades
+//    salvar lista de compras em sessionStorage, não no banco de dados
 
 async function incluirProdutoLocal(idProduto, quantidade, medida) {
     item = { id: idProduto, quantidade: quantidade } //, produto:{id:idProduto,medida:medida,valorMedida:quantidade}}
@@ -285,16 +310,26 @@ async function incluirProdutoLocal(idProduto, quantidade, medida) {
     val = qtdCarrinho.innerHTML
     qtdCarrinho.innerHTML = Number(val) + 1
     botaoAddCarrinho = document.getElementById('add' + idProduto)
+    fbotaoAddCarrinho = document.getElementById('favadd' + idProduto) || botaoAddCarrinho
+    pbotaoAddCarrinho = document.getElementById('promoadd' + idProduto) || botaoAddCarrinho
     botaoRemCarrinho = document.getElementById('rem' + idProduto)
+    fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
+    pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
     botaoRemCarrinho.style.display = ''
+    fbotaoRemCarrinho.style.display = ''
+    pbotaoRemCarrinho.style.display = ''
     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + quantidade + ', "' + medida + '")')
+    fbotaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + quantidade + ', "' + medida + '")')
+    pbotaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + quantidade + ', "' + medida + '")')
     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + (-quantidade) + ', "' + medida + '")')
+    fbotaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + (-quantidade) + ', "' + medida + '")')
+    pbotaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + (-quantidade) + ', "' + medida + '")')
     quant = document.getElementById('qtd' + idProduto)
     quant.innerHTML = item.quantidade + medida
     fquant = document.getElementById('favqtd' + idProduto) || quant
-    fquant.innerHTML = item.quantidade + item.produto.medida
+    fquant.innerHTML = item.quantidade + medida
     pquant = document.getElementById('promoqtd' + idProduto) || quant
-    pquant.innerHTML = item.quantidade + item.produto.medida
+    pquant.innerHTML = item.quantidade + medida
 }
 
 async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
@@ -307,7 +342,11 @@ async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
         }
     }
     botaoAddCarrinho = document.getElementById('add' + idProduto)
+    fbotaoAddCarrinho = document.getElementById('favadd' + idProduto) || botaoAddCarrinho
+    pbotaoAddCarrinho = document.getElementById('promoadd' + idProduto) || botaoAddCarrinho
     botaoRemCarrinho = document.getElementById('rem' + idProduto)
+    fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
+    pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
     quant = document.getElementById('qtd' + idProduto)
     fquant = document.getElementById('favqtd' + idProduto) || quant
     pquant = document.getElementById('promoqtd' + idProduto) || quant
@@ -315,14 +354,22 @@ async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
         listaCompra.splice(n, 1)
         sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
         botaoRemCarrinho.style.display = 'none'
+        fbotaoRemCarrinho.style.display = 'none'
+        pbotaoRemCarrinho.style.display = 'none'
         botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + Math.abs(quantidade) + ', "' + medida + '")')
+        fbotaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + Math.abs(quantidade) + ', "' + medida + '")')
+        pbotaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + Math.abs(quantidade) + ', "' + medida + '")')
         const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
         val = qtdCarrinho.innerHTML
         qtdCarrinho.innerHTML = Number(val) - 1
         quant.innerHTML = ''
+        fquant.innerHTML = ''
+        pquant.innerHTML = ''
         return
     }
     botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
+    fbotaoRemCarrinho.style.display = ''
+    pbotaoRemCarrinho.style.display = ''
     sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
     quant.innerHTML = item.quantidade + medida
     fquant.innerHTML = item.quantidade + medida
