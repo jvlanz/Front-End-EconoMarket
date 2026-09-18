@@ -309,8 +309,8 @@ async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
     botaoAddCarrinho = document.getElementById('add' + idProduto)
     botaoRemCarrinho = document.getElementById('rem' + idProduto)
     quant = document.getElementById('qtd' + idProduto)
-    fquant = document.getElementById('favqtd' + quant.id) || quant
-    pquant = document.getElementById('promoqtd' + quant.id) || quant
+    fquant = document.getElementById('favqtd' + idProduto) || quant
+    pquant = document.getElementById('promoqtd' + idProduto) || quant
     if (item.quantidade <= 0) { // remover produto da lista
         listaCompra.splice(n, 1)
         sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
