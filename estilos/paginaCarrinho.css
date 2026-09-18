@@ -1,8 +1,9 @@
-.pagina-toda {
+.header-resumo,
+.body-carrinho {
     display: flex;
-    flex-direction: column;
 
-    gap: 50px;
+    padding: 15px 25%;
+
 }
 
 .header-resumo {
@@ -12,22 +13,26 @@
 
     gap: 10px;
 
+    margin-top: -40px;
+    margin-bottom: 70px;
+
     border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .header-resumo div {
     display: flex;
-
-    gap: 5px;
+    gap: 2px;
 }
 
-
-.header-resumo,
-.body-carrinho {
-    display: flex;
-
-    padding: 15px 25%;
+.header-resumo h1{
+    font-size: 18px;
+    font-weight: 600;
 }
+
+.header-resumo p {
+    font-size: 12px;
+}
+
 
 .body-carrinho {
     gap: 50px;
@@ -41,12 +46,29 @@
     position: relative;
 }
 
-.barra-pesquisa button {
+.button-adicionar-produto {
     position: absolute;
 
-    top: 20px;
+    top: 15px;
     right: 10px;
+
+    font-size: 14px;
+
+    padding: 8px 12px;
+
+    border-radius: 16px;
+
+    color: white;
+    background: rgb(56, 176, 0);
+
+    cursor: pointer;
 }
+
+.button-adicionar-produto span {
+    margin-right: 5px;
+}
+
+
 
 .produtos {
     display: flex;
