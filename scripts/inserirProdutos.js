@@ -179,7 +179,8 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             tituloPromo.style.display = ''
             subcontainerPromo.style.display = ''
             if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
-                clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                if (document.getElementById('promonome'+produto.id)==null)
+                    clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`, `${idFav}`)
                 nomePromo = document.getElementById('promonome' + produto.id)
                 nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
             }
