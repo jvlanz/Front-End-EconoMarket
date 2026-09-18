@@ -1,3 +1,7 @@
+body {
+    font-family: "Montserrat", sans-serif;
+}
+
 .paginaProduto {
     min-height: 70vh;
     padding: 60px 10%;
@@ -5,6 +9,8 @@
     justify-content: center;
     align-items: center;
     gap: 80px;
+
+    
 }
 
 /* IMAGEM DO PRODUTO */
