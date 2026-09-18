@@ -62,8 +62,56 @@ async function obterDadosCarrinho() { // buscas no banco de dados
             cliente.listaCompra[n].produto.figura = precos[0].produtoMarca.produto.figura
         }
     }
-    ordenarMercados()
-    gerarTabelaCarrinho()
+//    ordenarMercados()
+//    gerarTabelaCarrinho()
+    preencherCarrinho()
+}
+
+function preencherCarrinho() {
+    const divProdutos = document.getElementsByClassName('produtos')[0]
+    cliente.listaCompra.forEach(item => {
+        const divProduto = document.createElement('div')
+        divProduto.setAttribute('class', 'produto')
+        divProdutos.appendChild(divProduto)
+        const divDescricao = document.createElement('div')
+        divDescricao.setAttribute('class', 'descricao-produto')
+        divProduto.appendChild(divDescricao)
+        const imagem = document.createElement('img')
+        imagem.src='../imagens/'+item.produto.figura
+        divDescricao.appendChild(imagem)
+        const divNomeCategoria = document.createElement('div')
+        divNomeCategoria.setAttribute('class', 'nome-categoria-produto')
+        divDescricao.appendChild(divNomeCategoria)
+        const pNome = document.createElement('p')
+        pNome.setAttribute('class', 'nome-produto')
+        pNome.innerHTML = item.produto.descricao
+        divNomeCategoria.appendChild(pNome)
+        const pCategoria = document.createElement('p')
+        pCategoria.setAttribute('class', 'categoria-produto')
+        pCategoria.innerHTML = item.produto.categoria.categoria
+        divNomeCategoria.appendChild(pCategoria)
+        const divQuantidadeLixo = document.createElement('div')
+        divQuantidadeLixo.setAttribute('class', 'quantidade-lixo')
+        divProduto.appendChild(divQuantidadeLixo)
+        const divQuantidade = document.createElement('div')
+        divQuantidade.setAttribute('class', 'quantidade-div')
+        divQuantidadeLixo.appendChild(divQuantidade)
+        const btRem = document.createElement('button')
+        btRem.setAttribute('class', 'botaoPequeno')
+        btRem.innerHTML = '–'
+        divQuantidade.appendChild(btRem)
+        const qtd = document.createElement('span')
+        qtd.id = 'qtd'
+        qtd.innerHTML = item.quantidade+' '+item.produto.medida
+        divQuantidade.appendChild(qtd)
+        const btAdd = document.createElement('button')
+        btAdd.setAttribute('class', 'botaoPequeno')
+        btAdd.innerHTML = '+'
+        divQuantidade.appendChild(btAdd)
+        const divLixo = document.createElement('div')
+        divLixo.setAttribute('class', 'imagem-lixo')
+        divQuantidadeLixo.appendChild(divLixo)
+    })
 }
 
 function ordenarMercados() { // coloca lista de mercados em ordem decrescente de 'economia'...
