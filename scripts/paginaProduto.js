@@ -87,7 +87,10 @@ async function inserirProduto(produtoId) {
             }
 
             const divMercados = document.getElementById("mercados")
+            mercados = [] // solução temporária, pois o banco de dados possui entradas repetidas para produtos no mesmo mercado
             precos.forEach(preco => {
+              if (!mercados.includes(preco.mercado.nome)) {
+                mercados.push(preco.mercado.nome)
                 const divMercado = document.createElement("div")
                 divMercado.setAttribute("class", "mercado")
                 divMercados.appendChild(divMercado)
@@ -97,6 +100,7 @@ async function inserirProduto(produtoId) {
                 pPreco.innerHTML = `R$ ${preco.preco}`.replaceAll('.',',')
                 divMercado.appendChild(pMercado)
                 divMercado.appendChild(pPreco)
+              }
             })
 
             const botaoMais = document.querySelector("#mais-button")
