@@ -7,6 +7,8 @@
 }
 
 .header-resumo {
+    background-color: white;
+
     align-items: center;
 
     width: 100%;
@@ -181,14 +183,19 @@
 .botao-limpar button {
     font-size: 12px;
 
+    background: rgb(255, 60, 60);
+    color: white;
 
     padding: 8px 12px;
 
     border-radius: 12px;
-    border: 1px solid rgba(0.0 0.0 0, 0.3);
+
+    cursor: pointer;
 }
 
 .superior-direita {
+    background: white;
+
     display: flex;
     flex-direction: column;
 
@@ -197,6 +204,7 @@
     padding: 20px;
 
     border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 24px;
 }
 
 .superior-direita h2 {
@@ -213,9 +221,60 @@
     justify-content: space-between;
 }
 
-.todos-mercados div {
-    border: 1px solid oklch(0.55 0.17 145);
+.mercado {
+    font-size: 14px;
+    font-weight: 700;
+
+    background-color: rgba(0, 0, 0, 0.1);
+
+    padding: 12px;
+
+    border: 2px solid oklch(0.55 0.17 145);
+    border-radius: 14px;
 }
+
+.linha-horizontal {
+    color: rgb(0, 0, 0);
+}
+
+.quantidade-mercados {
+    display: flex;
+    align-items: center;
+}
+
+.texto .title {
+    font-size: 14px;
+    font-weight: 700;
+
+    margin-bottom: 5px;
+}
+
+.texto p {
+    font-size: 12px;
+}
+
+.selecionador-quantidade {
+    width: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 5px 20px;
+
+    background-color: rgba(0, 0, 0, 0.1);
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+.selecionador-quantidade-div{
+    color: rgba(0, 0, 0, 0.5);
+
+    cursor: pointer;
+}
+
 
 .mercados-preco {
     display: flex;
@@ -227,37 +286,7 @@
     justify-content: space-between;
 }
 
-.quantidade-mercados {
-    display: flex;
-    align-items: center;
-}
 
-.selecionador-quantidade {
-    display: flex;
-}
-
-.texto .title {
-    font-size: 14px;
-    font-weight: 600;
-
-    margin-bottom: 5px;
-}
-
-.texto p {
-    font-size: 12px;
-
-}
-
-.selecionador-quantidade {
-    width: 50%;
-
-    display: flex;
-    justify-content: space-between;
-
-    padding: 4px;
-
-    border: 1px solid rgba(0, 0, 0, 0.3);
-}
 
 .inferior-direita {
     display: flex;
