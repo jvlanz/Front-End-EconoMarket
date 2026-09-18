@@ -101,17 +101,6 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         imagem.setAttribute("class", "formatacao-imagem-card")
         link.appendChild(imagem);
 
-        const faixaPrecos = document.createElement("div");
-        faixaPrecos.setAttribute("class", "preco-produto");
-        faixaPrecos.innerHTML = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.', ',');
-        card.appendChild(faixaPrecos);
-
-        const nome = document.createElement("div");
-        nome.setAttribute("class", "nome-produto");
-        nome.id = "nome" + produto.id;
-        nome.innerHTML = produto.descricao;
-        card.appendChild(nome);
-
         const botaoRemCarrinho = document.createElement("button");
         botaoRemCarrinho.setAttribute("class", "btn-rem");
         botaoRemCarrinho.id = 'rem' + produto.id
@@ -129,6 +118,17 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoAddCarrinho.id = 'add' + produto.id
         botaoAddCarrinho.innerHTML = "+";
         card.appendChild(botaoAddCarrinho);
+
+        const faixaPrecos = document.createElement("div");
+        faixaPrecos.setAttribute("class", "preco-produto");
+        faixaPrecos.innerHTML = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.', ',');
+        card.appendChild(faixaPrecos);
+
+        const nome = document.createElement("div");
+        nome.setAttribute("class", "nome-produto");
+        nome.id = "nome" + produto.id;
+        nome.innerHTML = produto.descricao;
+        card.appendChild(nome);
 
         if (token != null) { // cliente logado
             botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
