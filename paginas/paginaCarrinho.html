@@ -25,30 +25,30 @@
 
     <div class="pagina-toda">
 
-        <div class="parte-superior">
+        <div class="header-resumo">
             <button>&#10094;</button>
 
-            <p>Sua lista</p>
+            <h1>Sua lista</h1>
 
             <div class="quantidades">
-                <p>6 items</p>
-                <p>9 unidades</p>
+                <p>· 6 items</p>
+                <p>· 9 unidades</p>
             </div>
         </div>
 
-        <div class="parte-inferior">
-            <div class="parte-esquerda">
+        <div class="body-carrinho">
+            <div class="body-esquerda">
+
                 <div class="barra-pesquisa">
                     <input type="text" placeholder="Digite um produto (ex: arroz, leite, café...)">
-                    <button>+ Adicionar</button>
+                    <button class="button-adicionar-produto"><span>+</span> Adicionar</button>
                 </div>
 
                 <div class="produtos">
                     <div class="produto">
-                        <div class="desc">
+                        <div class="descricao-produto">
                             <img src="" alt="">
-
-                            <div class="nome-categoria">
+                            <div class="nome-categoria-produto">
                                 <p>Picanha bovina</p>
                                 <p>Carnes</p>
                             </div>
@@ -61,17 +61,19 @@
                                 <p>+</p>
                             </div>
 
-                            <img src="" alt=""> <!--Icon lixo-->
+                            <div class="imagem-lixo">
+                            <img src="" alt="">
+                            <!--Icon lixo nessa linha--> 
+                            </div>
                         </div>
                     </div>
 
                     <div class="produto">
-                        <div class="desc">
+                        <div class="descricao-produto">
                             <img src="" alt="">
-
-                            <div class="nome-categoria">
-                                <p>Maçã</p>
-                                <p>Hortifruti</p>
+                            <div class="nome-categoria-produto">
+                                <p>Picanha bovina</p>
+                                <p>Carnes</p>
                             </div>
                         </div>
 
@@ -82,13 +84,16 @@
                                 <p>+</p>
                             </div>
 
-                            <img src="" alt=""> <!--Icon lixo-->
+                            <div class="imagem-lixo">
+                            <img src="" alt="">
+                            <!--Icon lixo nessa linha--> 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="parte-direita">
+            <div class="body-direita">
                 <div class="botao-limpar">
                     <button>Limpar lista</button>
                 </div>
@@ -97,7 +102,7 @@
                     <div class="selecionar-mercados">
                         <h2>SELECIONAR MERCADOS</h2>
 
-                        <div class="mercados-cima">
+                        <div class="todos-mercados">
                             <div class="mercado">
                                 <p>Giassi</p>
                             </div>
@@ -135,26 +140,26 @@
                 <div class="inferior-direita">
                     <p>TOTAL ESTIMADO EM CADA MERCADO</p>
 
-                    <div class="mercados-baixo">
-                        <div class="mercado">
+                    <div class="mercados-preco">
+                        <div class="mercado-preco">
                             <p>Giassi</p>
                             <p>R$220</p>
                         </div>
-                        <div class="mercado">
+                        <div class="mercado-preco">
                             <p>Angeloni</p>
                             <p>R$220</p>
                         </div>
-                        <div class="mercado">
+                        <div class="mercado-preco">
                             <p>Koch</p>
                             <p>R$220</p>
                         </div>
                     </div>
 
-                    <p class="letras-pequenas">Valores se você comprasse tudo em um único mercado. Use Calcular melhor compra para distribuir e
+                    <p class="explicacao">Valores se você comprasse tudo em um único mercado. Use Calcular melhor compra para distribuir e
                         economizar mais.</p>
                 </div>
 
-                <button>Calcular melhor compra</button>
+                <button class="button-melhor-compra">Calcular melhor compra</button>
             </div>
         </div>
     </div>
