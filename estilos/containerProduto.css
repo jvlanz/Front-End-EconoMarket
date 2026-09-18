@@ -22,28 +22,20 @@
 
     object-fit: contain;
 
-    margin-bottom: 60px;
+    margin-bottom: 20px;
 }
 
-.preco-produto,
-.quantidade-produto {
-    font-size: 16px;
-    font-weight: 700;  
-}
+.div-quantidade {
+    display: flex;
 
-.nome-produto {
-    font-size: 14px;
-    font-weight: 700;
+    justify-content: space-between;
+    align-items: center;
 
-    margin-top: 5px;
-
-    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
 }
 
 .btn-add,
 .btn-rem {
-    bottom: 40%;
-
     width: 35px;
     height: 35px;
     
@@ -60,23 +52,23 @@
     transition: 0.3s;
 }
 
-.btn-add,
-.btn-rem {
-    position: absolute;
-}
-
-.btn-add {
-    right: 10px;
-}
-
-.btn-rem {
-    left: 10px;
-}
-
 .quantidade-produto {
-    text-align: center;
-
     color: rgba(0, 0, 0, .7);
+}
+
+.preco-produto,
+.quantidade-produto {
+    font-size: 16px;
+    font-weight: 700;  
+}
+
+.nome-produto {
+    font-size: 14px;
+    font-weight: 700;
+
+    margin-top: 5px;
+
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .btn-favorito {
