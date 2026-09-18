@@ -97,7 +97,10 @@ async function inserirProduto(produtoId) {
                 pMercado = document.createElement("p")
                 pMercado.innerHTML = preco.mercado.nome
                 pPreco = document.createElement("p")
-                pPreco.innerHTML = `R$ ${preco.preco}`.replaceAll('.',',')
+                if (preco.produtoMarca.produto.valorMedida != 1)
+                    pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.valorMedida}${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
+                else
+                    pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
                 divMercado.appendChild(pMercado)
                 divMercado.appendChild(pPreco)
               }
