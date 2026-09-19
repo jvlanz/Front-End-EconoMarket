@@ -69,6 +69,7 @@ async function obterDadosCarrinho() { // buscas no banco de dados
 
 function preencherCarrinho() {
     const divProdutos = document.getElementsByClassName('produtos')[0]
+    ni = 0
     cliente.listaCompra.forEach(item => {
         const divProduto = document.createElement('div')
         divProduto.setAttribute('class', 'produto')
@@ -86,10 +87,21 @@ function preencherCarrinho() {
         pNome.setAttribute('class', 'nome-produto')
         pNome.innerHTML = item.produto.descricao
         divNomeCategoria.appendChild(pNome)
-        const pCategoria = document.createElement('p')
-        pCategoria.setAttribute('class', 'categoria-produto')
-        pCategoria.innerHTML = item.produto.categoria.categoria
-        divNomeCategoria.appendChild(pCategoria)
+//      const pCategoria = document.createElement('p')
+//      pCategoria.setAttribute('class', 'categoria-produto')
+//      pCategoria.innerHTML = item.produto.categoria.categoria
+//      divNomeCategoria.appendChild(pCategoria)
+//
+        selMarca = document.createElement('select')
+        selMarca.id = 'selMarca'+item.produto.id
+        divNomeCategoria.appendChild(selMarca)
+        selMercado = document.createElement('select')
+        selMercado.id = 'selMercado'+item.produto.id
+        divNomeCategoria.appendChild(selMercado)
+        preencherDadosItem(ni)
+        ni += 1
+//
+//
         const divQuantidadeLixo = document.createElement('div')
         divQuantidadeLixo.setAttribute('class', 'quantidade-lixo')
         divProduto.appendChild(divQuantidadeLixo)
@@ -111,6 +123,38 @@ function preencherCarrinho() {
         const divLixo = document.createElement('div')
         divLixo.setAttribute('class', 'imagem-lixo')
         divQuantidadeLixo.appendChild(divLixo)
+    })
+}
+
+function preencherDadosItem(ni) {
+    const item = cliente.listaCompra[ni]
+    const precos = listaPrecos[ni].precos
+    const selMarca = document.getElementById('selMarca'+item.produto.id)
+    const selMercado = document.getElementById('selMercado'+item.produto.id)
+//  sel.onchange = function () { preencherValores() }
+    optMarca = document.createElement('option')
+    optMarca.value = ''
+    selMarca.appendChild(optMarca)
+    const marcas = [1]  // já há marca='' no banco de dados
+    optMercado = document.createElement('option')
+    optMercado.value = ''
+    selMercado.appendChild(optMercado)
+    const mercados = []
+    precos.forEach(preco => {
+        if (marcas.indexOf(preco.produtoMarca.marca.id)==-1) {
+            marcas.push(preco.produtoMarca.marca.id)
+            var optMarca = document.createElement('option')
+            optMarca.value = preco.produtoMarca.marca.marca
+            optMarca.innerHTML = preco.produtoMarca.marca.marca
+            selMarca.appendChild(optMarca)
+        }
+        if (mercados.indexOf(preco.mercado.id)==-1) {
+            mercados.push(preco.mercado.id)
+            var optMercado = document.createElement('option')
+            optMercado.value = preco.mercado.nome
+            optMercado.innerHTML = preco.mercado.nome
+            selMercado.appendChild(optMercado)
+        }
     })
 }
 
