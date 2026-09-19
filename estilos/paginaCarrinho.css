@@ -231,7 +231,21 @@
 
     border: 2px solid oklch(0.55 0.17 145);
     border-radius: 14px;
+    cursor: pointer;
 }
+/*
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.mercado input:checked {
+    background-color: red;
+}
+
+.mercado input:checked + .mercado-text {
+    background-color: red;
+}
+*/
 
 .linha-horizontal {
     color: rgb(0, 0, 0);

@@ -5,6 +5,7 @@ var promocoes
 var listaPrecos = []
 const total = []
 const economia = []
+todosMercados = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
     const token = sessionStorage.getItem("token");
@@ -135,13 +136,14 @@ function preencherDadosItem(ni) {
     optMarca = document.createElement('option')
     optMarca.value = ''
     selMarca.appendChild(optMarca)
-    const marcas = [1]  // já há marca='' no banco de dados
+    const marcas = []
     optMercado = document.createElement('option')
     optMercado.value = ''
     selMercado.appendChild(optMercado)
-    const mercados = []
+    mercados = []
+    divMercados = document.getElementById('todos-mercados')
     precos.forEach(preco => {
-        if (marcas.indexOf(preco.produtoMarca.marca.id)==-1) {
+        if (preco.produtoMarca.marca.marca!='' && marcas.indexOf(preco.produtoMarca.marca.id)==-1) { // há produtos sem marca, mas já adicionamos marca='' como 1a opção em selMarcas
             marcas.push(preco.produtoMarca.marca.id)
             var optMarca = document.createElement('option')
             optMarca.value = preco.produtoMarca.marca.marca
@@ -154,6 +156,10 @@ function preencherDadosItem(ni) {
             optMercado.value = preco.mercado.nome
             optMercado.innerHTML = preco.mercado.nome
             selMercado.appendChild(optMercado)
+        }
+        if (todosMercados.indexOf(preco.mercado.id)==-1) {
+            divMercados.innerHTML += '<input type="checkbox" id="check'+preco.mercado.id+'" class="mercado" checked=on><span class="mercado-text">'+preco.mercado.nome+'</span></input>'
+            todosMercados.push(preco.mercado.id)
         }
     })
 }
@@ -188,28 +194,6 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
         economia[economia.indexOf(maxVal)] = minVal-1
     }
     mercados = fmercados
-}
-
-function gerarTabelaCarrinho() { // insere thead, tbody e tfoot
-    tab = document.getElementById('tabelaCarrinho')
-    tab.innerHTML = ''
-    thead = document.createElement('thead')
-    tab.appendChild(thead)
-    tr = document.createElement('tr')
-    tr.id = 'trHead'
-    thead.appendChild(tr)
-    tr.innerHTML = '<th>Produto</th><th>Marca</th><th>Quantidade</th>'
-    tbody = document.createElement('tbody')
-    tab.appendChild(tbody)
-    tfoot = document.createElement('tfoot')
-    tab.appendChild(tfoot)
-    tr = document.createElement('tr')
-    tr.id = 'trTotal'
-    tfoot.appendChild(tr)
-    tr = document.createElement('tr')
-    tr.id = 'trEconomia'
-    tfoot.appendChild(tr)
-    preencherTabelaCarrinho()
 }
 
 async function preencherTabelaCarrinho() { // preenche tbody com produtos e campos para N mercados
