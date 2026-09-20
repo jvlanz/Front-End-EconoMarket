@@ -3,8 +3,8 @@ var cliente
 var mercados
 var promocoes
 var listaPrecos = []
-const total = []
-const economia = []
+const totalMercado = []
+const economiaMercado = []
 todosMercados = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
@@ -37,8 +37,8 @@ async function obterDadosCarrinho() { // buscas no banco de dados
     }
     mercados = await respostaM.json()
     for (nm=0; nm<mercados.length; nm++) {
-        total.push(0)
-        economia.push(0)
+        totalMercado.push(0)
+        economiaMercado.push(0)
     }
     const respostaP = await fetch("http://localhost:8080/promocoes");
     if (!respostaP.ok) {
@@ -56,16 +56,15 @@ async function obterDadosCarrinho() { // buscas no banco de dados
             return;
         }
         const precos = await respostaP.json();
-        listaPrecos.push( {id:item.produto.id, precos:precos} )
+        listaPrecos.push( {id:item.id, precos:precos} ) // OBS era id:item.precos.id
         if (token==null && precos.length>0) {
             cliente.listaCompra[n].produto.descricao = precos[0].produtoMarca.produto.descricao
             cliente.listaCompra[n].produto.medida = precos[0].produtoMarca.produto.medida
             cliente.listaCompra[n].produto.figura = precos[0].produtoMarca.produto.figura
         }
     }
-//    ordenarMercados()
-//    gerarTabelaCarrinho()
     preencherCarrinho()
+    ordenarMercados()
 }
 
 function preencherCarrinho() {
@@ -101,8 +100,7 @@ function preencherCarrinho() {
         divNomeCategoria.appendChild(selMercado)
         preencherDadosItem(ni)
         ni += 1
-//
-//
+
         const divQuantidadeLixo = document.createElement('div')
         divQuantidadeLixo.setAttribute('class', 'quantidade-lixo')
         divProduto.appendChild(divQuantidadeLixo)
@@ -140,7 +138,7 @@ function preencherDadosItem(ni) {
     optMercado = document.createElement('option')
     optMercado.value = ''
     selMercado.appendChild(optMercado)
-    mercados = []
+    idMercados = []
     divMercados = document.getElementById('todos-mercados')
     divPrecos = document.getElementById('mercados-preco')
     precos.forEach(preco => {
@@ -151,8 +149,8 @@ function preencherDadosItem(ni) {
             optMarca.innerHTML = preco.produtoMarca.marca.marca
             selMarca.appendChild(optMarca)
         }
-        if (mercados.indexOf(preco.mercado.id)==-1) {
-            mercados.push(preco.mercado.id)
+        if (idMercados.indexOf(preco.mercado.id)==-1) {
+            idMercados.push(preco.mercado.id)
             var optMercado = document.createElement('option')
             optMercado.value = preco.mercado.nome
             optMercado.innerHTML = preco.mercado.nome
@@ -172,9 +170,6 @@ function preencherDadosItem(ni) {
 }
 
 function ordenarMercados() { // coloca lista de mercados em ordem decrescente de 'economia'...
-    let economia = []
-    for (nm=0; nm<mercados.length; nm++)
-        economia.push(0)
     nItens = listaPrecos.length
     for (ni=0; ni<nItens; ni++) {
         precoMedio = 0
@@ -185,20 +180,33 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
             nPrecos += 1
         }
         for (nm=0; nm<mercados.length; nm++) {
+            valor = -1
             for (np=0; np<precos.length; np++) {
                 if (precos[np].mercado.id==mercados[nm].id) {
-                    economia[nm] += (precoMedio - precos[np].preco)
+                    economiaMercado[nm] += (precoMedio - precos[np].preco)
+                    valor = precos[np].preco
                     break
                 }
             }
+            if (valor==-1) {
+                divMercado = document.getElementById('precoMercado'+mercados[nm].id)
+                divMercado.innerHTML = '--'
+            } else {
+                totalMercado[nm] += valor
+            }
+        }
+        for (nm=0; nm<mercados.length; nm++) {
+            divMercado = document.getElementById('precoMercado'+mercados[nm].id)
+            if (divMercado.innerHTML != '--')
+                divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
         }
     }
     fmercados = []
-    minVal = Math.min(...economia)
+    minVal = Math.min(...economiaMercado)
     while (fmercados.length<mercados.length) {
-        maxVal = Math.max(...economia)
-        fmercados.push(mercados[economia.indexOf(maxVal)])
-        economia[economia.indexOf(maxVal)] = minVal-1
+        maxVal = Math.max(...economiaMercado)
+        fmercados.push(mercados[economiaMercado.indexOf(maxVal)])
+        economiaMercado[economiaMercado.indexOf(maxVal)] = minVal-1
     }
     mercados = fmercados
 }
