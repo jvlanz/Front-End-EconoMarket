@@ -70,7 +70,7 @@
                         </div>
 
                         <div class="selecionador-quantidade">
-                            <input type='number' id='nMercados' value=3 class="selecionador-quantidade-div"></input>
+                            <input type='number' id='nMercados' value=3 min=1 max=5 class="selecionador-quantidade-div"></input>
                         </div>
                     </div>
                 </div>
@@ -78,19 +78,7 @@
                 <div class="inferior-direita">
                     <p>TOTAL ESTIMADO EM CADA MERCADO</p>
 
-                    <div class="mercados-preco">
-                        <div class="mercado-preco">
-                            <p>Giassi</p>
-                            <p>R$220</p>
-                        </div>
-                        <div class="mercado-preco">
-                            <p>Angeloni</p>
-                            <p>R$220</p>
-                        </div>
-                        <div class="mercado-preco">
-                            <p>Koch</p>
-                            <p>R$220</p>
-                        </div>
+                    <div id='mercados-preco' class="mercados-preco">
                     </div>
 
                     <p class="explicacao">Valores se você comprasse tudo em um único mercado. Use Calcular melhor compra para distribuir e

@@ -142,6 +142,7 @@ function preencherDadosItem(ni) {
     selMercado.appendChild(optMercado)
     mercados = []
     divMercados = document.getElementById('todos-mercados')
+    divPrecos = document.getElementById('mercados-preco')
     precos.forEach(preco => {
         if (preco.produtoMarca.marca.marca!='' && marcas.indexOf(preco.produtoMarca.marca.id)==-1) { // há produtos sem marca, mas já adicionamos marca='' como 1a opção em selMarcas
             marcas.push(preco.produtoMarca.marca.id)
@@ -161,6 +162,11 @@ function preencherDadosItem(ni) {
             divMercados.innerHTML += '<input type="checkbox" id="check'+preco.mercado.id+'" class="mercado-checkbox" checked=on>'
             divMercados.innerHTML += '<label for="check'+preco.mercado.id+'" class="mercado">'+preco.mercado.nome+'</label>'
             todosMercados.push(preco.mercado.id)
+            divMercado = document.createElement('div')
+            divMercado.setAttribute('class', 'mercado-preco')
+            divPrecos.appendChild(divMercado)
+            divMercado.innerHTML += '<p>'+preco.mercado.nome+'</p>'
+            divMercado.innerHTML += '<p id=precoMercado'+preco.mercado.id+'> R$ 220,00</p>'
         }
     })
 }
