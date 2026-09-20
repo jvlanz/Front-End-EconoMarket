@@ -68,6 +68,21 @@ async function obterDadosCarrinho() { // buscas no banco de dados
 //  menoresValores()
 }
 
+function ativarMercados() {
+    nMercados = document.getElementById('nMercados')
+    for (nm=0; nm<mercados.length; nm++) {
+        checkMercado = document.getElementById('check'+mercados[nm].id)
+        checkMercado.checked = ''
+        if (nm < nMercados.value)
+            checkMercado.checked = 'on'
+    }
+}
+
+function toggleCheckMercados() {
+    document.getElementById('nMercados').value =
+        document.querySelectorAll('input[class="mercado-checkbox"]:checked').length
+}
+
 function preencherCarrinho() {
     const divProdutos = document.getElementsByClassName('produtos')[0]
     ni = 0
@@ -158,7 +173,7 @@ function preencherDadosItem(ni) {
             selMercado.appendChild(optMercado)
         }
         if (todosMercados.indexOf(preco.mercado.id)==-1) {
-            divMercados.innerHTML += '<input type="checkbox" id="check'+preco.mercado.id+'" class="mercado-checkbox" checked=on>'
+            divMercados.innerHTML += '<input type="checkbox" id="check'+preco.mercado.id+'" class="mercado-checkbox" checked=on onchange="toggleCheckMercados()">'
             divMercados.innerHTML += '<label for="check'+preco.mercado.id+'" class="mercado">'+preco.mercado.nome+'</label>'
             todosMercados.push(preco.mercado.id)
             divMercado = document.createElement('div')
@@ -222,6 +237,8 @@ function menoresValores() { // seleciona select marcas e mercados com menores va
         val = 99999
         for (np=0; np<listaPrecos[ni].precos.length; np++) {
             preco = listaPrecos[ni].precos[np]
+            if (!document.getElementById('check'+preco.mercado.id).checked) continue // considera somente checkbox mercados
+            if (selMarca.value!='' && selMarca.value!=preco.produtoMarca.marca.marca) continue // preserva valor atual do select marca
             if (preco.preco<val) {
                 selMarca.value = preco.produtoMarca.marca.marca
                 selMercado.value = preco.mercado.nome
