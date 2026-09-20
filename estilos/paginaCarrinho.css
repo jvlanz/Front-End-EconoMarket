@@ -224,28 +224,21 @@
 .mercado {
     font-size: 14px;
     font-weight: 700;
-
     background-color: rgba(0, 0, 0, 0.1);
-
     padding: 12px;
-
-    border: 2px solid oklch(0.55 0.17 145);
     border-radius: 14px;
+    margin: 2px;
     cursor: pointer;
-}
-/*
-    appearance: none;
-    -webkit-appearance: none;
+    border: 2px solid white;
 }
 
-.mercado input:checked {
-    background-color: red;
+.mercado-checkbox {
+    display: none;
 }
 
-.mercado input:checked + .mercado-text {
-    background-color: red;
+.mercado-checkbox:checked + .mercado {
+    border: 2px solid oklch(0.55 0.17 145);
 }
-*/
 
 .linha-horizontal {
     color: rgb(0, 0, 0);

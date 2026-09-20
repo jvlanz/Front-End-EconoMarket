@@ -158,7 +158,8 @@ function preencherDadosItem(ni) {
             selMercado.appendChild(optMercado)
         }
         if (todosMercados.indexOf(preco.mercado.id)==-1) {
-            divMercados.innerHTML += '<input type="checkbox" id="check'+preco.mercado.id+'" class="mercado" checked=on><span class="mercado-text">'+preco.mercado.nome+'</span></input>'
+            divMercados.innerHTML += '<input type="checkbox" id="check'+preco.mercado.id+'" class="mercado-checkbox" checked=on>'
+            divMercados.innerHTML += '<label for="check'+preco.mercado.id+'" class="mercado">'+preco.mercado.nome+'</label>'
             todosMercados.push(preco.mercado.id)
         }
     })
