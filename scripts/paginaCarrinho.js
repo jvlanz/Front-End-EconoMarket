@@ -244,6 +244,8 @@ function selecionarMinimos() { // seleciona select marcas e mercados com menores
                 val = preco.preco
             }
         }
+//      document.getElementById('mostrarLista').disabled = ''
+//      document.getElementById('copiarLista').disabled = ''
     }
 }
 
