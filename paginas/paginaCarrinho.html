@@ -84,7 +84,9 @@
                     <p class="explicacao">Valores para compras em um único mercado. Clique abaixo para economizar mais.</p>
                 </div>
 
-                <button onclick="menoresValores()" class="button-melhor-compra">Calcular melhor compra</button>
+                <button onclick="selecionarMinimos()" class="button-melhor-compra">Calcular melhor compra</button>
+                <button onclick="mostrarLista()" class="lista-compra">Gerar lista de compra</button>
+                <button onclick="copiarLista()" class="lista-compra">Copiar lista de compra</button>
             </div>
         </div>
     </div>
@@ -108,6 +110,14 @@
             <a href='#' class='closeButton'>&times;</a>
         </div>
     </div>!-->
+
+    <div class='modal' id='lista'>
+        <a href='#' style='font-size:2000px; color:#0000'>___</a> <!-- hack para 'fechar' modal ao clicar fora do conteúdo -->
+        <div class='modalContent'>
+            <div id='listaCompra'></div>
+            <a href='#' class='closeButton'>&times;</a>
+        </div>
+    </div>
 
     <script>
         obterDadosCarrinho()
