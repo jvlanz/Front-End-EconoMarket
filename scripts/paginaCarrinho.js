@@ -292,7 +292,7 @@ function mostrarLista() {
     listas = gerarLista()
     nMercados = document.getElementById('nMercados').value
     div = document.getElementById('listaCompra')
-    div.innerHTML = ''
+    div.innerHTML = '<center><img src="../imagens/LogoEconoMarket.png" class="icone-logo"></center></br>'
     for (nm=0; nm<nMercados; nm++) {
         if (listas[mercados[nm].id]==null)
             continue
