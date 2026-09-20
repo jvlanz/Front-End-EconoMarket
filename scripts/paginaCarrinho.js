@@ -65,6 +65,7 @@ async function obterDadosCarrinho() { // buscas no banco de dados
     }
     preencherCarrinho()
     ordenarMercados()
+//  menoresValores()
 }
 
 function preencherCarrinho() {
@@ -215,35 +216,17 @@ function menoresValores() { // seleciona select marcas e mercados com menores va
     nMercados = document.getElementById('nMercados').value
     nItens = cliente.listaCompra.length
     for (ni=0; ni<nItens; ni++) {
-        qtd = document.getElementById('qtd'+ni)
         item = cliente.listaCompra[ni]
-        qtd.innerHTML = item.quantidade + item.produto.medida
-        marca = document.getElementById('sel'+item.produto.id).value
-        for (nm=0; nm<mercados.length; nm++) {
-            mercado = mercados[nm]
-            lab = document.getElementById('lab'+ni+mercado.id)
-            rad = document.getElementById('rad'+ni+mercado.id)
-            lab.innerHTML = ''
-            rad.disabled = true
-            val = 99999
-            for (np=0; np<listaPrecos.length; np++)
-                if (listaPrecos[np].id==item.produto.id) {
-                    precos = listaPrecos[np].precos
-                    break
-                }
-            precos.forEach(preco => {
-                if (preco.produtoMarca.produto.id==item.produto.id && preco.mercado.id==mercado.id) {
-                    if (marca!='' && marca!=preco.produtoMarca.marca.marca)
-                        return
-                    if (preco.preco<val) {
-                        val = preco.preco * item.quantidade / preco.produtoMarca.produto.valorMedida
-                        lab.innerHTML = 'R$ '+val.toFixed(2)
-                        rad.disabled = ''
-                        rad.value = preco.id
-                        rad.onclick = function() { atualizarValores() }
-                    }
-                }
-            })
+        selMarca = document.getElementById('selMarca'+item.produto.id)
+        selMercado = document.getElementById('selMercado'+item.produto.id)
+        val = 99999
+        for (np=0; np<listaPrecos[ni].precos.length; np++) {
+            preco = listaPrecos[ni].precos[np]
+            if (preco.preco<val) {
+                selMarca.value = preco.produtoMarca.marca.marca
+                selMercado.value = preco.mercado.nome
+                val = preco.preco
+            }
         }
     }
 }
