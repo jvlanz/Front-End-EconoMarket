@@ -164,7 +164,7 @@ function preencherDadosItem(ni) {
             divMercado.setAttribute('class', 'mercado-preco')
             divPrecos.appendChild(divMercado)
             divMercado.innerHTML += '<p>'+preco.mercado.nome+'</p>'
-            divMercado.innerHTML += '<p id=precoMercado'+preco.mercado.id+'> R$ 220,00</p>'
+            divMercado.innerHTML += '<p id=precoMercado'+preco.mercado.id+'></p>'
         }
     })
 }
@@ -183,7 +183,7 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
             valor = -1
             for (np=0; np<precos.length; np++) {
                 if (precos[np].mercado.id==mercados[nm].id) {
-                    economiaMercado[nm] += (precoMedio - precos[np].preco)
+                    economiaMercado[nm] += (precoMedio - precos[np].preco) * (cliente.listaCompra[ni].quantidade/precos[0].produtoMarca.produto.valorMedida)
                     valor = precos[np].preco
                     break
                 }
@@ -192,14 +192,14 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
                 divMercado = document.getElementById('precoMercado'+mercados[nm].id)
                 divMercado.innerHTML = '--'
             } else {
-                totalMercado[nm] += valor
+                totalMercado[nm] += valor * (cliente.listaCompra[ni].quantidade/precos[0].produtoMarca.produto.valorMedida)
             }
         }
-        for (nm=0; nm<mercados.length; nm++) {
-            divMercado = document.getElementById('precoMercado'+mercados[nm].id)
-            if (divMercado.innerHTML != '--')
-                divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
-        }
+    }
+    for (nm=0; nm<mercados.length; nm++) {
+        divMercado = document.getElementById('precoMercado'+mercados[nm].id)
+        if (divMercado.innerHTML != '--')
+            divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
     }
     fmercados = []
     minVal = Math.min(...economiaMercado)
@@ -209,6 +209,43 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
         economiaMercado[economiaMercado.indexOf(maxVal)] = minVal-1
     }
     mercados = fmercados
+}
+
+function menoresValores() { // seleciona select marcas e mercados com menores valores
+    nMercados = document.getElementById('nMercados').value
+    nItens = cliente.listaCompra.length
+    for (ni=0; ni<nItens; ni++) {
+        qtd = document.getElementById('qtd'+ni)
+        item = cliente.listaCompra[ni]
+        qtd.innerHTML = item.quantidade + item.produto.medida
+        marca = document.getElementById('sel'+item.produto.id).value
+        for (nm=0; nm<mercados.length; nm++) {
+            mercado = mercados[nm]
+            lab = document.getElementById('lab'+ni+mercado.id)
+            rad = document.getElementById('rad'+ni+mercado.id)
+            lab.innerHTML = ''
+            rad.disabled = true
+            val = 99999
+            for (np=0; np<listaPrecos.length; np++)
+                if (listaPrecos[np].id==item.produto.id) {
+                    precos = listaPrecos[np].precos
+                    break
+                }
+            precos.forEach(preco => {
+                if (preco.produtoMarca.produto.id==item.produto.id && preco.mercado.id==mercado.id) {
+                    if (marca!='' && marca!=preco.produtoMarca.marca.marca)
+                        return
+                    if (preco.preco<val) {
+                        val = preco.preco * item.quantidade / preco.produtoMarca.produto.valorMedida
+                        lab.innerHTML = 'R$ '+val.toFixed(2)
+                        rad.disabled = ''
+                        rad.value = preco.id
+                        rad.onclick = function() { atualizarValores() }
+                    }
+                }
+            })
+        }
+    }
 }
 
 async function preencherTabelaCarrinho() { // preenche tbody com produtos e campos para N mercados
