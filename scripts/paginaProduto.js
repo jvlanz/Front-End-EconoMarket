@@ -66,8 +66,8 @@ async function inserirProduto(produtoId) {
             <div class="quantidade">
                 <p>Quantidade:</p>
                 <div class="set-quantidade">
-                    <button id="menos-button">-</button>
-                    <p id="quantidade-setada">1</p>
+                    <button id="menos-button">–</button>
+                    <p id="quantidade${produtoId}">0</p>
                     <button id="mais-button">+</button>
                 </div>
             </div>
@@ -98,7 +98,7 @@ async function inserirProduto(produtoId) {
                 pMercado.innerHTML = preco.mercado.nome
                 pPreco = document.createElement("p")
                 if (preco.produtoMarca.produto.valorMedida != 1)
-                    pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.valorMedida}${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
+                    pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.valorMedida} ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
                 else
                     pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
                 divMercado.appendChild(pMercado)
@@ -106,24 +106,86 @@ async function inserirProduto(produtoId) {
               }
             })
 
+            pQuantidade = document.getElementById('quantidade'+produtoId)
+            for (ni=0; ni<listaCompra.length; ni++) {
+                if (listaCompra[ni].id==produtoId) {
+                    pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
+                    break
+                }
+            }
+
             const botaoMais = document.querySelector("#mais-button")
-            botaoMais.addEventListener("click", () => {
-                const quantidade = Number(document.querySelector("#quantidade-setada")
-                    .innerHTML);
-
-                document.querySelector("#quantidade-setada")
-                    .innerHTML = quantidade + 1;
-            });
-
             const botaoMenos = document.querySelector("#menos-button")
-            botaoMenos.addEventListener("click", () => {
-                const quantidade = document.querySelector("#quantidade-setada")
-                    .innerHTML;
+            if (token!=null) {
+                botaoMais.addEventListener("click", () => {
+                    for (ni=0; ni<listaCompra.length; ni++) {
+                        presente = false
+                        if (listaCompra[ni].produto.id==produtoId) {
+                            listaCompra[ni].quantidade += listaCompra[ni].produto.valorMedida
+                            pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
+                            presente = true
+                            alterarItem(listaCompra[ni].id, produtoId, cliente.id, listaCompra[ni].quantidade)
+                            break
+                        }
+                    }
+                    if (!presente) {
+                        listaCompra.push( {id:produtoId, quantidade:precos[0].produtoMarca.produto.valorMedida} )
+                        pQuantidade.innerHTML = precos[0].produtoMarca.produto.valorMedida + ' ' + precos[0].produtoMarca.produto.medida
+                        incluirItem(produtoId, cliente.id, precos[0].produtoMarca.produto.valorMedida)
+                    }
+                });
 
-                document.querySelector("#quantidade-setada")
-                    .innerHTML = quantidade - 1;
-            })
+                botaoMenos.addEventListener("click", () => {
+                    for (ni=0; ni<listaCompra.length; ni++) {
+                        if (listaCompra[ni].produto.id==produtoId) {
+                            listaCompra[ni].quantidade -= listaCompra[ni].produto.valorMedida
+                            if (listaCompra[ni].quantidade <=0) {
+                                removerItem(listaCompra[ni].id)
+                                listaCompra.splice(ni,1)
+                                pQuantidade.innerHTML = '0 ' + precos[0].produtoMarca.produto.medida
+                            } else {
+                                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
+                                alterarItem(listaCompra[ni].id, produtoId, cliente.id, listaCompra[ni].quantidade)
+                            }
+                            break
+                        }
+                    }
+                })
 
+            } else {
+                botaoMais.addEventListener("click", () => {
+                    for (ni=0; ni<listaCompra.length; ni++) {
+                        presente = false
+                        if (listaCompra[ni].id==produtoId) {
+                            listaCompra[ni].quantidade += precos[0].produtoMarca.produto.valorMedida
+                            pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
+                            presente = true
+                            break
+                        }
+                    }
+                    if (!presente) {
+                        listaCompra.push( {id:produtoId, quantidade:precos[0].produtoMarca.produto.valorMedida} )
+                        pQuantidade.innerHTML = precos[0].produtoMarca.produto.valorMedida + ' ' + precos[0].produtoMarca.produto.medida
+                    }
+                    sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+                });
+
+                botaoMenos.addEventListener("click", () => {
+                    for (ni=0; ni<listaCompra.length; ni++) {
+                        if (listaCompra[ni].id==produtoId) {
+                            listaCompra[ni].quantidade -= precos[0].produtoMarca.produto.valorMedida
+                            if (listaCompra[ni].quantidade <=0) {
+                                listaCompra.splice(ni,1)
+                                pQuantidade.innerHTML = '0 ' + precos[0].produtoMarca.produto.medida
+                            } else {
+                                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
+                            }
+                            break
+                        }
+                    }
+                    sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+                })
+            }
 
 
         } else {
