@@ -86,12 +86,21 @@ function preencherCarrinho() {
         const divDescricao = document.createElement('div')
         divDescricao.setAttribute('class', 'descricao-produto')
         divProduto.appendChild(divDescricao)
+        const divImagem = document.createElement('div')
+        divImagem.setAttribute('class', 'imagem-produto')
+        divDescricao.appendChild(divImagem)
         const imagem = document.createElement('img')
         imagem.src='../imagens/'+item.produto.figura
-        divDescricao.appendChild(imagem)
+        divImagem.appendChild(imagem)
         const divNomeCategoria = document.createElement('div')
-        divNomeCategoria.setAttribute('class', 'categoria-produto')
+        divNomeCategoria.setAttribute('class', 'nome-categoria-produto')
         divDescricao.appendChild(divNomeCategoria)
+        const divNomeProduto = document.createElement('div')
+        divNomeProduto.setAttribute('class', 'nome-produto')
+        divNomeCategoria.appendChild(divNomeProduto)
+        const divCategoriaProduto = document.createElement('div')
+        divCategoriaProduto.setAttribute('class', 'categoria-produto')
+        divNomeCategoria.appendChild(divCategoriaProduto)
         const pNome = document.createElement('p')
         pNome.setAttribute('class', 'nome-produto')
         pNome.innerHTML = item.produto.descricao
@@ -101,20 +110,23 @@ function preencherCarrinho() {
 //      pCategoria.innerHTML = item.produto.categoria.categoria
 //      divNomeCategoria.appendChild(pCategoria)
 
+        const divMarcaMercado = document.createElement('div')
+        divMarcaMercado.setAttribute('class', 'divs')
+        divProduto.appendChild(divMarcaMercado)
+
         selMarca = document.createElement('select')
+        selMarca.setAttribute('class', 'selecionar-marca')
         selMarca.id = 'selMarca'+item.produto.id
-        divNomeCategoria.appendChild(selMarca)
+        divMarcaMercado.appendChild(selMarca)
         selMercado = document.createElement('select')
+        selMercado.setAttribute('class', 'selecionar-mercado')
         selMercado.id = 'selMercado'+item.produto.id
-        divNomeCategoria.appendChild(selMercado)
+        divMarcaMercado.appendChild(selMercado)
         preencherDadosItem(ni)
 
-        const divQuantidadeLixo = document.createElement('div')
-        divQuantidadeLixo.setAttribute('class', 'quantidade-lixo')
-        divProduto.appendChild(divQuantidadeLixo)
         const divQuantidade = document.createElement('div')
         divQuantidade.setAttribute('class', 'quantidade-div')
-        divQuantidadeLixo.appendChild(divQuantidade)
+        divProduto.appendChild(divQuantidade)
         const btRem = document.createElement('button')
         btRem.setAttribute('class', 'botaoPequeno')
         btRem.innerHTML = '–'
