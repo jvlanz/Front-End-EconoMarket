@@ -67,7 +67,7 @@ async function inserirProduto(produtoId) {
                 <p>Quantidade:</p>
                 <div class="set-quantidade">
                     <button id="menos-button">–</button>
-                    <p id="quantidade${produtoId}">0</p>
+                    <p id="quantidade${produtoId}">0 ${precos[0].produtoMarca.produto.medida}</p>
                     <button id="mais-button">+</button>
                 </div>
             </div>
