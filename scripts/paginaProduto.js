@@ -109,7 +109,10 @@ async function inserirProduto(produtoId) {
             pQuantidade = document.getElementById('quantidade'+produtoId)
             for (ni=0; ni<listaCompra.length; ni++) {
                 if (listaCompra[ni].id==produtoId) {
-                    pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
+                    if (listaCompra[ni].quantidade % 1 > 0)
+                        pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + precos[0].produtoMarca.produto.medida
+                    else
+                        pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
                     break
                 }
             }

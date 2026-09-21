@@ -121,7 +121,10 @@ function preencherCarrinho() {
         divQuantidade.appendChild(btRem)
         const qtd = document.createElement('span')
         qtd.id = 'quantidade'+item.produto.id
-        qtd.innerHTML = item.quantidade+' '+item.produto.medida
+        if (item.quantidade % 1 > 0)
+            qtd.innerHTML = item.quantidade.toFixed(2).replace('.',',')+' '+item.produto.medida
+        else
+            qtd.innerHTML = item.quantidade+' '+item.produto.medida
         divQuantidade.appendChild(qtd)
         const btAdd = document.createElement('button')
         btAdd.setAttribute('class', 'botaoPequeno')

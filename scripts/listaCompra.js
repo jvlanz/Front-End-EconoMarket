@@ -84,7 +84,10 @@ function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
     for (ni=0; ni<listaCompra.length; ni++) {
         if (listaCompra[ni].produto.id==produtoId) {
             listaCompra[ni].quantidade += quantidade
-            pQuantidade.innerHTML = listaCompra[ni] + ' ' + medida
+            if (listaCompra[ni].quantidade % 1 > 0)
+                pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
+            else
+                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
             presente = true
             alterarItem(listaCompra[ni].id, produtoId, clienteId, listaCompra[ni].quantidade)
             break
@@ -92,7 +95,10 @@ function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
     }
     if (!presente) {
         listaCompra.push( {id:produtoId, quantidade:quantidade} )
-        pQuantidade.innerHTML = quantidade + ' ' + medida
+        if (quantidade % 1 > 0)
+            pQuantidade.innerHTML = quantidade.toFixed(2).replace('.',',') + ' ' + medida
+        else
+            pQuantidade.innerHTML = quantidade + ' ' + medida
         incluirItem(produtoId, cliente.id, quantidade)
     }
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
@@ -109,7 +115,10 @@ function removerQuantidade(clienteId, produtoId, quantidade, medida) {
                 listaCompra.splice(ni,1)
                 pQuantidade.innerHTML = '0 ' + medida
             } else {
-                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+                if (quantidade % 1 > 0)
+                    pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
+                else
+                    pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
                 alterarItem(listaCompra[ni].id, produtoId, clienteId, listaCompra[ni].quantidade)
             }
             break
@@ -125,14 +134,20 @@ function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
     for (ni=0; ni<listaCompra.length; ni++) {
         if (listaCompra[ni].id==produtoId) {
             listaCompra[ni].quantidade += quantidade
-            pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+            if (quantidade % 1 > 0)
+                pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
+            else
+                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
             presente = true
             break
         }
     }
     if (!presente) {
         listaCompra.push( {id:produtoId, quantidade:quantidade} )
-        pQuantidade.innerHTML = quantidade.toFixed(2).replace('.',',') + ' ' + medida
+        if (quantidade % 1 > 0)
+            pQuantidade.innerHTML = quantidade.toFixed(2).replace('.',',') + ' ' + medida
+        else
+            pQuantidade.innerHTML = quantidade + ' ' + medida
     }
     sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
@@ -148,7 +163,10 @@ function removerQuantidadeLocal(produtoId, quantidade, medida) {
                 listaCompra.splice(ni,1)
                 pQuantidade.innerHTML = '0 ' + medida
             } else {
-                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+                if (quantidade % 1 > 0)
+                    pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
+                else
+                    pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
             }
             break
         }
