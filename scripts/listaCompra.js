@@ -76,3 +76,77 @@ async function removerItem(idCompra) {
     })
     .catch(error => console.error('erro com a operação fetch:', error))
 }
+
+// funções para o frontend
+function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
+    pQuantidade = document.getElementById('quantidade'+produtoId)
+    presente = false
+    for (ni=0; ni<listaCompra.length; ni++) {
+        if (listaCompra[ni].produto.id==produtoId) {
+            listaCompra[ni].quantidade += quantidade
+            pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+            presente = true
+            alterarItem(listaCompra[ni].id, produtoId, clienteId, listaCompra[ni].quantidade)
+            break
+        }
+    }
+    if (!presente) {
+        listaCompra.push( {id:produtoId, quantidade:quantidade} )
+        pQuantidade.innerHTML = quantidade + ' ' + medida
+        incluirItem(produtoId, cliente.id, quantidade)
+    }
+}
+
+function removerQuantidade(clienteId, produtoId, quantidade, medida) {
+    pQuantidade = document.getElementById('quantidade'+produtoId)
+    for (ni=0; ni<listaCompra.length; ni++) {
+        if (listaCompra[ni].produto.id==produtoId) {
+            listaCompra[ni].quantidade -= quantidade
+            if (listaCompra[ni].quantidade <=0) {
+                removerItem(listaCompra[ni].id)
+                listaCompra.splice(ni,1)
+                pQuantidade.innerHTML = '0 ' + medida
+            } else {
+                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+                alterarItem(listaCompra[ni].id, produtoId, clienteId, listaCompra[ni].quantidade)
+            }
+            break
+        }
+    }
+}
+
+function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
+    pQuantidade = document.getElementById('quantidade'+produtoId)
+    presente = false
+    for (ni=0; ni<listaCompra.length; ni++) {
+        if (listaCompra[ni].id==produtoId) {
+            listaCompra[ni].quantidade += quantidade
+            pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+            presente = true
+            break
+        }
+    }
+    if (!presente) {
+        listaCompra.push( {id:produtoId, quantidade:quantidade} )
+        pQuantidade.innerHTML = quantidade + ' ' + medida
+    }
+    sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+}
+
+function removerQuantidadeLocal(produtoId, quantidade, medida) {
+    pQuantidade = document.getElementById('quantidade'+produtoId)
+    for (ni=0; ni<listaCompra.length; ni++) {
+        if (listaCompra[ni].id==produtoId) {
+            listaCompra[ni].quantidade -= quantidade
+            if (listaCompra[ni].quantidade <=0) {
+                listaCompra.splice(ni,1)
+                pQuantidade.innerHTML = '0 ' + medida
+            } else {
+                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+            }
+            break
+        }
+    }
+    sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+}
+
