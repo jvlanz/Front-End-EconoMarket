@@ -3,7 +3,6 @@ var cliente
 var mercados
 var promocoes
 var listaPrecos = []
-todosMercados = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
     const token = sessionStorage.getItem("token");
@@ -157,8 +156,6 @@ function preencherDadosItem(ni) {
     optMercado.value = ''
     selMercado.appendChild(optMercado)
     idMercados = []
-    divMercados = document.getElementById('todos-mercados')
-    divPrecos = document.getElementById('mercados-preco')
     precos.forEach(preco => {
         if (preco.produtoMarca.marca.marca!='' && marcas.indexOf(preco.produtoMarca.marca.id)==-1) { // há produtos sem marca, mas já adicionamos marca='' como 1a opção em selMarcas
             marcas.push(preco.produtoMarca.marca.id)
@@ -174,20 +171,21 @@ function preencherDadosItem(ni) {
             optMercado.innerHTML = preco.mercado.nome
             selMercado.appendChild(optMercado)
         }
-        if (todosMercados.indexOf(preco.mercado.id)==-1) {
-            divMercados.innerHTML += '<input type="checkbox" id="check'+preco.mercado.id+'" class="mercado-checkbox" checked=on onchange="toggleCheckMercados()">'
-            divMercados.innerHTML += '<label for="check'+preco.mercado.id+'" class="mercado">'+preco.mercado.nome+'</label>'
-            todosMercados.push(preco.mercado.id)
-            divMercado = document.createElement('div')
-            divMercado.setAttribute('class', 'mercado-preco')
-            divPrecos.appendChild(divMercado)
-            divMercado.innerHTML += '<p>'+preco.mercado.nome+'</p>'
-            divMercado.innerHTML += '<p id=precoMercado'+preco.mercado.id+'></p>'
-        }
     })
 }
 
 function ordenarMercados() { // coloca lista de mercados em ordem decrescente de 'economia'...
+    mercados.forEach( mercado => {
+        divMercados = document.getElementById('todos-mercados')
+        divPrecos = document.getElementById('mercados-preco')
+        divMercados.innerHTML += '<input type="checkbox" id="check'+mercado.id+'" class="mercado-checkbox" checked=on onchange="toggleCheckMercados()">'
+        divMercados.innerHTML += '<label for="check'+mercado.id+'" class="mercado">'+mercado.nome+'</label>'
+        divMercado = document.createElement('div')
+        divMercado.setAttribute('class', 'mercado-preco')
+        divPrecos.appendChild(divMercado)
+        divMercado.innerHTML += '<p>'+mercado.nome+'</p>'
+        divMercado.innerHTML += '<p id=precoMercado'+mercado.id+'></p>'
+    })
     nItens = listaPrecos.length
     totalMercado = []
     economiaMercado = []
