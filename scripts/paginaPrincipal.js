@@ -88,18 +88,18 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             container.appendChild(subcontainer);
         }
 
-        const card = document.createElement("div");
-        card.setAttribute("class", "card-produto");
-        subcontainer.appendChild(card);
-
         const link = document.createElement("a")
         link.href = "paginaProduto.html?produto=" + produto.id
-        card.appendChild(link);
+        subcontainer.appendChild(link);
+
+        const card = document.createElement("div");
+        card.setAttribute("class", "card-produto");
+        link.appendChild(card);
 
         const imagem = document.createElement("img");
         imagem.src = "../imagens/" + produto.figura;
         imagem.setAttribute("class", "formatacao-imagem-card")
-        link.appendChild(imagem);
+        card.appendChild(imagem);
 
         const divQtd = document.createElement('div')
         divQtd.setAttribute('class', 'div-quantidade')

@@ -64,15 +64,21 @@ async function inserirProduto(produtoId) {
             </div>
 
             <div class="quantidade">
-                <p>Quantidade:</p>
+                <!--p>Quantidade:</p-->
                 <div class="set-quantidade">
                     <button id="menos-button">–</button>
-                    <p id="quantidade${produtoId}">0 ${precos[0].produtoMarca.produto.medida}</p>
+                    <p id="quantidade${produtoId}">${precos[0].produtoMarca.produto.valorMedida} ${precos[0].produtoMarca.produto.medida}</p>
                     <button id="mais-button">+</button>
                 </div>
+                <input class="adicionar-carrinho" type="button" value="Adicionar">
             </div>
 
-            <input class="adicionar-carrinho" type="button" value="Adicionar carrinho">
+            <div class="quantidade">
+                <p>Quantidade no carrinho:</p>
+                <p id="quantidade${produtoId}">0 ${precos[0].produtoMarca.produto.medida}</p>
+                <input class="adicionar-carrinho" type="button" value="Remover"">
+            </div>
+
         </div>
 
  `
