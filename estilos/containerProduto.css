@@ -3,7 +3,7 @@
     flex-direction: column;
 
     height: 312px;
-    width: 168, 328px;
+    width: 150px;
 
     position: relative;
     background: white;
@@ -12,6 +12,8 @@
     border-radius: 14px;
 
     padding: 22px 15px;
+
+    cursor: pointer;
 
     transition: .3s;
 }
@@ -36,8 +38,8 @@
 
 .btn-add,
 .btn-rem {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     
     border: none;
     border-radius: 50%;
@@ -59,7 +61,7 @@
 .preco-produto,
 .quantidade-produto {
     font-size: 16px;
-    font-weight: 700;  
+    font-weight: 700; 
 }
 
 .nome-produto {
