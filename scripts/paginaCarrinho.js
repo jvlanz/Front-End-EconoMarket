@@ -90,7 +90,7 @@ function preencherCarrinho() {
         imagem.src='../imagens/'+item.produto.figura
         divDescricao.appendChild(imagem)
         const divNomeCategoria = document.createElement('div')
-        divNomeCategoria.setAttribute('class', 'nome-categoria-produto')
+        divNomeCategoria.setAttribute('class', 'categoria-produto')
         divDescricao.appendChild(divNomeCategoria)
         const pNome = document.createElement('p')
         pNome.setAttribute('class', 'nome-produto')
