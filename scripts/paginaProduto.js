@@ -73,7 +73,7 @@ async function inserirProduto(produtoId) {
                 <input class="adicionar-carrinho" type="button" value="Adicionar">
             </div>
 
-            <div class="quantidade">
+            <div class="quantidade"> <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
                 <p>Quantidade no carrinho:</p>
                 <p id="quantidade${produtoId}">0 ${precos[0].produtoMarca.produto.medida}</p>
                 <input class="adicionar-carrinho" type="button" value="Remover"">
