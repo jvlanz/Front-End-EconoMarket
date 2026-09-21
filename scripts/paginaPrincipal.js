@@ -156,9 +156,11 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 if (favorito.produto.id == produto.id) {
                     botaoFavorito.innerHTML = "♥";
                     idFav = favorito.id
-                    tituloFav.style.display = ''
-                    subcontainerFav.style.display = ''
-                    clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                    if (args.id==null) {
+                        tituloFav.style.display = ''
+                        subcontainerFav.style.display = ''
+                        clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                    }
                 }
             })
             botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${idFav}`) }
@@ -175,7 +177,8 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             }
         }
 
-        promocoes.forEach(promocao => {
+        if (args.id==null) {
+          promocoes.forEach(promocao => {
             tituloPromo.style.display = ''
             subcontainerPromo.style.display = ''
             if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
@@ -184,8 +187,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 nomePromo = document.getElementById('promonome' + produto.id)
                 nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
             }
+          })
+        }
 
-        })
     });
 }
 
