@@ -1,3 +1,8 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
 .card-produto {
     display: flex;
     flex-direction: column;
@@ -62,6 +67,8 @@
 .quantidade-produto {
     font-size: 16px;
     font-weight: 700; 
+
+    text-decoration: none;
 }
 
 .nome-produto {
