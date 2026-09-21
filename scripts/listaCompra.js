@@ -95,6 +95,8 @@ function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
         pQuantidade.innerHTML = quantidade + ' ' + medida
         incluirItem(produtoId, cliente.id, quantidade)
     }
+    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+    qtdCarrinho.innerHTML = listaCompra.length
 }
 
 function removerQuantidade(clienteId, produtoId, quantidade, medida) {
@@ -113,6 +115,8 @@ function removerQuantidade(clienteId, produtoId, quantidade, medida) {
             break
         }
     }
+    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+    qtdCarrinho.innerHTML = listaCompra.length
 }
 
 function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
@@ -131,6 +135,8 @@ function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
         pQuantidade.innerHTML = quantidade + ' ' + medida
     }
     sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+    qtdCarrinho.innerHTML = listaCompra.length
 }
 
 function removerQuantidadeLocal(produtoId, quantidade, medida) {
@@ -148,5 +154,7 @@ function removerQuantidadeLocal(produtoId, quantidade, medida) {
         }
     }
     sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
+    qtdCarrinho.innerHTML = listaCompra.length
 }
 
