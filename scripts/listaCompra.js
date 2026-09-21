@@ -84,7 +84,7 @@ function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
     for (ni=0; ni<listaCompra.length; ni++) {
         if (listaCompra[ni].produto.id==produtoId) {
             listaCompra[ni].quantidade += quantidade
-            pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+            pQuantidade.innerHTML = listaCompra[ni] + ' ' + medida
             presente = true
             alterarItem(listaCompra[ni].id, produtoId, clienteId, listaCompra[ni].quantidade)
             break
@@ -132,7 +132,7 @@ function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
     }
     if (!presente) {
         listaCompra.push( {id:produtoId, quantidade:quantidade} )
-        pQuantidade.innerHTML = quantidade + ' ' + medida
+        pQuantidade.innerHTML = quantidade.toFixed(2).replace('.',',') + ' ' + medida
     }
     sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]

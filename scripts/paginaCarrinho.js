@@ -129,6 +129,7 @@ function preencherCarrinho() {
         divQuantidade.appendChild(btAdd)
         medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
         quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
+        if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
         if (token!=null) {
             btRem.onclick = () => { removerQuantidade(cliente.id, tem.produto.id, quantidade, medida) }
             btAdd.onclick = () => { adicionarQuantidade(cliente.id, tem.produto.id, quantidade, medida) }
