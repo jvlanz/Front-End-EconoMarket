@@ -122,18 +122,116 @@ function preencherCarrinho() {
         btRem.innerHTML = '–'
         divQuantidade.appendChild(btRem)
         const qtd = document.createElement('span')
-        qtd.id = 'qtd'
+        qtd.id = 'quantidade'+item.produto.id
         qtd.innerHTML = item.quantidade+' '+item.produto.medida
         divQuantidade.appendChild(qtd)
         const btAdd = document.createElement('button')
         btAdd.setAttribute('class', 'botaoPequeno')
         btAdd.innerHTML = '+'
         divQuantidade.appendChild(btAdd)
+        if (token!=null) {
+            btRem.onclick = () => { removerQuantidade(item.produto.id) }
+            btAdd.onclick = () => { adicionarQuantidade(item.produto.id) }
+        } else {
+            btRem.onclick = () => { removerQuantidadeLocal(item.produto.id) }
+            btAdd.onclick = () => { adicionarQuantidadeLocal(item.produto.id) }
+        }
         const divLixo = document.createElement('div')
         divLixo.setAttribute('class', 'imagem-lixo')
         divQuantidadeLixo.appendChild(divLixo)
     })
 }
+
+function adicionarQuantidade(produtoId) {
+    pQuantidade = document.getElementById('quantidade'+produtoId)
+    for (ni=0; ni<listaCompra.length; ni++) {
+        presente = false
+        if (listaCompra[ni].produto.id==produtoId) {
+            listaCompra[ni].quantidade += listaCompra[ni].produto.valorMedida
+            pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
+            presente = true
+            alterarItem(listaCompra[ni].id, produtoId, cliente.id, listaCompra[ni].quantidade)
+            break
+        }
+    }
+    if (!presente) {
+        listaCompra.push( {id:produtoId, quantidade:precos[0].produtoMarca.produto.valorMedida} )
+        pQuantidade.innerHTML = precos[0].produtoMarca.produto.valorMedida + ' ' + precos[0].produtoMarca.produto.medida
+        incluirItem(produtoId, cliente.id, precos[0].produtoMarca.produto.valorMedida)
+    }
+}
+
+function removerQuantidade(produtoId) {
+    pQuantidade = document.getElementById('quantidade'+produtoId)
+    for (ni=0; ni<listaCompra.length; ni++) {
+        if (listaCompra[ni].produto.id==produtoId) {
+            listaCompra[ni].quantidade -= listaCompra[ni].produto.valorMedida
+            if (listaCompra[ni].quantidade <=0) {
+                removerItem(listaCompra[ni].id)
+                listaCompra.splice(ni,1)
+                pQuantidade.innerHTML = '0 ' + precos[0].produtoMarca.produto.medida
+            } else {
+                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
+                alterarItem(listaCompra[ni].id, produtoId, cliente.id, listaCompra[ni].quantidade)
+            }
+            break
+        }
+    }
+}
+
+function adicionarQuantidadeLocal(produtoId) {
+    pQuantidade = document.getElementById('quantidade'+produtoId)
+    valorMedida = 0
+    medida = ''
+    for (np=0; ni<listaPrecos.length; np++) {
+        if (listaPrecos[np].precos[0].produtoMarca.produto.id==produtoId) {
+            valorMedida = listaPrecos[np].precos[0].produtoMarca.produto.valorMedida
+            medida = listaPrecos[np].precos[0].produtoMarca.produto.medida
+            break
+        }
+    }
+    for (ni=0; ni<listaCompra.length; ni++) {
+        presente = false
+        if (listaCompra[ni].id==produtoId) {
+            listaCompra[ni].quantidade += valorMedida
+            pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+            presente = true
+            break
+        }
+    }
+    if (!presente) {
+        listaCompra.push( {id:produtoId, quantidade:valorMedida} )
+        pQuantidade.innerHTML = valorMedida + ' ' + medida
+    }
+    sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+}
+
+function removerQuantidadeLocal(produtoId) {
+    pQuantidade = document.getElementById('quantidade'+produtoId)
+    valorMedida = 0
+    medida = ''
+    for (np=0; ni<listaPrecos.length; np++) {
+        if (listaPrecos[np].precos[0].produtoMarca.produto.id==produtoId) {
+            valorMedida = listaPrecos[np].precos[0].produtoMarca.produto.valorMedida
+            medida = listaPrecos[np].precos[0].produtoMarca.produto.medida
+            break
+        }
+    }
+    for (ni=0; ni<listaCompra.length; ni++) {
+        if (listaCompra[ni].id==produtoId) {
+            listaCompra[ni].quantidade -= valorMedida
+            if (listaCompra[ni].quantidade <=0) {
+                listaCompra.splice(ni,1)
+                pQuantidade.innerHTML = '0 ' + medida
+            } else {
+                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+            }
+            break
+        }
+    }
+    sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+}
+
 
 function preencherDadosItem(ni) {
     const item = cliente.listaCompra[ni]
