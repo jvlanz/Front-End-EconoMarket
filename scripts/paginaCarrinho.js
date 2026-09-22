@@ -276,6 +276,7 @@ function selecionarMinimos() { // seleciona select marcas e mercados com menores
 //      document.getElementById('mostrarLista').disabled = ''
 //      document.getElementById('copiarLista').disabled = ''
     }
+    mostrarLista()
 }
 
 function remover(id,n) { // remove item da listaCompra no banco de dados, bem como da listaCompra local (e da lista de preços)
@@ -336,6 +337,7 @@ function mostrarLista() {
             ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
     }
     div.innerHTML += '<h3>Total: R$ '+listas[listas.length-1].toFixed(2).replace('.',',')+'</h3>'
+    div.innerHTML += '<button onclick="copiarLista()" id="copiarLista" class="lista-compra">Copiar lista de compra</button>'
     window.location.href = "paginaCarrinho.html#lista"
 }
 
