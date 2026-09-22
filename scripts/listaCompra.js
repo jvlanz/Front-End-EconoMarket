@@ -79,6 +79,10 @@ async function removerItem(idCompra) {
 
 // funções para o frontend
 function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
+    if (clienteId==null) {
+        adicionarQuantidadeLocal(produtoId, quantidade, medida)
+        return
+    }
     pQuantidade = document.getElementById('quantidade'+produtoId)
     presente = false
     for (ni=0; ni<listaCompra.length; ni++) {
@@ -106,6 +110,10 @@ function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
 }
 
 function removerQuantidade(clienteId, produtoId, quantidade, medida) {
+    if (clienteId==null) {
+        removerQuantidadeLocal(produtoId, quantidade, medida)
+        return
+    }
     pQuantidade = document.getElementById('quantidade'+produtoId)
     for (ni=0; ni<listaCompra.length; ni++) {
         if (listaCompra[ni].produto.id==produtoId) {

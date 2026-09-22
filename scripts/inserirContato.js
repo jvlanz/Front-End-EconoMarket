@@ -39,7 +39,8 @@ async function enviarMensagem(evento) {
         const resposta = await fetch("http://localhost:8080/contato", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify(dados)
         });
@@ -51,7 +52,7 @@ async function enviarMensagem(evento) {
         document.getElementById("formulario").reset();
         preencherDados();
 
-        window.Location.href("#");
+        window.location.href = "#";
 
     } catch (erro) {
 
