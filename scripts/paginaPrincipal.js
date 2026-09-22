@@ -141,7 +141,10 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     botaoRemCarrinho.style.display = ''
                     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + produto.valorMedida + ')')
                     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + (-produto.valorMedida) + ')')
-                    quant.innerHTML = listaCompra[n].quantidade + produto.medida
+                    if ( listaCompra[n].quantidade % 1 > 0)
+                        quant.innerHTML = listaCompra[n].quantidade.toFixed(2) + ' ' +produto.medida
+                    else
+                        quant.innerHTML = listaCompra[n].quantidade + ' ' + produto.medida
                     break
                 }
             }
@@ -171,7 +174,10 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     botaoRemCarrinho.style.display = ''
                     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
                     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + produto.id + ',' + (-produto.valorMedida) + ', "' + produto.medida + '")')
-                    quant.innerHTML = listaCompra[n].quantidade + produto.medida
+                    if ( listaCompra[n].quantidade % 1 > 0)
+                        quant.innerHTML = listaCompra[n].quantidade.toFixed(2) + ' ' +produto.medida
+                    else
+                        quant.innerHTML = listaCompra[n].quantidade + ' ' + produto.medida
                     break
                 }
             }
