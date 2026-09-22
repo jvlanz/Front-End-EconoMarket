@@ -243,10 +243,11 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
     for (nm=0; nm<mercados.length; nm++) {
         divMercado = document.getElementById('precoMercado'+mercados[nm].id)
         if (divMercado.innerHTML != '--')
-            if (totalMercado[nm]==minVal)
-                divMercado.innerHTML = '<strong>R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')+'</strong>'
-            else
-                divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
+            if (totalMercado[nm]==minVal) {
+                parentDiv = divMercado.parentElement
+                parentDiv.classList.add('mercado-preco-menor')
+            }
+            divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
     }
     fmercados = []
     minVal = Math.min(...economiaMercado)
