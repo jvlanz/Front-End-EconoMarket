@@ -142,6 +142,7 @@ function preencherCarrinho() {
         btAdd.setAttribute('class', 'botaoPequeno')
         btAdd.innerHTML = '+'
         divQuantidade.appendChild(btAdd)
+
         medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
         quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
         if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
@@ -152,9 +153,13 @@ function preencherCarrinho() {
             btRem.onclick = () => { removerQuantidadeLocal(item.produto.id, quantidade, medida) }
             btAdd.onclick = () => { adicionarQuantidadeLocal(item.produto.id, quantidade, medida) }
         }
-        const divLixo = document.createElement('div')
-        divLixo.setAttribute('class', 'imagem-lixo')
-        divQuantidadeLixo.appendChild(divLixo)
+
+        const divRemover = document.createElement('div')
+        divRemover.setAttribute('class', 'remover')
+        divProduto.appendChild(divRemover)
+        iconeLixo = document.createElement('img')
+        iconeLixo.alt='icone-lixo'
+        divRemover.appendChild(iconeLixo)
         ni += 1
     })
 }
