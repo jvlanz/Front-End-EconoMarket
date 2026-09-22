@@ -239,10 +239,14 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
             }
         }
     }
+    minVal = Math.min(...totalMercado)
     for (nm=0; nm<mercados.length; nm++) {
         divMercado = document.getElementById('precoMercado'+mercados[nm].id)
         if (divMercado.innerHTML != '--')
-            divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
+            if (totalMercado[nm]==minVal)
+                divMercado.innerHTML = '<strong>R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')+'</strong>'
+            else
+                divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
     }
     fmercados = []
     minVal = Math.min(...economiaMercado)
