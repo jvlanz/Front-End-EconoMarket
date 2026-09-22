@@ -294,6 +294,7 @@ function remover(id,n) { // remove item da listaCompra no banco de dados, bem co
 
 function gerarLista() {
     listas = []
+    valorTotal = 0
     for (ni=0; ni<cliente.listaCompra.length; ni++) {
         item = cliente.listaCompra[ni]
         const selMarca = document.getElementById('selMarca'+item.produto.id)
@@ -306,7 +307,9 @@ function gerarLista() {
 //              textoItem += item.mercado.nome + ' '
                 textoItem += cliente.listaCompra[ni].quantidade
                 textoItem += item.produtoMarca.produto.medida + ' por '
-                textoItem += 'R$ ' + (item.preco * cliente.listaCompra[ni].quantidade / item.produtoMarca.produto.valorMedida).toFixed(2).replace('.',',') + ' '
+                valor = (item.preco * cliente.listaCompra[ni].quantidade / item.produtoMarca.produto.valorMedida)
+                valorTotal += valor
+                textoItem += 'R$ ' + valor.toFixed(2).replace('.',',') + ' '
                 textoItem += '(R$ ' + item.preco.toFixed(2).replace('.',',')
                 textoItem += '/' + item.produtoMarca.produto.valorMedida
                 textoItem += item.produtoMarca.produto.medida + ')'
@@ -318,6 +321,7 @@ function gerarLista() {
             }
         }
     }
+    listas.push(valorTotal)
     return listas
 }
 
@@ -329,12 +333,13 @@ function mostrarLista() {
     for (nm=0; nm<nMercados; nm++) {
         if (listas[mercados[nm].id]==null)
             continue
-        div.innerHTML += '<h3>'+mercados[nm].nome //+' (R$ '+total[nm].toFixed(2)+')</h3>'
+        div.innerHTML += '<h3>'+mercados[nm].nome+'</h3>' //+' (R$ '+total[nm].toFixed(2)+')</h3>'
         ul = document.createElement('ul')
         div.appendChild(ul)
         for (np=0; np<listas[mercados[nm].id].length; np++)
             ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
     }
+    div.innerHTML += '<h3>Total: R$ '+listas[listas.length-1].toFixed(2).replace('.',',')+'</h3>'
     window.location.href = "paginaCarrinho.html#lista"
 }
 
