@@ -1,55 +1,22 @@
 .body-carrinho {
     display: flex;
+    gap: 30px;
 
     padding: 50px 20%;
 
 }
 
-.body-carrinho {
-    gap: 50px;
-}
-
 .body-esquerda {
-
-    flex: 2;
+    flex: 2.5;
 }
 
-.barra-pesquisa {
-    position: relative;
+.body-direita {
+    flex: 1;
 
-    margin-bottom: 20px;
-}
+    display: flex;
+    flex-direction: column;
 
-.barra-pesquisa-carrinho {
-    padding: 8px 20px;
-
-    background-color: white;
-
-    border: 1px solid rgba(0, 0, 0, 0.3);
-
-    font-size: 14px;
-}
-
-.button-adicionar-produto {
-    position: absolute;
-
-    top: 15px;
-    right: 10px;
-
-    font-size: 14px;
-
-    padding: 8px 12px;
-
-    border-radius: 16px;
-
-    color: white;
-    background: rgb(56, 176, 0);
-
-    cursor: pointer;
-}
-
-.button-adicionar-produto span {
-    margin-right: 5px;
+    gap: 20px;
 }
 
 .produtos {
@@ -60,61 +27,53 @@
 
     background: white;
 
+    padding: 12px;
     margin-top: 50px;
 
-    border-radius: 30px;
-
-    padding: 12px;
-
     border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
 }
 
 .produto {
-    width: 700px;
-
     display: flex;
-    align-items: center;
 
+    align-items: center;
     gap: 30px;
 
     background: white;
-    
 }
 
 .produto img {
     width: 48px;
+    height: 48px;
+
+    object-fit: contain;
 }
 
 .descricao-produto {
+    flex: 2;
+
     display: flex;
     align-items: center;
 
     gap: 10px;
-
-    width: 180px;
-  
 }
 
 .nome-produto {
     font-size: 14px;
     font-weight: 700;
-
-    margin-bottom: 3px;
-}
-
-.categoria-produto {
-    font-size: 12px;
 }
 
 .divs {
+    flex: 2;
+
     display: flex;
-    gap: 10px; 
+    gap: 10px;
 }
 
 .divs select {
-    width: 100px;
-    height: 40px;
-    
+    height: 30%;
+
     border-radius: 20px;
 
     cursor: pointer;
@@ -122,9 +81,10 @@
 
 
 .quantidade-div {
-    width: 120px;
+    flex: 1.2;
 
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
@@ -132,7 +92,6 @@
 
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 20px;
-
 }
 
 .quantidade-div span {
@@ -152,20 +111,8 @@
     background: white;
 }
 
-.selecionado {
-    background: rgb(56, 176, 0);
-    color: white;
-
-    border-radius: 50%;
-}
-
-.body-direita {
-    display: flex;
-    flex-direction: column;
-
-    gap: 20px;
-
-    flex: 1;
+.remover {
+    flex: .5;
 }
 
 .botao-limpar {
@@ -176,6 +123,7 @@
 
 .botao-limpar button {
     font-size: 12px;
+    font-weight: 700;
 
     background: rgb(255, 60, 60);
     color: white;
@@ -201,12 +149,15 @@
     border-radius: 24px;
 }
 
-.superior-direita h2 {
+.superior-direita h2,
+.inferior-direita h2 {
     font-size: 14px;
     font-weight: 600;
 
     color: rgba(0, 0, 0, .7);
+}
 
+.superior-direita h2 {
     margin-bottom: 10px;
 }
 
@@ -230,7 +181,7 @@
     display: none;
 }
 
-.mercado-checkbox:checked + .mercado {
+.mercado-checkbox:checked+.mercado {
     border: 2px solid oklch(0.55 0.17 145);
 }
 
@@ -270,28 +221,11 @@
     border-radius: 12px;
 }
 
-.selecionador-quantidade-div{
+.selecionador-quantidade-div {
     color: rgba(0, 0, 0, 0.5);
 
     cursor: pointer;
 }
-
-
-.mercados-preco {
-    display: flex;
-    flex-direction: column;
-}
-
-.mercado-preco {
-    display: flex;
-    justify-content: space-between;
-}
-
-.mercado-preco-menor {
-    font-weight: 800;
-}
-
-
 
 .inferior-direita {
     display: flex;
@@ -301,13 +235,68 @@
 
     padding: 20px;
 
+    background: white;
+
     border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
 }
 
-.inferior-direita p {
-    font-size: 12px;
+.inferior-direita {
+    font-size: 14px;
+}
+
+.mercados-preco {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.mercado-preco {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px;
+}
+
+.mercado-preco-menor {
+    font-weight: 700;
+
+    color: white;
+    background: rgb(148, 213, 115);
+
+    border-radius: 20px;
+
 }
 
 .explicacao {
-    font-size: 11px;
+    font-size: 12px;
+
+    color: black;
+}
+
+.explicacao span {
+    font-weight: 700;
+}
+
+.button-compra-div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+.button-compra-div button {
+    font-size: 15px;
+    font-weight: 700;
+
+    background: #38b000;
+    color: white;
+
+    padding: 10px 20px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
 }
