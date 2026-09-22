@@ -80,7 +80,10 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         if (subcontainer == null) {
             subcontainer = document.createElement("div");
             subcontainer.setAttribute("id", "categoria" + produto.categoria.id);
-            subcontainer.setAttribute("class", "container1")
+            if (args.id != null)
+                subcontainer.setAttribute("class", "produtos-display-grid")
+            else
+                subcontainer.setAttribute("class", "container1")
             tituloCat = document.createElement('h2')
             tituloCat.setAttribute("class", "titulo-secao");
             tituloCat.innerHTML = produto.categoria.categoria
