@@ -152,8 +152,9 @@ function preencherCarrinho() {
         const divRemover = document.createElement('div')
         divRemover.setAttribute('class', 'remover')
         divProduto.appendChild(divRemover)
-        iconeLixo = document.createElement('img')
-        iconeLixo.alt='icone-lixo'
+        iconeLixo = document.createElement('span')
+        iconeLixo.setAttribute('class', 'material-symbols-outlined')
+        iconeLixo.innerHTML = 'delete'
         divRemover.appendChild(iconeLixo)
         ni += 1
     })
