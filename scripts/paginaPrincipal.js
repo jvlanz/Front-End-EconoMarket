@@ -92,14 +92,14 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         card.setAttribute("class", "card-produto");
         subcontainer.appendChild(card);
 
-        const link = document.createElement("a")
-        link.href = "paginaProduto.html?produto=" + produto.id
-        card.appendChild(link);
+        const link1 = document.createElement("a")
+        link1.href = "paginaProduto.html?produto=" + produto.id
+        card.appendChild(link1);
 
         const imagem = document.createElement("img");
         imagem.src = "../imagens/" + produto.figura;
         imagem.setAttribute("class", "formatacao-imagem-card")
-        link.appendChild(imagem);
+        link1.appendChild(imagem);
 
         const divQtd = document.createElement('div')
         divQtd.setAttribute('class', 'div-quantidade')
@@ -123,16 +123,20 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoAddCarrinho.innerHTML = "+";
         divQtd.appendChild(botaoAddCarrinho);
 
+        const link2 = document.createElement("a")
+        link2.href = "paginaProduto.html?produto=" + produto.id
+        card.appendChild(link2);
+
         const faixaPrecos = document.createElement("div");
         faixaPrecos.setAttribute("class", "preco-produto");
         faixaPrecos.innerHTML = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.', ',');
-        card.appendChild(faixaPrecos);
+        link2.appendChild(faixaPrecos);
 
         const nome = document.createElement("div");
         nome.setAttribute("class", "nome-produto");
         nome.id = "nome" + produto.id;
         nome.innerHTML = produto.descricao;
-        card.appendChild(nome);
+        link2.appendChild(nome);
 
         if (token != null) { // cliente logado
             botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
@@ -141,7 +145,10 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     botaoRemCarrinho.style.display = ''
                     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + produto.valorMedida + ')')
                     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + (-produto.valorMedida) + ')')
-                    quant.innerHTML = listaCompra[n].quantidade + produto.medida
+                    if ( listaCompra[n].quantidade % 1 > 0)
+                        quant.innerHTML = listaCompra[n].quantidade.toFixed(2) + ' ' +produto.medida
+                    else
+                        quant.innerHTML = listaCompra[n].quantidade + ' ' + produto.medida
                     break
                 }
             }
@@ -156,9 +163,11 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 if (favorito.produto.id == produto.id) {
                     botaoFavorito.innerHTML = "♥";
                     idFav = favorito.id
-                    tituloFav.style.display = ''
-                    subcontainerFav.style.display = ''
-                    clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                    if (args.id==null) {
+                        tituloFav.style.display = ''
+                        subcontainerFav.style.display = ''
+                        clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                    }
                 }
             })
             botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${idFav}`) }
@@ -169,13 +178,17 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     botaoRemCarrinho.style.display = ''
                     botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
                     botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + produto.id + ',' + (-produto.valorMedida) + ', "' + produto.medida + '")')
-                    quant.innerHTML = listaCompra[n].quantidade + produto.medida
+                    if ( listaCompra[n].quantidade % 1 > 0)
+                        quant.innerHTML = listaCompra[n].quantidade.toFixed(2) + ' ' +produto.medida
+                    else
+                        quant.innerHTML = listaCompra[n].quantidade + ' ' + produto.medida
                     break
                 }
             }
         }
 
-        promocoes.forEach(promocao => {
+        if (args.id==null) {
+          promocoes.forEach(promocao => {
             tituloPromo.style.display = ''
             subcontainerPromo.style.display = ''
             if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
@@ -184,8 +197,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 nomePromo = document.getElementById('promonome' + produto.id)
                 nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
             }
+          })
+        }
 
-        })
     });
 }
 

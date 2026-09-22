@@ -86,12 +86,21 @@ function preencherCarrinho() {
         const divDescricao = document.createElement('div')
         divDescricao.setAttribute('class', 'descricao-produto')
         divProduto.appendChild(divDescricao)
+        const divImagem = document.createElement('div')
+        divImagem.setAttribute('class', 'imagem-produto')
+        divDescricao.appendChild(divImagem)
         const imagem = document.createElement('img')
         imagem.src='../imagens/'+item.produto.figura
-        divDescricao.appendChild(imagem)
+        divImagem.appendChild(imagem)
         const divNomeCategoria = document.createElement('div')
         divNomeCategoria.setAttribute('class', 'nome-categoria-produto')
         divDescricao.appendChild(divNomeCategoria)
+        const divNomeProduto = document.createElement('div')
+        divNomeProduto.setAttribute('class', 'nome-produto')
+        divNomeCategoria.appendChild(divNomeProduto)
+        const divCategoriaProduto = document.createElement('div')
+        divCategoriaProduto.setAttribute('class', 'categoria-produto')
+        divNomeCategoria.appendChild(divCategoriaProduto)
         const pNome = document.createElement('p')
         pNome.setAttribute('class', 'nome-produto')
         pNome.innerHTML = item.produto.descricao
@@ -101,20 +110,23 @@ function preencherCarrinho() {
 //      pCategoria.innerHTML = item.produto.categoria.categoria
 //      divNomeCategoria.appendChild(pCategoria)
 
+        const divMarcaMercado = document.createElement('div')
+        divMarcaMercado.setAttribute('class', 'divs')
+        divProduto.appendChild(divMarcaMercado)
+
         selMarca = document.createElement('select')
+        selMarca.setAttribute('class', 'selecionar-marca')
         selMarca.id = 'selMarca'+item.produto.id
-        divNomeCategoria.appendChild(selMarca)
+        divMarcaMercado.appendChild(selMarca)
         selMercado = document.createElement('select')
+        selMercado.setAttribute('class', 'selecionar-mercado')
         selMercado.id = 'selMercado'+item.produto.id
-        divNomeCategoria.appendChild(selMercado)
+        divMarcaMercado.appendChild(selMercado)
         preencherDadosItem(ni)
 
-        const divQuantidadeLixo = document.createElement('div')
-        divQuantidadeLixo.setAttribute('class', 'quantidade-lixo')
-        divProduto.appendChild(divQuantidadeLixo)
         const divQuantidade = document.createElement('div')
         divQuantidade.setAttribute('class', 'quantidade-div')
-        divQuantidadeLixo.appendChild(divQuantidade)
+        divProduto.appendChild(divQuantidade)
         const btRem = document.createElement('button')
         btRem.setAttribute('class', 'botaoPequeno')
         btRem.innerHTML = '–'
@@ -130,6 +142,7 @@ function preencherCarrinho() {
         btAdd.setAttribute('class', 'botaoPequeno')
         btAdd.innerHTML = '+'
         divQuantidade.appendChild(btAdd)
+
         medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
         quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
         if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
@@ -140,9 +153,13 @@ function preencherCarrinho() {
             btRem.onclick = () => { removerQuantidadeLocal(item.produto.id, quantidade, medida) }
             btAdd.onclick = () => { adicionarQuantidadeLocal(item.produto.id, quantidade, medida) }
         }
-        const divLixo = document.createElement('div')
-        divLixo.setAttribute('class', 'imagem-lixo')
-        divQuantidadeLixo.appendChild(divLixo)
+
+        const divRemover = document.createElement('div')
+        divRemover.setAttribute('class', 'remover')
+        divProduto.appendChild(divRemover)
+        iconeLixo = document.createElement('img')
+        iconeLixo.alt='icone-lixo'
+        divRemover.appendChild(iconeLixo)
         ni += 1
     })
 }
@@ -222,9 +239,14 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
             }
         }
     }
+    minVal = Math.min(...totalMercado)
     for (nm=0; nm<mercados.length; nm++) {
         divMercado = document.getElementById('precoMercado'+mercados[nm].id)
         if (divMercado.innerHTML != '--')
+            if (totalMercado[nm]==minVal) {
+                parentDiv = divMercado.parentElement
+                parentDiv.classList.add('mercado-preco-menor')
+            }
             divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
     }
     fmercados = []
@@ -272,6 +294,7 @@ function remover(id,n) { // remove item da listaCompra no banco de dados, bem co
 
 function gerarLista() {
     listas = []
+    valorTotal = 0
     for (ni=0; ni<cliente.listaCompra.length; ni++) {
         item = cliente.listaCompra[ni]
         const selMarca = document.getElementById('selMarca'+item.produto.id)
@@ -284,7 +307,9 @@ function gerarLista() {
 //              textoItem += item.mercado.nome + ' '
                 textoItem += cliente.listaCompra[ni].quantidade
                 textoItem += item.produtoMarca.produto.medida + ' por '
-                textoItem += 'R$ ' + (item.preco * cliente.listaCompra[ni].quantidade / item.produtoMarca.produto.valorMedida).toFixed(2).replace('.',',') + ' '
+                valor = (item.preco * cliente.listaCompra[ni].quantidade / item.produtoMarca.produto.valorMedida)
+                valorTotal += valor
+                textoItem += 'R$ ' + valor.toFixed(2).replace('.',',') + ' '
                 textoItem += '(R$ ' + item.preco.toFixed(2).replace('.',',')
                 textoItem += '/' + item.produtoMarca.produto.valorMedida
                 textoItem += item.produtoMarca.produto.medida + ')'
@@ -296,6 +321,7 @@ function gerarLista() {
             }
         }
     }
+    listas.push(valorTotal)
     return listas
 }
 
@@ -307,12 +333,13 @@ function mostrarLista() {
     for (nm=0; nm<nMercados; nm++) {
         if (listas[mercados[nm].id]==null)
             continue
-        div.innerHTML += '<h3>'+mercados[nm].nome //+' (R$ '+total[nm].toFixed(2)+')</h3>'
+        div.innerHTML += '<h3>'+mercados[nm].nome+'</h3>' //+' (R$ '+total[nm].toFixed(2)+')</h3>'
         ul = document.createElement('ul')
         div.appendChild(ul)
         for (np=0; np<listas[mercados[nm].id].length; np++)
             ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
     }
+    div.innerHTML += '<h3>Total: R$ '+listas[listas.length-1].toFixed(2).replace('.',',')+'</h3>'
     window.location.href = "paginaCarrinho.html#lista"
 }
 
