@@ -115,6 +115,10 @@
     flex: .5;
 }
 
+.remover span {
+    font-size: 20px;
+}
+
 .botao-limpar {
     display: flex;
 
@@ -300,3 +304,4 @@
 
     cursor: pointer;
 }
+
