@@ -1,47 +1,17 @@
-.header-resumo,
 .body-carrinho {
     display: flex;
 
-    padding: 15px 25%;
+    padding: 50px 20%;
 
 }
-
-.header-resumo {
-    background-color: white;
-
-    align-items: center;
-
-    width: 100%;
-
-    gap: 10px;
-
-    margin-top: -40px;
-    margin-bottom: 70px;
-
-    border: 1px solid rgba(0, 0, 0, 0.3);
-}
-
-.header-resumo div {
-    display: flex;
-    gap: 2px;
-}
-
-.header-resumo h1{
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.header-resumo p {
-    font-size: 12px;
-}
-
 
 .body-carrinho {
     gap: 50px;
 }
 
 .body-esquerda {
-    flex: 1.5;
+
+    flex: 2;
 }
 
 .barra-pesquisa {
@@ -87,19 +57,32 @@
     flex-direction: column;
 
     gap: 5px;
-}
-
-.produto {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
     background: white;
 
+    margin-top: 50px;
+
+    border-radius: 30px;
+
     padding: 12px;
 
-    border-radius: 16px;
     border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.produto {
+    width: 700px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 30px;
+
+    background: white;
+    
+}
+
+.produto img {
+    width: 48px;
 }
 
 .descricao-produto {
@@ -107,14 +90,13 @@
     align-items: center;
 
     gap: 10px;
-}
 
-.produto img {
-    width: 48px;
+    width: 180px;
+  
 }
 
 .nome-produto {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
 
     margin-bottom: 3px;
@@ -124,27 +106,39 @@
     font-size: 12px;
 }
 
-.quantidade-lixo {
+.divs {
     display: flex;
-    align-items: center;
+    gap: 10px; 
 }
+
+.divs select {
+    width: 100px;
+    height: 40px;
+    
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
 
 .quantidade-div {
     width: 120px;
 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     padding: 5px;
 
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 20px;
+
 }
 
-.quantidade-div p {
+.quantidade-div span {
     font-size: 14px;
     font-weight: 700;
+
 }
 
 .button-quantidade {
