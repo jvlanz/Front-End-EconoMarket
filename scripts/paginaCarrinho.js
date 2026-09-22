@@ -1,5 +1,5 @@
 
-var cliente
+var cliente = {id:null} // se logar, irá sobrescrever esse valor
 var mercados
 var promocoes
 var listaPrecos = []
@@ -143,17 +143,12 @@ function preencherCarrinho() {
         btAdd.innerHTML = '+'
         divQuantidade.appendChild(btAdd)
 
-        medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
-        quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
+        const medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
+        let quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
         if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
-        if (token!=null) {
-            btRem.onclick = () => { removerQuantidade(cliente.id, tem.produto.id, quantidade, medida) }
-            btAdd.onclick = () => { adicionarQuantidade(cliente.id, tem.produto.id, quantidade, medida) }
-        } else {
-            btRem.onclick = () => { removerQuantidadeLocal(item.produto.id, quantidade, medida) }
-            btAdd.onclick = () => { adicionarQuantidadeLocal(item.produto.id, quantidade, medida) }
-        }
-
+        btRem.onclick = () => { removerQuantidade(cliente.id, item.produto.id, quantidade, medida) }
+        btAdd.onclick = () => { adicionarQuantidade(cliente.id, item.produto.id, quantidade, medida) }
+ 
         const divRemover = document.createElement('div')
         divRemover.setAttribute('class', 'remover')
         divProduto.appendChild(divRemover)
