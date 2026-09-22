@@ -88,18 +88,18 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             container.appendChild(subcontainer);
         }
 
-        const link = document.createElement("a")
-        link.href = "paginaProduto.html?produto=" + produto.id
-        subcontainer.appendChild(link);
-
         const card = document.createElement("div");
         card.setAttribute("class", "card-produto");
-        link.appendChild(card);
+        subcontainer.appendChild(card);
+
+        const link1 = document.createElement("a")
+        link1.href = "paginaProduto.html?produto=" + produto.id
+        card.appendChild(link1);
 
         const imagem = document.createElement("img");
         imagem.src = "../imagens/" + produto.figura;
         imagem.setAttribute("class", "formatacao-imagem-card")
-        card.appendChild(imagem);
+        link1.appendChild(imagem);
 
         const divQtd = document.createElement('div')
         divQtd.setAttribute('class', 'div-quantidade')
@@ -123,16 +123,20 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoAddCarrinho.innerHTML = "+";
         divQtd.appendChild(botaoAddCarrinho);
 
+        const link2 = document.createElement("a")
+        link2.href = "paginaProduto.html?produto=" + produto.id
+        card.appendChild(link2);
+
         const faixaPrecos = document.createElement("div");
         faixaPrecos.setAttribute("class", "preco-produto");
         faixaPrecos.innerHTML = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.', ',');
-        card.appendChild(faixaPrecos);
+        link2.appendChild(faixaPrecos);
 
         const nome = document.createElement("div");
         nome.setAttribute("class", "nome-produto");
         nome.id = "nome" + produto.id;
         nome.innerHTML = produto.descricao;
-        card.appendChild(nome);
+        link2.appendChild(nome);
 
         if (token != null) { // cliente logado
             botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
