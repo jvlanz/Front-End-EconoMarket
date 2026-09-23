@@ -115,7 +115,7 @@ async function inserirProduto(produtoId) {
               }
             })
 
-            idCompra = null
+            let idCompra = null
             pQuantidade = document.getElementById('quantidade'+produtoId)
             for (ni=0; ni<cliente.listaCompra.length; ni++) {
                 if (cliente.listaCompra[ni].produto.id==produtoId) {
@@ -139,7 +139,21 @@ async function inserirProduto(produtoId) {
             botaoMais.addEventListener("click", () => { inputAdicionar.value = Number(inputAdicionar.value) + quantidade });
             botaoMenos.addEventListener("click", () => { inputAdicionar.value = Math.max(0,Number(inputAdicionar.value) - quantidade) })
             botaoAdicionar.addEventListener("click", async () => { pQuantidade.innerHTML = await adicionarQuantidade(cliente.id, produtoId, Number(inputAdicionar.value), medida) })
-            botaoRemover.addEventListener("click", () => { if (idCompra!=null) removerItem(idCompra) })
+            botaoRemover.addEventListener("click", () => {
+                spanQuantidade = document.getElementById('quantidade'+produtoId)
+                if ( spanQuantidade.innerHTML.split(' ')[0] != '0') {
+                    spanQuantidade.innerHTML = '0 '+medida
+                    if (idCompra!=null)
+                        removerItem(idCompra)
+                    else
+                        for (ni=0; ni<cliente.listaCompra.length; ni++)
+                            if (cliente.listaCompra[ni].produto.id==produtoId) {
+                                cliente.listaCompra.splice(ni,1)
+                                sessionStorage.setItem("listaCompra", JSON.stringify(cliente.listaCompra))  
+                                break
+                            }
+                }
+            })
 
         } else {
             return
