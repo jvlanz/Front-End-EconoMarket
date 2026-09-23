@@ -2,34 +2,37 @@ body {
     font-family: "Montserrat", sans-serif;
 }
 
-.paginaProduto {
-    min-height: 70vh;
-    padding: 60px 10%;
+.paginaProduto {   
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     gap: 80px;
 
-    
+    min-height: 70vh;
+    padding: 60px 20%;
+
 }
 
-/* IMAGEM DO PRODUTO */
 
 .imagem-produto {
-    position: relative;
-    width: 450px;
-    min-width: 350px;
-    padding: 30px;
+    flex: 1.5;
+
+    display: flex;
+    justify-content: center;
+    
     background-color: white;
+
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    text-align: center;
+
 }
 
 .imagem-produto img {
-    width: 100%;
-    max-width: 350px;
+    width: 350px;
     height: 350px;
+
     object-fit: contain;
 }
 
@@ -64,7 +67,8 @@ body {
 /* INFORMAÇÕES DO PRODUTO */
 
 .informacoes {
-    width: 500px;
+    flex: 2;
+
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -73,7 +77,7 @@ body {
 .nome p {
     font-size: 28px;
     font-weight: 700;
-    color: #182f57;
+
 }
 
 
@@ -89,8 +93,6 @@ body {
 
     border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: 15px;
-
-    overflow: hidden;
 
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
@@ -112,39 +114,46 @@ body {
 
 /* QUANTIDADE */
 
-#valor-adicionar {
-    font-size: 18px;
-    width: 100px;
-}
+
 
 .quantidade {
+    width: 60%;
+
     display: flex;
-    gap: 30px;
+
     align-items: center;
+
+    gap: 30px;
+
     font-size: 18px;
 }
 
 .set-quantidade {
-    display: flex;
-    gap: 25px;
+    flex: 2;
 
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    background: white;
 
     padding: 8px 12px;
 
-    font-size: 18px;
-    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+ 
 }
 
 .set-quantidade button {
-    border: none;
-    background: none;
+    background:rgb(56, 176, 0);
+    color: white;
 
     font-size: 24px;
     font-weight: 500;
 
-    padding: 3px 8px;
+    width: 32px;
+    height: 32px;
 
     border-radius: 20px;
 
@@ -152,14 +161,33 @@ body {
     transition: 0.3s;
 }
 
-.set-quantidade button:hover {
-    background-color: rgba(0, 0, 0, 0.08);
+.set-quantidade p {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-weight: 700;
 }
 
+.set-quantidade input {
+    width: 30px;
 
-/* BOTÃO ADICIONAR AO CARRINHO */
+    font-size: 18px;
+    font-weight: 700;
+
+    text-align: center;
+
+}
+
+.set-quantidade span {
+    width: 30px;
+
+    text-align: center;
+}
 
 .adicionar-carrinho {
+    flex: 1;
+
     padding: 13px 25px;
 
     border: none;
@@ -176,7 +204,3 @@ body {
     transition: 0.3s;
 }
 
-.adicionar-carrinho:hover {
-    background-color: #056200;
-    transform: translateY(-2px);
-}
