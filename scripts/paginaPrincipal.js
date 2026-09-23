@@ -160,19 +160,17 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             botaoFavorito.className = "btn-favorito";
             botaoFavorito.innerHTML = "♡";
             card.appendChild(botaoFavorito);
-            var idFav = null
             cliente.favoritos.forEach(favorito => {
                 if (favorito.produto.id == produto.id) {
                     botaoFavorito.innerHTML = "♥";
-                    idFav = favorito.id
                     if (args.id==null) {
                         tituloFav.style.display = ''
                         subcontainerFav.style.display = ''
-                        clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                        clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`)
                     }
                 }
             })
-            botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${idFav}`) }
+            botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`) }
         }
 
         if (args.id==null) {
@@ -181,7 +179,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             subcontainerPromo.style.display = ''
             if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
                 if (document.getElementById('promonome'+produto.id)==null)
-                    clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                    clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`)
                 nomePromo = document.getElementById('promonome' + produto.id)
                 nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
             }
@@ -191,7 +189,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     });
 }
 
-function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente, idFav) {
+function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente) {
     cloneCard = card.cloneNode(true)
     nome = cloneCard.getElementsByClassName('nome-produto')[0]
     nome.id = prefixo + nome.id
@@ -206,29 +204,35 @@ function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente, idFav) 
     if (idCliente != "null") {
         cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
         cloneFavorito.id = prefixo + cloneFavorito.id
-        cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente, idFav) }
+        cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente) }
     }
     subcontainer.appendChild(cloneCard)
 }
 
-function toggleFavorito(idProduto, idCliente, favId) {
+async function toggleFavorito(idProduto, idCliente) {
     botaoFavorito = document.getElementById('fav' + idProduto)
     cloneFavorito = document.getElementById('favfav' + idProduto)
     promoFavorito = document.getElementById('promofav' + idProduto)
-    if (botaoFavorito.innerHTML === "♡") {
-        incluirFavorito(idProduto, idCliente)
+    idFav = null
+    cliente.favoritos.forEach(favorito => {
+        if (favorito.produto.id == idProduto)
+            idFav = favorito.id
+    })
+    if (idFav==null) {
+        favDB = await incluirFavorito(idProduto, idCliente)
+        cliente.favoritos.push(favDB)
         botaoFavorito.innerHTML = "♥";
         if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♥";
         if (promoFavorito != null)
             promoFavorito.innerHTML = "♥";
     } else {
-        removerFavorito(`${favId}`)
+        removerFavorito(idFav)
         botaoFavorito.innerHTML = "♡";
         if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♡";
         if (promoFavorito != null)
-            cloneFavorito.innerHTML = "♡";
+            promoFavorito.innerHTML = "♡";
     }
 }
 
