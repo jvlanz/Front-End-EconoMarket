@@ -1,11 +1,4 @@
-input, textarea, select {
-    font-size: 14pt;
-    width: 100%;
-    padding: 5px;
-    border: 0px;
-    border-bottom: solid 1px black;
-    margin: 5px;
-}
+
 .modal {
     display: none;
     position: fixed;
@@ -47,7 +40,3 @@ input, textarea, select {
     text-align: center;
 }
 
-li {
-    margin: 5px;
-    margin-left: 20px;
-}
