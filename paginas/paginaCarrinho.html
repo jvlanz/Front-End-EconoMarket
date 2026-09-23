@@ -88,9 +88,7 @@
 
 
                 <div class="button-compra-div">
-                    <button onclick="mostrarLista()" class="button-melhor-compra">Calcular melhor compra</button>
-                    <button onclick="copiarLista()" id='copiarLista' class="lista-compra">Copiar lista de
-                        compra</button> <!-- disabled -->
+                    <button onclick="selecionarMinimos()" class="button-melhor-compra">Calcular melhor compra</button>
                 </div>
             </div>
         </div>
@@ -121,6 +119,9 @@
 
         <div class='modalContent'>
             <div id='listaCompra'></div>
+            <div class="button-compra-div">
+                <button onclick="copiarLista()" id='copiarLista' class="lista-compra">Copiar lista de compra</button>
+            </div>
             <a href='#' class='closeButton'>&times;</a>
         </div>
     </div>

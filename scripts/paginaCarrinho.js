@@ -18,13 +18,13 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         cliente = await respostaC.json();
     } else { // recriar lista de compras a partir de dados salvos em sessionStorage
         cliente = {listaCompra:[]}
-//      cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-        lista = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-        lista.forEach(item => {
-            item.produto = {}
-            item.produto.id = item.id
-            cliente.listaCompra.push(item)
-        })
+        cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+//      lista = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+//      lista.forEach(item => {
+//          item.produto = {}
+//          item.produto.id = item.id
+//          cliente.listaCompra.push(item)
+//      })
     }
 
     const respostaM = await fetch("http://localhost:8080/mercados");
@@ -273,9 +273,8 @@ function selecionarMinimos() { // seleciona select marcas e mercados com menores
                 val = preco.preco
             }
         }
-//      document.getElementById('mostrarLista').disabled = ''
-//      document.getElementById('copiarLista').disabled = ''
     }
+    mostrarLista()
 }
 
 function remover(id,n) { // remove item da listaCompra no banco de dados, bem como da listaCompra local (e da lista de preços)
