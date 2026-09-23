@@ -109,6 +109,7 @@ function preencherCarrinho() {
         const divMarcaMercado = document.createElement('div')
         divMarcaMercado.setAttribute('class', 'divs')
         divProduto.appendChild(divMarcaMercado)
+        divProduto.id = 'produto'+item.produto.id
 
         selMarca = document.createElement('select')
         selMarca.setAttribute('class', 'selecionar-marca')
@@ -120,9 +121,12 @@ function preencherCarrinho() {
         divMarcaMercado.appendChild(selMercado)
         preencherDadosItem(ni)
 
+        const divQuantidadeLixo = document.createElement('div')
+        divQuantidadeLixo.setAttribute('class', 'quantidade-lixo')
+        divProduto.appendChild(divQuantidadeLixo)
         const divQuantidade = document.createElement('div')
         divQuantidade.setAttribute('class', 'quantidade-div')
-        divProduto.appendChild(divQuantidade)
+        divQuantidadeLixo.appendChild(divQuantidade)
         const btRem = document.createElement('button')
         btRem.setAttribute('class', 'botaoPequeno')
         btRem.innerHTML = '–'
@@ -147,24 +151,32 @@ function preencherCarrinho() {
  
         const divRemover = document.createElement('div')
         divRemover.setAttribute('class', 'remover')
-        divProduto.appendChild(divRemover)
+        divQuantidadeLixo.appendChild(divRemover)
         iconeLixo = document.createElement('span')
         iconeLixo.setAttribute('class', 'material-symbols-outlined')
         iconeLixo.innerHTML = 'delete'
+        iconeLixo.onclick = async () => { qtd.innerHTML = await removerQuantidadePagina(cliente.id, item.produto.id, 99999, medida) }
         divRemover.appendChild(iconeLixo)
         ni += 1
     })
 }
 
 async function removerQuantidadePagina(idCliente, idProduto, quantidade, medida) {
-    const valor = await removerQuantidade(idCliente, idProduto, quantidade, medida)
+    const qtd = await removerQuantidade(idCliente, idProduto, quantidade, medida)
+    if (qtd<=0) {
+        document.getElementById('produto'+idProduto).style.display='none'
+        for (np=0; np<listaPrecos.length; np++) {
+            if (listaPrecos[np].precos[0].produtoMarca.produto.id==idProduto)
+                listaPrecos.splice(np,1)
+        }
+    }
     ordenarMercados()
-    return valor
+    return qtd
 }
 async function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medida) {
-    const valor = await adicionarQuantidade(idCliente, idProduto, quantidade, medida)
+    const qtd = await adicionarQuantidade(idCliente, idProduto, quantidade, medida)
     ordenarMercados()
-    return valor
+    return qtd
 }
 
 function preencherDadosItem(ni) {
@@ -344,12 +356,10 @@ function mostrarLista() {
     for (nm=0; nm<nMercados; nm++) {
         if (listas[mercados[nm].id]==null)
             continue
-        divMercados.innerHTML += '<p>'+mercados[nm].nome+'</p>'
+        divMercados.innerHTML += '<p class="melhores-mercados">'+mercados[nm].nome+'</p>'
         divLista.innerHTML += '<h3>'+mercados[nm].nome+'</h3>' //+' (R$ '+total[nm].toFixed(2)+')</h3>'
-        ul = document.createElement('ul')
-        divLista.appendChild(ul)
         for (np=0; np<listas[mercados[nm].id].length; np++)
-            ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
+            divLista.innerHTML += '<p>' + listas[mercados[nm].id][np]+'</p>'
     }
     divTotal = document.getElementById('totalPagar')
     divTotal.innerHTML = '<h2>Total a pagar</h2>'
