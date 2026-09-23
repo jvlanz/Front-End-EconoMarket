@@ -113,6 +113,7 @@
 
 .remover {
     flex: .5;
+    cursor: pointer;
 }
 
 .remover span {
