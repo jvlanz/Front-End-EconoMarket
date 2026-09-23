@@ -3,6 +3,7 @@ var cliente = {id:null} // se logar, irá sobrescrever esse valor
 var mercados
 var promocoes
 var listaPrecos = []
+var totalMercado = []
 
 async function obterDadosCarrinho() { // buscas no banco de dados
     const token = sessionStorage.getItem("token");
@@ -19,12 +20,6 @@ async function obterDadosCarrinho() { // buscas no banco de dados
     } else { // recriar lista de compras a partir de dados salvos em sessionStorage
         cliente = {listaCompra:[]}
         cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-//      lista = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-//      lista.forEach(item => {
-//          item.produto = {}
-//          item.produto.id = item.id
-//          cliente.listaCompra.push(item)
-//      })
     }
 
     const respostaM = await fetch("http://localhost:8080/mercados");
@@ -204,7 +199,7 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
         divMercado.innerHTML += '<p id=precoMercado'+mercado.id+'></p>'
     })
     nItens = listaPrecos.length
-    totalMercado = []
+//  totalMercado = []
     economiaMercado = []
     for (nm=0; nm<mercados.length; nm++) {
         totalMercado.push(0)
@@ -289,7 +284,7 @@ function remover(id,n) { // remove item da listaCompra no banco de dados, bem co
 
 function gerarLista() {
     listas = []
-    valorTotal = 0
+    listas[0] = 0 // valorTotal
     for (ni=0; ni<cliente.listaCompra.length; ni++) {
         item = cliente.listaCompra[ni]
         const selMarca = document.getElementById('selMarca'+item.produto.id)
@@ -303,7 +298,7 @@ function gerarLista() {
                 textoItem += cliente.listaCompra[ni].quantidade
                 textoItem += item.produtoMarca.produto.medida + ' por '
                 valor = (item.preco * cliente.listaCompra[ni].quantidade / item.produtoMarca.produto.valorMedida)
-                valorTotal += valor
+                listas[0] += valor
                 textoItem += 'R$ ' + valor.toFixed(2).replace('.',',') + ' '
                 textoItem += '(R$ ' + item.preco.toFixed(2).replace('.',',')
                 textoItem += '/' + item.produtoMarca.produto.valorMedida
@@ -316,26 +311,33 @@ function gerarLista() {
             }
         }
     }
-    listas.push(valorTotal)
     return listas
 }
 
 function mostrarLista() {
     listas = gerarLista()
     nMercados = document.getElementById('nMercados').value
-    div = document.getElementById('listaCompra')
-    div.innerHTML = '<center><img src="../imagens/LogoEconoMarket.png" class="icone-logo"></center></br>'
+    divMercados = document.getElementById('melhorDistribuicao')
+    divMercados.innerHTML = '<h2>Melhor distribuição</h2>'
+    divLista = document.getElementById('listaCompra')
+    divLista.innerHTML = ''
     for (nm=0; nm<nMercados; nm++) {
         if (listas[mercados[nm].id]==null)
             continue
-        div.innerHTML += '<h3>'+mercados[nm].nome+'</h3>' //+' (R$ '+total[nm].toFixed(2)+')</h3>'
+        divMercados.innerHTML += '<p>'+mercados[nm].nome+'</p>'
+        divLista.innerHTML += '<h3>'+mercados[nm].nome+'</h3>' //+' (R$ '+total[nm].toFixed(2)+')</h3>'
         ul = document.createElement('ul')
-        div.appendChild(ul)
+        divLista.appendChild(ul)
         for (np=0; np<listas[mercados[nm].id].length; np++)
             ul.innerHTML += '<li>' + listas[mercados[nm].id][np]+'</li>'
     }
-    div.innerHTML += '<h3>Total: R$ '+listas[listas.length-1].toFixed(2).replace('.',',')+'</h3>'
-    div.innerHTML += '<button onclick="copiarLista()" id="copiarLista" class="lista-compra">Copiar lista de compra</button>'
+    divTotal = document.getElementById('totalPagar')
+    divTotal.innerHTML = '<h2>Total a pagar</h2>'
+    divTotal.innerHTML += '<p>R$ '+listas[0].toFixed(2).replace('.',',')+'</p>'
+    maxVal = Math.max(...totalMercado)
+    divEconomia = document.getElementById('economia')
+    divEconomia.innerHTML = '<h2>Economia</h2>'
+    divEconomia.innerHTML += '<p>R$ '+ (maxVal-listas[0]).toFixed(2).replace('.',',')+'</p>'
     window.location.href = "paginaCarrinho.html#lista"
 }
 

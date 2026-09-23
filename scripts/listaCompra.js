@@ -99,7 +99,6 @@ async function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
     }
     if (!presente) {
         itemDB = await incluirItem(produtoId, cliente.id, quantidade)
-        console.log(itemDB)
         cliente.listaCompra.push( {id:itemDB.id, produto:{id:produtoId}, quantidade:quantidade} )
         if (quantidade % 1 > 0)
             resQuantidade = quantidade.toFixed(2).replace('.',',') + ' ' + medida
