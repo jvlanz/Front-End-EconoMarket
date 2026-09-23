@@ -138,7 +138,7 @@ async function inserirProduto(produtoId) {
             if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
             botaoMais.addEventListener("click", () => { inputAdicionar.value = Number(inputAdicionar.value) + quantidade });
             botaoMenos.addEventListener("click", () => { inputAdicionar.value = Math.max(0,Number(inputAdicionar.value) - quantidade) })
-            botaoAdicionar.addEventListener("click", () => { adicionarQuantidade(cliente.id, produtoId, inputAdicionar.value, medida) })
+            botaoAdicionar.addEventListener("click", () => { adicionarQuantidade(cliente.id, produtoId, Number(inputAdicionar.value), medida) })
             botaoRemover.addEventListener("click", () => { if (idCompra!=null) removerItem(idCompra) })
 
         } else {
