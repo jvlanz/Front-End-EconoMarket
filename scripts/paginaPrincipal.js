@@ -42,7 +42,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     tituloFav.style.display = 'none'
     subcontainerFav.style.display = 'none'
 
-    if (args.id==0) {
+    if (args.id==0) { // FIXME é ineficiente criar todos os cartões, e clonar apenas os favoritos...
         tituloFav.style.display = ''
         subcontainerFav.style.display = ''
     }
