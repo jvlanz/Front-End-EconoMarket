@@ -7,7 +7,7 @@
 }
 
 .body-esquerda {
-    flex: 2.5;
+    flex: 2;
 }
 
 .body-direita {
@@ -61,7 +61,7 @@
 }
 
 .nome-produto {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
 }
 
@@ -96,7 +96,7 @@
 }
 
 .quantidade-div span {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
 
 }
@@ -113,11 +113,11 @@
 }
 
 .remover {
-    flex: .4;
+    flex: .3;
 
     text-align: center;
 
-    padding: 5px;
+    padding: 5px 0;
 
     border-radius: 20px;
 
@@ -166,7 +166,7 @@
 
 .superior-direita h2,
 .inferior-direita h2 {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
 
     color: rgba(0, 0, 0, .7);
@@ -200,9 +200,6 @@
     border: 2px solid oklch(0.55 0.17 145);
 }
 
-.linha-horizontal {
-    color: rgb(0, 0, 0);
-}
 
 .quantidade-mercados {
     display: flex;
@@ -210,14 +207,14 @@
 }
 
 .texto .title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
 
     margin-bottom: 5px;
 }
 
 .texto p {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .selecionador-quantidade {
@@ -246,7 +243,7 @@
     display: flex;
     flex-direction: column;
 
-    gap: 10px;
+    gap: 20px;
 
     padding: 20px;
 
@@ -261,6 +258,8 @@
 }
 
 .mercados-preco {
+    font-size: 16px;
+
     display: flex;
     flex-direction: column;
 
@@ -285,7 +284,7 @@
 }
 
 .explicacao {
-    font-size: 12px;
+    font-size: 14px;
 
     color: black;
 }
