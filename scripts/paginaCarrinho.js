@@ -18,13 +18,13 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         cliente = await respostaC.json();
     } else { // recriar lista de compras a partir de dados salvos em sessionStorage
         cliente = {listaCompra:[]}
-//      cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-        lista = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-        lista.forEach(item => {
-            item.produto = {}
-            item.produto.id = item.id
-            cliente.listaCompra.push(item)
-        })
+        cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+//      lista = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+//      lista.forEach(item => {
+//          item.produto = {}
+//          item.produto.id = item.id
+//          cliente.listaCompra.push(item)
+//      })
     }
 
     const respostaM = await fetch("http://localhost:8080/mercados");
@@ -146,8 +146,8 @@ function preencherCarrinho() {
         const medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
         let quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
         if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
-        btRem.onclick = () => { removerQuantidade(cliente.id, item.produto.id, quantidade, medida) }
-        btAdd.onclick = () => { adicionarQuantidade(cliente.id, item.produto.id, quantidade, medida) }
+        btRem.onclick = async () => { qtd.innerHTML = await removerQuantidade(cliente.id, item.produto.id, quantidade, medida) }
+        btAdd.onclick = async () => { qtd.innerHTML = await adicionarQuantidade(cliente.id, item.produto.id, quantidade, medida) }
  
         const divRemover = document.createElement('div')
         divRemover.setAttribute('class', 'remover')
@@ -273,8 +273,6 @@ function selecionarMinimos() { // seleciona select marcas e mercados com menores
                 val = preco.preco
             }
         }
-//      document.getElementById('mostrarLista').disabled = ''
-//      document.getElementById('copiarLista').disabled = ''
     }
     mostrarLista()
 }

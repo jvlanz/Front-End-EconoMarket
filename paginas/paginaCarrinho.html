@@ -70,21 +70,26 @@
                         </div>
 
                         <div class="selecionador-quantidade">
-                            <input type='number' value=5 min=1 max=5 onchange='ativarMercados()' id='nMercados' class="selecionador-quantidade-div"></input>
+                            <input type='number' value=5 min=1 max=5 onchange='ativarMercados()' id='nMercados'
+                                class="selecionador-quantidade-div"></input>
                         </div>
                     </div>
                 </div>
 
                 <div class="inferior-direita">
-                    <p>TOTAL ESTIMADO EM CADA MERCADO</p>
+                    <h2>TOTAL ESTIMADO EM CADA MERCADO</h2>
 
                     <div id='mercados-preco' class="mercados-preco">
                     </div>
 
-                    <p class="explicacao">Valores para compras em um único mercado. Clique abaixo para economizar mais.</p>
+                    <p class="explicacao">Valores se você comprasse tudo em um único mercado. Use <span>Calcular melhor
+                            compra</span> para distribuir e economizar mais.</p>
                 </div>
 
-                <button onclick="selecionarMinimos()" class="button-melhor-compra">Calcular melhor compra</button>
+
+                <div class="button-compra-div">
+                    <button onclick="selecionarMinimos()" class="button-melhor-compra">Calcular melhor compra</button>
+                </div>
             </div>
         </div>
     </div>
@@ -110,9 +115,13 @@
     </div>!-->
 
     <div class='modal' id='lista'>
-        <a href='#' style='font-size:2000px; color:#0000'>___</a> <!-- hack para 'fechar' modal ao clicar fora do conteúdo -->
+        <a href='#' style='font-size:2000px; color:#0000'>___</a>
+
         <div class='modalContent'>
             <div id='listaCompra'></div>
+            <div class="button-compra-div">
+                <button onclick="copiarLista()" id='copiarLista' class="lista-compra">Copiar lista de compra</button>
+            </div>
             <a href='#' class='closeButton'>&times;</a>
         </div>
     </div>

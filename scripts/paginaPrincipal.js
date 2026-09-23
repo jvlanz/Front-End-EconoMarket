@@ -16,7 +16,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     const promocoes = await respostaP.json();
 
     cliente = { id: null }
-    listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+    cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     if (token != null) {
         const respostaC = await fetch("http://localhost:8080/auth/cliente", {
             method: "GET",
@@ -26,7 +26,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             console.error("Erro ao buscar cliente");
         }
         cliente = await respostaC.json();
-        listaCompra = cliente.listaCompra
+//      listaCompra = cliente.listaCompra
     }
 
     const container = document.getElementById("categoria-geral");
@@ -112,6 +112,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoRemCarrinho.setAttribute("class", "btn-rem");
         botaoRemCarrinho.id = 'rem' + produto.id
         botaoRemCarrinho.innerHTML = "–";
+        botaoRemCarrinho.onclick = () => { removerQuantidadePagina(cliente.id, produto.id, produto.valorMedida, produto.medida) }
         botaoRemCarrinho.style.display = 'none'
         divQtd.appendChild(botaoRemCarrinho);
 
@@ -123,8 +124,20 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         const botaoAddCarrinho = document.createElement("button");
         botaoAddCarrinho.setAttribute("class", "btn-add");
         botaoAddCarrinho.id = 'add' + produto.id
+        botaoAddCarrinho.onclick = () => { adicionarQuantidadePagina(cliente.id, produto.id, produto.valorMedida, produto.medida) }
         botaoAddCarrinho.innerHTML = "+";
         divQtd.appendChild(botaoAddCarrinho);
+
+        for (n = 0; n < cliente.listaCompra.length; n++) {
+            if (cliente.listaCompra[n].produto.id == produto.id) {
+                botaoRemCarrinho.style.display = ''
+                if ( cliente.listaCompra[n].quantidade % 1 > 0)
+                    quant.innerHTML = cliente.listaCompra[n].quantidade.toFixed(2).replace('.',',') + ' ' +produto.medida
+                else
+                    quant.innerHTML = cliente.listaCompra[n].quantidade + ' ' + produto.medida
+                break
+            }
+        }
 
         const link2 = document.createElement("a")
         link2.href = "paginaProduto.html?produto=" + produto.id
@@ -142,52 +155,22 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         link2.appendChild(nome);
 
         if (token != null) { // cliente logado
-            botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + produto.id + ',' + cliente.id + ',' + produto.valorMedida + ')')
-            for (n = 0; n < listaCompra.length; n++) {
-                if (listaCompra[n].produto.id == produto.id) {
-                    botaoRemCarrinho.style.display = ''
-                    botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + produto.valorMedida + ')')
-                    botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + listaCompra[n].id + ',' + cliente.id + ',' + (-produto.valorMedida) + ')')
-                    if ( listaCompra[n].quantidade % 1 > 0)
-                        quant.innerHTML = listaCompra[n].quantidade.toFixed(2).replace('.',',') + ' ' +produto.medida
-                    else
-                        quant.innerHTML = listaCompra[n].quantidade + ' ' + produto.medida
-                    break
-                }
-            }
-
             const botaoFavorito = document.createElement("button");
             botaoFavorito.id = 'fav' + produto.id;
             botaoFavorito.className = "btn-favorito";
             botaoFavorito.innerHTML = "♡";
             card.appendChild(botaoFavorito);
-            var idFav = null
             cliente.favoritos.forEach(favorito => {
                 if (favorito.produto.id == produto.id) {
                     botaoFavorito.innerHTML = "♥";
-                    idFav = favorito.id
                     if (args.id==null) {
                         tituloFav.style.display = ''
                         subcontainerFav.style.display = ''
-                        clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                        clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`)
                     }
                 }
             })
-            botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`, `${idFav}`) }
-        } else { // cliente não logado
-            botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
-            for (n = 0; n < listaCompra.length; n++) {
-                if (listaCompra[n].id == produto.id) {
-                    botaoRemCarrinho.style.display = ''
-                    botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + produto.id + ',' + produto.valorMedida + ', "' + produto.medida + '")')
-                    botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + produto.id + ',' + (-produto.valorMedida) + ', "' + produto.medida + '")')
-                    if ( listaCompra[n].quantidade % 1 > 0)
-                        quant.innerHTML = listaCompra[n].quantidade.toFixed(2).replace('.',',') + ' ' +produto.medida
-                    else
-                        quant.innerHTML = listaCompra[n].quantidade + ' ' + produto.medida
-                    break
-                }
-            }
+            botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`) }
         }
 
         if (args.id==null) {
@@ -196,7 +179,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             subcontainerPromo.style.display = ''
             if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
                 if (document.getElementById('promonome'+produto.id)==null)
-                    clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`, `${idFav}`)
+                    clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`)
                 nomePromo = document.getElementById('promonome' + produto.id)
                 nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
             }
@@ -206,42 +189,50 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     });
 }
 
-function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente, idFav) {
+function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente) {
     cloneCard = card.cloneNode(true)
     nome = cloneCard.getElementsByClassName('nome-produto')[0]
     nome.id = prefixo + nome.id
     remover = cloneCard.getElementsByClassName('btn-rem')[0]
     remover.id = prefixo + remover.id
+    remover.onclick = document.getElementById('rem'+idProduto).onclick
     quantidade = cloneCard.getElementsByClassName('quantidade-produto')[0]
     quantidade.id = prefixo + quantidade.id
     adicionar = cloneCard.getElementsByClassName('btn-add')[0]
     adicionar.id = prefixo + adicionar.id
+    adicionar.onclick = document.getElementById('add'+idProduto).onclick
     if (idCliente != "null") {
         cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
         cloneFavorito.id = prefixo + cloneFavorito.id
-        cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente, idFav) }
+        cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente) }
     }
     subcontainer.appendChild(cloneCard)
 }
 
-function toggleFavorito(idProduto, idCliente, favId) {
+async function toggleFavorito(idProduto, idCliente) {
     botaoFavorito = document.getElementById('fav' + idProduto)
     cloneFavorito = document.getElementById('favfav' + idProduto)
     promoFavorito = document.getElementById('promofav' + idProduto)
-    if (botaoFavorito.innerHTML === "♡") {
-        incluirFavorito(idProduto, idCliente)
+    idFav = null
+    cliente.favoritos.forEach(favorito => {
+        if (favorito.produto.id == idProduto)
+            idFav = favorito.id
+    })
+    if (idFav==null) {
+        favDB = await incluirFavorito(idProduto, idCliente)
+        cliente.favoritos.push(favDB)
         botaoFavorito.innerHTML = "♥";
         if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♥";
         if (promoFavorito != null)
             promoFavorito.innerHTML = "♥";
     } else {
-        removerFavorito(`${favId}`)
+        removerFavorito(idFav)
         botaoFavorito.innerHTML = "♡";
         if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♡";
         if (promoFavorito != null)
-            cloneFavorito.innerHTML = "♡";
+            promoFavorito.innerHTML = "♡";
     }
 }
 
@@ -255,146 +246,39 @@ function filtrar(nomeProduto, filtros) {
     return res
 }
 
-async function incluirProduto(idProduto, idCliente, quantidade) {
-    item = await incluirItem(idProduto, idCliente, quantidade)
-    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
-    val = qtdCarrinho.innerHTML
-    qtdCarrinho.innerHTML = Number(val) + 1
-    botaoAddCarrinho = document.getElementById('add' + idProduto)
-    fbotaoAddCarrinho = document.getElementById('favadd' + idProduto) || botaoAddCarrinho
-    pbotaoAddCarrinho = document.getElementById('promoadd' + idProduto) || botaoAddCarrinho
+async function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medida) {
+    if (quantidade==1 && medida=='kg')
+        quantidade = 0.1
+    quant = document.getElementById('quantidade' + idProduto)
+    fquant = document.getElementById('favquantidade' + idProduto) || quant
+    pquant = document.getElementById('promoquantidade' + idProduto) || quant
+    quant.innerHTML = await adicionarQuantidade(idCliente, idProduto, quantidade, medida)
+    fquant.innerHTML = quant.innerHTML
+    pquant.innerHTML = quant.innerHTML
     botaoRemCarrinho = document.getElementById('rem' + idProduto)
     fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
     pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
     botaoRemCarrinho.style.display = ''
     fbotaoRemCarrinho.style.display = ''
     pbotaoRemCarrinho.style.display = ''
-    botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + item.produto.valorMedida + ')')
-    fbotaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + item.produto.valorMedida + ')')
-    pbotaoAddCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + item.produto.valorMedida + ')')
-    botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + (-item.produto.valorMedida) + ')')
-    fbotaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + (-item.produto.valorMedida) + ')')
-    pbotaoRemCarrinho.setAttribute("onclick", 'alterarQuantidade(' + item.id + ',' + idCliente + ',' + (-item.produto.valorMedida) + ')')
+}
+
+async function removerQuantidadePagina(idCliente, idProduto, quantidade, medida) {
+    if (quantidade==1 && medida=='kg')
+        quantidade = 0.1
     quant = document.getElementById('quantidade' + idProduto)
     fquant = document.getElementById('favquantidade' + idProduto) || quant
     pquant = document.getElementById('promoquantidade' + idProduto) || quant
-    quant.innerHTML = item.quantidade + ' ' + item.produto.medida
-    fquant.innerHTML = item.quantidade + ' ' + item.produto.medida
-    pquant.innerHTML = item.quantidade + ' ' + item.produto.medida
-}
-
-async function alterarQuantidade(idCompra, idCliente, quantidade) {
-    item = await obterItem(idCompra)
-    item.quantidade += quantidade
-    botaoAddCarrinho = document.getElementById('add' + item.produto.id)
-    fbotaoAddCarrinho = document.getElementById('favadd' + item.produto.id) || botaoAddCarrinho
-    pbotaoAddCarrinho = document.getElementById('promoadd' + item.produto.id) || botaoAddCarrinho
-    botaoRemCarrinho = document.getElementById('rem' + item.produto.id)
-    fbotaoRemCarrinho = document.getElementById('favrem' + item.produto.id) || botaoRemCarrinho
-    pbotaoRemCarrinho = document.getElementById('promorem' + item.produto.id) || botaoRemCarrinho
-    quant = document.getElementById('quantidade' + item.produto.id)
-    fquant = document.getElementById('favquantidade' + item.produto.id) || quant
-    pquant = document.getElementById('promoquantidade' + item.produto.id) || quant
-        if (item.quantidade <= 0) { // remover produto da lista
-        removerItem(idCompra)
+    quant.innerHTML = await removerQuantidade(idCliente, idProduto, quantidade, medida)
+    fquant.innerHTML = quant.innerHTML
+    pquant.innerHTML = quant.innerHTML
+    if (quant.innerHTML=='') {
+        botaoRemCarrinho = document.getElementById('rem' + idProduto)
+        fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
+        pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
         botaoRemCarrinho.style.display = 'none'
         fbotaoRemCarrinho.style.display = 'none'
         pbotaoRemCarrinho.style.display = 'none'
-        botaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + Math.abs(quantidade) + ')')
-        fbotaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + Math.abs(quantidade) + ')')
-        pbotaoAddCarrinho.setAttribute("onclick", 'incluirProduto(' + item.produto.id + ',' + idCliente + ',' + Math.abs(quantidade) + ')')
-        const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
-        val = qtdCarrinho.innerHTML
-        qtdCarrinho.innerHTML = Number(val) - 1
-        quant.innerHTML = ''
-        fquant.innerHTML = ''
-        pquant.innerHTML = ''
-        return
     }
-    botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
-    alterarItem(idCompra, item.produto.id, idCliente, item.quantidade)
-    quant.innerHTML = item.quantidade + ' ' + item.produto.medida
-    fquant.innerHTML = item.quantidade + ' ' + item.produto.medida
-    pquant.innerHTML = item.quantidade + ' ' + item.produto.medida
-}
-
-
-// funções para quando não estiver logado:
-//    alterar quantidades
-//    salvar lista de compras em sessionStorage, não no banco de dados
-
-async function incluirProdutoLocal(idProduto, quantidade, medida) {
-    item = { id: idProduto, quantidade: quantidade } //, produto:{id:idProduto,medida:medida,valorMedida:quantidade}}
-    listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-    listaCompra.push(item)
-    sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra));
-    const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
-    val = qtdCarrinho.innerHTML
-    qtdCarrinho.innerHTML = Number(val) + 1
-    botaoAddCarrinho = document.getElementById('add' + idProduto)
-    fbotaoAddCarrinho = document.getElementById('favadd' + idProduto) || botaoAddCarrinho
-    pbotaoAddCarrinho = document.getElementById('promoadd' + idProduto) || botaoAddCarrinho
-    botaoRemCarrinho = document.getElementById('rem' + idProduto)
-    fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
-    pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
-    botaoRemCarrinho.style.display = ''
-    fbotaoRemCarrinho.style.display = ''
-    pbotaoRemCarrinho.style.display = ''
-    botaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + quantidade + ', "' + medida + '")')
-    fbotaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + quantidade + ', "' + medida + '")')
-    pbotaoAddCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + quantidade + ', "' + medida + '")')
-    botaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + (-quantidade) + ', "' + medida + '")')
-    fbotaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + (-quantidade) + ', "' + medida + '")')
-    pbotaoRemCarrinho.setAttribute("onclick", 'alterarQuantidadeLocal(' + item.id + ',' + (-quantidade) + ', "' + medida + '")')
-    quant = document.getElementById('quantidade' + idProduto)
-    quant.innerHTML = item.quantidade + ' ' + medida
-    fquant = document.getElementById('favquantidade' + idProduto) || quant
-    fquant.innerHTML = item.quantidade + ' ' + medida
-    pquant = document.getElementById('promoquantidade' + idProduto) || quant
-    pquant.innerHTML = item.quantidade + ' ' + medida
-}
-
-async function alterarQuantidadeLocal(idProduto, quantidade, medida) {
-    listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-    for (n = 0; n < listaCompra.length; n++) {
-        if (listaCompra[n].id == idProduto) {
-            item = listaCompra[n]
-            item.quantidade += quantidade
-            break
-        }
-    }
-    botaoAddCarrinho = document.getElementById('add' + idProduto)
-    fbotaoAddCarrinho = document.getElementById('favadd' + idProduto) || botaoAddCarrinho
-    pbotaoAddCarrinho = document.getElementById('promoadd' + idProduto) || botaoAddCarrinho
-    botaoRemCarrinho = document.getElementById('rem' + idProduto)
-    fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
-    pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
-    quant = document.getElementById('quantidade' + idProduto)
-    fquant = document.getElementById('favquantidade' + idProduto) || quant
-    pquant = document.getElementById('promoquantidade' + idProduto) || quant
-    if (item.quantidade <= 0) { // remover produto da lista
-        listaCompra.splice(n, 1)
-        sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
-        botaoRemCarrinho.style.display = 'none'
-        fbotaoRemCarrinho.style.display = 'none'
-        pbotaoRemCarrinho.style.display = 'none'
-        botaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + Math.abs(quantidade) + ', "' + medida + '")')
-        fbotaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + Math.abs(quantidade) + ', "' + medida + '")')
-        pbotaoAddCarrinho.setAttribute("onclick", 'incluirProdutoLocal(' + idProduto + ',' + Math.abs(quantidade) + ', "' + medida + '")')
-        const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
-        val = qtdCarrinho.innerHTML
-        qtdCarrinho.innerHTML = Number(val) - 1
-        quant.innerHTML = ''
-        fquant.innerHTML = ''
-        pquant.innerHTML = ''
-        return
-    }
-    botaoRemCarrinho.style.display = '' // se há quantidade, mostrar botão '-'
-    fbotaoRemCarrinho.style.display = ''
-    pbotaoRemCarrinho.style.display = ''
-    sessionStorage.setItem("listaCompra", JSON.stringify(listaCompra))
-    quant.innerHTML = item.quantidade + ' ' + medida
-    fquant.innerHTML = item.quantidade + ' ' + medida
-    pquant.innerHTML = item.quantidade + ' ' + medida
 }
 

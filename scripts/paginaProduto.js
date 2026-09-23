@@ -26,10 +26,10 @@ async function inserirProduto(produtoId) {
             console.error("Erro ao buscar cliente");
         }
         cliente = await respostaC.json();
-        listaCompra = cliente.listaCompra
+//      listaCompra = cliente.listaCompra
     } else {
         cliente = { id: null }
-        listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+        cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     }
 
     const container = document.getElementById("categoria-geral");
@@ -67,16 +67,19 @@ async function inserirProduto(produtoId) {
                 <!--p>Quantidade:</p-->
                 <div class="set-quantidade">
                     <button id="menos-button">–</button>
-                    <p id="quantidade${produtoId}">${precos[0].produtoMarca.produto.valorMedida} ${precos[0].produtoMarca.produto.medida}</p>
+                    <p>
+                        <input id="valor-adicionar" value=0>
+                        <span> ${precos[0].produtoMarca.produto.medida}</span>
+                    </p>
                     <button id="mais-button">+</button>
                 </div>
-                <input class="adicionar-carrinho" type="button" value="Adicionar">
+                <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
             </div>
 
             <div class="quantidade"> <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
                 <p>Quantidade no carrinho:</p>
                 <p id="quantidade${produtoId}">0 ${precos[0].produtoMarca.produto.medida}</p>
-                <input class="adicionar-carrinho" type="button" value="Remover"">
+                <span id="remover" class="material-symbols-outlined">delete</span>
             </div>
 
         </div>
@@ -112,30 +115,31 @@ async function inserirProduto(produtoId) {
               }
             })
 
+            idCompra = null
             pQuantidade = document.getElementById('quantidade'+produtoId)
-            for (ni=0; ni<listaCompra.length; ni++) {
-                if (listaCompra[ni].id==produtoId) {
-                    if (listaCompra[ni].quantidade % 1 > 0)
-                        pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + precos[0].produtoMarca.produto.medida
+            for (ni=0; ni<cliente.listaCompra.length; ni++) {
+                if (cliente.listaCompra[ni].produto.id==produtoId) {
+                    idCompra = cliente.listaCompra[ni].id
+                    if (cliente.listaCompra[ni].quantidade % 1 > 0)
+                        pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + precos[0].produtoMarca.produto.medida
                     else
-                        pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
+                        pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade + ' ' + precos[0].produtoMarca.produto.medida
                     break
                 }
             }
 
             const botaoMais = document.querySelector("#mais-button")
             const botaoMenos = document.querySelector("#menos-button")
+            const botaoAdicionar = document.querySelector("#adicionar")
+            const inputAdicionar = document.querySelector("#valor-adicionar")
+            const botaoRemover = document.querySelector("#remover")
             quantidade = precos[0].produtoMarca.produto.valorMedida
             medida = precos[0].produtoMarca.produto.medida
             if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
-
-            if (token!=null) {
-                botaoMais.addEventListener("click", () => { adicionarQuantidade(cliente.id, produtoId, quantidade, medida) });
-                botaoMenos.addEventListener("click", () => { removerQuantidade(cliente.id, produtoId, quantidade, medida) })
-            } else {
-                botaoMais.addEventListener("click", () => { adicionarQuantidadeLocal(produtoId, quantidade, medida) });
-                botaoMenos.addEventListener("click", () => { removerQuantidadeLocal(produtoId, quantidade, medida) })
-            }
+            botaoMais.addEventListener("click", () => { inputAdicionar.value = Number(inputAdicionar.value) + quantidade });
+            botaoMenos.addEventListener("click", () => { inputAdicionar.value = Math.max(0,Number(inputAdicionar.value) - quantidade) })
+            botaoAdicionar.addEventListener("click", async () => { pQuantidade.innerHTML = await adicionarQuantidade(cliente.id, produtoId, Number(inputAdicionar.value), medida) })
+            botaoRemover.addEventListener("click", () => { if (idCompra!=null) removerItem(idCompra) })
 
         } else {
             return

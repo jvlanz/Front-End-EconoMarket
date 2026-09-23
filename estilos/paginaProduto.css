@@ -112,10 +112,16 @@ body {
 
 /* QUANTIDADE */
 
+#valor-adicionar {
+    font-size: 18px;
+    width: 100px;
+}
+
 .quantidade {
     display: flex;
     gap: 30px;
     align-items: center;
+    font-size: 18px;
 }
 
 .set-quantidade {
