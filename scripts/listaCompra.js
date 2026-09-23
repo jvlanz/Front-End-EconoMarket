@@ -140,7 +140,7 @@ function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
     pQuantidade = document.getElementById('quantidade'+produtoId)
     presente = false
     for (ni=0; ni<listaCompra.length; ni++) {
-        if (listaCompra[ni].id==produtoId) {
+        if (listaCompra[ni].produto.id==produtoId) {
             listaCompra[ni].quantidade += quantidade
             if (quantidade % 1 > 0)
                 pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
@@ -151,7 +151,7 @@ function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
         }
     }
     if (!presente) {
-        listaCompra.push( {id:produtoId, quantidade:quantidade} )
+        listaCompra.push( {produto:{id:produtoId}, quantidade:quantidade} )
         if (quantidade % 1 > 0)
             pQuantidade.innerHTML = quantidade.toFixed(2).replace('.',',') + ' ' + medida
         else
@@ -165,7 +165,7 @@ function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
 function removerQuantidadeLocal(produtoId, quantidade, medida) {
     pQuantidade = document.getElementById('quantidade'+produtoId)
     for (ni=0; ni<listaCompra.length; ni++) {
-        if (listaCompra[ni].id==produtoId) {
+        if (listaCompra[ni].produto.id==produtoId) {
             listaCompra[ni].quantidade -= quantidade
             if (listaCompra[ni].quantidade <=0) {
                 listaCompra.splice(ni,1)
