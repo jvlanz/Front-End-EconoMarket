@@ -57,12 +57,13 @@ async function obterDadosCarrinho() { // buscas no banco de dados
 //  selecionarMinimos()
 }
 
-function ativarMercados() {
-    nMercados = document.getElementById('nMercados')
+function ativarMercados(nMercados) {
+console.log(nMercados)
+//  nMercados = document.getElementById('nMercados')
     for (nm=0; nm<mercados.length; nm++) {
         checkMercado = document.getElementById('check'+mercados[nm].id)
         checkMercado.checked = ''
-        if (nm < nMercados.value)
+        if (nm < nMercados)
             checkMercado.checked = 'on'
     }
 }
@@ -381,6 +382,7 @@ function copiarLista() {
         for (np=0; np<listas[mercados[nm].id].length; np++)
             texto += '- ' + listas[mercados[nm].id][np]+'\n'
     }
+    texto += '\nLista gerada com o app EconoMarket.\nVisite nosso site: www.economarket.com.br\n'
     navigator.clipboard.writeText(texto)
     window.alert('lista copiada para o clipboard')
 }
