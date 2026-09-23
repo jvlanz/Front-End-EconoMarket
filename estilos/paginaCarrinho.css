@@ -2,12 +2,12 @@
     display: flex;
     gap: 30px;
 
-    padding: 50px 20%;
+    padding: 50px 10%;
 
 }
 
 .body-esquerda {
-    flex: 2.5;
+    flex: 2;
 }
 
 .body-direita {
@@ -38,7 +38,8 @@
     display: flex;
 
     align-items: center;
-    gap: 30px;
+
+    gap: 50px;
 
     background: white;
 }
@@ -51,16 +52,16 @@
 }
 
 .descricao-produto {
-    flex: 2;
+    flex: 1.3;
 
     display: flex;
     align-items: center;
 
-    gap: 10px;
+    gap: 15px;
 }
 
 .nome-produto {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
 }
 
@@ -81,7 +82,7 @@
 
 
 .quantidade-div {
-    flex: 1.2;
+    flex: .8;
 
     display: flex;
 
@@ -95,7 +96,7 @@
 }
 
 .quantidade-div span {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 700;
 
 }
@@ -112,11 +113,11 @@
 }
 
 .remover {
-    flex: .4;
+    flex: .3;
 
     text-align: center;
 
-    padding: 5px;
+    padding: 5px 0;
 
     border-radius: 20px;
 
@@ -165,7 +166,7 @@
 
 .superior-direita h2,
 .inferior-direita h2 {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
 
     color: rgba(0, 0, 0, .7);
@@ -199,9 +200,6 @@
     border: 2px solid oklch(0.55 0.17 145);
 }
 
-.linha-horizontal {
-    color: rgb(0, 0, 0);
-}
 
 .quantidade-mercados {
     display: flex;
@@ -209,14 +207,14 @@
 }
 
 .texto .title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
 
     margin-bottom: 5px;
 }
 
 .texto p {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .selecionador-quantidade {
@@ -245,7 +243,7 @@
     display: flex;
     flex-direction: column;
 
-    gap: 10px;
+    gap: 20px;
 
     padding: 20px;
 
@@ -260,6 +258,8 @@
 }
 
 .mercados-preco {
+    font-size: 16px;
+
     display: flex;
     flex-direction: column;
 
@@ -284,7 +284,7 @@
 }
 
 .explicacao {
-    font-size: 12px;
+    font-size: 14px;
 
     color: black;
 }

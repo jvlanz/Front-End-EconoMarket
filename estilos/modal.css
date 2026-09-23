@@ -1,5 +1,5 @@
 
-.modal {
+/*.modal {
     display: none;
     position: fixed;
     top: 0;
@@ -7,13 +7,11 @@
     width: 100%;
     height: 100%;
     background-color: #0006;
-    z-index: 9999; /* acima do logo */
-}
+    z-index: 9999; } // acima do logo 
+*/
 
-.modal:target {
-    display: block;
-}
 
+/*
 .modalContent {
     position: fixed;
     top: 50%;
@@ -25,8 +23,8 @@
     box-shadow: 0px 0px 15px 0px #0000;
     border-radius: 5px;
     max-height: 100%;
-    overflow-y: auto; /* adiciona scrollbar vertical quando necessário */
-}
+    overflow-y: auto; // adiciona scrollbar vertical quando necessário 
+}*/
 
 .closeButton {
     position: fixed;
@@ -38,5 +36,85 @@
     border-radius: 20px;
     width: 1.2em;
     text-align: center;
+}
+
+.modalContent {
+    background: linear-gradient(135deg, #eef3f0, #dfe7e2);
+
+    padding: 30px 50px;
+
+    border-radius: 20px;
+}
+
+.modalMelhorCompra {
+    display: flex;
+    flex-direction: column;
+
+    gap: 30px;
+}
+
+.resultado-div, .lista-compra-div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.resumo-div, #listaCompra {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+    background: white;
+
+    padding: 20px;
+
+    border: 1px solid rgba(0, 0, 0, .3);
+
+    border-radius: 20px;
+}
+
+.resumo-div h2 {
+    font-size: 12px;
+}
+
+.resumo-div p {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.melhor-distribuicao-div {
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+}
+
+.total-economia-div {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.button-copiar {
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+.button-copiar button {
+    font-size: 15px;
+    font-weight: 700;
+
+    background: #38b000;
+    color: white;
+
+    padding: 10px 20px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
 }
 
