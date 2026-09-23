@@ -4,6 +4,7 @@ var mercados
 var promocoes
 var listaPrecos = []
 var totalMercado = []
+var nMercados = 1
 
 async function obterDadosCarrinho() { // buscas no banco de dados
     const token = sessionStorage.getItem("token");
@@ -54,12 +55,13 @@ async function obterDadosCarrinho() { // buscas no banco de dados
     preencherCarrinho()
     inserirMercados()
     ordenarMercados()
+    ativarMercados(1)
 //  selecionarMinimos()
 }
 
-function ativarMercados(nMercados) {
-console.log(nMercados)
-//  nMercados = document.getElementById('nMercados')
+function ativarMercados(n) {
+    nMercados = n
+//  nMercados = document.getElementById('nMercados').value
     for (nm=0; nm<mercados.length; nm++) {
         checkMercado = document.getElementById('check'+mercados[nm].id)
         checkMercado.checked = ''
@@ -69,8 +71,8 @@ console.log(nMercados)
 }
 
 function toggleCheckMercados() {
-    document.getElementById('nMercados').value =
-        document.querySelectorAll('input[class="mercado-checkbox"]:checked').length
+//  document.getElementById('nMercados').value =
+//      document.querySelectorAll('input[class="mercado-checkbox"]:checked').length
 }
 
 function preencherCarrinho() {
@@ -284,7 +286,7 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
 }
 
 function selecionarMinimos() { // seleciona select marcas e mercados com menores valores
-    nMercados = document.getElementById('nMercados').value
+//  nMercados = document.getElementById('nMercados').value
     nItens = cliente.listaCompra.length
     for (ni=0; ni<nItens; ni++) {
         item = cliente.listaCompra[ni]
@@ -349,7 +351,7 @@ function gerarLista() {
 
 function mostrarLista() {
     listas = gerarLista()
-    nMercados = document.getElementById('nMercados').value
+//  nMercados = document.getElementById('nMercados').value
     divMercados = document.getElementById('melhorDistribuicao')
     divMercados.innerHTML = '<h2>Melhor distribuição</h2>'
     divLista = document.getElementById('listaCompra')
