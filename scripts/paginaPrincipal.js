@@ -42,6 +42,11 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     tituloFav.style.display = 'none'
     subcontainerFav.style.display = 'none'
 
+    if (args.id==0) {
+        tituloFav.style.display = ''
+        subcontainerFav.style.display = ''
+    }
+
     // subcontainer para promocoes, inicialmente invisível
     subcontainerPromo = document.createElement("div");
     subcontainerPromo.setAttribute("class", "container1 fundoDestaque")
@@ -164,8 +169,6 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 if (favorito.produto.id == produto.id) {
                     botaoFavorito.innerHTML = "♥";
                     if (args.id==null) {
-                        tituloFav.style.display = ''
-                        subcontainerFav.style.display = ''
                         clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`)
                     }
                 }
