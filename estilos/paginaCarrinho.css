@@ -2,7 +2,7 @@
     display: flex;
     gap: 30px;
 
-    padding: 50px 20%;
+    padding: 50px 10%;
 
 }
 
@@ -38,7 +38,8 @@
     display: flex;
 
     align-items: center;
-    gap: 30px;
+
+    gap: 50px;
 
     background: white;
 }
@@ -51,12 +52,12 @@
 }
 
 .descricao-produto {
-    flex: 2;
+    flex: 1.3;
 
     display: flex;
     align-items: center;
 
-    gap: 10px;
+    gap: 15px;
 }
 
 .nome-produto {
@@ -81,7 +82,7 @@
 
 
 .quantidade-div {
-    flex: 1.2;
+    flex: .8;
 
     display: flex;
 
