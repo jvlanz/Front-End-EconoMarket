@@ -11,11 +11,20 @@
 
 }
 
+.container1, .produtos-display-grid {
+    padding: 0 10%;
+}
+
 .container1 {
     display: flex;
     gap: 20px;
-    
-    padding: 0 10%;
+}
+
+.produtos-display-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+    row-gap: 20px;
 }
 
 .fundoDestaque {
@@ -27,4 +36,6 @@
 
     background-color: rgba(9, 152, 1, 0.10);    
 }
+
+
 
