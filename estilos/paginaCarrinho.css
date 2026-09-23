@@ -203,19 +203,19 @@
 
 .quantidade-mercados {
     display: flex;
+    flex-direction: column;
+
     align-items: center;
+    
+    gap: 10px;
 }
 
 .texto .title {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
 
-    margin-bottom: 5px;
 }
 
-.texto p {
-    font-size: 14px;
-}
 
 .selecionador-quantidade {
     width: 50%;
