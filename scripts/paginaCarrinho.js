@@ -68,11 +68,25 @@ function ativarMercados(n) {
         if (nm < nMercados)
             checkMercado.checked = 'on'
     }
+    ativarBotoes()
 }
 
 function toggleCheckMercados() {
 //  document.getElementById('nMercados').value =
-//      document.querySelectorAll('input[class="mercado-checkbox"]:checked').length
+    nMercados = document.querySelectorAll('input[class="mercado-checkbox"]:checked').length
+    ativarBotoes()
+}
+
+function ativarBotoes() {
+    for (nm=1; nm<=mercados.length; nm++) {
+        btNMercados = document.getElementById('nMercados'+nm)
+        if (nm<nMercados)
+            btNMercados.setAttribute('class', 'btMercados-pre')
+        else if (nm==nMercados)
+            btNMercados.setAttribute('class', 'btMercados')
+        else
+            btNMercados.setAttribute('class', 'btMercados-pos')
+    }
 }
 
 function preencherCarrinho() {
@@ -286,7 +300,6 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
 }
 
 function selecionarMinimos() { // seleciona select marcas e mercados com menores valores
-//  nMercados = document.getElementById('nMercados').value
     nItens = cliente.listaCompra.length
     for (ni=0; ni<nItens; ni++) {
         item = cliente.listaCompra[ni]
@@ -351,12 +364,11 @@ function gerarLista() {
 
 function mostrarLista() {
     listas = gerarLista()
-//  nMercados = document.getElementById('nMercados').value
     divMercados = document.getElementById('melhorDistribuicao')
     divMercados.innerHTML = '<h2>Melhor distribuição</h2>'
     divLista = document.getElementById('listaCompra')
     divLista.innerHTML = ''
-    for (nm=0; nm<nMercados; nm++) {
+    for (nm=0; nm<mercados.length; nm++) {
         if (listas[mercados[nm].id]==null)
             continue
         divMercados.innerHTML += '<p class="melhores-mercados">'+mercados[nm].nome+'</p>'

@@ -258,6 +258,27 @@
     cursor: pointer;
 }
 
+.btMercados-pre {
+    background-color: green;
+    color: green;
+    border-radius: 0px;
+    margin: 0px;
+}
+
+.btMercados {
+    background-color: green;
+    color: white;
+    border-radius: 0px;
+    margin: 0px;
+}
+
+.btMercados-pos {
+    background-color: #0000;
+    color: #0000;
+    border-radius: 0px;
+    margin: 0px;
+}
+
 .inferior-direita {
     display: flex;
     flex-direction: column;
