@@ -78,35 +78,36 @@ async function removerItem(idCompra) {
 }
 
 // funções para o frontend
-function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
+async function adicionarQuantidade(clienteId, produtoId, quantidade, medida) {
     if (clienteId==null) {
         adicionarQuantidadeLocal(produtoId, quantidade, medida)
         return
     }
     pQuantidade = document.getElementById('quantidade'+produtoId)
     presente = false
-    for (ni=0; ni<listaCompra.length; ni++) {
-        if (listaCompra[ni].produto.id==produtoId) {
-            listaCompra[ni].quantidade += quantidade
-            if (listaCompra[ni].quantidade % 1 > 0)
-                pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
+    for (ni=0; ni<cliente.listaCompra.length; ni++) {
+        if (cliente.listaCompra[ni].produto.id==produtoId) {
+            cliente.listaCompra[ni].quantidade += quantidade
+            if (cliente.listaCompra[ni].quantidade % 1 > 0)
+                pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
             else
-                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+                pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade + ' ' + medida
             presente = true
-            alterarItem(listaCompra[ni].id, produtoId, clienteId, listaCompra[ni].quantidade)
+            alterarItem(cliente.listaCompra[ni].id, produtoId, clienteId, cliente.listaCompra[ni].quantidade)
             break
         }
     }
     if (!presente) {
-        listaCompra.push( {id:produtoId, quantidade:quantidade} )
+        itemDB = await incluirItem(produtoId, cliente.id, quantidade)
+        console.log(itemDB)
+        cliente.listaCompra.push( {id:itemDB.id, produto:{id:produtoId}, quantidade:quantidade} )
         if (quantidade % 1 > 0)
             pQuantidade.innerHTML = quantidade.toFixed(2).replace('.',',') + ' ' + medida
         else
             pQuantidade.innerHTML = quantidade + ' ' + medida
-        incluirItem(produtoId, cliente.id, quantidade)
     }
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
-    qtdCarrinho.innerHTML = listaCompra.length
+    qtdCarrinho.innerHTML = cliente.listaCompra.length
 }
 
 function removerQuantidade(clienteId, produtoId, quantidade, medida) {
@@ -115,72 +116,72 @@ function removerQuantidade(clienteId, produtoId, quantidade, medida) {
         return
     }
     pQuantidade = document.getElementById('quantidade'+produtoId)
-    for (ni=0; ni<listaCompra.length; ni++) {
-        if (listaCompra[ni].produto.id==produtoId) {
-            listaCompra[ni].quantidade -= quantidade
-            if (listaCompra[ni].quantidade <=0) {
-                removerItem(listaCompra[ni].id)
-                listaCompra.splice(ni,1)
-                pQuantidade.innerHTML = '0 ' + medida
+    for (ni=0; ni<cliente.listaCompra.length; ni++) {
+        if (cliente.listaCompra[ni].produto.id==produtoId) {
+            cliente.listaCompra[ni].quantidade -= quantidade
+            if (cliente.listaCompra[ni].quantidade <=0) {
+                removerItem(cliente.listaCompra[ni].id)
+                cliente.listaCompra.splice(ni,1)
+                pQuantidade.innerHTML = ''
             } else {
                 if (quantidade % 1 > 0)
-                    pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
+                    pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
                 else
-                    pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
-                alterarItem(listaCompra[ni].id, produtoId, clienteId, listaCompra[ni].quantidade)
+                    pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade + ' ' + medida
+                alterarItem(cliente.listaCompra[ni].id, produtoId, clienteId, cliente.listaCompra[ni].quantidade)
             }
             break
         }
     }
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
-    qtdCarrinho.innerHTML = listaCompra.length
+    qtdCarrinho.innerHTML = cliente.listaCompra.length
 }
 
 function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
     pQuantidade = document.getElementById('quantidade'+produtoId)
     presente = false
-    for (ni=0; ni<listaCompra.length; ni++) {
-        if (listaCompra[ni].produto.id==produtoId) {
-            listaCompra[ni].quantidade += quantidade
+    for (ni=0; ni<cliente.listaCompra.length; ni++) {
+        if (cliente.listaCompra[ni].produto.id==produtoId) {
+            cliente.listaCompra[ni].quantidade += quantidade
             if (quantidade % 1 > 0)
-                pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
+                pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
             else
-                pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+                pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade + ' ' + medida
             presente = true
             break
         }
     }
     if (!presente) {
-        listaCompra.push( {produto:{id:produtoId}, quantidade:quantidade} )
+        cliente.listaCompra.push( {produto:{id:produtoId}, quantidade:quantidade} )
         if (quantidade % 1 > 0)
             pQuantidade.innerHTML = quantidade.toFixed(2).replace('.',',') + ' ' + medida
         else
             pQuantidade.innerHTML = quantidade + ' ' + medida
     }
-    sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+    sessionStorage.setItem('listaCompra', JSON.stringify(cliente.listaCompra))
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
-    qtdCarrinho.innerHTML = listaCompra.length
+    qtdCarrinho.innerHTML = cliente.listaCompra.length
 }
 
 function removerQuantidadeLocal(produtoId, quantidade, medida) {
     pQuantidade = document.getElementById('quantidade'+produtoId)
-    for (ni=0; ni<listaCompra.length; ni++) {
-        if (listaCompra[ni].produto.id==produtoId) {
-            listaCompra[ni].quantidade -= quantidade
-            if (listaCompra[ni].quantidade <=0) {
-                listaCompra.splice(ni,1)
-                pQuantidade.innerHTML = '0 ' + medida
+    for (ni=0; ni<cliente.listaCompra.length; ni++) {
+        if (cliente.listaCompra[ni].produto.id==produtoId) {
+            cliente.listaCompra[ni].quantidade -= quantidade
+            if (cliente.listaCompra[ni].quantidade <=0) {
+                cliente.listaCompra.splice(ni,1)
+                pQuantidade.innerHTML = ''
             } else {
                 if (quantidade % 1 > 0)
-                    pQuantidade.innerHTML = listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
+                    pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade.toFixed(2).replace('.',',') + ' ' + medida
                 else
-                    pQuantidade.innerHTML = listaCompra[ni].quantidade + ' ' + medida
+                    pQuantidade.innerHTML = cliente.listaCompra[ni].quantidade + ' ' + medida
             }
             break
         }
     }
-    sessionStorage.setItem('listaCompra', JSON.stringify(listaCompra))
+    sessionStorage.setItem('listaCompra', JSON.stringify(cliente.listaCompra))
     const qtdCarrinho = document.getElementsByClassName('quantidade-carrinho')[0]
-    qtdCarrinho.innerHTML = listaCompra.length
+    qtdCarrinho.innerHTML = cliente.listaCompra.length
 }
 
