@@ -52,6 +52,7 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         }
     }
     preencherCarrinho()
+    inserirMercados()
     ordenarMercados()
 //  selecionarMinimos()
 }
@@ -141,8 +142,8 @@ function preencherCarrinho() {
         const medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
         let quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
         if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
-        btRem.onclick = async () => { qtd.innerHTML = await removerQuantidade(cliente.id, item.produto.id, quantidade, medida) }
-        btAdd.onclick = async () => { qtd.innerHTML = await adicionarQuantidade(cliente.id, item.produto.id, quantidade, medida) }
+        btRem.onclick = async () => { qtd.innerHTML = await removerQuantidadePagina(cliente.id, item.produto.id, quantidade, medida) }
+        btAdd.onclick = async () => { qtd.innerHTML = await adicionarQuantidadePagina(cliente.id, item.produto.id, quantidade, medida) }
  
         const divRemover = document.createElement('div')
         divRemover.setAttribute('class', 'remover')
@@ -153,6 +154,17 @@ function preencherCarrinho() {
         divRemover.appendChild(iconeLixo)
         ni += 1
     })
+}
+
+async function removerQuantidadePagina(idCliente, idProduto, quantidade, medida) {
+    const valor = await removerQuantidade(idCliente, idProduto, quantidade, medida)
+    ordenarMercados()
+    return valor
+}
+async function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medida) {
+    const valor = await adicionarQuantidade(idCliente, idProduto, quantidade, medida)
+    ordenarMercados()
+    return valor
 }
 
 function preencherDadosItem(ni) {
@@ -186,7 +198,7 @@ function preencherDadosItem(ni) {
     })
 }
 
-function ordenarMercados() { // coloca lista de mercados em ordem decrescente de 'economia'...
+function inserirMercados() { // coloca lista de mercados em ordem decrescente de 'economia'...
     mercados.forEach( mercado => {
         divMercados = document.getElementById('todos-mercados')
         divPrecos = document.getElementById('mercados-preco')
@@ -197,12 +209,16 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
         divPrecos.appendChild(divMercado)
         divMercado.innerHTML += '<p>'+mercado.nome+'</p>'
         divMercado.innerHTML += '<p id=precoMercado'+mercado.id+'></p>'
+        totalMercado.push(0)
     })
+}
+
+function ordenarMercados() { // coloca lista de mercados em ordem decrescente de 'economia'...
     nItens = listaPrecos.length
 //  totalMercado = []
     economiaMercado = []
     for (nm=0; nm<mercados.length; nm++) {
-        totalMercado.push(0)
+        totalMercado[nm] = 0
         economiaMercado.push(0)
     }
     for (ni=0; ni<nItens; ni++) {
@@ -233,21 +249,25 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
     minVal = Math.min(...totalMercado)
     for (nm=0; nm<mercados.length; nm++) {
         divMercado = document.getElementById('precoMercado'+mercados[nm].id)
+        parentDiv = divMercado.parentElement
+        parentDiv.setAttribute('class', 'mercado-preco')
         if (divMercado.innerHTML != '--')
             if (totalMercado[nm]==minVal) {
-                parentDiv = divMercado.parentElement
                 parentDiv.classList.add('mercado-preco-menor')
             }
             divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
     }
     fmercados = []
+    fprecos = []
     minVal = Math.min(...economiaMercado)
     while (fmercados.length<mercados.length) {
         maxVal = Math.max(...economiaMercado)
         fmercados.push(mercados[economiaMercado.indexOf(maxVal)])
+        fprecos.push(totalMercado[economiaMercado.indexOf(maxVal)])
         economiaMercado[economiaMercado.indexOf(maxVal)] = minVal-1 // remover maior valor
     }
     mercados = fmercados
+    totalMercado = fprecos
 }
 
 function selecionarMinimos() { // seleciona select marcas e mercados com menores valores
