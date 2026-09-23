@@ -23,6 +23,8 @@
     display: flex;
     flex-direction: column;
 
+    justify-content: space-between;
+
     gap: 5px;
 
     background: white;
@@ -42,6 +44,19 @@
     gap: 50px;
 
     background: white;
+
+}
+
+.descricao-produto {
+    flex: 1;
+}
+
+.divs {
+    flex: 2;
+}
+
+.quantidade-lixo {
+    flex: 1;
 }
 
 .produto img {
@@ -52,8 +67,6 @@
 }
 
 .descricao-produto {
-    flex: 1.3;
-
     display: flex;
     align-items: center;
 
@@ -66,8 +79,6 @@
 }
 
 .divs {
-    flex: 2;
-
     display: flex;
     gap: 10px;
 }
@@ -80,9 +91,17 @@
     cursor: pointer;
 }
 
+.quantidade-lixo {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
 
 .quantidade-div {
-    flex: .8;
+    flex: 1;
 
     display: flex;
 
@@ -203,19 +222,19 @@
 
 .quantidade-mercados {
     display: flex;
+    flex-direction: column;
+
     align-items: center;
+
+    gap: 10px;
 }
 
 .texto .title {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
 
-    margin-bottom: 5px;
 }
 
-.texto p {
-    font-size: 14px;
-}
 
 .selecionador-quantidade {
     width: 50%;
@@ -319,4 +338,3 @@
     background: rgba(255, 60, 60, .5);
     color: rgb(255, 0, 0);
 }
-
