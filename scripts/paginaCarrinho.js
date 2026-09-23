@@ -146,8 +146,8 @@ function preencherCarrinho() {
         const medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
         let quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
         if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
-        btRem.onclick = () => { removerQuantidade(cliente.id, item.produto.id, quantidade, medida) }
-        btAdd.onclick = () => { adicionarQuantidade(cliente.id, item.produto.id, quantidade, medida) }
+        btRem.onclick = async () => { qtd.innerHTML = await removerQuantidade(cliente.id, item.produto.id, quantidade, medida) }
+        btAdd.onclick = async () => { qtd.innerHTML = await adicionarQuantidade(cliente.id, item.produto.id, quantidade, medida) }
  
         const divRemover = document.createElement('div')
         divRemover.setAttribute('class', 'remover')

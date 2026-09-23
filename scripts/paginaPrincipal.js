@@ -16,7 +16,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     const promocoes = await respostaP.json();
 
     cliente = { id: null }
-    listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+    cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     if (token != null) {
         const respostaC = await fetch("http://localhost:8080/auth/cliente", {
             method: "GET",
@@ -26,7 +26,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             console.error("Erro ao buscar cliente");
         }
         cliente = await respostaC.json();
-        listaCompra = cliente.listaCompra
+//      listaCompra = cliente.listaCompra
     }
 
     const container = document.getElementById("categoria-geral");
@@ -128,13 +128,13 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoAddCarrinho.innerHTML = "+";
         divQtd.appendChild(botaoAddCarrinho);
 
-        for (n = 0; n < listaCompra.length; n++) {
-            if (listaCompra[n].produto.id == produto.id) {
+        for (n = 0; n < cliente.listaCompra.length; n++) {
+            if (cliente.listaCompra[n].produto.id == produto.id) {
                 botaoRemCarrinho.style.display = ''
-                if ( listaCompra[n].quantidade % 1 > 0)
-                    quant.innerHTML = listaCompra[n].quantidade.toFixed(2).replace('.',',') + ' ' +produto.medida
+                if ( cliente.listaCompra[n].quantidade % 1 > 0)
+                    quant.innerHTML = cliente.listaCompra[n].quantidade.toFixed(2).replace('.',',') + ' ' +produto.medida
                 else
-                    quant.innerHTML = listaCompra[n].quantidade + ' ' + produto.medida
+                    quant.innerHTML = cliente.listaCompra[n].quantidade + ' ' + produto.medida
                 break
             }
         }
@@ -242,11 +242,13 @@ function filtrar(nomeProduto, filtros) {
     return res
 }
 
-function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medida) {
-    adicionarQuantidade(idCliente, idProduto, quantidade, medida)
+async function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medida) {
+    if (quantidade==1 && medida=='kg')
+        quantidade = 0.1
     quant = document.getElementById('quantidade' + idProduto)
     fquant = document.getElementById('favquantidade' + idProduto) || quant
     pquant = document.getElementById('promoquantidade' + idProduto) || quant
+    quant.innerHTML = await adicionarQuantidade(idCliente, idProduto, quantidade, medida)
     fquant.innerHTML = quant.innerHTML
     pquant.innerHTML = quant.innerHTML
     botaoRemCarrinho = document.getElementById('rem' + idProduto)
@@ -257,11 +259,13 @@ function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medida) {
     pbotaoRemCarrinho.style.display = ''
 }
 
-function removerQuantidadePagina(idCliente, idProduto, quantidade, medida) {
-    removerQuantidade(idCliente, idProduto, quantidade, medida)
+async function removerQuantidadePagina(idCliente, idProduto, quantidade, medida) {
+    if (quantidade==1 && medida=='kg')
+        quantidade = 0.1
     quant = document.getElementById('quantidade' + idProduto)
     fquant = document.getElementById('favquantidade' + idProduto) || quant
     pquant = document.getElementById('promoquantidade' + idProduto) || quant
+    quant.innerHTML = await removerQuantidade(idCliente, idProduto, quantidade, medida)
     fquant.innerHTML = quant.innerHTML
     pquant.innerHTML = quant.innerHTML
     if (quant.innerHTML=='') {
