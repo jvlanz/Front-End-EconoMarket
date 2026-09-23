@@ -38,6 +38,7 @@ function inserirHeader() {
             } else {
                 listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
                 qtdCarrinho.innerHTML = listaCompra.length
+                document.getElementById('botao-favoritos').style.display = 'none'
             }
         })
         .catch(e => console.error('Include failed:', e));

@@ -33,7 +33,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
     // subcontainer para favoritos, inicialmente invisível
     subcontainerFav = document.createElement("div");
-    subcontainerFav.setAttribute("class", "container1 fundoDestaque")
+    subcontainerFav.setAttribute("class", "produtos-display-grid")
     tituloFav = document.createElement('h2')
     tituloFav.setAttribute("class", "titulo-secao");
     tituloFav.innerHTML = 'Produtos favoritos'
@@ -41,6 +41,11 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     container.appendChild(subcontainerFav);
     tituloFav.style.display = 'none'
     subcontainerFav.style.display = 'none'
+
+    if (args.id==0) {
+        tituloFav.style.display = ''
+        subcontainerFav.style.display = ''
+    }
 
     // subcontainer para promocoes, inicialmente invisível
     subcontainerPromo = document.createElement("div");
@@ -56,7 +61,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     produtos.forEach(produto => {
 
         // filtrar por categoria
-        if (args.id != null && args.id != produto.categoria.id) return
+        if ((args.id != 0 && args.id != null) && args.id != produto.categoria.id) return
 
         // filtrar por busca
         let subcontainer = document.getElementById("busca"); // usar mesmo subcontainer para todos os resultados da busca
@@ -89,6 +94,11 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             tituloCat.innerHTML = produto.categoria.categoria
             container.appendChild(tituloCat)
             container.appendChild(subcontainer);
+        }
+
+        if (args.id==0) {
+            tituloCat.style.display = 'none'
+            subcontainer.style.display = 'none'
         }
 
         const card = document.createElement("div");
@@ -163,27 +173,23 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             cliente.favoritos.forEach(favorito => {
                 if (favorito.produto.id == produto.id) {
                     botaoFavorito.innerHTML = "♥";
-                    if (args.id==null) {
-                        tituloFav.style.display = ''
-                        subcontainerFav.style.display = ''
-                        clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`)
-                    }
+                    clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`)
                 }
             })
             botaoFavorito.onclick = () => { toggleFavorito(`${produto.id}`, `${cliente.id}`) }
         }
 
         if (args.id==null) {
-          promocoes.forEach(promocao => {
-            tituloPromo.style.display = ''
-            subcontainerPromo.style.display = ''
-            if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
-                if (document.getElementById('promonome'+produto.id)==null)
-                    clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`)
-                nomePromo = document.getElementById('promonome' + produto.id)
-                nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
-            }
-          })
+            promocoes.forEach(promocao => {
+                tituloPromo.style.display = ''
+                subcontainerPromo.style.display = ''
+                if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
+                    if (document.getElementById('promonome'+produto.id)==null)
+                        clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`)
+                    nomePromo = document.getElementById('promonome' + produto.id)
+                    nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
+                }
+            })
         }
 
     });
