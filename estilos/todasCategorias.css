@@ -62,9 +62,12 @@ h3 {
 
 @media (max-width: 600px) {
     .container-categorias {
-        padding: 25px 15px;
-        gap: 18px;
-    }
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+}
 
     .card-categorias {
         width: 100%;
