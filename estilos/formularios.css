@@ -142,7 +142,7 @@ body {
 
     color: rgba(0, 0, 0, 0.8);
 
-    font-size: 14px;  
+    font-size: 14px;
     font-weight: 600;
 }
 
@@ -206,4 +206,12 @@ body {
 .link a:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+
+
+@media (max-width: 900px) {
+    .formulario {
+        width: 40%;
+    }
 }
