@@ -60,6 +60,8 @@ body {
 .title h1 {
     font-size: 24px;
     font-weight: 700;
+
+    color: #182F57;
 }
 
 .title p {
@@ -120,20 +122,27 @@ body {
 }
 
 .recuperar {
+
     display: flex;
     justify-content: space-between;
 
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
-.recuperar p {
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.6);
+.recuperar a,
+.link a {
+    color: #182F57;
+
+    text-decoration: none;
 
     cursor: pointer;
     font-weight: 700;
 
     transition: .3s;
+}   
+
+.recuperar a {
+    font-size: 12px;
 }
 
 .link {
@@ -144,16 +153,6 @@ body {
 
     font-size: 14px;
     font-weight: 600;
-}
-
-.link a {
-    color: #084d92;
-    font-weight: bold;
-    margin-left: 5px;
-
-    text-decoration: none;
-
-    transition: .3s;
 }
 
 .termos {
@@ -191,8 +190,10 @@ body {
     border: 2px solid black;
 }
 
-.recuperar p:hover {
-    color: black;
+.recuperar a:hover,
+.link a:hover {
+    color: #39B54A;
+    text-decoration: underline;
 }
 
 .btn:hover {
