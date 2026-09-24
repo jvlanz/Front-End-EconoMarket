@@ -237,7 +237,7 @@
 
 
 .selecionador-quantidade {
-    width: 50%;
+    width: 60%;
 
     display: flex;
 
@@ -246,25 +246,19 @@
 
     padding: 5px 20px;
 
-    background-color: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.1);
 
     border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 12px;
 }
 
-.selecionador-quantidade-div {
-    color: rgba(0, 0, 0, 0.5);
+.selecionador-quantidade input {
+    background: transparent;
 
     cursor: pointer;
 }
 
-.btMercados-pre {
-    background-color: green;
-    color: green;
-    border-radius: 0px;
-    margin: 0px;
-}
-
+/*
 .btMercados {
     background-color: green;
     color: white;
@@ -272,12 +266,26 @@
     margin: 0px;
 }
 
+.btMercados-pre {
+    background-color: green;
+    color: green;
+}
+
+
 .btMercados-pos {
     background-color: #0000;
     color: #0000;
     border-radius: 0px;
     margin: 0px;
 }
+*/
+
+.selecionador-quantidade-div {
+    color: rgba(0, 0, 0, 0.5);
+
+    cursor: pointer;
+}
+
 
 .inferior-direita {
     display: flex;
