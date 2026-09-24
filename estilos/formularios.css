@@ -9,9 +9,12 @@
 
 body {
     height: 100vh;
+
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     background-color: #f0f0f0;
 }
 
@@ -19,7 +22,9 @@ body {
 .formulario {
     width: 25%;
     height: 60%;
+
     padding: 20px;
+
     background-color: white;
     border-radius: 18px;
 
@@ -41,6 +46,7 @@ body {
 
 .topo {
     display: flex;
+
     flex-direction: column;
     justify-content: center;
 
@@ -49,17 +55,20 @@ body {
 
 .logo {
     display: flex;
+
     justify-content: center;
 }
 
 .icone-logo {
     width: 180px;
+
     object-fit: contain;
 }
 
 .title {
     display: flex;
     flex-direction: column;
+
     gap: 10px;
 
     text-align: center;
@@ -117,10 +126,12 @@ body {
 .btn {
     background-color: #099801;
     color: white;
-    cursor: pointer;
-    transition: 0.3s;
 
     font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;   
 }
 
 .btn-sair {
@@ -178,9 +189,12 @@ body {
 }
 
 .mensagem-erro {
-    color: #d32f2f;
-    text-align: center;
     font-size: 14px;
+
+    color: #d32f2f;
+
+    text-align: center;
+
     min-height: 18px;
 }
 
@@ -190,12 +204,14 @@ body {
 
 .inputs input:focus {
     background-color: white;
+
     border: 2px solid black;
 }
 
 .recuperar a:hover,
 .link a:hover {
     color: #39B54A;
+
     text-decoration: underline;
 }
 
@@ -209,6 +225,7 @@ body {
 
 .link a:hover {
     text-decoration: underline;
+    
     cursor: pointer;
 }
 
