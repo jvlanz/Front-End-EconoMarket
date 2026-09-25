@@ -134,6 +134,7 @@ function preencherCarrinho() {
         selMarca = document.createElement('select')
         selMarca.setAttribute('class', 'selecionar-marca')
         selMarca.id = 'selMarca'+item.produto.id
+        selMarca.onchange = () => { ordenarMercados() }
         divMarcaMercado.appendChild(selMarca)
         selMercado = document.createElement('select')
         selMercado.setAttribute('class', 'selecionar-mercado')
@@ -267,10 +268,11 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
             precoMedio = (precoMedio*nPrecos + precos[np].preco) / (nPrecos+1)
             nPrecos += 1
         }
+        selMarca = document.getElementById('selMarca'+precos[0].produtoMarca.produto.id)
         for (nm=0; nm<mercados.length; nm++) {
             valor = -1
             for (np=0; np<precos.length; np++) {
-                if (precos[np].mercado.id==mercados[nm].id) {
+                if ((selMarca.value=='' || selMarca.value==precos[np].produtoMarca.marca.marca) && precos[np].mercado.id==mercados[nm].id) { // FIXME conferir se há marca selecionada
                     economiaMercado[nm] += (precoMedio - precos[np].preco) * (cliente.listaCompra[ni].quantidade/precos[0].produtoMarca.produto.valorMedida)
                     valor = precos[np].preco
                     break
@@ -284,16 +286,19 @@ function ordenarMercados() { // coloca lista de mercados em ordem decrescente de
             }
         }
     }
-    minVal = Math.min(...totalMercado)
+    totaisValidos = []
+    totalMercado.forEach( valor => { if(valor>0) totaisValidos.push(valor) }) // ignorar valores nulos que ocorrem quando mercado não tem um produto
+    minVal = Math.min(...totaisValidos)
     for (nm=0; nm<mercados.length; nm++) {
         divMercado = document.getElementById('precoMercado'+mercados[nm].id)
         parentDiv = divMercado.parentElement
         parentDiv.setAttribute('class', 'mercado-preco')
-        if (divMercado.innerHTML != '--')
+        if (divMercado.innerHTML != '--') {
             if (totalMercado[nm]==minVal) {
                 parentDiv.classList.add('mercado-preco-menor')
             }
             divMercado.innerHTML = 'R$ '+totalMercado[nm].toFixed(2).replaceAll('.',',')
+        }
     }
     fmercados = []
     fprecos = []
