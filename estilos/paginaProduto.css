@@ -204,3 +204,8 @@ body {
     transition: 0.3s;
 }
 
+#remover:hover {
+    background: rgba(255, 60, 60, .5);
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+}
