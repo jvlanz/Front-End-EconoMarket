@@ -135,6 +135,7 @@ function preencherCarrinho() {
         selMercado = document.createElement('select')
         selMercado.setAttribute('class', 'selecionar-mercado')
         selMercado.id = 'selMercado'+item.produto.id
+        selMercado.style.display = 'none'
         divMarcaMercado.appendChild(selMercado)
         preencherDadosItem(ni)
 
