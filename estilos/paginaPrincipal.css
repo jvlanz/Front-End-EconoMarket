@@ -20,6 +20,11 @@
     gap: 20px;
 }
 
+.titulo-secao a {
+    margin-left: 10px;
+    font-size: 10pt;
+}
+
 .produtos-display-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
