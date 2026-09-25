@@ -57,7 +57,12 @@ async function inserirProduto(produtoId) {
         <div class="informacoes">
 
             <div class="nome">
-                <p>${produto.descricao}</p>
+                <p>
+                    ${produto.descricao}
+                    <select id=selMarca onchange='calcularValores()'>
+                        <option value=''></option>
+                    </select>
+                </p>
             </div>
 
             <div id="mercados" class="comparativo-preco">
@@ -97,22 +102,31 @@ async function inserirProduto(produtoId) {
 
             const divMercados = document.getElementById("mercados")
             mercados = [] // solução temporária, pois o banco de dados possui entradas repetidas para produtos no mesmo mercado
+            const selMarcas = document.getElementById("selMarcas")
+            marcas = ['']
             precos.forEach(preco => {
-              if (!mercados.includes(preco.mercado.nome)) {
-                mercados.push(preco.mercado.nome)
-                const divMercado = document.createElement("div")
-                divMercado.setAttribute("class", "mercado")
-                divMercados.appendChild(divMercado)
-                pMercado = document.createElement("p")
-                pMercado.innerHTML = preco.mercado.nome
-                pPreco = document.createElement("p")
-                if (preco.produtoMarca.produto.valorMedida != 1)
-                    pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.valorMedida} ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
-                else
-                    pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
-                divMercado.appendChild(pMercado)
-                divMercado.appendChild(pPreco)
-              }
+                if (!mercados.includes(preco.mercado.nome)) {
+                    mercados.push(preco.mercado.nome) // FIXME inclui primeiro valor da lista, independente da marca/valor
+                    const divMercado = document.createElement("div")
+                    divMercado.setAttribute("class", "mercado")
+                    divMercados.appendChild(divMercado)
+                    pMercado = document.createElement("p")
+                    pMercado.innerHTML = preco.mercado.nome
+                    pPreco = document.createElement("p")
+                    if (preco.produtoMarca.produto.valorMedida != 1)
+                        pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.valorMedida} ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
+                    else
+                        pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
+                    divMercado.appendChild(pMercado)
+                    divMercado.appendChild(pPreco)
+                }
+                if (!marcas.includes(preco.produtoMarca.marca.marca)) {
+                    marcas.push(preco.produtoMarca.marca.marca)
+                    optMarca = document.createElement('option')
+                    optMarca.value = preco.produtoMarca.marca.marca
+                    optMarca.innerHTML = preco.produtoMarca.marca.marca
+                    selMarca.appendChild(optMarca)
+                }
             })
 
             let idCompra = null
