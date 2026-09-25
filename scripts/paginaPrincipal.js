@@ -85,13 +85,15 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         if (subcontainer == null) {
             subcontainer = document.createElement("div");
             subcontainer.setAttribute("id", "categoria" + produto.categoria.id);
-            if (args.id != null)
-                subcontainer.setAttribute("class", "produtos-display-grid")
-            else
-                subcontainer.setAttribute("class", "container1")
             tituloCat = document.createElement('h2')
             tituloCat.setAttribute("class", "titulo-secao");
             tituloCat.innerHTML = produto.categoria.categoria
+            if (args.id != null)
+                subcontainer.setAttribute("class", "produtos-display-grid")
+            else {
+                subcontainer.setAttribute("class", "container1")
+                tituloCat.innerHTML += '<a href="paginaPrincipal.html?categoria='+produto.categoria.id+'"> &#10095; </a>'
+            }
             container.appendChild(tituloCat)
             container.appendChild(subcontainer);
         }

@@ -20,6 +20,11 @@
     gap: 20px;
 }
 
+.titulo-secao a {
+    margin-left: 10px;
+    color: green;
+}
+
 .produtos-display-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -34,7 +39,7 @@
 
     margin: 0 10%;
 
-    background-color: rgba(9, 152, 1, 0.10);    
+    background-color: #DCEFE0;    
 }
 
 

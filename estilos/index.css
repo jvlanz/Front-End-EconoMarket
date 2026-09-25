@@ -24,6 +24,14 @@ body {
     display: none;
 }
 
+.button-adicionar {
+    background:#39B54A;
+    color: white;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
 @media (max-width: 900px) {
 
     .icone-logo {

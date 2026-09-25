@@ -9,9 +9,12 @@
 
 body {
     height: 100vh;
+
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     background-color: #f0f0f0;
 }
 
@@ -19,19 +22,31 @@ body {
 .formulario {
     width: 25%;
     height: 60%;
+
     padding: 20px;
+
     background-color: white;
     border-radius: 18px;
 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+.formulario-login {
+    display: flex;
+    flex-direction: column;
+
+    gap: 30px;
+}
+
 .formulario-cadastro {
     height: 80%;
 }
 
+
+
 .topo {
     display: flex;
+
     flex-direction: column;
     justify-content: center;
 
@@ -40,26 +55,30 @@ body {
 
 .logo {
     display: flex;
+
     justify-content: center;
 }
 
 .icone-logo {
     width: 180px;
+
     object-fit: contain;
 }
 
 .title {
     display: flex;
     flex-direction: column;
+
     gap: 10px;
 
     text-align: center;
-    margin-bottom: 40px;
 }
 
 .title h1 {
     font-size: 24px;
     font-weight: 700;
+
+    color: #182F57;
 }
 
 .title p {
@@ -70,6 +89,7 @@ body {
 .inputs {
     display: flex;
     flex-direction: column;
+
     gap: 30px;
 }
 
@@ -81,13 +101,12 @@ body {
 .inputs div {
     display: flex;
     flex-direction: column;
+
     gap: 5px;
 }
 
-
 .inputs input,
 .btn {
-
     width: 100%;
     height: 50px;
 
@@ -105,14 +124,14 @@ body {
 }
 
 .btn {
-    margin-top: 30px;
-
     background-color: #099801;
     color: white;
-    cursor: pointer;
-    transition: 0.3s;
 
     font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;   
 }
 
 .btn-sair {
@@ -123,17 +142,22 @@ body {
     display: flex;
     justify-content: space-between;
 
-    margin-top: 10px;
 }
 
-.recuperar p {
-    font-size: 12px;
-    color: rgba(0, 0, 0, 0.6);
+.recuperar a,
+.link a {
+    color: #182F57;
+
+    text-decoration: none;
 
     cursor: pointer;
     font-weight: 700;
 
     transition: .3s;
+}   
+
+.recuperar a {
+    font-size: 12px;
 }
 
 .link {
@@ -144,16 +168,6 @@ body {
 
     font-size: 14px;
     font-weight: 600;
-}
-
-.link a {
-    color: #084d92;
-    font-weight: bold;
-    margin-left: 5px;
-
-    text-decoration: none;
-
-    transition: .3s;
 }
 
 .termos {
@@ -175,11 +189,13 @@ body {
 }
 
 .mensagem-erro {
-    color: #d32f2f;
-    text-align: center;
     font-size: 14px;
+
+    color: #d32f2f;
+
+    text-align: center;
+
     min-height: 18px;
-    margin-bottom: 10px;
 }
 
 .inputs input:hover {
@@ -188,11 +204,15 @@ body {
 
 .inputs input:focus {
     background-color: white;
+
     border: 2px solid black;
 }
 
-.recuperar p:hover {
-    color: black;
+.recuperar a:hover,
+.link a:hover {
+    color: #39B54A;
+
+    text-decoration: underline;
 }
 
 .btn:hover {
@@ -205,6 +225,7 @@ body {
 
 .link a:hover {
     text-decoration: underline;
+    
     cursor: pointer;
 }
 

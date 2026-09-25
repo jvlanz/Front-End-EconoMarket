@@ -17,7 +17,7 @@ body {
 
 
 .imagem-produto {
-    flex: 1.5;
+    flex: 1;
 
     display: flex;
     justify-content: center;
@@ -30,8 +30,8 @@ body {
 }
 
 .imagem-produto img {
-    width: 350px;
-    height: 350px;
+    width: 400px;
+    height: 400px;
 
     object-fit: contain;
 }
@@ -67,7 +67,7 @@ body {
 /* INFORMAÇÕES DO PRODUTO */
 
 .informacoes {
-    flex: 2;
+    flex: 1.1;
 
     display: flex;
     flex-direction: column;
@@ -117,13 +117,20 @@ body {
 
 
 .quantidade {
-    width: 60%;
+    width: 70%;
 
     display: flex;
 
     align-items: center;
 
-    gap: 30px;
+    gap: 40px;
+
+    background: white;
+
+    padding: 8px 20px;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
 
     font-size: 18px;
 }
@@ -135,18 +142,11 @@ body {
 
     justify-content: space-between;
     align-items: center;
-
-    background: white;
-
-    padding: 8px 12px;
-
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 30px;
  
 }
 
 .set-quantidade button {
-    background:rgb(56, 176, 0);
+    background:#39B54A;
     color: white;
 
     font-size: 24px;
@@ -204,3 +204,8 @@ body {
     transition: 0.3s;
 }
 
+#remover:hover {
+    background: rgba(255, 60, 60, .5);
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+}
