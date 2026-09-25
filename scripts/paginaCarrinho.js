@@ -151,6 +151,7 @@ function preencherCarrinho() {
         const btRem = document.createElement('button')
         btRem.setAttribute('class', 'botaoPequeno')
         btRem.innerHTML = '–'
+        btRem.id = 'rem'+item.produto.id
         divQuantidade.appendChild(btRem)
         const qtd = document.createElement('span')
         qtd.id = 'quantidade'+item.produto.id
@@ -162,6 +163,7 @@ function preencherCarrinho() {
         const btAdd = document.createElement('button')
         btAdd.setAttribute('class', 'botaoPequeno')
         btAdd.innerHTML = '+'
+        btAdd.id = 'add'+item.produto.id
         divQuantidade.appendChild(btAdd)
 
         const medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
@@ -183,6 +185,9 @@ function preencherCarrinho() {
 }
 
 async function removerQuantidadePagina(idCliente, idProduto, quantidade, medida) {
+    quantidadeCarrinho = Number(document.getElementById('quantidade'+idProduto).innerHTML.split(' ')[0].replace(',','.'))
+    if (quantidadeCarrinho==quantidade) // manter quantidade mínima do produto
+        return document.getElementById('quantidade'+idProduto).innerHTML
     const qtd = await removerQuantidade(idCliente, idProduto, quantidade, medida)
     if (qtd<=0) {
         document.getElementById('produto'+idProduto).style.display='none'
