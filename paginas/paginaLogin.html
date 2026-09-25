@@ -26,16 +26,17 @@
             </div>
         </div>
 
-        <div class="inputs">
-            <div class="email">
-                <p>E-mail</p>
-                <input type="email" id="emailinp" required />
+        <div class="meio">
+            <div class="inputs">
+                <div class="email">
+                    <p>E-mail</p>
+                    <input type="email" id="emailinp" required />
+                </div>
+                <div class="senha">
+                    <p>Senha</p>
+                    <input type="password" id="senhainp" required />
+                </div>
             </div>
-            <div class="senha">
-                <p>Senha</p>
-                <input type="password" id="senhainp" required />
-            </div>
-
             <div class="recuperar">
                 <p>
                     <a href="mailto:economarketofc@gmail.com?subject=Recuperação%20de%20email">Recuperar e-mail</a>
@@ -45,18 +46,20 @@
                 </p>
             </div>
 
-            <p class="mensagem-erro" id="msg-erro-login"></p>
         </div>
 
+        <div class="fim">
+            <p class="mensagem-erro" id="msg-erro-login"></p>
 
-        <div class="link link-cadastre">
-            <input type="submit" class="btn" value="Entrar" />
-            <script>
-                formulario = document.getElementById("formularioLogin")
-                formulario.addEventListener("submit", (evento) => { entrar(evento) })
-            </script>
+            <div class="link link-cadastre">
+                <input type="submit" class="btn" value="Entrar" />
+                <script>
+                    formulario = document.getElementById("formularioLogin")
+                    formulario.addEventListener("submit", (evento) => { entrar(evento) })
+                </script>
 
-            <p>Ainda não tem uma conta?<a href="paginaCadastro.html" class="cadastre">Cadastre-se aqui</a></p>
+                <p>Ainda não tem uma conta?<a href="paginaCadastro.html" class="cadastre">Cadastre-se aqui</a></p>
+            </div>
         </div>
     </form>
 
