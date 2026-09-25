@@ -97,12 +97,10 @@ function preencherCarrinho() {
         divProduto.setAttribute('class', 'produto')
         divProdutos.appendChild(divProduto)
     
-        const linkProduto = document.createElement('a')
-        linkProduto.href = 'paginaProduto.html?produto='+item.produto.id
-        divProduto.appendChild(linkProduto)
-        const divDescricao = document.createElement('div')
+        const divDescricao = document.createElement('a')
         divDescricao.setAttribute('class', 'descricao-produto')
-        linkProduto.appendChild(divDescricao)
+        divDescricao.href = 'paginaProduto.html?produto='+item.produto.id
+        divProduto.appendChild(divDescricao)
         const divImagem = document.createElement('div')
         divImagem.setAttribute('class', 'imagem-produto')
         divDescricao.appendChild(divImagem)
