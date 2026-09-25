@@ -21,49 +21,59 @@
             </div>
 
             <div class="title">
-                <h2>Cadastre-se</h2>
+                <h1>Cadastre-se</h1>
+                <p>Ainda não tenho cadastro</p>
             </div>
         </div>
 
-        <div class="inputs">
-            <div class="nome">
-                <p>Nome e sobrenome*</p>
-                <input type="text" id="nome-cadastro" required>
+        <div class="meio">
+            <div class="inputs">
+                <div class="nome">
+                    <p>Nome e sobrenome*</p>
+                    <input type="text" id="nome-cadastro" required>
+                </div>
+
+                <div class="email">
+                    <p>E-mail*</p>
+                    <input type="text" id="email-cadastro" required>
+                </div>
+
+                <div class="senha">
+                    <p>Senha*</p>
+                    <input type="password" id="senha-cadastro" required>
+                </div>
+
+                <div class="telefone">
+                    <p>Telefone*</p>
+                    <input type="text" id="telefone-cadastro" required>
+                </div>
             </div>
 
-            <div class="email">
-                <p>E-mail*</p>
-                <input type="text" id="email-cadastro" required>
-            </div>
-
-            <div class="senha">
-                <p>Senha*</p>
-                <input type="password" id="senha-cadastro" required>
-            </div>
-
-            <div class="telefone">
-                <p>Telefone*</p>
-                <input type="text" id="telefone-cadastro" required>
+            <div class="termos">
+                <input type="checkbox" required></button>
+                <p>
+                    Ao cadastrar-se, você concorda com os <span style="cursor: pointer;">Termos de Uso</span>
+                    e a <span style="cursor: pointer;">Política de Privacidade<span>.
+                            <p>
             </div>
         </div>
 
-        <div class="termos">
-            <input type="checkbox" required></button>
-            <p>
-                Ao cadastrar-se, você concorda com os <span style="cursor: pointer;">Termos de Uso</span>
-                e a <span style="cursor: pointer;">Política de Privacidade<span>.
-                        <p>
-        </div>
 
-        <input type="submit" class="btn" value="Criar Cadastro" />
-        <script>
-            const formulario = document.getElementById("formulario-cadastro");
-            formulario.addEventListener("submit", (evento) => { cadastrar(evento) })
-        </script>
+        <div class="fim">
+            <p class="mensagem-erro" id="msg-erro-cadastro"></p>
 
-        <div class="link link-login">
-            <p>Já tem uma conta?<a href="paginaLogin.html">Faça login
-                    aqui</a></p>
+            <div class="button-link-div">
+                <input type="submit" class="btn" value="Criar Cadastro" />
+                <script>
+                    const formulario = document.getElementById("formulario-cadastro");
+                    formulario.addEventListener("submit", (evento) => { cadastrar(evento) })
+                </script>
+
+                <div class="link">
+                    <p>Já tem uma conta?</p>
+                    <a href="paginaLogin.html">Faça login aqui</a>
+                </div>
+            </div>
         </div>
     </form>
 

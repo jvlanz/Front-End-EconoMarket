@@ -22,7 +22,7 @@
 
             <div class="title">
                 <h1>Seja bem-vindo</h1>
-                <p>Já sou cliente</p>
+                <p>Já tenho cadastro</p>
             </div>
         </div>
 
@@ -51,14 +51,17 @@
         <div class="fim">
             <p class="mensagem-erro" id="msg-erro-login"></p>
 
-            <div class="link link-cadastre">
+            <div class="button-link-div">
                 <input type="submit" class="btn" value="Entrar" />
                 <script>
                     formulario = document.getElementById("formularioLogin")
                     formulario.addEventListener("submit", (evento) => { entrar(evento) })
                 </script>
 
-                <p>Ainda não tem uma conta?<a href="paginaCadastro.html" class="cadastre">Cadastre-se aqui</a></p>
+                <div class="link">
+                    <p>Ainda não tem uma conta?</p>
+                    <a href="paginaCadastro.html" class="cadastre">Cadastre-se aqui</a>
+                </div>
             </div>
         </div>
     </form>

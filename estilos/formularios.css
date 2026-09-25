@@ -21,7 +21,11 @@ body {
 
 .formulario {
     width: 25%;
-    height: 60%;
+    
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
 
     padding: 20px;
 
@@ -31,19 +35,6 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.formulario-login {
-    display: flex;
-    flex-direction: column;
-
-    gap: 20px;
-}
-
-.formulario-cadastro {
-    height: 80%;
-}
-
-
-
 .topo {
     display: flex;
 
@@ -51,6 +42,8 @@ body {
     justify-content: center;
 
     gap: 30px;
+
+    margin-bottom: 38px;
 }
 
 .logo {
@@ -90,14 +83,14 @@ body {
     display: flex;
     flex-direction: column;
 
-    gap: 5px;
+    gap: 10px;
 }
 
 .inputs {
     display: flex;
     flex-direction: column;
 
-    gap: 30px;
+    gap: 20px;
 }
 
 .inputs p {
@@ -137,13 +130,6 @@ body {
     gap: 20px;
 }
 
-.link-cadastre {
-    display: flex;
-    flex-direction: column;
-
-    gap: 10px;
-}
-
 .btn {
     background-color: #099801;
     color: white;
@@ -158,6 +144,22 @@ body {
 .btn-sair {
     background-color: rgba(255, 0, 0, 0.8);
 }
+
+.button-link-div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.link {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 5px;
+}
+
 
 .recuperar {
     display: flex;
@@ -198,6 +200,8 @@ body {
     font-size: 12px;
 
     gap: 10px;
+
+    margin-top: 5px;
 }
 
 .termos input {
@@ -217,10 +221,6 @@ body {
     text-align: center;
 
     min-height: 18px;
-}
-
-.cadastre {
-    margin-left: 5px;
 }
 
 .inputs input:hover {
