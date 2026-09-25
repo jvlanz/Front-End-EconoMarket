@@ -35,7 +35,7 @@ body {
     display: flex;
     flex-direction: column;
 
-    gap: 30px;
+    gap: 20px;
 }
 
 .formulario-cadastro {
@@ -86,6 +86,13 @@ body {
     font-weight: 700;
 }
 
+.meio {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
 .inputs {
     display: flex;
     flex-direction: column;
@@ -121,6 +128,20 @@ body {
 .inputs input {
     background-color: rgb(0, 0, 0, 0.04);
     transition: .3s;
+}
+
+.fim {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.link-cadastre {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
 }
 
 .btn {
@@ -196,6 +217,10 @@ body {
     text-align: center;
 
     min-height: 18px;
+}
+
+.cadastre {
+    margin-left: 5px;
 }
 
 .inputs input:hover {
