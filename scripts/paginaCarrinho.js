@@ -96,8 +96,10 @@ function preencherCarrinho() {
         const divProduto = document.createElement('div')
         divProduto.setAttribute('class', 'produto')
         divProdutos.appendChild(divProduto)
-        const divDescricao = document.createElement('div')
+    
+        const divDescricao = document.createElement('a')
         divDescricao.setAttribute('class', 'descricao-produto')
+        divDescricao.href = 'paginaProduto.html?produto='+item.produto.id
         divProduto.appendChild(divDescricao)
         const divImagem = document.createElement('div')
         divImagem.setAttribute('class', 'imagem-produto')
@@ -108,6 +110,7 @@ function preencherCarrinho() {
         const divNomeCategoria = document.createElement('div')
         divNomeCategoria.setAttribute('class', 'nome-categoria-produto')
         divDescricao.appendChild(divNomeCategoria)
+
         const divNomeProduto = document.createElement('div')
         divNomeProduto.setAttribute('class', 'nome-produto')
         divNomeCategoria.appendChild(divNomeProduto)
@@ -135,6 +138,7 @@ function preencherCarrinho() {
         selMercado = document.createElement('select')
         selMercado.setAttribute('class', 'selecionar-mercado')
         selMercado.id = 'selMercado'+item.produto.id
+        selMercado.style.display = 'none'
         divMarcaMercado.appendChild(selMercado)
         preencherDadosItem(ni)
 

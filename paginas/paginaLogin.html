@@ -44,18 +44,18 @@
                     <a href="mailto:economarketofc@gmail.com?subject=Recuperação%20de%20senha">Recuperar senha</a>
                 </p>
             </div>
+
+            <p class="mensagem-erro" id="msg-erro-login"></p>
         </div>
 
-        
-        <p class="mensagem-erro" id="msg-erro-login"></p>
-
-        <input type="submit" class="btn" value="Entrar" />
-        <script>
-            formulario = document.getElementById("formularioLogin")
-            formulario.addEventListener("submit", (evento) => { entrar(evento) })
-        </script>
 
         <div class="link link-cadastre">
+            <input type="submit" class="btn" value="Entrar" />
+            <script>
+                formulario = document.getElementById("formularioLogin")
+                formulario.addEventListener("submit", (evento) => { entrar(evento) })
+            </script>
+
             <p>Ainda não tem uma conta?<a href="paginaCadastro.html" class="cadastre">Cadastre-se aqui</a></p>
         </div>
     </form>
