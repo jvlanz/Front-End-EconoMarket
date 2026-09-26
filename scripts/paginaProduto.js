@@ -126,9 +126,13 @@ async function inserirProduto(produtoId) {
     divRelacionados = document.getElementById('produtos-relacionados')
     produtos.forEach(produto => {
         if (produto.id === Number(produtoId)) { return }
-        if (produto.descricao.split(' ')[0]==produtoNome) {
-            divRelacionados.style.display = ''
-            divRelacionados.innerHTML += '<a href=paginaProduto.html?produto='+produto.id+'>'+produto.descricao+'</a>'
+        nomes = produto.descricao.split(' ')
+        for (nn=0; nn<nomes.length; nn++) {
+            if(nomes[nn]==produtoNome) {
+//      if (produto.descricao.split(' ')[0]==produtoNome) {
+                divRelacionados.style.display = ''
+                divRelacionados.innerHTML += '<p><a href=paginaProduto.html?produto='+produto.id+'>'+produto.descricao+'</a></p>'
+            }
         }
     })
 }
