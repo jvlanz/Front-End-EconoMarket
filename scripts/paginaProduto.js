@@ -91,7 +91,7 @@ async function inserirProduto(produtoId) {
             })
 
             let idCompra = null
-            pQuantidade = document.getElementById('quantidade'+produtoId)
+            pQuantidade = document.getElementById('quantidadeProduto')
             for (ni=0; ni<cliente.listaCompra.length; ni++) {
                 if (cliente.listaCompra[ni].produto.id==produtoId) {
                     idCompra = cliente.listaCompra[ni].id
