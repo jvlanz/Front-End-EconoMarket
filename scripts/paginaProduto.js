@@ -127,6 +127,7 @@ async function inserirProduto(produtoId) {
     produtos.forEach(produto => {
         if (produto.id === Number(produtoId)) { return }
         if (produto.descricao.split(' ')[0]==produtoNome) {
+            divRelacionados.style.display = ''
             divRelacionados.innerHTML += '<a href=paginaProduto.html?produto='+produto.id+'>'+produto.descricao+'</a>'
         }
     })
