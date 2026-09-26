@@ -34,7 +34,7 @@ async function inserirProduto(produtoId) {
 
     const container = document.getElementById("categoria-geral");
 
-
+    var produtoNome = ''
     produtos.forEach(produto => {
         if (produto.id === Number(produtoId)) {
             var idFav = null;
@@ -89,6 +89,7 @@ async function inserirProduto(produtoId) {
 
         </div>
 
+        <div id="produtos-relacionados"><h3>Produtos Relacionados</h3></div>
  `
             document.querySelector(".paginaProduto").innerHTML = html
             const botaoFav = document.getElementsByClassName("btn-favorito")[0];
@@ -155,8 +156,18 @@ async function inserirProduto(produtoId) {
             botaoAdicionar.addEventListener("click", async () => { pQuantidade.innerHTML = await adicionarQuantidade(cliente.id, produtoId, Number(inputAdicionar.value), medida) })
             botaoRemover.addEventListener("click", async () => { pQuantidade.innerHTML = await removerQuantidade(cliente.id, produtoId, 99999, medida) })
 
+            produtoNome = produto.descricao.split(' ')[0]
         } else {
             return
+        }
+
+    })
+
+    divRelacionados = document.getElementById('produtos-relacionados')
+    produtos.forEach(produto => {
+        if (produto.id === Number(produtoId)) { return }
+        if (produto.descricao.split(' ')[0]==produtoNome) {
+            divRelacionados.innerHTML += '<a href=paginaProduto.html?produto='+produto.id+'>'+produto.descricao+'</a>'
         }
     })
 }
