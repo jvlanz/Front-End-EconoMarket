@@ -46,52 +46,12 @@ async function inserirProduto(produtoId) {
                 })
             }
 
-            const html = `
-    
-        <div class="imagem-produto">
-            <img src="../imagens/${produto.figura}" alt="">
-            <button class="btn-favorito" onclick="toggleFavorito(${produto.id}, ${cliente.id}, ${idFav})">♡</button>
-        </div>
-        
-
-        <div class="informacoes">
-
-            <div class="nome">
-                <p>
-                    ${produto.descricao}
-                    <select id=selMarca onchange='calcularValores()'>
-                        <option value=''></option>
-                    </select>
-                </p>
-            </div>
-
-            <div id="mercados" class="comparativo-preco">
-            </div>
-
-            <div class="quantidade">
-                <!--p>Quantidade:</p-->
-                <div class="set-quantidade">
-                    <button id="menos-button">–</button>
-                    <p>
-                        <input id="valor-adicionar" value=0>
-                        <span> ${precos[0].produtoMarca.produto.medida}</span>
-                    </p>
-                    <button id="mais-button">+</button>
-                </div>
-                <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
-            </div>
-
-            <div class="quantidade"> <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
-                <p>Quantidade no carrinho:</p>
-                <p id="quantidade${produtoId}">0 ${precos[0].produtoMarca.produto.medida}</p>
-                <span id="remover" class="material-symbols-outlined">delete</span>
-            </div>
-
-        </div>
-
-        <div id="produtos-relacionados"><h3>Produtos Relacionados</h3></div>
- `
-            document.querySelector(".paginaProduto").innerHTML = html
+            document.getElementById('imagem-produto').src = "../imagens/"+produto.figura
+            document.getElementById('btn-favorito').onclick = () => { toggleFavorito( produto.id, cliente.id, idFav) }
+            document.getElementById('nome-produto').innerHTML = produto.descricao + document.getElementById('nome-produto').innerHTML
+            document.getElementById('medida-produto').innerHTML = precos[0].produtoMarca.produto.medida
+            
+//          document.querySelector(".paginaProduto").innerHTML = html
             const botaoFav = document.getElementsByClassName("btn-favorito")[0];
             if (idFav != null) {
                 botaoFav.innerHTML = "♥";
@@ -103,7 +63,7 @@ async function inserirProduto(produtoId) {
 
             const divMercados = document.getElementById("mercados")
             mercados = [] // solução temporária, pois o banco de dados possui entradas repetidas para produtos no mesmo mercado
-            const selMarcas = document.getElementById("selMarcas")
+            const selMarca = document.getElementById("selMarca")
             marcas = ['']
             precos.forEach(preco => {
                 if (!mercados.includes(preco.mercado.nome)) {

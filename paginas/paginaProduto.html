@@ -29,7 +29,44 @@
         inserirProduto(idProduto)
     </script>
 
-    <div id="paginaProduto" class="paginaProduto"></div>
+    <div id="paginaProduto" class="paginaProduto">
+            <div class="imagem-produto">
+            <img id='imagem-produto' alt="">
+            <button class='btn-favorito' id='btn-favorito'>♡</button>
+        </div>
+        <div class="informacoes">
+            <div class="nome">
+                <p id='nome-produto'>
+                    <select id='selMarca' onchange='calcularValores()'>
+                        <option value=''></option>
+                    </select>
+                </p>
+            </div>
+            <div id="mercados" class="comparativo-preco">
+            </div>
+            <div class="quantidade">
+                <!--p>Quantidade:</p-->
+                <div class="set-quantidade">
+                    <button id="menos-button">–</button>
+                    <p>
+                        <input id="valor-adicionar" value=0>
+                        <span id='medida-produto'></span>
+                    </p>
+                    <button id="mais-button">+</button>
+                </div>
+                <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
+            </div>
+
+            <div class="quantidade"> <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
+                <p>Quantidade no carrinho:</p>
+                <p id="quantidadeProduto"></p>
+                <span id="remover" class="material-symbols-outlined">delete</span>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="produtos-relacionados"><h3>Produtos Relacionados</h3></div>
 
     <script>inserirContato()</script>
 </body>
