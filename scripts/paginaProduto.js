@@ -117,6 +117,7 @@ async function inserirProduto(produtoId) {
             botaoRemover.addEventListener("click", async () => { pQuantidade.innerHTML = await removerQuantidade(cliente.id, produtoId, 99999, medida) })
 
             produtoNome = produto.descricao.split(' ')[0]
+            produtoCategoria = produto.categoria.categoria
         } else {
             return
         }
@@ -126,12 +127,13 @@ async function inserirProduto(produtoId) {
     divRelacionados = document.getElementById('produtos-relacionados')
     produtos.forEach(produto => {
         if (produto.id === Number(produtoId)) { return }
+//      if (produto.categoria.categoria != produtoCategoria) { return }
         nomes = produto.descricao.split(' ')
         for (nn=0; nn<nomes.length; nn++) {
             if(nomes[nn]==produtoNome) {
 //      if (produto.descricao.split(' ')[0]==produtoNome) {
                 divRelacionados.style.display = ''
-                divRelacionados.innerHTML += '<p><a href=paginaProduto.html?produto='+produto.id+'>'+produto.descricao+'</a></p>'
+                divRelacionados.innerHTML += '<div class="card-relacionado"><a href=paginaProduto.html?produto='+produto.id+'><img src="../imagens/'+produto.figura+'"><p>'+produto.descricao+'</p></a></div>'
             }
         }
     })
