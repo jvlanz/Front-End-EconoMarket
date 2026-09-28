@@ -125,6 +125,7 @@ async function inserirProduto(produtoId) {
     })
 
     divRelacionados = document.getElementById('produtos-relacionados')
+    divProdutos = document.getElementById('container1')
     produtos.forEach(produto => {
         if (produto.id === Number(produtoId)) { return }
 //      if (produto.categoria.categoria != produtoCategoria) { return }
@@ -133,7 +134,7 @@ async function inserirProduto(produtoId) {
             if(nomes[nn]==produtoNome) {
 //      if (produto.descricao.split(' ')[0]==produtoNome) {
                 divRelacionados.style.display = ''
-                divRelacionados.innerHTML += '<div class="card-relacionado"><a href=paginaProduto.html?produto='+produto.id+'><img src="../imagens/'+produto.figura+'"><p>'+produto.descricao+'</p></a></div>'
+                divProdutos.innerHTML += '<div class="card-produto"><a href=paginaProduto.html?produto='+produto.id+'><img src="../imagens/'+produto.figura+'"><div class="nome-produto">'+produto.descricao+'</div></a></div>'
             }
         }
     })
