@@ -68,14 +68,19 @@
 
 .descricao-produto {
     display: flex;
+
     align-items: center;
 
     gap: 15px;
+
+    text-decoration: none;
 }
 
 .nome-produto {
     font-size: 15px;
     font-weight: 700;
+
+    color: rgba(0, 0, 0, .7);
 }
 
 .divs {
@@ -131,23 +136,8 @@
     background: white;
 }
 
-.remover {
-    flex: .3;
 
-    text-align: center;
 
-    padding: 5px 0;
-
-    border-radius: 20px;
-
-    cursor: pointer;
-
-    transition: .3s;
-}
-
-.remover span {
-    font-size: 20px;
-}
 
 .botao-limpar {
     display: flex;
@@ -188,7 +178,7 @@
     font-size: 16px;
     font-weight: 600;
 
-    color: rgba(0, 0, 0, .7);
+    color: #182F57;
 }
 
 .superior-direita h2 {
@@ -197,18 +187,25 @@
 
 .todos-mercados {
     display: flex;
+
     justify-content: space-between;
 }
 
 .mercado {
     font-size: 14px;
     font-weight: 700;
-    background-color: rgba(0, 0, 0, 0.1);
+
+    background: rgba(0, 0, 0, .05);
+
     padding: 12px;
+
     border-radius: 14px;
+
     margin: 2px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+
     cursor: pointer;
-    border: 2px solid white;
 }
 
 .mercado-checkbox {
@@ -216,7 +213,10 @@
 }
 
 .mercado-checkbox:checked+.mercado {
-    border: 2px solid oklch(0.55 0.17 145);
+    background: #38B000;
+    color: white;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
 
@@ -232,6 +232,8 @@
 .texto .title {
     font-size: 17px;
     font-weight: 700;
+
+    color: #182F57;
 
 }
 
@@ -361,9 +363,4 @@
     border-radius: 20px;
 
     cursor: pointer;
-}
-
-.remover:hover {
-    background: rgba(255, 60, 60, .5);
-    color: rgb(255, 0, 0);
 }

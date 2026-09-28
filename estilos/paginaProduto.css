@@ -89,11 +89,11 @@ body {
 .selecionador-marca {
     flex: .6;
 
-    font-family: "Monstserrat", sans-serif;
-
     border-radius: 12px;
 
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+
+    cursor: pointer;
 }
 
 
@@ -115,18 +115,18 @@ body {
 
 .mercado {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 
     padding: 15px 20px;
 
+    border-radius: 15px;
+
     transition: 0.3s;
-}
 
-.mercado:hover {
-    background-color: #f1f4f8;
+    cursor: pointer;
 }
-
 
 /* QUANTIDADE */
 
@@ -238,21 +238,8 @@ body {
     gap: 10px;
 }
 
-#remover {
-    font-size: 22px;
-
-    padding: 5px;
-
-    border-radius: 20px;
-
-    cursor: pointer;
-
-    transition: .3s;
+.mercado:hover {
+    background: rgba(0, 0, 0, .05);
 }
 
-#remover:hover {
-    background: rgba(255, 60, 60, .5);
-    color: rgb(255, 0, 0);
-
-}
 

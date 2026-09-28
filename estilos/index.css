@@ -16,6 +16,29 @@ body {
     overflow-x: hidden;
 }
 
+.remover {
+    width: 50px;
+
+    text-align: center;
+
+    padding: 5px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.remover span {
+    font-size: 22px;
+}
+
+.remover:hover {
+    background: rgba(255, 60, 60, .5);
+    color: rgb(255, 0, 0);
+}
+
 #icons-toc {
     rotate: 180deg;
 }
