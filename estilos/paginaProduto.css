@@ -1,8 +1,8 @@
 body {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Monstserrat", sans-serif;
 }
 
-.paginaProduto {   
+.paginaProduto {
     display: flex;
 
     justify-content: center;
@@ -21,7 +21,7 @@ body {
 
     display: flex;
     justify-content: center;
-    
+
     background-color: white;
 
     border-radius: 20px;
@@ -71,13 +71,29 @@ body {
 
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
 }
 
-.nome p {
+.nome-marca {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nome-marca p {
+    flex: 1;
+
     font-size: 28px;
     font-weight: 700;
+}
 
+.selecionador-marca {
+    flex: .6;
+
+    font-family: "Monstserrat", sans-serif;
+
+    border-radius: 12px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
 
@@ -114,39 +130,49 @@ body {
 
 /* QUANTIDADE */
 
-
-
-.quantidade {
-    width: 70%;
-
+.div-quantidades {
     display: flex;
+    flex-direction: column;
 
-    align-items: center;
-
-    gap: 40px;
-
-    background: white;
-
-    padding: 8px 20px;
-
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
-
-    font-size: 18px;
+    gap: 20px;
 }
 
-.set-quantidade {
-    flex: 2;
+.quantidade,
+.quantidade-carrinho {
+    padding: 10px 20px;
 
     display: flex;
 
     justify-content: space-between;
     align-items: center;
- 
+
+    background: white;
+
+    padding: 8px 20px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+
+    font-size: 18px;
+}
+
+.quantidade {
+    width: 70%;
+}
+
+.set-quantidade {
+    flex: .7;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
 }
 
 .set-quantidade button {
-    background:#39B54A;
+    background: #39B54A;
     color: white;
 
     font-size: 24px;
@@ -161,11 +187,13 @@ body {
     transition: 0.3s;
 }
 
-.set-quantidade p {
+.quantidade-selecionada,
+.texto-quantidade-carrinho {
     display: flex;
+}
 
-    justify-content: space-between;
-
+.quantidade-selecionada,
+#quantidadeProduto {
     font-weight: 700;
 }
 
@@ -186,9 +214,7 @@ body {
 }
 
 .adicionar-carrinho {
-    flex: 1;
-
-    padding: 13px 25px;
+    padding: 10px 25px;
 
     border: none;
     border-radius: 30px;
@@ -204,8 +230,29 @@ body {
     transition: 0.3s;
 }
 
+.quantidade-carrinho {
+    width: 65%;
+}
+
+.texto-quantidade-carrinho {
+    gap: 10px;
+}
+
+#remover {
+    font-size: 22px;
+
+    padding: 5px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
 #remover:hover {
     background: rgba(255, 60, 60, .5);
     color: rgb(255, 0, 0);
-    cursor: pointer;
+
 }
+
