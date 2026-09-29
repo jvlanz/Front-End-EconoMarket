@@ -4,15 +4,19 @@ body {
 
 .paginaProduto {
     display: flex;
+    flex-direction: column;
 
-    justify-content: center;
-    align-items: center;
-
-    gap: 80px;
+    gap: 50px;
 
     min-height: 70vh;
-    padding: 60px 20%;
 
+    padding: 100px 20%;
+}
+
+.parte-superior {
+    display: flex;
+
+    gap: 80px;
 }
 
 
@@ -267,4 +271,11 @@ a {
 
 .card-produto img {
     width: 90%;
+}
+
+.produtos-relacionados {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
 }

@@ -1,18 +1,17 @@
-.titulo-secao {
-    width: 100%;
+#categoria-geral {
+    display: flex;
+    flex-direction: column;
     
-    padding: 40px 10%;
+    gap: 40px;
 
+    padding: 0 10%;
 }
+
 
 .promocao {
     text-align: center;
     font-size: 28px;
 
-}
-
-.container1, .produtos-display-grid {
-    padding: 0 10%;
 }
 
 .container1 {
@@ -37,10 +36,5 @@
 
     border-radius: 10px;
 
-    margin: 0 10%;
-
     background-color: #DCEFE0;    
 }
-
-
-

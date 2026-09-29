@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../estilos/index.css">
     <link rel="stylesheet" href="../estilos/form.css">
     <link rel="stylesheet" href="../estilos/paginaProduto.css">
+    <link rel="stylesheet" href="/estilos/containerProduto.css">
     <script src="../scripts/paginaProduto.js"></script>
     <script src="../scripts/inserirHeader.js"></script>
     <script src="../scripts/inserirContato.js"></script>
@@ -31,6 +32,10 @@
     </script>
 
     <div id="paginaProduto" class="paginaProduto">
+        <div class="parte-superior">
+            <div class="imagem-produto">
+                <img id='imagem-produto' alt="">
+                <button class='btn-favorito' id='btn-favorito'>♡</button>
         <div class="imagem-produto">
             <img id='imagem-produto' alt="">
             <button class='btn-favorito' id='btn-favorito'>♡</button>
@@ -42,43 +47,57 @@
                     <option value=''></option>
                 </select>
             </div>
-            <div id="mercados" class="comparativo-preco"></div>
-
-            <div class="div-quantidades">
-
-                <div class="quantidade">
-                    <!--p>Quantidade:</p-->
-                    <div class="set-quantidade">
-                        <button id="menos-button">–</button>
-                        <p class="quantidade-selecionada">
-                            <!--input id="valor-adicionar" value=0>
-                            <span id='medida-produto'></span-->
-                        </p>
-                        <button id="mais-button">+</button>
-                    </div>
-                    <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
+            <div id="mercados" class="comparativo-preco">
+            </div>
+            <div class="informacoes">
+                <div class="nome-marca">
+                    <p id='nome-produto'></p>
+                    <select id='selMarca' class="selecionador-marca" 'calcularValores()'>
+                        <option value=''></option>
+                    </select>
+                </div>
+                <div id="mercados" class="comparativo-preco">
                 </div>
 
-                <div class="div-quantidade-carrinho"> <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
-                    <div class="texto-quantidade-carrinho">
-                        <p>Quantidade no carrinho:</p>
-                        <p id="quantidadeProduto"></p>
+                <div class="div-quantidades">
+
+                    <div class="quantidade">
+                        <!--p>Quantidade:</p-->
+                        <div class="set-quantidade">
+                            <button id="menos-button">–</button>
+                            <p class="quantidade-selecionada">
+                                <!--input id="valor-adicionar" value=0>
+                            <span id='medida-produto'></span-->
+                            </p>
+                            <button id="mais-button">+</button>
+                        </div>
+                        <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
                     </div>
-                    <div class="remover">
-                        <span class="material-symbols-outlined">delete</span>
+
+                    <div class="quantidade-carrinho"> <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
+                        <div class="texto-quantidade-carrinho">
+                            <p>Quantidade no carrinho:</p>
+                            <p id="quantidadeProduto"></p>
+                        </div>
+                        <div class="remover">
+                            <span class="material-symbols-outlined">delete</span>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
+        <div class="parte-inferior">
+            <div style='display:none' id="produtos-relacionados" class="produtos-relacionados">
+                    <h2>Produtos Relacionados</h2>
+                    <div id="container1" class="container1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div style='display:none' id="produtos-relacionados" class="produtos-relacionados">
-        <div class="titulo-secao">
-            <h2>Produtos Relacionados</h2>
-            <div id="container1" class="container1"></div>
-        </div>
-    </div>
+
 
     <script>inserirContato()</script>
 </body>
