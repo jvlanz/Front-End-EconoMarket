@@ -49,9 +49,8 @@ async function inserirProduto(produtoId) {
             document.getElementById('imagem-produto').src = "../imagens/"+produto.figura
             document.getElementById('btn-favorito').onclick = () => { toggleFavorito( produto.id, cliente.id, idFav) }
             document.getElementById('nome-produto').innerHTML = produto.descricao + document.getElementById('nome-produto').innerHTML
-            document.getElementById('medida-produto').innerHTML = precos[0].produtoMarca.produto.medida
-            
-//          document.querySelector(".paginaProduto").innerHTML = html
+            document.querySelector(".quantidade-selecionada").innerHTML = '0 '+precos[0].produtoMarca.produto.medida
+
             const botaoFav = document.getElementsByClassName("btn-favorito")[0];
             if (idFav != null) {
                 botaoFav.innerHTML = "♥";
@@ -91,7 +90,7 @@ async function inserirProduto(produtoId) {
             })
 
             let idCompra = null
-            pQuantidade = document.getElementById('quantidadeProduto')
+            const pQuantidade = document.getElementById('quantidadeProduto')
             for (ni=0; ni<cliente.listaCompra.length; ni++) {
                 if (cliente.listaCompra[ni].produto.id==produtoId) {
                     idCompra = cliente.listaCompra[ni].id
@@ -106,13 +105,19 @@ async function inserirProduto(produtoId) {
             const botaoMais = document.querySelector("#mais-button")
             const botaoMenos = document.querySelector("#menos-button")
             const botaoAdicionar = document.querySelector("#adicionar")
-            const inputAdicionar = document.querySelector("#valor-adicionar")
+            const qtdAdicionar = document.querySelector(".quantidade-selecionada")
             const botaoRemover = document.querySelector(".remover")
             quantidade = precos[0].produtoMarca.produto.valorMedida
             medida = precos[0].produtoMarca.produto.medida
             if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
-            botaoMais.addEventListener("click", () => { inputAdicionar.value = Number(inputAdicionar.value) + quantidade });
-            botaoMenos.addEventListener("click", () => { inputAdicionar.value = Math.max(0,Number(inputAdicionar.value) - quantidade) })
+            botaoMais.addEventListener("click", () => {
+                valor = Number(qtdAdicionar.innerHTML.split(' ')[0]) + quantidade
+                qtdAdicionar.innerHTML = valor + ' ' + medida
+            });
+            botaoMenos.addEventListener("click", () => {
+                valor = Number(qtdAdicionar.innerHTML.split(' ')[0]) - quantidade
+                qtdAdicionar.innerHTML = Math.max(0,valor) + ' ' + medida
+            })
             botaoAdicionar.addEventListener("click", async () => { pQuantidade.innerHTML = await adicionarQuantidade(cliente.id, produtoId, Number(inputAdicionar.value), medida) })
             botaoRemover.addEventListener("click", async () => { pQuantidade.innerHTML = await removerQuantidade(cliente.id, produtoId, 99999, medida) })
 
