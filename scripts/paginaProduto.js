@@ -143,7 +143,7 @@ async function inserirProduto(produtoId) {
 //      if (produto.descricao.split(' ')[0]==produtoNome) {
                 divRelacionados.style.display = ''
                 divProdutos.innerHTML += '\
-<div class="card-produto">\
+<div class="card-produto-relacionado">\
     <a href=paginaProduto.html?produto='+produto.id+'>\
         <img src="../imagens/'+produto.figura+'">\
         <div class="nome-produto">'+produto.descricao+'</div>\
