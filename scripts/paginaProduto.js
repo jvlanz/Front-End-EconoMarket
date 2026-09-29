@@ -117,7 +117,7 @@ async function inserirProduto(produtoId) {
                 valor = Number(qtdAdicionar.innerHTML.split(' ')[0]) - quantidade
                 qtdAdicionar.innerHTML = Math.max(0,valor) + ' ' + medida
             })
-            botaoAdicionar.addEventListener("click", async () => { pQuantidade.innerHTML = await adicionarQuantidade(cliente.id, produtoId, Number(inputAdicionar.value), medida) })
+            botaoAdicionar.addEventListener("click", async () => { pQuantidade.innerHTML = await adicionarQuantidade(cliente.id, produtoId, Number(qtdAdicionar.innerHTML.split(' ')[0].replace(',','.')), medida) })
             botaoRemover.addEventListener("click", async () => { pQuantidade.innerHTML = await removerQuantidade(cliente.id, produtoId, 99999, medida) })
 
             produtoNome = produto.descricao.split(' ')[0]
