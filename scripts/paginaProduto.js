@@ -9,9 +9,7 @@ async function inserirProduto(produtoId) {
         console.error("Erro ao buscar produtos");
         return;
     }
-
     const produtos = await resposta.json();
-
 
     const respostaP = await fetch("http://localhost:8080/precos/"+produtoId);
     if (!respostaP.ok) {
@@ -34,8 +32,6 @@ async function inserirProduto(produtoId) {
         cliente = { id: null }
         cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     }
-
-    const container = document.getElementById("categoria-geral");
 
     var produtoNome = ''
     produtos.forEach(produto => {

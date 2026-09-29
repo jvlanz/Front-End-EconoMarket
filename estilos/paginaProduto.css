@@ -144,7 +144,7 @@ body {
 }
 
 .quantidade,
-.quantidade-carrinho {
+.div-quantidade-carrinho {
     padding: 10px 20px;
 
     display: flex;
@@ -236,7 +236,7 @@ body {
     transition: 0.3s;
 }
 
-.quantidade-carrinho {
+.div-quantidade-carrinho {
     width: 65%;
 }
 

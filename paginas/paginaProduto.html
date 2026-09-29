@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="../estilos/header.css">
     <link rel="stylesheet" href="../estilos/index.css">
+    <link rel="stylesheet" href="../estilos/form.css">
     <link rel="stylesheet" href="../estilos/paginaProduto.css">
     <script src="../scripts/paginaProduto.js"></script>
     <script src="../scripts/inserirHeader.js"></script>
@@ -46,20 +47,20 @@
                 <div id="mercados" class="comparativo-preco">
                 </div>
 
-                <div class="div-quantidades">
+            <div class="div-quantidades">
 
-                    <div class="quantidade">
-                        <!--p>Quantidade:</p-->
-                        <div class="set-quantidade">
-                            <button id="menos-button">–</button>
-                            <p class="quantidade-selecionada">
-                                <!--input id="valor-adicionar" value=0>
-                            <span id='medida-produto'></span-->
-                            </p>
-                            <button id="mais-button">+</button>
-                        </div>
-                        <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
+                <div class="quantidade">
+                    <!--p>Quantidade:</p-->
+                    <div class="set-quantidade">
+                        <button id="menos-button">–</button>
+                        <p class="quantidade-selecionada">
+                            <!--input id="valor-adicionar" value=0>
+                        <span id='medida-produto'></span-->
+                        </p>
+                        <button id="mais-button">+</button>
                     </div>
+                    <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
+                </div>
 
                     <div class="quantidade-carrinho">
                         <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
@@ -85,6 +86,14 @@
 
     </div>
 
+    <div class="parte-inferior">
+        <div style='display:none' id="produtos-relacionados" class="produtos-relacionados">
+                <h2>Produtos Relacionados</h2>
+                <div id="container1" class="container1">
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script>inserirContato()</script>
