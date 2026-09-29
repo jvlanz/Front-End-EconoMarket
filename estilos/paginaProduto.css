@@ -24,7 +24,9 @@ body {
     flex: 1;
 
     display: flex;
+
     justify-content: center;
+    align-items: center;
 
     background-color: white;
 
@@ -280,6 +282,12 @@ a {
     gap: 20px;
 }
 
+.container1 {
+    display: flex;
+
+    gap: 20px;
+}
+
 .card-produto-relacionado {
     height: 200px;
     width: 150px;
@@ -311,4 +319,6 @@ a {
     font-weight: 700;
 
     color: rgba(0, 0, 0, 0.7);
+
+    margin-top: 10px;
 }
