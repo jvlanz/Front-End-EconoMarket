@@ -82,7 +82,9 @@ body {
 
 .nome-marca {
     display: flex;
+
     justify-content: space-between;
+    align-items: center;
 }
 
 .nome-marca p {
@@ -95,7 +97,10 @@ body {
 .selecionador-marca {
     flex: .6;
 
-    border-radius: 12px;
+    color: #099801;
+    background: rgba(0, 0, 0, .05);
+
+    border-radius: 15px;
 
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 
