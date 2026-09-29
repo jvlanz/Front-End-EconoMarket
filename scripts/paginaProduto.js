@@ -1,3 +1,6 @@
+precos = []
+mercados = [] // solução temporária, pois o banco de dados possui entradas repetidas para produtos no mesmo mercado
+
 async function inserirProduto(produtoId) {
     const token = sessionStorage.getItem("token");
 
@@ -15,7 +18,7 @@ async function inserirProduto(produtoId) {
         console.error("Erro ao buscar preços");
         return;
     }
-    const precos = await respostaP.json();
+    precos = await respostaP.json();
 
     if (token != null) {
         const respostaC = await fetch("http://localhost:8080/auth/cliente", {
@@ -61,18 +64,18 @@ async function inserirProduto(produtoId) {
             }
 
             const divMercados = document.getElementById("mercados")
-            mercados = [] // solução temporária, pois o banco de dados possui entradas repetidas para produtos no mesmo mercado
             const selMarca = document.getElementById("selMarca")
             marcas = ['']
             precos.forEach(preco => {
-                if (!mercados.includes(preco.mercado.nome)) {
-                    mercados.push(preco.mercado.nome) // FIXME inclui primeiro valor da lista, independente da marca/valor
+                if (!mercados.includes(preco.mercado.id)) {
+                    mercados.push(preco.mercado.id) // FIXME inclui primeiro valor da lista, independente da marca/valor
                     const divMercado = document.createElement("div")
                     divMercado.setAttribute("class", "mercado")
                     divMercados.appendChild(divMercado)
                     pMercado = document.createElement("p")
                     pMercado.innerHTML = preco.mercado.nome
                     pPreco = document.createElement("p")
+                    pPreco.id = 'preco'+preco.mercado.id
                     if (preco.produtoMarca.produto.valorMedida != 1)
                         pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.valorMedida} ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
                     else
@@ -139,7 +142,13 @@ async function inserirProduto(produtoId) {
             if(nomes[nn]==produtoNome) {
 //      if (produto.descricao.split(' ')[0]==produtoNome) {
                 divRelacionados.style.display = ''
-                divProdutos.innerHTML += '<div class="card-produto"><a href=paginaProduto.html?produto='+produto.id+'><img src="../imagens/'+produto.figura+'"><div class="nome-produto">'+produto.descricao+'</div></a></div>'
+                divProdutos.innerHTML += '\
+<div class="card-produto-relacionado">\
+    <a href=paginaProduto.html?produto='+produto.id+'>\
+        <img src="../imagens/'+produto.figura+'">\
+        <div class="nome-produto">'+produto.descricao+'</div>\
+    </a>\
+</div>'
             }
         }
     })
@@ -157,4 +166,18 @@ function toggleFavorito(idProduto, idCliente, favId) {
     }
 }
 
-
+function mostrarValores() {
+    const selMarca = document.getElementById("selMarca")
+    mercados.forEach(idMercado => {
+        document.getElementById('preco'+idMercado).innerHTML = '--'
+    })
+    precos.forEach(preco => {
+        if (preco.produtoMarca.marca.marca==selMarca.value) {
+            pPreco = document.getElementById('preco'+preco.mercado.id)
+            if (preco.produtoMarca.produto.valorMedida != 1)
+                pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.valorMedida} ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
+            else
+                pPreco.innerHTML = `R$ ${preco.preco} / ${preco.produtoMarca.produto.medida}`.replaceAll('.',',')
+        }
+    })
+}
