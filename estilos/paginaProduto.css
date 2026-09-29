@@ -264,7 +264,7 @@ a {
     margin: 10px;
     padding: 10px;
     justify-content: center;
-    background-color: white;
+    background: white;
     border-radius: 20px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
@@ -278,4 +278,37 @@ a {
     flex-direction: column;
 
     gap: 20px;
+}
+
+.card-produto-relacionado {
+    height: 200px;
+    width: 150px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    background: white;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
+.card-produto-relacionado img {
+    width: 116px;
+    height: 116px;
+
+    object-fit: contain;
+}
+
+.nome-produto {
+    font-size: 14px;
+    font-weight: 700;
+
+    color: rgba(0, 0, 0, 0.7);
 }

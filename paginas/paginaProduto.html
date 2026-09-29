@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../estilos/header.css">
     <link rel="stylesheet" href="../estilos/index.css">
     <link rel="stylesheet" href="../estilos/paginaProduto.css">
-    <link rel="stylesheet" href="/estilos/containerProduto.css">
     <script src="../scripts/paginaProduto.js"></script>
     <script src="../scripts/inserirHeader.js"></script>
     <script src="../scripts/inserirContato.js"></script>
@@ -35,19 +34,8 @@
             <div class="imagem-produto">
                 <img id='imagem-produto' alt="">
                 <button class='btn-favorito' id='btn-favorito'>♡</button>
-        <div class="imagem-produto">
-            <img id='imagem-produto' alt="">
-            <button class='btn-favorito' id='btn-favorito'>♡</button>
-        </div>
-        <div class="informacoes">
-            <div class="nome-marca">
-                <p id='nome-produto'></p>
-                <select id='selMarca' class="selecionador-marca" onchange='mostrarValores()'>
-                    <option value=''></option>
-                </select>
             </div>
-            <div id="mercados" class="comparativo-preco">
-            </div>
+
             <div class="informacoes">
                 <div class="nome-marca">
                     <p id='nome-produto'></p>
@@ -73,7 +61,8 @@
                         <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
                     </div>
 
-                    <div class="quantidade-carrinho"> <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
+                    <div class="quantidade-carrinho">
+                        <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
                         <div class="texto-quantidade-carrinho">
                             <p>Quantidade no carrinho:</p>
                             <p id="quantidadeProduto"></p>
@@ -85,11 +74,11 @@
                 </div>
             </div>
         </div>
+
         <div class="parte-inferior">
             <div style='display:none' id="produtos-relacionados" class="produtos-relacionados">
-                    <h2>Produtos Relacionados</h2>
-                    <div id="container1" class="container1">
-                    </div>
+                <h2>Produtos Relacionados</h2>
+                <div id="container1" class="container1">
                 </div>
             </div>
         </div>
