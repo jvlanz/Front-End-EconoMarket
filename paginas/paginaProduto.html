@@ -40,7 +40,7 @@
             <div class="informacoes">
                 <div class="nome-marca">
                     <p id='nome-produto'></p>
-                    <select id='selMarca' class="selecionador-marca" 'calcularValores()'>
+                    <select id='selMarca' class="selecionador-marca" onchange='mostrarValores()'>
                         <option value=''></option>
                     </select>
                 </div>
@@ -62,7 +62,7 @@
                     <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
                 </div>
 
-                    <div class="quantidade-carrinho">
+                    <div class="div-quantidade-carrinho">
                         <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
                         <div class="texto-quantidade-carrinho">
                             <p>Quantidade no carrinho:</p>
