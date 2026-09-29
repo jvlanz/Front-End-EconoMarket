@@ -107,7 +107,7 @@ async function inserirProduto(produtoId) {
             const botaoMenos = document.querySelector("#menos-button")
             const botaoAdicionar = document.querySelector("#adicionar")
             const inputAdicionar = document.querySelector("#valor-adicionar")
-            const botaoRemover = document.querySelector("#remover")
+            const botaoRemover = document.querySelector(".remover")
             quantidade = precos[0].produtoMarca.produto.valorMedida
             medida = precos[0].produtoMarca.produto.medida
             if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
