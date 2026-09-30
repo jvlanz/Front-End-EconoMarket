@@ -92,7 +92,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 subcontainer.setAttribute("class", "produtos-display-grid")
             else {
                 subcontainer.setAttribute("class", "container1")
-                tituloCat.innerHTML += '<a href="paginaPrincipal.html?categoria='+produto.categoria.id+'"> &#10095; </a>'
+                tituloCat.innerHTML += '<a href="paginaPrincipal.html?categoria='+produto.categoria.id+'"> Ver mais &#10095; </a>'
             }
             container.appendChild(tituloCat)
             container.appendChild(subcontainer);
