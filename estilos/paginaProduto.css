@@ -97,7 +97,7 @@ body {
 .selecionador-marca {
     flex: .6;
 
-    color: #099801;
+    color: #122448;
     background: rgba(0, 0, 0, .05);
 
     border-radius: 15px;
@@ -154,12 +154,10 @@ body {
 
     display: flex;
 
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
     background: white;
-
-    padding: 8px 20px;
 
     border-radius: 20px;
 
@@ -173,13 +171,32 @@ body {
 }
 
 .set-quantidade {
-    flex: .7;
+    width: 45%;
 
     display: flex;
 
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 
+}
+
+.adicionar-carrinho {
+    width: 40%;
+
+    padding: 10px 25px;
+
+    border: none;
+    border-radius: 30px;
+
+    background-color: #099801;
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.3s;
 }
 
 .set-quantidade button {
@@ -206,40 +223,8 @@ body {
 .quantidade-selecionada,
 #quantidadeProduto {
     font-weight: 700;
-    width: 100px;
-    text-align: center;
-}
-
-.set-quantidade input {
-    width: 30px;
-
-    font-size: 18px;
-    font-weight: 700;
 
     text-align: center;
-
-}
-
-.set-quantidade span {
-    width: 75px;
-    text-align: center;
-}
-
-.adicionar-carrinho {
-    padding: 10px 25px;
-
-    border: none;
-    border-radius: 30px;
-
-    background-color: #099801;
-    color: white;
-
-    cursor: pointer;
-
-    font-size: 16px;
-    font-weight: 600;
-
-    transition: 0.3s;
 }
 
 .div-quantidade-carrinho {
@@ -255,37 +240,11 @@ body {
 }
 
 /* produtos relacionados */
-
-a {
-    text-align: center;
-    text-decoration: none;
-    color: black;
-}
-
-.container1 {
-    flex: 1;
-    display: flex;
-}
-
-.card-produto {
-    width: 200px;
-    margin: 10px;
-    padding: 10px;
-    justify-content: center;
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-}
-
-.card-produto img {
-    width: 90%;
-}
-
 .produtos-relacionados {
     display: flex;
     flex-direction: column;
 
-    gap: 20px;
+    gap: 30px;
 }
 
 .container1 {
@@ -302,7 +261,6 @@ a {
     flex-direction: column;
 
     justify-content: center;
-    align-items: center;
 
     background: white;
 
@@ -318,6 +276,11 @@ a {
     height: 116px;
 
     object-fit: contain;
+}
+
+.card-produto-relacionado a {
+    text-align: center;
+    text-decoration: none;
 }
 
 .nome-produto {
