@@ -122,7 +122,8 @@
 .quantidade-div span {
     font-size: 15px;
     font-weight: 700;
-
+    width: 75px;
+    text-align: center;
 }
 
 .button-quantidade {
@@ -268,7 +269,7 @@
 }
 
 .btMercados {
-    background-color: green;
+    background-color: #38B000;
     color: white;
     border-radius: 0px;
     margin: 0px;
@@ -327,8 +328,8 @@
 .mercado-preco-menor {
     font-weight: 700;
 
-/*    color: white;*/
-    background: rgb(148, 213, 115);
+    background: #38B000;
+    color: white;
 
     border-radius: 20px;
 
