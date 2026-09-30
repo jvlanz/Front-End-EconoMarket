@@ -274,15 +274,16 @@
     margin: 0px;
 }
 
-.btMercados-pre {
+/*
+).btMercados-pre {
     background-color: green;
     color: green;
 }
+*/
 
-
-.btMercados-pos {
+.btMercados-pre, .btMercados-pos {
     background-color: #0000;
-    color: #0000;
+/*    color: #0000; */
     border-radius: 0px;
     margin: 0px;
 }
@@ -326,7 +327,7 @@
 .mercado-preco-menor {
     font-weight: 700;
 
-    color: white;
+/*    color: white;*/
     background: rgb(148, 213, 115);
 
     border-radius: 20px;

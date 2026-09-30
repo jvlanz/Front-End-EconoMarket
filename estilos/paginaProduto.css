@@ -206,6 +206,8 @@ body {
 .quantidade-selecionada,
 #quantidadeProduto {
     font-weight: 700;
+    width: 100px;
+    text-align: center;
 }
 
 .set-quantidade input {
@@ -219,8 +221,7 @@ body {
 }
 
 .set-quantidade span {
-    width: 50px;
-
+    width: 75px;
     text-align: center;
 }
 

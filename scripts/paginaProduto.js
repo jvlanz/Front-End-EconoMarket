@@ -110,12 +110,19 @@ async function inserirProduto(produtoId) {
             medida = precos[0].produtoMarca.produto.medida
             if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
             botaoMais.addEventListener("click", () => {
-                valor = Number(qtdAdicionar.innerHTML.split(' ')[0]) + quantidade
-                qtdAdicionar.innerHTML = valor + ' ' + medida
+                valor = Number(qtdAdicionar.innerHTML.split(' ')[0].replace(',','.')) + quantidade
+                if (valor % 1 != 0)
+                    qtdAdicionar.innerHTML = valor.toFixed(2).replace('.',',') + ' ' + medida
+                else
+                    qtdAdicionar.innerHTML = valor + ' ' + medida
             });
             botaoMenos.addEventListener("click", () => {
-                valor = Number(qtdAdicionar.innerHTML.split(' ')[0]) - quantidade
-                qtdAdicionar.innerHTML = Math.max(0,valor) + ' ' + medida
+                valor = Number(qtdAdicionar.innerHTML.split(' ')[0].replace(',','.')) - quantidade
+                valor = Math.max(0,valor)
+                if (valor % 1 != 0)
+                    qtdAdicionar.innerHTML = valor.toFixed(2).replace('.',',') + ' ' + medida
+                else
+                    qtdAdicionar.innerHTML = valor + ' ' + medida
             })
             botaoAdicionar.addEventListener("click", async () => { pQuantidade.innerHTML = await adicionarQuantidade(cliente.id, produtoId, Number(qtdAdicionar.innerHTML.split(' ')[0].replace(',','.')), medida) })
             botaoRemover.addEventListener("click", async () => { pQuantidade.innerHTML = await removerQuantidade(cliente.id, produtoId, 99999, medida) })
