@@ -48,11 +48,11 @@
 }
 
 .descricao-produto {
-    flex: 1;
+    flex: 2;
 }
 
 .divs {
-    flex: 2;
+    flex: 1;
 }
 
 .quantidade-lixo {
@@ -254,13 +254,19 @@
     border-radius: 12px;
 }
 
+/*
 .selecionador-quantidade input {
     background: transparent;
 
     cursor: pointer;
 }
+*/
 
-/*
+.selecionador-quantidade-div {
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
 .btMercados {
     background-color: green;
     color: white;
@@ -280,15 +286,8 @@
     border-radius: 0px;
     margin: 0px;
 }
-*/
 
-.selecionador-quantidade-div {
-    color: rgba(0, 0, 0, 0.5);
-
-    cursor: pointer;
-}
-
-
+/*
 .inferior-direita {
     display: flex;
     flex-direction: column;
@@ -306,6 +305,7 @@
 .inferior-direita {
     font-size: 14px;
 }
+*/
 
 .mercados-preco {
     font-size: 16px;

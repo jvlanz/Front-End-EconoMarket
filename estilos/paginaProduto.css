@@ -198,7 +198,7 @@ body {
     transition: 0.3s;
 }
 
-.quantidade-selecionada,
+/*.quantidade-selecionada, <-- sem flex para manter texto centralizado */
 .texto-quantidade-carrinho {
     display: flex;
 }
@@ -219,7 +219,7 @@ body {
 }
 
 .set-quantidade span {
-    width: 30px;
+    width: 50px;
 
     text-align: center;
 }
