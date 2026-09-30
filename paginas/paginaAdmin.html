@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina de Administração</title>
+    <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirContato.js"></script>
+    <script src="../scripts/checarToken.js"></script>
+    <script src="../scripts/paginaAdmin.js"></script>
+    <script src="../scripts/upload.js"></script>
+    <script src="../scripts/produto.js"></script>
+    <link rel="stylesheet" href="../estilos/header.css">
+    <link rel="stylesheet" href="../estilos/form.css">
+    <link rel="stylesheet" href="../estilos/index.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const textoBusca = urlParams.get('busca')
+    </script>
+</head>
+
+<body>
+
+    <script>
+        inserirHeader()
+    </script>
+
+    <p>Selecione um arquivo *.csv contendo a lista de preços de produtos a serem atualizados:</p>
+    <input style='width:80%' type="file" id="fileInput" />
+    <button class="botao" onclick="uploadFile()">Upload</button>
+
+    <br>
+    <br>
+
+    <h2>Editar produtos</h2>
+    <table id="tabProdutos"></table>
+
+    <script>
+        preencherDadosAdmin(textoBusca)
+        inserirContato()
+    </script>
+
+</body>
+
+</html>

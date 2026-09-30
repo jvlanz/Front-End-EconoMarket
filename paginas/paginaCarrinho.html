@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EconoMarket</title>
+    <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirContato.js"></script>
+    <script src="../scripts/paginaCarrinho.js"></script>
+    <script src="../scripts/checarToken.js"></script>
+    <script src="../scripts/listaCompra.js"></script>
+    <link rel="stylesheet" href="../estilos/header.css">
+    <link rel="stylesheet" href="../estilos/index.css">
+    <link rel="stylesheet" href="../estilos/form.css">
+    <link rel="stylesheet" href="../estilos/paginaCarrinho.css">
+    <link rel="stylesheet" href="../estilos/modal.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <script>
+        inserirHeader();
+    </script>
+
+    <div class="pagina-toda">
+
+        <!--div class="header-resumo">
+            <button>&#10094;</button>
+
+            <h1>Sua lista</h1>
+
+            <div class="quantidades">
+                <p>· 6 items</p>
+                <p>· 9 unidades</p>
+            </div>
+        </div-->
+
+        <div class="body-carrinho">
+            <div class="body-esquerda">
+
+                <!--div class="barra-pesquisa">
+                    <input class="barra-pesquisa-carrinho" type="text" placeholder="Digite um produto (ex: arroz, leite, café...)">
+                    <button class="button-adicionar-produto"><span>+</span> Adicionar</button>
+                </div-->
+
+                <div class="produtos">
+
+                </div>
+            </div>
+
+            <div class="body-direita">
+                <div class="botao-limpar">
+                    <button>Limpar lista</button>
+                </div>
+
+                <div class="superior-direita">
+                    <div class="selecionar-mercados">
+                        <h2>SELECIONAR MERCADOS</h2>
+
+                        <div id='todos-mercados' class="todos-mercados"></div>
+                    </div>
+
+                    <hr class="linha-horizontal">
+
+                    <div class="quantidade-mercados">
+                        <div class="texto">
+                            <p class="title">Máximo de mercados</p>
+                        </div>
+
+                        <div class="selecionador-quantidade">
+                            <input type='button' value=1 onclick='ativarMercados(1)' id='nMercados1' class='btMercados-pos'>
+                            <input type='button' value=2 onclick='ativarMercados(2)' id='nMercados2' class='btMercados-pos'>
+                            <input type='button' value=3 onclick='ativarMercados(3)' id='nMercados3' class='btMercados-pos'>
+                            <input type='button' value=4 onclick='ativarMercados(4)' id='nMercados4' class='btMercados-pos'>
+                            <input type='button' value=5 onclick='ativarMercados(5)' id='nMercados5' class='btMercados-pos'>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inferior-direita">
+                    <h2>TOTAL ESTIMADO EM CADA MERCADO</h2>
+
+                    <div id='mercados-preco' class="mercados-preco">
+                    </div>
+
+                    <p class="explicacao">Valores se você comprasse tudo em um único mercado. Use <span>Calcular melhor
+                            compra</span> para distribuir e economizar mais.</p>
+                </div>
+
+
+                <div class="button-compra-div">
+                    <button onclick="selecionarMinimos()" class="button-melhor-compra">Calcular melhor compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='modal' id='lista'>
+        <a href='#' style='font-size:2000px; color:#0000'>___</a>
+
+        <div class='modalContent'>
+
+<!-- -->
+    <div class="modalMelhorCompra">
+        <div class="logo">
+            <center><img src="../imagens/LogoEconoMarket.png" class="icone-logo"></center></br>
+        </div>
+        <div class="resultado-div">
+            <h2>Resultado</h2>
+            <div class="resumo-div">
+                <div id="melhorDistribuicao" class="melhor-distribuicao-div">
+                    <h2>Melhor distribuição</h2>
+                    <p></p> <!--Ex: Koch e Angeloni (2 mercados)-->
+                </div>
+                <div class="total-economia-div">
+                    <div id="totalPagar" class="total-div">
+                        <h2>Total a pagar</h2>
+                        <p></p> <!--Ex:. R$ 420,99-->
+                    </div>
+                    <div id="economia" class="economia-div">
+                        <h2>Economia</h2>
+                        <p></p> <!--R$ 50,00 (13%)-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="lista-compra-div">
+            <h2>Lista de compras</h2>
+            <div id="listaCompra"></div>
+        </div>
+        <div class="button-copiar">
+            <button onclick="copiarLista()" id='copiarLista'>Copiar lista de compras</button>
+        </div>
+    </div>
+<!-- -->
+
+            <!--div class="button-compra-div">
+                <button onclick="copiarLista()" id='copiarLista' class="lista-compra">Copiar lista de compra</button>
+            </div-->
+            <a href='#' class='closeButton'>&times;</a>
+        </div>
+    </div>
+
+    <script>
+        obterDadosCarrinho()
+        inserirContato()
+    </script>
+
+</body>
+
+</html>

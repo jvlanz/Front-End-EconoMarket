@@ -1,0 +1,330 @@
+body {
+    font-family: "Monstserrat", sans-serif;
+}
+
+.paginaProduto {
+    display: flex;
+    flex-direction: column;
+
+    gap: 50px;
+
+    min-height: 70vh;
+
+    padding: 100px 20%;
+}
+
+.parte-superior {
+    display: flex;
+
+    gap: 80px;
+}
+
+
+.imagem-produto {
+    flex: 1;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+}
+
+.imagem-produto img {
+    width: 400px;
+    height: 400px;
+
+    object-fit: contain;
+}
+
+/* BOTÃO FAVORITO */
+
+.btn-favorito {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: #f1f4f8;
+    color: #182f57;
+
+    font-size: 28px;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-favorito:hover {
+    transform: scale(1.1);
+    background-color: #e2e7ee;
+}
+
+
+/* INFORMAÇÕES DO PRODUTO */
+
+.informacoes {
+    flex: 1.1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.nome-marca {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nome-marca p {
+    flex: 1;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.selecionador-marca {
+    flex: .6;
+
+    color: #099801;
+    background: rgba(0, 0, 0, .05);
+
+    border-radius: 15px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+
+    cursor: pointer;
+}
+
+
+/* COMPARAÇÃO DE PREÇOS */
+
+.comparativo-preco {
+    font-size: 17px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 15px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.mercado {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 20px;
+
+    border-radius: 15px;
+
+    transition: 0.3s;
+
+    cursor: pointer;
+}
+
+/* QUANTIDADE */
+
+.div-quantidades {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.quantidade,
+.div-quantidade-carrinho {
+    padding: 10px 20px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    background: white;
+
+    padding: 8px 20px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+
+    font-size: 18px;
+}
+
+.quantidade {
+    width: 70%;
+}
+
+.set-quantidade {
+    flex: .7;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.set-quantidade button {
+    background: #39B54A;
+    color: white;
+
+    font-size: 24px;
+    font-weight: 500;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/*.quantidade-selecionada, <-- sem flex para manter texto centralizado */
+.texto-quantidade-carrinho {
+    display: flex;
+}
+
+.quantidade-selecionada,
+#quantidadeProduto {
+    font-weight: 700;
+    width: 100px;
+    text-align: center;
+}
+
+.set-quantidade input {
+    width: 30px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    text-align: center;
+
+}
+
+.set-quantidade span {
+    width: 75px;
+    text-align: center;
+}
+
+.adicionar-carrinho {
+    padding: 10px 25px;
+
+    border: none;
+    border-radius: 30px;
+
+    background-color: #099801;
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.div-quantidade-carrinho {
+    width: 65%;
+}
+
+.texto-quantidade-carrinho {
+    gap: 10px;
+}
+
+.mercado:hover {
+    background: rgba(0, 0, 0, .05);
+}
+
+/* produtos relacionados */
+
+a {
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+.container1 {
+    flex: 1;
+    display: flex;
+}
+
+.card-produto {
+    width: 200px;
+    margin: 10px;
+    padding: 10px;
+    justify-content: center;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-produto img {
+    width: 90%;
+}
+
+.produtos-relacionados {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.container1 {
+    display: flex;
+
+    gap: 20px;
+}
+
+.card-produto-relacionado {
+    height: 200px;
+    width: 150px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    background: white;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
+.card-produto-relacionado img {
+    width: 116px;
+    height: 116px;
+
+    object-fit: contain;
+}
+
+.nome-produto {
+    font-size: 14px;
+    font-weight: 700;
+
+    color: rgba(0, 0, 0, 0.7);
+
+    margin-top: 10px;
+}

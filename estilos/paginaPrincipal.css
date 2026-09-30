@@ -1,0 +1,42 @@
+#categoria-geral {
+    display: flex;
+    flex-direction: column;
+    
+    gap: 40px;
+
+    padding: 0 10%;
+}
+
+
+.promocao {
+    text-align: center;
+    font-size: 28px;
+
+}
+
+.container1 {
+    display: flex;
+    gap: 20px;
+}
+
+.titulo-secao a {
+    margin-left: 10px;
+    color: green;
+    font-weight: 100;
+    font-size: 16px;
+}
+
+.produtos-display-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+    gap: 20px; /* row-gap não mantinha espaço horizontal entre cards */
+}
+
+.fundoDestaque {
+    padding: 20px 30px;
+
+    border-radius: 10px;
+
+    background-color: #DCEFE0;    
+}

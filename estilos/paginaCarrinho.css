@@ -1,0 +1,368 @@
+.body-carrinho {
+    display: flex;
+    gap: 30px;
+
+    padding: 50px 12%;
+
+}
+
+.body-esquerda {
+    flex: 2;
+}
+
+.body-direita {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+.produtos {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    gap: 5px;
+
+    background: white;
+
+    padding: 12px;
+    margin-top: 50px;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+}
+
+.produto {
+    display: flex;
+
+    align-items: center;
+
+    gap: 50px;
+
+    background: white;
+
+}
+
+.descricao-produto {
+    flex: 2;
+}
+
+.divs {
+    flex: 1;
+}
+
+.quantidade-lixo {
+    flex: 1;
+}
+
+.produto img {
+    width: 48px;
+    height: 48px;
+
+    object-fit: contain;
+}
+
+.descricao-produto {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    text-decoration: none;
+}
+
+.nome-produto {
+    font-size: 15px;
+    font-weight: 700;
+
+    color: rgba(0, 0, 0, .7);
+}
+
+.divs {
+    display: flex;
+    gap: 10px;
+}
+
+.divs select {
+    height: 30%;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+}
+
+.quantidade-lixo {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.quantidade-div {
+    flex: 1;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 5px;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+.quantidade-div span {
+    font-size: 15px;
+    font-weight: 700;
+    width: 75px;
+    text-align: center;
+}
+
+.button-quantidade {
+    font-size: 16px;
+
+    width: 26px;
+    height: 26px;
+
+    cursor: pointer;
+
+    background: white;
+}
+
+
+
+
+.botao-limpar {
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+.botao-limpar button {
+    font-size: 12px;
+    font-weight: 700;
+
+    background: rgb(255, 60, 60);
+    color: white;
+
+    padding: 8px 12px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+}
+
+.superior-direita {
+    background: white;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+
+    padding: 20px;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 24px;
+}
+
+.superior-direita h2,
+.inferior-direita h2 {
+    font-size: 16px;
+    font-weight: 600;
+
+    color: #182F57;
+}
+
+.superior-direita h2 {
+    margin-bottom: 10px;
+}
+
+.todos-mercados {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.mercado {
+    font-size: 14px;
+    font-weight: 700;
+
+    background: rgba(0, 0, 0, .05);
+
+    padding: 12px;
+
+    border-radius: 14px;
+
+    margin: 2px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+
+    cursor: pointer;
+}
+
+.mercado-checkbox {
+    display: none;
+}
+
+.mercado-checkbox:checked+.mercado {
+    background: #38B000;
+    color: white;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+
+.quantidade-mercados {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.texto .title {
+    font-size: 17px;
+    font-weight: 700;
+
+    color: #182F57;
+
+}
+
+
+.selecionador-quantidade {
+    width: 60%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 5px 20px;
+
+    background: rgba(0, 0, 0, 0.1);
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+/*
+.selecionador-quantidade input {
+    background: transparent;
+
+    cursor: pointer;
+}
+*/
+
+.selecionador-quantidade-div {
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.btMercados {
+    background-color: #38B000;
+    color: white;
+    border-radius: 0px;
+    margin: 0px;
+}
+
+/*
+).btMercados-pre {
+    background-color: green;
+    color: green;
+}
+*/
+
+.btMercados-pre, .btMercados-pos {
+    background-color: #0000;
+/*    color: #0000; */
+    border-radius: 0px;
+    margin: 0px;
+}
+
+/*
+.inferior-direita {
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+
+    padding: 20px;
+
+    background: white;
+
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+.inferior-direita {
+    font-size: 14px;
+}
+*/
+
+.mercados-preco {
+    font-size: 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.mercado-preco {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px;
+}
+
+.mercado-preco-menor {
+    font-weight: 700;
+
+    background: #38B000;
+    color: white;
+
+    border-radius: 20px;
+
+}
+
+.explicacao {
+    font-size: 14px;
+
+    color: black;
+}
+
+.explicacao span {
+    font-weight: 700;
+}
+
+.button-compra-div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+.button-compra-div button {
+    font-size: 15px;
+    font-weight: 700;
+
+    background: #38b000;
+    color: white;
+
+    padding: 10px 20px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
+}
