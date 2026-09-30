@@ -16,14 +16,20 @@
 
 .container1 {
     display: flex;
+
+    margin-right: 10%;
+
     gap: 20px;
 }
 
 .titulo-secao a {
-    margin-left: 10px;
-    color: green;
-    font-weight: 100;
     font-size: 16px;
+
+    color: #39B54A;
+    
+    margin-left: 20px;
+
+    transition: .3s;
 }
 
 .produtos-display-grid {
@@ -34,9 +40,15 @@
 }
 
 .fundoDestaque {
+    justify-content: center;
+
     padding: 20px 30px;
 
     border-radius: 10px;
 
     background-color: #DCEFE0;    
+}
+
+.titulo-secao a:hover {
+    text-decoration: underline;
 }
