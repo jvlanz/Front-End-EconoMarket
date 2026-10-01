@@ -2,20 +2,22 @@
 .nav-wrapper {
     background: #122448;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    padding: 1% 10%;
-    width: 100%;
+
+    padding: 1% 10%;   
 }
 
 .menu-upper {
     display: flex;
+
     justify-content: space-between;
     align-items: center;
+
     position: sticky;
-    top: 0;
+    
     z-index: 999;
 }
 
+/*
 .icone-logo {
     order: 1;
 }
@@ -30,51 +32,71 @@
 
 .div-cesta {
     order: 4;
-}
+}*/
 
 .nav-wrapper {
-    position: relative;
     display: flex;
+
     align-items: center;
+    justify-content: space-between;
+
     background: #122448;
-    padding: 1% 10%;
-    width: 100%;
 
     margin-bottom: 40px;
 }
 
-.nav-wrapper a {
-    position: relative;
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    font-family: "Montserrat", sans-serif;
-    transition: color 0.3s ease;
+.esquerda {
+    
 }
 
-.todas-categorias {
-    margin-right: 70px;
-    flex-shrink: 0;
+.meio {
+    width: 75%;
 }
+
 
 .todas-categorias a {
     display: flex;
+
     align-items: center;
+    
     gap: 5px;
 }
 
+.nav-wrapper a {
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+
+    transition: color 0.3s ease;
+}
+
+
+
 .nav-menu {
     display: flex;
+
     align-items: center;
-    gap: 40px;
-    flex: 1;
+
+    gap: 30px;
+
     min-width: 0;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
     scroll-behavior: smooth;
     scrollbar-width: none;
-    padding: 6px 40px 6px 0;
+    
+}
+
+.meio {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
 }
 
 .nav-menu a {
@@ -82,29 +104,31 @@
 }
 
 .nav-arrow {
-    position: absolute;
-    z-index: 10;
     width: 40px;
     height: 40px;
+
     border: none;
     border-radius: 50%;
+
     background: #122448;
     color: white;
+
     font-size: 25px;
+
     cursor: pointer;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     transition: transform 0.2s ease,
         color 0.2s ease;
+        z-index: 10;
 }
 
-.nav-arrow.right {
-    right: 15%;
-}
-
-.nav-arrow.left {
-    left: 21%;
+.meio a {
+    font-size: 15px;
 }
 
 .icone-logo {
