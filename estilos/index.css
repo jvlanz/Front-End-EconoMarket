@@ -19,7 +19,10 @@ body {
 .remover {
     width: 50px;
 
-    text-align: center;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
 
     padding: 5px;
 

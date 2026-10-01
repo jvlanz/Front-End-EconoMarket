@@ -21,7 +21,7 @@ async function cadastrar(evento) {
         telefone: telefone.value
     }
     try {
-        const resposta = await fetch("http://localhost:8080/auth/cadastro", {
+        const resposta = await fetch("https://api-economarket.onrender.com/auth/cadastro", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

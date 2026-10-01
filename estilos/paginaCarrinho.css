@@ -7,7 +7,7 @@
 }
 
 .body-esquerda {
-    flex: 2;
+    flex: 1.7;
 }
 
 .body-direita {
@@ -32,7 +32,8 @@
     padding: 12px;
     margin-top: 50px;
 
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
     border-radius: 30px;
 }
 
@@ -48,11 +49,11 @@
 }
 
 .descricao-produto {
-    flex: 2;
+    flex: 1;
 }
 
 .divs {
-    flex: 1;
+    flex: 1.5;
 }
 
 .quantidade-lixo {
@@ -79,6 +80,8 @@
 .nome-produto {
     font-size: 15px;
     font-weight: 700;
+
+    text-align: center;
 
     color: rgba(0, 0, 0, .7);
 }
@@ -137,17 +140,14 @@
     background: white;
 }
 
-
-
-
 .botao-limpar {
     display: flex;
 
     justify-content: flex-end;
 }
 
-.botao-limpar button {
-    font-size: 12px;
+.botao-limpar a {
+    font-size: 13px;
     font-weight: 700;
 
     background: rgb(255, 60, 60);
@@ -158,6 +158,7 @@
     border-radius: 12px;
 
     cursor: pointer;
+    text-decoration: none;
 }
 
 .superior-direita {
@@ -170,7 +171,8 @@
 
     padding: 20px;
 
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
     border-radius: 24px;
 }
 
@@ -196,21 +198,20 @@
     font-size: 14px;
     font-weight: 700;
 
-    background: rgba(0, 0, 0, .05);
-
     padding: 12px;
 
     border-radius: 14px;
 
     margin: 2px;
 
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
 
     cursor: pointer;
 }
 
 .mercado-checkbox {
     display: none;
+
 }
 
 .mercado-checkbox:checked+.mercado {
@@ -247,11 +248,8 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: 5px 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 
-    background: rgba(0, 0, 0, 0.1);
-
-    border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 12px;
 }
 
@@ -271,6 +269,7 @@
 .btMercados {
     background-color: #38B000;
     color: white;
+
     border-radius: 0px;
     margin: 0px;
 }
@@ -289,7 +288,7 @@
     margin: 0px;
 }
 
-/*
+
 .inferior-direita {
     display: flex;
     flex-direction: column;
@@ -300,14 +299,15 @@
 
     background: white;
 
-    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
     border-radius: 20px;
 }
 
 .inferior-direita {
     font-size: 14px;
 }
-*/
+
 
 .mercados-preco {
     font-size: 16px;
@@ -342,6 +342,7 @@
 }
 
 .explicacao span {
+    color: #182F57;
     font-weight: 700;
 }
 

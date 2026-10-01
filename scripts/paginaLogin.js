@@ -14,7 +14,7 @@ async function entrar(event) {
     }
 
     try {
-        const resposta = await fetch("http://localhost:8080/auth/login", {
+        const resposta = await fetch("https://api-economarket.onrender.com/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -40,8 +40,6 @@ async function entrar(event) {
         msgerro.innerText = "Email ou senha inválidos!";
     }
 
-
-    // TODO futura feature de verificação de login
 
 //  window.location.href = "http://localhost:5500/index.html"; //Mudar o location
 }

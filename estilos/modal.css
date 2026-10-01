@@ -28,14 +28,24 @@
 
 .closeButton {
     position: fixed;
+
+    top: 15px;
+    right: 20px;
+
     text-decoration: none;
-    top: 5px;
-    right: 10px;
+   
     font-size: 24pt;
-    background-color: #fffc;
+
+    background: #fffc;
+    color: #182F57;
+
     border-radius: 20px;
+
     width: 1.2em;
+
     text-align: center;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
 
 .modalContent {
@@ -60,6 +70,10 @@
     gap: 10px;
 }
 
+h2 {
+    color: #182F57;
+}
+
 .resumo-div, #listaCompra {
     display: flex;
     flex-direction: column;
@@ -70,12 +84,13 @@
 
     padding: 20px;
 
-    border: 1px solid rgba(0, 0, 0, .3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 
     border-radius: 20px;
 }
 
 .resumo-div h2 {
+    color: black;
     font-size: 12px;
 }
 

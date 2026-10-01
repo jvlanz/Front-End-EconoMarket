@@ -52,7 +52,7 @@
 
             <div class="body-direita">
                 <div class="botao-limpar">
-                    <button>Limpar lista</button>
+                    <a href="#limparLista">Limpar lista</a>
                 </div>
 
                 <div class="superior-direita">
@@ -103,45 +103,56 @@
         <div class='modalContent'>
 
 <!-- -->
-    <div class="modalMelhorCompra">
-        <div class="logo">
-            <center><img src="../imagens/LogoEconoMarket.png" class="icone-logo"></center></br>
-        </div>
-        <div class="resultado-div">
-            <h2>Resultado</h2>
-            <div class="resumo-div">
-                <div id="melhorDistribuicao" class="melhor-distribuicao-div">
-                    <h2>Melhor distribuição</h2>
-                    <p></p> <!--Ex: Koch e Angeloni (2 mercados)-->
+            <div class="modalMelhorCompra">
+                <div class="logo">
+                    <center><img src="../imagens/LogoEconoMarket.png" class="icone-logo"></center></br>
                 </div>
-                <div class="total-economia-div">
-                    <div id="totalPagar" class="total-div">
-                        <h2>Total a pagar</h2>
-                        <p></p> <!--Ex:. R$ 420,99-->
+                <div class="resultado-div">
+                    <h2>Resultado</h2>
+                    <div class="resumo-div">
+                        <div id="melhorDistribuicao" class="melhor-distribuicao-div">
+                            <h2>Melhor distribuição</h2>
+                            <p></p> <!--Ex: Koch e Angeloni (2 mercados)-->
+                        </div>
+                        <div class="total-economia-div">
+                            <div id="totalPagar" class="total-div">
+                                <h2>Total a pagar</h2>
+                                <p></p> <!--Ex:. R$ 420,99-->
+                            </div>
+                            <div id="economia" class="economia-div">
+                                <h2>Economia</h2>
+                                <p></p> <!--R$ 50,00 (13%)-->
+                            </div>
+                        </div>
                     </div>
-                    <div id="economia" class="economia-div">
-                        <h2>Economia</h2>
-                        <p></p> <!--R$ 50,00 (13%)-->
-                    </div>
+                </div>
+                <div class="lista-compra-div">
+                    <h2>Lista de compras</h2>
+                    <div id="listaCompra"></div>
+                </div>
+                <div class="button-copiar">
+                    <button onclick="copiarLista()" id='copiarLista'>Copiar lista de compras</button>
                 </div>
             </div>
-        </div>
-        <div class="lista-compra-div">
-            <h2>Lista de compras</h2>
-            <div id="listaCompra"></div>
-        </div>
-        <div class="button-copiar">
-            <button onclick="copiarLista()" id='copiarLista'>Copiar lista de compras</button>
-        </div>
-    </div>
 <!-- -->
-
-            <!--div class="button-compra-div">
-                <button onclick="copiarLista()" id='copiarLista' class="lista-compra">Copiar lista de compra</button>
-            </div-->
             <a href='#' class='closeButton'>&times;</a>
         </div>
     </div>
+
+
+    <div class='modal' id='limparLista'>
+        <a href='#' style='font-size:2000px; color:#0000'>___</a>
+        <div class='modalContent'>
+            <div class="modalLimparLista">
+                <p>Remover todos os produtos da lista de compras?</p>
+                <a href='#'>Cancelar</a>
+                <button onclick="limparLista()" id='limparLista'>Remover</button>
+            </div>
+            <a href='#' class='closeButton'>&times;</a>
+        </div>
+    </div>
+
+
 
     <script>
         obterDadosCarrinho()

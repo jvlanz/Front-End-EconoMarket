@@ -8,7 +8,7 @@ async function incluirItem(idProduto, idCliente, quantidade) {
         quantidade: quantidade
     }
 
-    const resposta = await fetch("http://localhost:8080/listaCompra", {
+    const resposta = await fetch("https://api-economarket.onrender.com/listaCompra", {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -27,7 +27,7 @@ async function incluirItem(idProduto, idCliente, quantidade) {
 
 async function obterItem(idCompra) {
     const token = sessionStorage.getItem("token");
-    const resposta = await fetch("http://localhost:8080/listaCompra/"+idCompra, {
+    const resposta = await fetch("https://api-economarket.onrender.com/listaCompra/"+idCompra, {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     });
@@ -46,7 +46,7 @@ async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
         idCliente: idCliente,
         quantidade: quantidade
     }
-    const respostaP = await fetch("http://localhost:8080/listaCompra/"+idCompra, {
+    const respostaP = await fetch("https://api-economarket.onrender.com/listaCompra/"+idCompra, {
         method: "PUT",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -63,7 +63,7 @@ async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
 
 async function removerItem(idCompra) {
     const token = sessionStorage.getItem("token");
-    await fetch("http://localhost:8080/listaCompra/"+idCompra, {
+    await fetch("https://api-economarket.onrender.com/listaCompra/"+idCompra, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${token}` }
     })

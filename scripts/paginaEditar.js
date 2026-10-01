@@ -40,7 +40,7 @@ async function editarCadastro(evento) {
     };
 
     try {
-        const resposta = await fetch(`http://localhost:8080/auth/editar`, {
+        const resposta = await fetch(`https://api-economarket.onrender.com/auth/editar`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
