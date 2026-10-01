@@ -91,98 +91,100 @@ function ativarBotoes() {
 
 function preencherCarrinho() {
     const divProdutos = document.getElementsByClassName('produtos')[0]
-    ni = 0
-    cliente.listaCompra.forEach(item => {
-        const divProduto = document.createElement('div')
-        divProduto.setAttribute('class', 'produto')
-        divProdutos.appendChild(divProduto)
+    for (nc=0; nc<10; nc++) {  // ordenar itens por categorias
+        for (ni=0; ni<cliente.listaCompra.length; ni++) {
+            item = cliente.listaCompra[ni]
+            if (item.produto.categoria.id!=nc) continue
+            const divProduto = document.createElement('div')
+            divProduto.setAttribute('class', 'produto')
+            divProdutos.appendChild(divProduto)
+        
+            const divDescricao = document.createElement('a')
+            divDescricao.setAttribute('class', 'descricao-produto')
+            divDescricao.href = 'paginaProduto.html?produto='+item.produto.id
+            divProduto.appendChild(divDescricao)
+            const divImagem = document.createElement('div')
+            divImagem.setAttribute('class', 'imagem-produto')
+            divDescricao.appendChild(divImagem)
+            const imagem = document.createElement('img')
+            imagem.src='../imagens/'+item.produto.figura
+            divImagem.appendChild(imagem)
+            const divNomeCategoria = document.createElement('div')
+            divNomeCategoria.setAttribute('class', 'nome-categoria-produto')
+            divDescricao.appendChild(divNomeCategoria)
+
+            const divNomeProduto = document.createElement('div')
+            divNomeProduto.setAttribute('class', 'nome-produto')
+            divNomeCategoria.appendChild(divNomeProduto)
+            const divCategoriaProduto = document.createElement('div')
+            divCategoriaProduto.setAttribute('class', 'categoria-produto')
+            divNomeCategoria.appendChild(divCategoriaProduto)
+            const pNome = document.createElement('p')
+            pNome.setAttribute('class', 'nome-produto')
+            pNome.innerHTML = item.produto.descricao
+            divNomeCategoria.appendChild(pNome)
+    //      const pCategoria = document.createElement('p')
+    //      pCategoria.setAttribute('class', 'categoria-produto')
+    //      pCategoria.innerHTML = item.produto.categoria.categoria
+    //      divNomeCategoria.appendChild(pCategoria)
+
+            const divMarcaMercado = document.createElement('div')
+            divMarcaMercado.setAttribute('class', 'divs')
+            divProduto.appendChild(divMarcaMercado)
+            divProduto.id = 'produto'+item.produto.id
+
+            selMarca = document.createElement('select')
+            selMarca.setAttribute('class', 'selecionar-marca')
+            selMarca.id = 'selMarca'+item.produto.id
+            selMarca.onchange = () => { ordenarMercados() }
+            divMarcaMercado.appendChild(selMarca)
+            selMercado = document.createElement('select')
+            selMercado.setAttribute('class', 'selecionar-mercado')
+            selMercado.id = 'selMercado'+item.produto.id
+            selMercado.style.display = 'none'
+            divMarcaMercado.appendChild(selMercado)
+            preencherDadosItem(ni)
+
+            const divQuantidadeLixo = document.createElement('div')
+            divQuantidadeLixo.setAttribute('class', 'quantidade-lixo')
+            divProduto.appendChild(divQuantidadeLixo)
+            const divQuantidade = document.createElement('div')
+            divQuantidade.setAttribute('class', 'quantidade-div')
+            divQuantidadeLixo.appendChild(divQuantidade)
+            const btRem = document.createElement('button')
+            btRem.setAttribute('class', 'botaoPequeno')
+            btRem.innerHTML = '–'
+            btRem.id = 'rem'+item.produto.id
+            divQuantidade.appendChild(btRem)
+            const qtd = document.createElement('span')
+            qtd.id = 'quantidade'+item.produto.id
+            if (item.quantidade % 1 > 0)
+                qtd.innerHTML = item.quantidade.toFixed(2).replace('.',',')+' '+item.produto.medida
+            else
+                qtd.innerHTML = item.quantidade+' '+item.produto.medida
+            divQuantidade.appendChild(qtd)
+            const btAdd = document.createElement('button')
+            btAdd.setAttribute('class', 'botaoPequeno')
+            btAdd.innerHTML = '+'
+            btAdd.id = 'add'+item.produto.id
+            divQuantidade.appendChild(btAdd)
+
+            const medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
+            let quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
+            if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
+            btRem.onclick = async () => { qtd.innerHTML = await removerQuantidadePagina(cliente.id, item.produto.id, quantidade, medida) }
+            btAdd.onclick = async () => { qtd.innerHTML = await adicionarQuantidadePagina(cliente.id, item.produto.id, quantidade, medida) }
     
-        const divDescricao = document.createElement('a')
-        divDescricao.setAttribute('class', 'descricao-produto')
-        divDescricao.href = 'paginaProduto.html?produto='+item.produto.id
-        divProduto.appendChild(divDescricao)
-        const divImagem = document.createElement('div')
-        divImagem.setAttribute('class', 'imagem-produto')
-        divDescricao.appendChild(divImagem)
-        const imagem = document.createElement('img')
-        imagem.src='../imagens/'+item.produto.figura
-        divImagem.appendChild(imagem)
-        const divNomeCategoria = document.createElement('div')
-        divNomeCategoria.setAttribute('class', 'nome-categoria-produto')
-        divDescricao.appendChild(divNomeCategoria)
-
-        const divNomeProduto = document.createElement('div')
-        divNomeProduto.setAttribute('class', 'nome-produto')
-        divNomeCategoria.appendChild(divNomeProduto)
-        const divCategoriaProduto = document.createElement('div')
-        divCategoriaProduto.setAttribute('class', 'categoria-produto')
-        divNomeCategoria.appendChild(divCategoriaProduto)
-        const pNome = document.createElement('p')
-        pNome.setAttribute('class', 'nome-produto')
-        pNome.innerHTML = item.produto.descricao
-        divNomeCategoria.appendChild(pNome)
-//      const pCategoria = document.createElement('p')
-//      pCategoria.setAttribute('class', 'categoria-produto')
-//      pCategoria.innerHTML = item.produto.categoria.categoria
-//      divNomeCategoria.appendChild(pCategoria)
-
-        const divMarcaMercado = document.createElement('div')
-        divMarcaMercado.setAttribute('class', 'divs')
-        divProduto.appendChild(divMarcaMercado)
-        divProduto.id = 'produto'+item.produto.id
-
-        selMarca = document.createElement('select')
-        selMarca.setAttribute('class', 'selecionar-marca')
-        selMarca.id = 'selMarca'+item.produto.id
-        selMarca.onchange = () => { ordenarMercados() }
-        divMarcaMercado.appendChild(selMarca)
-        selMercado = document.createElement('select')
-        selMercado.setAttribute('class', 'selecionar-mercado')
-        selMercado.id = 'selMercado'+item.produto.id
-        selMercado.style.display = 'none'
-        divMarcaMercado.appendChild(selMercado)
-        preencherDadosItem(ni)
-
-        const divQuantidadeLixo = document.createElement('div')
-        divQuantidadeLixo.setAttribute('class', 'quantidade-lixo')
-        divProduto.appendChild(divQuantidadeLixo)
-        const divQuantidade = document.createElement('div')
-        divQuantidade.setAttribute('class', 'quantidade-div')
-        divQuantidadeLixo.appendChild(divQuantidade)
-        const btRem = document.createElement('button')
-        btRem.setAttribute('class', 'botaoPequeno')
-        btRem.innerHTML = '–'
-        btRem.id = 'rem'+item.produto.id
-        divQuantidade.appendChild(btRem)
-        const qtd = document.createElement('span')
-        qtd.id = 'quantidade'+item.produto.id
-        if (item.quantidade % 1 > 0)
-            qtd.innerHTML = item.quantidade.toFixed(2).replace('.',',')+' '+item.produto.medida
-        else
-            qtd.innerHTML = item.quantidade+' '+item.produto.medida
-        divQuantidade.appendChild(qtd)
-        const btAdd = document.createElement('button')
-        btAdd.setAttribute('class', 'botaoPequeno')
-        btAdd.innerHTML = '+'
-        btAdd.id = 'add'+item.produto.id
-        divQuantidade.appendChild(btAdd)
-
-        const medida = listaPrecos[ni].precos[0].produtoMarca.produto.medida
-        let quantidade = listaPrecos[ni].precos[0].produtoMarca.produto.valorMedida
-        if (medida=='kg' && quantidade==1) quantidade = 0.1 // adicionar quantidades fracionadas
-        btRem.onclick = async () => { qtd.innerHTML = await removerQuantidadePagina(cliente.id, item.produto.id, quantidade, medida) }
-        btAdd.onclick = async () => { qtd.innerHTML = await adicionarQuantidadePagina(cliente.id, item.produto.id, quantidade, medida) }
- 
-        const divRemover = document.createElement('div')
-        divRemover.setAttribute('class', 'remover')
-        divQuantidadeLixo.appendChild(divRemover)
-        iconeLixo = document.createElement('span')
-        iconeLixo.setAttribute('class', 'material-symbols-outlined')
-        iconeLixo.innerHTML = 'delete'
-        iconeLixo.onclick = async () => { qtd.innerHTML = await removerQuantidadePagina(cliente.id, item.produto.id, 99999, medida) }
-        divRemover.appendChild(iconeLixo)
-        ni += 1
-    })
+            const divRemover = document.createElement('div')
+            divRemover.setAttribute('class', 'remover')
+            divQuantidadeLixo.appendChild(divRemover)
+            iconeLixo = document.createElement('span')
+            iconeLixo.setAttribute('class', 'material-symbols-outlined')
+            iconeLixo.innerHTML = 'delete'
+            iconeLixo.onclick = async () => { qtd.innerHTML = await removerQuantidadePagina(cliente.id, item.produto.id, 99999, medida) }
+            divRemover.appendChild(iconeLixo)
+        }
+    }
 }
 
 async function removerQuantidadePagina(idCliente, idProduto, quantidade, medida) {
@@ -347,29 +349,31 @@ function remover(id,n) { // remove item da listaCompra no banco de dados, bem co
 function gerarLista() {
     listas = []
     listas[0] = 0 // valorTotal
-    for (ni=0; ni<cliente.listaCompra.length; ni++) {
-        item = cliente.listaCompra[ni]
-        const selMarca = document.getElementById('selMarca'+item.produto.id)
-        const selMercado = document.getElementById('selMercado'+item.produto.id)
-        for (np=0; np<listaPrecos[ni].precos.length; np++) {
-            item = listaPrecos[ni].precos[np]
-            if (item.produtoMarca.marca.marca==selMarca.value && item.mercado.nome==selMercado.value) {
-                textoItem  = item.produtoMarca.produto.descricao + ' '
-                textoItem += item.produtoMarca.marca.marca + ', '
-//              textoItem += item.mercado.nome + ' '
-                textoItem += cliente.listaCompra[ni].quantidade
-                textoItem += item.produtoMarca.produto.medida + ' por '
-                valor = (item.preco * cliente.listaCompra[ni].quantidade / item.produtoMarca.produto.valorMedida)
-                listas[0] += valor
-                textoItem += 'R$ ' + valor.toFixed(2).replace('.',',') + ' '
-                textoItem += '(R$ ' + item.preco.toFixed(2).replace('.',',')
-                textoItem += '/' + item.produtoMarca.produto.valorMedida
-                textoItem += item.produtoMarca.produto.medida + ')'
-                if (listas[item.mercado.id]==null) {
-                    listas[item.mercado.id] = []
+    for (nc=0; nc<10; nc++) { // ordenar itens por categorias
+        for (ni=0; ni<cliente.listaCompra.length; ni++) {
+            if (cliente.listaCompra[ni].produto.categoria.id!=nc) continue
+            const selMarca = document.getElementById('selMarca'+item.produto.id)
+            const selMercado = document.getElementById('selMercado'+item.produto.id)
+            for (np=0; np<listaPrecos[ni].precos.length; np++) {
+                item = listaPrecos[ni].precos[np]
+                if (item.produtoMarca.marca.marca==selMarca.value && item.mercado.nome==selMercado.value) {
+                    textoItem  = item.produtoMarca.produto.descricao + ' '
+                    textoItem += item.produtoMarca.marca.marca + ', '
+//                  textoItem += item.mercado.nome + ' '
+                    textoItem += cliente.listaCompra[ni].quantidade
+                    textoItem += item.produtoMarca.produto.medida + ' por '
+                    valor = (item.preco * cliente.listaCompra[ni].quantidade / item.produtoMarca.produto.valorMedida)
+                    listas[0] += valor
+                    textoItem += 'R$ ' + valor.toFixed(2).replace('.',',') + ' '
+                    textoItem += '(R$ ' + item.preco.toFixed(2).replace('.',',')
+                    textoItem += '/' + item.produtoMarca.produto.valorMedida
+                    textoItem += item.produtoMarca.produto.medida + ')'
+                    if (listas[item.mercado.id]==null) {
+                        listas[item.mercado.id] = []
+                    }
+                    listas[item.mercado.id].push(textoItem)
+                    break
                 }
-                listas[item.mercado.id].push(textoItem)
-                break
             }
         }
     }
