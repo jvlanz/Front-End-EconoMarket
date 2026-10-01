@@ -5,10 +5,7 @@
     margin-top: 30px;
 }
 
-.membro {
-    height: 200px;
-    width: 200px;
-}
+
 
 * {
     margin: 0;
@@ -210,13 +207,18 @@ section h2 {
     transform: translateY(-8px);
 }
 
-.membro img {
+.foto-integrantes {
     width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 20px;
     border: 5px solid #1E315F;
+}
+
+.icones {
+    width: 80px;
+    height: 80px;
 }
 
 .membro p {
