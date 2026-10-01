@@ -414,3 +414,12 @@ function copiarLista() {
     navigator.clipboard.writeText(texto)
     window.alert('lista copiada para o clipboard')
 }
+
+function limparLista() {
+    cliente.listaCompra.forEach(item => {
+        if(item.id!=undefined)
+            removerItem(item.id)
+    })
+    cliente.listaCompra = []
+    window.location.href = "#"
+}
