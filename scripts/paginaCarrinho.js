@@ -421,7 +421,7 @@ function limparLista() {
             removerItem(item.id)
         })
     } else {
-        sessionStorage.setItem(listaCompra, JSON.stringify('[]'))
+        sessionStorage.removeItem('listaCompra')
     }
     window.location.href = "#"
 }
