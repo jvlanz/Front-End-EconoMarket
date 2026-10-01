@@ -5,7 +5,7 @@ async function incluirFavorito(idProduto, idCliente) {
         idCliente: idCliente
     }
 
-    const resposta = await fetch("http://localhost:8080/favoritos", {
+    const resposta = await fetch("https://api-economarket.onrender.com/favoritos", {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -24,7 +24,7 @@ async function incluirFavorito(idProduto, idCliente) {
 
 async function removerFavorito(idFavorito) {
     const token = sessionStorage.getItem("token");
-    await fetch("http://localhost:8080/favoritos/"+idFavorito, {
+    await fetch("https://api-economarket.onrender.com/favoritos/"+idFavorito, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${token}` }
     })
