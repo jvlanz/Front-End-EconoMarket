@@ -1,0 +1,112 @@
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.card-produto {
+    display: flex;
+    flex-direction: column;
+
+    height: 312px;
+    width: 150px;
+
+    position: relative;
+    background: white;
+
+    border: 2px solid transparent;
+    border-radius: 14px;
+
+    padding: 22px 15px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.card-produto img {
+    width: 116px;
+    height: 116px; 
+
+    object-fit: contain;
+
+    margin-bottom: 20px;
+}
+
+.div-quantidade {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.btn-add,
+.btn-rem {
+    width: 30px;
+    height: 30px;
+    
+    border: none;
+    border-radius: 50%;
+
+    background: #39B54A;
+    color: white;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.quantidade-produto {
+    color: rgba(0, 0, 0, .7);
+}
+
+.preco-produto,
+.quantidade-produto {
+    font-size: 16px;
+    font-weight: 700; 
+
+    text-decoration: none;
+}
+
+.nome-produto {
+    font-size: 14px;
+    font-weight: 700;
+
+    margin-top: 5px;
+
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.btn-favorito {
+    position: absolute;
+    top: 5px;
+    right: 14px;
+
+    border: none;
+
+    background: none;
+    color: rgb(0, 0, 0);
+
+    font-size: 30px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.card-produto:hover {
+    border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.btn-add:hover,
+.btn-rem:hover {
+    background-color:rgba(20, 125, 34, 0.6);
+}
+
+.btn-favorito:hover {
+    color:rgba(0, 0, 0, 0.6);
+    
+}

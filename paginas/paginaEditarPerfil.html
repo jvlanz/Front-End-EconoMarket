@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PaginaEditarPerfil</title>
+    <link rel="stylesheet" href="../estilos/formularios.css">
+    <link rel="stylesheet" href="../estilos/index.css">
+    <script src="../scripts/paginaEditar.js"></script>
+</head>
+
+<body>
+    <form class="formulario formulario-editar" id="formulario-editar">
+        <div class="topo">
+            <div class="logo">
+                <a href="paginaPrincipal.html">
+                    <img src="../imagens/LogoEconoMarket.png" class="icone-logo">
+                </a>
+            </div>
+
+            <div class="title">
+                <h1>Editar seu Perfil</h1>
+            </div>
+        </div>
+
+        <div class="inputs">
+            <div class="nome">
+                <p>Nome e sobrenome</p>
+                <input type="text" id="nome-editar">
+            </div>
+
+            <div class="email">
+                <p>E-mail</p>
+                <input type="text" id="email-editar">
+            </div>
+
+            <div class="senha">
+                <p>Senha</p>
+                <input type="password" id="senha-editar">
+            </div>
+
+            <div class="senha">
+                <p>Senha Atual*</p>
+                <input type="password" id="senha-atual">
+                <p class="mensagem-erro" id="msg-erro-editar"></p>
+            </div>
+            
+        </div>
+
+        <input type="submit" class="btn" value="Editar Cadastro" />
+        <input type="button" class="btn btn-sair" value="Sair da Conta" onclick="logout()">
+
+    </form>
+    <script>
+        preencherDados()
+        const formulario = document.getElementById("formulario-editar");
+        formulario.addEventListener("submit", (evento) => { editarCadastro(evento) })
+    </script>
+
+</body>
+
+</html>

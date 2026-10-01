@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Produto</title>
+
+    <link rel="stylesheet" href="../estilos/header.css">
+    <link rel="stylesheet" href="../estilos/index.css">
+    <link rel="stylesheet" href="../estilos/form.css">
+    <link rel="stylesheet" href="../estilos/paginaProduto.css">
+    <script src="../scripts/paginaProduto.js"></script>
+    <script src="../scripts/inserirHeader.js"></script>
+    <script src="../scripts/inserirContato.js"></script>
+    <script src="../scripts/checarToken.js"></script>
+    <script src="../scripts/favoritos.js"></script>
+    <script src="../scripts/listaCompra.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const idProduto = urlParams.get('produto')
+    </script>
+</head>
+
+<body>
+    <script>
+        inserirHeader()
+        inserirProduto(idProduto)
+    </script>
+
+    <div id="paginaProduto" class="paginaProduto">
+        <div class="parte-superior">
+            <div class="imagem-produto">
+                <img id='imagem-produto' alt="">
+                <button class='btn-favorito' id='btn-favorito'>♡</button>
+            </div>
+
+            <div class="informacoes">
+                <div class="nome-marca">
+                    <p id='nome-produto'></p>
+                    <select id='selMarca' class="selecionador-marca" onchange='mostrarValores()'>
+                        <option value=''></option>
+                    </select>
+                </div>
+                <div id="mercados" class="comparativo-preco">
+                </div>
+
+            <div class="div-quantidades">
+
+                <div class="quantidade">
+                    <!--p>Quantidade:</p-->
+                    <div class="set-quantidade">
+                        <button id="menos-button">–</button>
+                        <span class="quantidade-selecionada">
+                            <!--input id="valor-adicionar" value=0>
+                        <span id='medida-produto'></span-->
+                        </span>
+                        <button id="mais-button">+</button>
+                    </div>
+                    <input id="adicionar" class="adicionar-carrinho" type="button" value="Adicionar">
+                </div>
+
+                    <div class="div-quantidade-carrinho">
+                        <!-- FIXME MOSTRAR APENAS SE HOUVER QUANTIDADE NO CARRINHO -->
+                        <div class="texto-quantidade-carrinho">
+                            <p>Quantidade no carrinho:</p>
+                            <span id="quantidadeProduto"></span>
+                        </div>
+                        <div class="remover">
+                            <span class="material-symbols-outlined">delete</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="parte-inferior">
+            <div style='display:none' id="produtos-relacionados" class="produtos-relacionados">
+                <h2>Produtos Relacionados</h2>
+                <div id="container1" class="container1">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="parte-inferior">
+        <div style='display:none' id="produtos-relacionados" class="produtos-relacionados">
+                <h2>Produtos Relacionados</h2>
+                <div id="container1" class="container1">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>inserirContato()</script>
+</body>
+
+</html>
