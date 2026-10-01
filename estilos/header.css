@@ -113,8 +113,12 @@
 }
 
 .container-pesquisa {
-    position: relative;
     flex: 1;
+
+    display: flex;
+
+    position: relative;
+    
     min-width: 0;
     max-width: 750px;
 }
@@ -135,12 +139,28 @@
 
 .lupa {
     position: absolute;
-    right: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #182f57;
+
+    right: 16px;
+    bottom: 11px;
+
+    text-align: center;
+
+    width: 50px;
+    padding: 5px;
+
     font-size: 24px;
+
+    color: #182f57;
+
+    border-radius: 20px;
+
     cursor: pointer;
+
+    transition: .3s;
+}
+
+.lupa:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .div-cesta {

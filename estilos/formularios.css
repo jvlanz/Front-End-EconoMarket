@@ -166,7 +166,8 @@ body {
 }
 
 .recuperar a,
-.link a {
+.link a,
+.termos span {
     color: #182F57;
 
     text-decoration: none;
@@ -206,11 +207,6 @@ body {
     width: 20px;
 }
 
-.termos span {
-    text-decoration: underline;
-    color: #084d92;
-}
-
 .mensagem-erro {
     font-size: 14px;
 
@@ -232,7 +228,8 @@ body {
 }
 
 .recuperar a:hover,
-.link a:hover {
+.link a:hover,
+.termos span:hover {
     color: #39B54A;
 
     text-decoration: underline;
