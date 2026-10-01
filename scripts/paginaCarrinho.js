@@ -416,10 +416,12 @@ function copiarLista() {
 }
 
 function limparLista() {
-    cliente.listaCompra.forEach(item => {
-        if(item.id!=undefined)
+    if (token!=null) {
+        cliente.listaCompra.forEach(item => {
             removerItem(item.id)
-    })
-    cliente.listaCompra = []
+        })
+    } else {
+        sessionStorage.setItem(listaCompra, JSON.stringify('[]'))
+    }
     window.location.href = "#"
 }
