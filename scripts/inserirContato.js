@@ -36,7 +36,7 @@ async function enviarMensagem(evento) {
 
     try {
 
-        const resposta = await fetch("http://localhost:8080/contato", {
+        const resposta = await fetch("https://api-economarket.onrender.com/contato", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

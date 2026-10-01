@@ -9,7 +9,7 @@ var nMercados = 1
 async function obterDadosCarrinho() { // buscas no banco de dados
     const token = sessionStorage.getItem("token");
     if (token!=null) {
-        const respostaC = await fetch("http://localhost:8080/auth/cliente", {
+        const respostaC = await fetch("https://api-economarket.onrender.com/auth/cliente", {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` }
         });
@@ -23,13 +23,13 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     }
 
-    const respostaM = await fetch("http://localhost:8080/mercados");
+    const respostaM = await fetch("https://api-economarket.onrender.com/mercados");
     if (!respostaM.ok) {
         console.error("Erro ao buscar mercados");
         return;
     }
     mercados = await respostaM.json()
-    const respostaP = await fetch("http://localhost:8080/promocoes");
+    const respostaP = await fetch("https://api-economarket.onrender.com/promocoes");
     if (!respostaP.ok) {
         console.error("Erro ao buscar promoções");
         return;
@@ -39,7 +39,7 @@ async function obterDadosCarrinho() { // buscas no banco de dados
     nItens = cliente.listaCompra.length
     for (n=0; n<nItens; n++) {
         item = cliente.listaCompra[n]
-        const respostaP = await fetch("http://localhost:8080/precos/"+item.produto.id);
+        const respostaP = await fetch("https://api-economarket.onrender.com/precos/"+item.produto.id);
         if (!respostaP.ok) {
             console.error("Erro ao buscar preços");
             return;

@@ -8,7 +8,7 @@ var clientes = []
 var categorias = ['Hortifruti', 'Açougue', 'Frios e Laticínios', 'Congelados', 'Mercearia', 'Limpeza', 'Higiene e Beleza', 'Bebidas', 'Utilidades', 'Padaria', 'Pets']
 
 async function preencherDadosAdmin(busca=null) {
-    const resposta = await fetch("http://localhost:8080/produtos");
+    const resposta = await fetch("https://api-economarket.onrender.com/produtos");
     if (!resposta.ok) {
         console.error("Erro ao buscar produtos");
         return;
