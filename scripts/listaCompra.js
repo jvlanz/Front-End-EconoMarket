@@ -8,7 +8,7 @@ async function incluirItem(idProduto, idCliente, quantidade) {
         quantidade: quantidade
     }
 
-    const resposta = await fetch("https://api-economarket.onrender.com/listaCompra", {
+    const resposta = await fetchFallback("/listaCompra", {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -27,7 +27,7 @@ async function incluirItem(idProduto, idCliente, quantidade) {
 
 async function obterItem(idCompra) {
     const token = sessionStorage.getItem("token");
-    const resposta = await fetch("https://api-economarket.onrender.com/listaCompra/"+idCompra, {
+    const resposta = await fetchFallback("/listaCompra/"+idCompra, {
         method: "GET",
         headers: { "Authorization": `Bearer ${token}` }
     });
@@ -46,7 +46,7 @@ async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
         idCliente: idCliente,
         quantidade: quantidade
     }
-    const respostaP = await fetch("https://api-economarket.onrender.com/listaCompra/"+idCompra, {
+    const resposta = await fetchFallback("/listaCompra/"+idCompra, {
         method: "PUT",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -55,7 +55,7 @@ async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
         body: JSON.stringify(item)
     });
 
-    if (!respostaP.ok) {
+    if (!resposta.ok) {
         console.error("Erro ao cadastrar item");
         return;
     }
@@ -63,18 +63,18 @@ async function alterarItem(idCompra, idProduto, idCliente, quantidade) {
 
 async function removerItem(idCompra) {
     const token = sessionStorage.getItem("token");
-    await fetch("https://api-economarket.onrender.com/listaCompra/"+idCompra, {
+    await fetchFallback("/listaCompra/"+idCompra, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${token}` }
     })
-    .then(response => {
-        if (response.ok) {
+    .then(resposta => {
+        if (resposta.ok) {
             console.log('item '+idCompra+' removido')
         } else {
-            console.error('erro ao remover produto:', response.status);
+            console.error('erro ao remover produto:', resposta.status);
         }
     })
-    .catch(error => console.error('erro com a operação fetch:', error))
+    .catch(erro => console.error('Erro com a operação fetch:', erro))
 }
 
 ////////////////////
@@ -150,7 +150,7 @@ function adicionarQuantidadeLocal(produtoId, quantidade, medida) {
         }
     }
     if (!presente) {
-        cliente.listaCompra.push( {produto:{id:produtoId}, quantidade:quantidade} )
+        cliente.listaCompra.push( {produto:{id:produtoId, categoria:{id:1}}, quantidade:quantidade} ) // FIXME: categoria.id
         if (quantidade % 1 > 0)
             resQuantidade = quantidade.toFixed(2).replace('.',',') + ' ' + medida
         else

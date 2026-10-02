@@ -16,7 +16,7 @@ function inserirHeader() {
 
             const token = sessionStorage.getItem("token");
             if (token != null) {
-                fetch("https://api-economarket.onrender.com/auth/cliente", {
+                fetchFallback("/cliente", {
                     method: "GET",
                     headers: { "Authorization": `Bearer ${token}` }
                 })

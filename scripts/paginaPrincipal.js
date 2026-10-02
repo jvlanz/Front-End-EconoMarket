@@ -1,14 +1,14 @@
 async function preencherProdutos(args) { // args é um objeto, que pode ter os parâmetros 'id' e 'busca'
     const token = sessionStorage.getItem("token");
 
-    const resposta = await fetch("https://api-economarket.onrender.com/produtos");
+    const resposta = await fetchFallback("/produtos");
     if (!resposta.ok) {
         console.error("Erro ao buscar produtos");
         return;
     }
     const produtos = await resposta.json();
 
-    const respostaP = await fetch("https://api-economarket.onrender.com/promocoes");
+    const respostaP = await fetchFallback("/promocoes");
     if (!respostaP.ok) {
         console.error("Erro ao buscar promoções");
         return;
@@ -18,7 +18,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     cliente = { id: null }
     cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     if (token != null) {
-        const respostaC = await fetch("https://api-economarket.onrender.com/auth/cliente", {
+        const respostaC = await fetchFallback("/auth/cliente", {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` }
         });

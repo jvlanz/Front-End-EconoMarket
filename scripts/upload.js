@@ -11,7 +11,7 @@ async function uploadFile() {
     formData.append("file", file);
 
     try {
-        const response = await fetch("https://api-economarket.onrender.com/files/upload", {
+        const response = await fetchFallback("/files/upload", {
             method: "POST",
             body: formData
         });

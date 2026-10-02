@@ -9,7 +9,7 @@ var nMercados = 1
 async function obterDadosCarrinho() { // buscas no banco de dados
     const token = sessionStorage.getItem("token");
     if (token!=null) {
-        const respostaC = await fetch("https://api-economarket.onrender.com/auth/cliente", {
+        const respostaC = await fetchFallback("/auth/cliente", {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` }
         });
@@ -23,13 +23,13 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     }
 
-    const respostaM = await fetch("https://api-economarket.onrender.com/mercados");
+    const respostaM = await fetchFallback("/mercados");
     if (!respostaM.ok) {
         console.error("Erro ao buscar mercados");
         return;
     }
     mercados = await respostaM.json()
-    const respostaP = await fetch("https://api-economarket.onrender.com/promocoes");
+    const respostaP = await fetchFallback("/promocoes");
     if (!respostaP.ok) {
         console.error("Erro ao buscar promoções");
         return;
@@ -39,7 +39,7 @@ async function obterDadosCarrinho() { // buscas no banco de dados
     nItens = cliente.listaCompra.length
     for (n=0; n<nItens; n++) {
         item = cliente.listaCompra[n]
-        const respostaP = await fetch("https://api-economarket.onrender.com/precos/"+item.produto.id);
+        const respostaP = await fetchFallback("/precos/"+item.produto.id);
         if (!respostaP.ok) {
             console.error("Erro ao buscar preços");
             return;
@@ -91,7 +91,7 @@ function ativarBotoes() {
 
 function preencherCarrinho() {
     const divProdutos = document.getElementsByClassName('produtos')[0]
-    for (nc=0; nc<10; nc++) {  // ordenar itens por categorias
+    for (nc=0; nc<11; nc++) {  // ordenar itens por categorias
         for (ni=0; ni<cliente.listaCompra.length; ni++) {
             item = cliente.listaCompra[ni]
             if (item.produto.categoria.id!=nc) continue
@@ -349,7 +349,7 @@ function remover(id,n) { // remove item da listaCompra no banco de dados, bem co
 function gerarLista() {
     listas = []
     listas[0] = 0 // valorTotal
-    for (nc=0; nc<10; nc++) { // ordenar itens por categorias
+    for (nc=0; nc<11; nc++) { // ordenar itens por categorias
         for (ni=0; ni<cliente.listaCompra.length; ni++) {
             if (cliente.listaCompra[ni].produto.categoria.id!=nc) continue
             const selMarca = document.getElementById('selMarca'+item.produto.id)

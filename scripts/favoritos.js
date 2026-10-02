@@ -5,7 +5,7 @@ async function incluirFavorito(idProduto, idCliente) {
         idCliente: idCliente
     }
 
-    const resposta = await fetch("https://api-economarket.onrender.com/favoritos", {
+    const resposta = await fetchFallback("/favoritos", {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,
@@ -24,16 +24,16 @@ async function incluirFavorito(idProduto, idCliente) {
 
 async function removerFavorito(idFavorito) {
     const token = sessionStorage.getItem("token");
-    await fetch("https://api-economarket.onrender.com/favoritos/"+idFavorito, {
+    await fetchFallback("/favoritos/"+idFavorito, {
         method: 'DELETE',
         headers: { "Authorization": `Bearer ${token}` }
     })
-    .then(response => {
-        if (response.ok) {
-            console.log('favorito '+idFavorito+' removido')
+    .then(resposta => {
+        if (resposta.ok) {
+            console.log('Favorito '+idFavorito+' removido')
         } else {
-            console.error('erro ao remover favorito:', response.status);
+            console.error('Erro ao remover favorito:', resposta.status);
         }
     })
-    .catch(error => console.error('erro com a operação fetch:', error))
+    .catch(erro => console.error('Erro com a operação fetch:', erro))
 }

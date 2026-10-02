@@ -4,14 +4,14 @@ mercados = [] // solução temporária, pois o banco de dados possui entradas re
 async function inserirProduto(produtoId) {
     const token = sessionStorage.getItem("token");
 
-    const resposta = await fetch("https://api-economarket.onrender.com/produtos");
+    const resposta = await fetchFallback("/produtos");
     if (!resposta.ok) {
         console.error("Erro ao buscar produtos");
         return;
     }
     const produtos = await resposta.json();
 
-    const respostaP = await fetch("https://api-economarket.onrender.com/precos/"+produtoId);
+    const respostaP = await fetchFallback("/precos/"+produtoId);
     if (!respostaP.ok) {
         console.error("Erro ao buscar preços");
         return;
@@ -19,7 +19,7 @@ async function inserirProduto(produtoId) {
     precos = await respostaP.json();
 
     if (token != null) {
-        const respostaC = await fetch("https://api-economarket.onrender.com/auth/cliente", {
+        const respostaC = await fetchFallback("/auth/cliente", {
             method: "GET",
             headers: { "Authorization": `Bearer ${token}` }
         });
