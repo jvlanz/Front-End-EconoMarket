@@ -15,7 +15,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     }
     const promocoes = await respostaP.json();
 
-    cliente = { id: null }
+    let cliente = { id: null }
     cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
     if (token != null) {
         const respostaC = await fetchFallback("/auth/cliente", {
@@ -32,9 +32,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     const container = document.getElementById("categoria-geral");
 
     // subcontainer para favoritos, inicialmente invisível
-    subcontainerFav = document.createElement("div");
+    const subcontainerFav = document.createElement("div");
     subcontainerFav.setAttribute("class", "produtos-display-grid")
-    tituloFav = document.createElement('h2')
+    const tituloFav = document.createElement('h2')
     tituloFav.setAttribute("class", "titulo-secao");
     tituloFav.textContent = 'Produtos favoritos'
     container.appendChild(tituloFav)
@@ -48,9 +48,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     }
 
     // subcontainer para promocoes, inicialmente invisível
-    subcontainerPromo = document.createElement("div");
+    const subcontainerPromo = document.createElement("div");
     subcontainerPromo.setAttribute("class", "container1 fundoDestaque")
-    tituloPromo = document.createElement('h2')
+    const tituloPromo = document.createElement('h2')
     tituloPromo.setAttribute("class", "titulo-secao promocao");
     tituloPromo.innerHTML = 'Promoções do Dia'
     container.appendChild(tituloPromo)
@@ -71,7 +71,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     subcontainer = document.createElement("div");
                     subcontainer.setAttribute("id", "busca");
                     subcontainer.setAttribute("class", "container1")
-                    tituloCat = document.createElement('h2')
+                    const tituloCat = document.createElement('h2')
                     tituloCat.setAttribute("class", "titulo-secao");
                     tituloCat.innerHTML = 'Resultados da busca'
                     container.appendChild(tituloCat)
@@ -85,7 +85,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         if (subcontainer == null) {
             subcontainer = document.createElement("div");
             subcontainer.setAttribute("id", "categoria" + produto.categoria.id);
-            tituloCat = document.createElement('h2')
+            const tituloCat = document.createElement('h2')
             tituloCat.setAttribute("class", "titulo-secao");
             tituloCat.textContent = produto.categoria.categoria
             if (args.id != null)
@@ -140,7 +140,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoAddCarrinho.textContent = "+";
         divQtd.appendChild(botaoAddCarrinho);
 
-        for (n = 0; n < cliente.listaCompra.length; n++) {
+        for (let n = 0; n < cliente.listaCompra.length; n++) {
             if (cliente.listaCompra[n].produto.id == produto.id) {
                 botaoRemCarrinho.style.display = ''
                 if ( cliente.listaCompra[n].quantidade % 1 > 0)
@@ -188,7 +188,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
                     if (document.getElementById('promonome'+produto.id)==null)
                         clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`)
-                    nomePromo = document.getElementById('promonome' + produto.id)
+                    const nomePromo = document.getElementById('promonome' + produto.id)
                     nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
                 }
             })
@@ -198,19 +198,19 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 }
 
 function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente) {
-    cloneCard = card.cloneNode(true)
-    nome = cloneCard.getElementsByClassName('nome-produto')[0]
+    const cloneCard = card.cloneNode(true)
+    const nome = cloneCard.getElementsByClassName('nome-produto')[0]
     nome.id = prefixo + nome.id
-    remover = cloneCard.getElementsByClassName('btn-rem')[0]
+    const remover = cloneCard.getElementsByClassName('btn-rem')[0]
     remover.id = prefixo + remover.id
     remover.onclick = document.getElementById('rem'+idProduto).onclick
-    quantidade = cloneCard.getElementsByClassName('quantidade-produto')[0]
+    const quantidade = cloneCard.getElementsByClassName('quantidade-produto')[0]
     quantidade.id = prefixo + quantidade.id
-    adicionar = cloneCard.getElementsByClassName('btn-add')[0]
+    const adicionar = cloneCard.getElementsByClassName('btn-add')[0]
     adicionar.id = prefixo + adicionar.id
     adicionar.onclick = document.getElementById('add'+idProduto).onclick
     if (idCliente != "null") {
-        cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
+        const cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
         cloneFavorito.id = prefixo + cloneFavorito.id
         cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente) }
     }
@@ -218,16 +218,16 @@ function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente) {
 }
 
 async function toggleFavorito(idProduto, idCliente) {
-    botaoFavorito = document.getElementById('fav' + idProduto)
-    cloneFavorito = document.getElementById('favfav' + idProduto)
-    promoFavorito = document.getElementById('promofav' + idProduto)
-    idFav = null
+    const botaoFavorito = document.getElementById('fav' + idProduto)
+    const cloneFavorito = document.getElementById('favfav' + idProduto)
+    const promoFavorito = document.getElementById('promofav' + idProduto)
+    let idFav = null
     cliente.favoritos.forEach(favorito => {
         if (favorito.produto.id == idProduto)
             idFav = favorito.id
     })
     if (idFav==null) {
-        favDB = await incluirFavorito(idProduto, idCliente)
+        const favDB = await incluirFavorito(idProduto, idCliente)
         cliente.favoritos.push(favDB)
         botaoFavorito.textContent = "♥";
         if (cloneFavorito != null)
@@ -245,7 +245,7 @@ async function toggleFavorito(idProduto, idCliente) {
 }
 
 function filtrar(nomeProduto, filtros) {
-    res = true
+    let res = true
     filtros.split(' ').forEach(filtro => {
         if (!nomeProduto.toLowerCase().includes(filtro.toLowerCase()))
             res = false
@@ -257,15 +257,15 @@ function filtrar(nomeProduto, filtros) {
 async function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medida) {
     if (quantidade==1 && medida=='kg')
         quantidade = 0.1
-    quant = document.getElementById('quantidade' + idProduto)
-    fquant = document.getElementById('favquantidade' + idProduto) || quant
-    pquant = document.getElementById('promoquantidade' + idProduto) || quant
+    const quant = document.getElementById('quantidade' + idProduto)
+    const fquant = document.getElementById('favquantidade' + idProduto) || quant
+    const pquant = document.getElementById('promoquantidade' + idProduto) || quant
     quant.innerHTML = await adicionarQuantidade(idCliente, idProduto, quantidade, medida)
     fquant.innerHTML = quant.innerHTML
     pquant.innerHTML = quant.innerHTML
-    botaoRemCarrinho = document.getElementById('rem' + idProduto)
-    fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
-    pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
+    const botaoRemCarrinho = document.getElementById('rem' + idProduto)
+    const fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
+    const pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
     botaoRemCarrinho.style.display = ''
     fbotaoRemCarrinho.style.display = ''
     pbotaoRemCarrinho.style.display = ''
@@ -274,16 +274,16 @@ async function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medid
 async function removerQuantidadePagina(idCliente, idProduto, quantidade, medida) {
     if (quantidade==1 && medida=='kg')
         quantidade = 0.1
-    quant = document.getElementById('quantidade' + idProduto)
-    fquant = document.getElementById('favquantidade' + idProduto) || quant
-    pquant = document.getElementById('promoquantidade' + idProduto) || quant
+    const quant = document.getElementById('quantidade' + idProduto)
+    const fquant = document.getElementById('favquantidade' + idProduto) || quant
+    const pquant = document.getElementById('promoquantidade' + idProduto) || quant
     quant.innerHTML = await removerQuantidade(idCliente, idProduto, quantidade, medida)
     fquant.innerHTML = quant.innerHTML
     pquant.innerHTML = quant.innerHTML
     if (quant.innerHTML=='') {
-        botaoRemCarrinho = document.getElementById('rem' + idProduto)
-        fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
-        pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
+        const botaoRemCarrinho = document.getElementById('rem' + idProduto)
+        const fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
+        const pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
         botaoRemCarrinho.style.display = 'none'
         fbotaoRemCarrinho.style.display = 'none'
         pbotaoRemCarrinho.style.display = 'none'
