@@ -1,33 +1,50 @@
 async function preencherProdutos(args) { // args é um objeto, que pode ter os parâmetros 'id' e 'busca'
     const token = sessionStorage.getItem("token");
+    const container = document.getElementById("categoria-geral");
 
-    const resposta = await fetchFallback("/produtos");
-    if (!resposta.ok) {
-        console.error("Erro ao buscar produtos");
-        return;
+    // --- INÍCIO DO SKELETON SCREEN ---
+    const skeletonContainer = document.createElement("div");
+    skeletonContainer.setAttribute("class", "skeleton-container");
+    for (let i = 0; i < 8; i++) {
+        const skeletonCard = document.createElement("div");
+        skeletonCard.setAttribute("class", "skeleton-card");
+        skeletonContainer.appendChild(skeletonCard);
     }
-    const produtos = await resposta.json();
+    container.appendChild(skeletonContainer);
+    // --- FIM DO SKELETON SCREEN ---
 
-    const respostaP = await fetchFallback("/promocoes");
-    if (!respostaP.ok) {
-        console.error("Erro ao buscar promoções");
-        return;
-    }
-    const promocoes = await respostaP.json();
-
-    let cliente = { id: null }
-    cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-    if (token != null) {
-        const respostaC = await fetchFallback("/auth/cliente", {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-        if (!respostaC.ok) {
-            console.error("Erro ao buscar cliente");
+    try {
+        const resposta = await fetchFallback("/produtos");
+        if (!resposta.ok) {
+            console.error("Erro ao buscar produtos");
+            return;
         }
-        cliente = await respostaC.json();
-//      listaCompra = cliente.listaCompra
-    }
+        const produtos = await resposta.json
+
+        const respostaP = await fetchFallback("/promocoes");
+        if (!respostaP.ok) {
+            console.error("Erro ao buscar promoções");
+            return;
+        }
+        const promocoes = await respostaP.json();
+
+        let cliente = { id: null }
+        cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+        if (token != null) {
+            const respostaC = await fetchFallback("/auth/cliente", {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            if (!respostaC.ok) {
+                console.error("Erro ao buscar cliente");
+            }
+            cliente = await respostaC.json();
+        }
+
+        // REMOVE OS SKELETONS antes de renderizar os produtos reais
+        if (container.contains(skeletonContainer)){
+            container.removeChild(skeletonContainer);
+        }
 
     const container = document.getElementById("categoria-geral");
 
