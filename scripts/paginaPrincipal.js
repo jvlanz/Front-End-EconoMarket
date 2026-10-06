@@ -36,7 +36,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     subcontainerFav.setAttribute("class", "produtos-display-grid")
     tituloFav = document.createElement('h2')
     tituloFav.setAttribute("class", "titulo-secao");
-    tituloFav.innerHTML = 'Produtos favoritos'
+    tituloFav.textContent = 'Produtos favoritos'
     container.appendChild(tituloFav)
     container.appendChild(subcontainerFav);
     tituloFav.style.display = 'none'
@@ -87,7 +87,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             subcontainer.setAttribute("id", "categoria" + produto.categoria.id);
             tituloCat = document.createElement('h2')
             tituloCat.setAttribute("class", "titulo-secao");
-            tituloCat.innerHTML = produto.categoria.categoria
+            tituloCat.textContent = produto.categoria.categoria
             if (args.id != null)
                 subcontainer.setAttribute("class", "produtos-display-grid")
             else {
@@ -123,7 +123,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         const botaoRemCarrinho = document.createElement("button");
         botaoRemCarrinho.setAttribute("class", "btn-rem");
         botaoRemCarrinho.id = 'rem' + produto.id
-        botaoRemCarrinho.innerHTML = "–";
+        botaoRemCarrinho.textContent = "–";
         botaoRemCarrinho.onclick = () => { removerQuantidadePagina(cliente.id, produto.id, produto.valorMedida, produto.medida) }
         botaoRemCarrinho.style.display = 'none'
         divQtd.appendChild(botaoRemCarrinho);
@@ -137,16 +137,16 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoAddCarrinho.setAttribute("class", "btn-add");
         botaoAddCarrinho.id = 'add' + produto.id
         botaoAddCarrinho.onclick = () => { adicionarQuantidadePagina(cliente.id, produto.id, produto.valorMedida, produto.medida) }
-        botaoAddCarrinho.innerHTML = "+";
+        botaoAddCarrinho.textContent = "+";
         divQtd.appendChild(botaoAddCarrinho);
 
         for (n = 0; n < cliente.listaCompra.length; n++) {
             if (cliente.listaCompra[n].produto.id == produto.id) {
                 botaoRemCarrinho.style.display = ''
                 if ( cliente.listaCompra[n].quantidade % 1 > 0)
-                    quant.innerHTML = cliente.listaCompra[n].quantidade.toFixed(2).replace('.',',') + ' ' +produto.medida
+                    quant.textContent = cliente.listaCompra[n].quantidade.toFixed(2).replace('.',',') + ' ' +produto.medida
                 else
-                    quant.innerHTML = cliente.listaCompra[n].quantidade + ' ' + produto.medida
+                    quant.textContent = cliente.listaCompra[n].quantidade + ' ' + produto.medida
                 break
             }
         }
@@ -157,24 +157,24 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         const faixaPrecos = document.createElement("div");
         faixaPrecos.setAttribute("class", "preco-produto");
-        faixaPrecos.innerHTML = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.', ',');
+        faixaPrecos.textContent = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.', ',');
         link2.appendChild(faixaPrecos);
 
         const nome = document.createElement("div");
         nome.setAttribute("class", "nome-produto");
         nome.id = "nome" + produto.id;
-        nome.innerHTML = produto.descricao;
+        nome.textContent = produto.descricao;
         link2.appendChild(nome);
 
         if (token != null) { // cliente logado
             const botaoFavorito = document.createElement("button");
             botaoFavorito.id = 'fav' + produto.id;
             botaoFavorito.className = "btn-favorito";
-            botaoFavorito.innerHTML = "♡";
+            botaoFavorito.textContent = "♡";
             card.appendChild(botaoFavorito);
             cliente.favoritos.forEach(favorito => {
                 if (favorito.produto.id == produto.id) {
-                    botaoFavorito.innerHTML = "♥";
+                    botaoFavorito.textContent = "♥";
                     clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`)
                 }
             })
@@ -229,14 +229,14 @@ async function toggleFavorito(idProduto, idCliente) {
     if (idFav==null) {
         favDB = await incluirFavorito(idProduto, idCliente)
         cliente.favoritos.push(favDB)
-        botaoFavorito.innerHTML = "♥";
+        botaoFavorito.textContent = "♥";
         if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♥";
         if (promoFavorito != null)
             promoFavorito.innerHTML = "♥";
     } else {
         removerFavorito(idFav)
-        botaoFavorito.innerHTML = "♡";
+        botaoFavorito.textContent = "♡";
         if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♡";
         if (promoFavorito != null)
