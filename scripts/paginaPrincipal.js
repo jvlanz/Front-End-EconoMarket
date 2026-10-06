@@ -19,7 +19,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             console.error("Erro ao buscar produtos");
             return;
         }
-        const produtos = await resposta.json
+        const produtos = await resposta.json();
 
         const respostaP = await fetchFallback("/promocoes");
         if (!respostaP.ok) {
@@ -46,9 +46,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             container.removeChild(skeletonContainer);
         }
 
-    const container = document.getElementById("categoria-geral");
-
-    // subcontainer para favoritos, inicialmente invisível
+        // subcontainer para favoritos, inicialmente invisível
     const subcontainerFav = document.createElement("div");
     subcontainerFav.setAttribute("class", "produtos-display-grid")
     const tituloFav = document.createElement('h2')
