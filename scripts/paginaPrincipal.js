@@ -13,7 +13,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     container.appendChild(skeletonContainer);
     // --- FIM DO SKELETON SCREEN ---
 
-    try {
+//  try {
         const resposta = await fetchFallback("/produtos");
         if (!resposta.ok) {
             console.error("Erro ao buscar produtos");
