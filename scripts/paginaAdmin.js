@@ -20,7 +20,7 @@ async function preencherDadosAdmin(busca=null) {
 function inserirProdutos(busca) {
     tab = document.getElementById('tabProdutos')
     tab.innerHTML = ''
-    tab.innerHTML += '<thead><th>Produto</th><th>Categoria</th><th>Figura</th></thead>'
+    tab.innerHTML += '<thead><th>Produto</th><th>Marca</th><th>Categoria</th><th>Figura</th></thead>'
 //  if (busca==null||busca=='') {
 //      tab.innerHTML = 'filtre os produtos usando a barra de busca'
 //      return
@@ -37,6 +37,11 @@ function inserirProdutos(busca) {
         tab.appendChild(tr)
         tdDescr = document.createElement('td')
         tdDescr.innerHTML = produto.descricao
+        tdMarca = document.createElement('td')
+        marcaInput = document.createElement('input')
+//      marcaInput.value = produto.marca
+        marcaInput.id = 'marca'+produto.id
+        tdMarca.appendChild(marcaInput)
         tdCateg = document.createElement('td')
         selCateg = document.createElement('select')
         selCateg.id = 'categ'+produto.id
@@ -62,6 +67,7 @@ function inserirProdutos(busca) {
         btAlterar.onclick = () => { alterar(produto) }
         tdAlterar.appendChild(btAlterar)
         tr.appendChild(tdDescr)
+        tr.appendChild(tdMarca)
         tr.appendChild(tdCateg)
         tr.appendChild(tdFigura)
         tr.appendChild(tdAlterar)
