@@ -1,6 +1,7 @@
 async function preencherProdutos(args) { // args é um objeto, que pode ter os parâmetros 'id' e 'busca'
     const token = sessionStorage.getItem("token");
     const container = document.getElementById("categoria-geral");
+    let limite = 100 // número máximo de produtos a serem mostrados na página: 100 se estiver mostrando uma categoria, senão 15 por categoria (só 10 são mostrados...)
 
     // --- INÍCIO DO SKELETON SCREEN ---
     const skeletonContainer = document.createElement("div");
@@ -77,6 +78,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         // filtrar por categoria
         if ((args.id != 0 && args.id != null) && args.id != produto.categoria.id) return
+        if (args.id==null && args.busca==null) limite = 15
 
         // filtrar por busca
         let subcontainer = document.getElementById("busca"); // usar mesmo subcontainer para todos os resultados da busca
@@ -112,6 +114,8 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             container.appendChild(tituloCat)
             container.appendChild(subcontainer);
         }
+
+        if (subcontainer.children.length>=limite) return
 
         if (args.id==0) {
             tituloCat.style.display = 'none'
