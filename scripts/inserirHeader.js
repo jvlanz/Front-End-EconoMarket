@@ -16,7 +16,7 @@ function inserirHeader() {
 
             const token = sessionStorage.getItem("token");
             if (token != null) {
-                fetchFallback("/cliente", {
+                fetchFallback("/auth/cliente", {
                     method: "GET",
                     headers: { "Authorization": `Bearer ${token}` }
                 })
