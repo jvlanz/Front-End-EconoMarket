@@ -23,7 +23,7 @@ async function entrar(event) {
         });
 
         if (!resposta.ok) {
-            msgerro.innerHTML("Erro ao fazer login");
+            msgerro.innerHTML = "Erro ao fazer login";
         }
         
         const data = await resposta.json();
