@@ -91,7 +91,7 @@ function ativarBotoes() {
 
 function preencherCarrinho() {
     const divProdutos = document.getElementsByClassName('produtos')[0]
-    for (nc=0; nc<11; nc++) {  // ordenar itens por categorias
+    for (nc=1; nc<12; nc++) {  // ordenar itens por categorias
         for (ni=0; ni<cliente.listaCompra.length; ni++) {
             item = cliente.listaCompra[ni]
             if (item.produto.categoria.id!=nc) continue
@@ -349,7 +349,7 @@ function remover(id,n) { // remove item da listaCompra no banco de dados, bem co
 function gerarLista() {
     listas = []
     listas[0] = 0 // valorTotal
-    for (nc=0; nc<11; nc++) { // ordenar itens por categorias
+    for (nc=1; nc<12; nc++) { // ordenar itens por categorias
         for (ni=0; ni<cliente.listaCompra.length; ni++) {
             if (cliente.listaCompra[ni].produto.categoria.id!=nc) continue
             const selMarca = document.getElementById('selMarca'+item.produto.id)
