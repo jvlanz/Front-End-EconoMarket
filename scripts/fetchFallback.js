@@ -6,8 +6,10 @@ async function fetchFallback(path, opcoes = {}) {
 		}
 //		document.getElementById('login').style.background = 'red'
 //		document.getElementById('login').style.borderColor = 'orange'
-		document.querySelector('.menu-upper').style.backgroundColor = '#324971'
-		document.querySelector('.nav-wrapper').style.backgroundColor = '#324971'
+		menuUpper = document.querySelector('.menu-upper')
+		if (menuUpper!=null) menuUpper.style.backgroundColor = '#324971'
+		navWrapper = document.querySelector('.nav-wrapper')
+		if (navWrapper!=null) navWrapper.style.backgroundColor = '#324971'
 		return resposta;
 	} catch {
 		return fetch(`https://api-economarket.onrender.com${path}`, opcoes);
