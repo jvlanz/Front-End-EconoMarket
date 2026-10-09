@@ -29,7 +29,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         }
         const promocoes = await respostaP.json();
 
-        let cliente = { id: null }
+        cliente = { id: null }
         cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
         if (token != null) {
             const respostaC = await fetchFallback("/auth/cliente", {
