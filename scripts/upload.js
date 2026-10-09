@@ -1,4 +1,4 @@
-async function uploadFile() {
+async function uploadFile(mercado) {
     const fileInput = document.querySelector("#fileInput");
     const file = fileInput.files[0];
 
@@ -11,7 +11,7 @@ async function uploadFile() {
     formData.append("file", file);
 
     try {
-        const response = await fetchFallback("/files/upload", {
+        const response = await fetchFallback("/upload/"+mercado, {
             method: "POST",
             body: formData
         });
