@@ -1,7 +1,7 @@
 
 var cliente = {id:null} // se logar, irá sobrescrever esse valor
 var mercados
-var promocoes
+//var promocoes
 var listaPrecos = []
 var totalMercado = []
 var nMercados = 1
@@ -29,12 +29,12 @@ async function obterDadosCarrinho() { // buscas no banco de dados
         return;
     }
     mercados = await respostaM.json()
-    const respostaP = await fetchFallback("/promocoes");
-    if (!respostaP.ok) {
-        console.error("Erro ao buscar promoções");
-        return;
-    }
-    promocoes = await respostaP.json();
+//  const respostaP = await fetchFallback("/promocoes");
+//  if (!respostaP.ok) {
+//      console.error("Erro ao buscar promoções");
+//      return;
+//  }
+//  promocoes = await respostaP.json();
 
     nItens = cliente.listaCompra.length
     for (n=0; n<nItens; n++) {
