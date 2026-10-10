@@ -1,5 +1,5 @@
 async function uploadFile(mercado) {
-    const fileInput = document.querySelector("#fileInput");
+    const fileInput = document.querySelector("#fileInput"+mercado);
     const file = fileInput.files[0];
 
     if (!file) {
