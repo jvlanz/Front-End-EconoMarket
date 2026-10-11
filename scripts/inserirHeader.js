@@ -61,7 +61,7 @@ function abrirLogin() {
 }
 
 function scrollNav(valor) {
-    const navMenu = document.querySelector('.nav-menu');
+    const navMenu = document.querySelector('.meio');
     navMenu.scrollBy({
         left: valor,
         behavior: 'smooth'
