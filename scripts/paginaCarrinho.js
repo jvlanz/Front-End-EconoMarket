@@ -351,7 +351,8 @@ function gerarLista() {
     listas[0] = 0 // valorTotal
     for (nc=1; nc<12; nc++) { // ordenar itens por categorias
         for (ni=0; ni<cliente.listaCompra.length; ni++) {
-            if (cliente.listaCompra[ni].produto.categoria.id!=nc) continue
+            item = cliente.listaCompra[ni]
+            if (item.produto.categoria.id!=nc) continue
             const selMarca = document.getElementById('selMarca'+item.produto.id)
             const selMercado = document.getElementById('selMercado'+item.produto.id)
             for (np=0; np<listaPrecos[ni].precos.length; np++) {
