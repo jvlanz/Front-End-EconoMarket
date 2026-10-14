@@ -382,6 +382,14 @@ function gerarLista() {
 }
 
 function mostrarLista() {
+    hoje = '2026-10-14'
+    if (token==null) {
+        window.location.href = "paginaLogin.html"
+        return
+    } else if (cliente.prazoAssinatura==undefined || cliente.prazoAssinatura < hoje) {
+        window.location.href = "paginaAssinatura.html"
+        return
+    }
     listas = gerarLista()
     divMercados = document.getElementById('melhorDistribuicao')
     divMercados.innerHTML = '<h2>Melhor distribuição</h2>'
