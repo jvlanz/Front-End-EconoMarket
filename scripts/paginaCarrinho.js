@@ -386,7 +386,7 @@ function mostrarLista() {
     if (token==null) {
         window.location.href = "paginaLogin.html"
         return
-    } else if (cliente.prazoAssinatura==undefined || cliente.prazoAssinatura < hoje) {
+    } else if (cliente.assinatura==undefined || cliente.assinatura < hoje) {
         window.location.href = "paginaAssinatura.html"
         return
     }
