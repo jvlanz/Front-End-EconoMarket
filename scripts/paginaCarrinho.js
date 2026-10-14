@@ -57,6 +57,7 @@ async function obterDadosCarrinho() { // buscas no banco de dados
     ordenarMercados()
     ativarMercados(1)
 //  selecionarMinimos()
+    calcularEconomia()
 }
 
 function ativarMercados(n) {
@@ -346,6 +347,25 @@ function remover(id,n) { // remove item da listaCompra no banco de dados, bem co
     gerarTabelaCarrinho()
 }
 
+function calcularEconomia() {
+    custo = 0;
+    for (ni=0; ni<cliente.listaCompra.length; ni++) {
+        item = cliente.listaCompra[ni]
+        const selMarca = document.getElementById('selMarca'+item.produto.id)
+        const selMercado = document.getElementById('selMercado'+item.produto.id)
+        valor = 99999
+        for (np=0; np<listaPrecos[ni].precos.length; np++) {
+            item = listaPrecos[ni].precos[np]
+            valor = Math.min(valor, (item.preco * cliente.listaCompra[ni].quantidade / item.produtoMarca.produto.valorMedida))
+        }
+        custo += valor
+    }
+    maxVal = Math.max(...totalMercado)
+    economia = (maxVal-custo).toFixed(2).replace('.',',')
+    spanEconomia = document.getElementById('span-economia')
+    spanEconomia.innerHTML = 'R$ '+ economia
+}
+
 function gerarLista() {
     listas = []
     listas[0] = 0 // valorTotal
@@ -382,7 +402,7 @@ function gerarLista() {
 }
 
 function mostrarLista() {
-    hoje = '2026-10-14'
+    hoje = '2026-10-14' // FIXME
     if (token==null) {
         window.location.href = "paginaLogin.html"
         return
@@ -391,8 +411,6 @@ function mostrarLista() {
         return
     }
     listas = gerarLista()
-    divMercados = document.getElementById('melhorDistribuicao')
-    divMercados.innerHTML = '<h2>Melhor distribuição</h2>'
     divLista = document.getElementById('listaCompra')
     divLista.innerHTML = ''
     for (nm=0; nm<mercados.length; nm++) {
@@ -407,9 +425,10 @@ function mostrarLista() {
     divTotal.innerHTML = '<h2>Total a pagar</h2>'
     divTotal.innerHTML += '<p>R$ '+listas[0].toFixed(2).replace('.',',')+'</p>'
     maxVal = Math.max(...totalMercado)
+    valor = (maxVal-listas[0]).toFixed(2).replace('.',',')
     divEconomia = document.getElementById('economia')
     divEconomia.innerHTML = '<h2>Economia</h2>'
-    divEconomia.innerHTML += '<p>R$ '+ (maxVal-listas[0]).toFixed(2).replace('.',',')+'</p>'
+    divEconomia.innerHTML += '<p>R$ '+ valor + '</p>'
     window.location.href = "paginaCarrinho.html#lista"
 }
 
