@@ -428,5 +428,8 @@ function limparLista() {
     } else {
         sessionStorage.removeItem('listaCompra')
     }
-    window.location.href = "#"
+    const divProdutos = document.getElementsByClassName('produtos')[0]
+    divProdutos.innerText = ''
+    window.location.href = '#'
+//  window.location.href = "paginaPrincipal.html"
 }
