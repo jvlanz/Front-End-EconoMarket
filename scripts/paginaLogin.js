@@ -14,7 +14,7 @@ async function entrar(event) {
     }
 
     try {
-        const resposta = await fetch("https://api-economarket.onrender.com/auth/login", {
+        const resposta = await fetchFallback("/auth/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -23,7 +23,7 @@ async function entrar(event) {
         });
 
         if (!resposta.ok) {
-            msgerro.innerHTML("Erro ao fazer login");
+            msgerro.innerHTML = "Erro ao fazer login";
         }
         
         const data = await resposta.json();

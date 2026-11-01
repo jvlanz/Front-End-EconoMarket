@@ -1,5 +1,5 @@
-async function uploadFile() {
-    const fileInput = document.querySelector("#fileInput");
+async function uploadFile(mercado) {
+    const fileInput = document.querySelector("#fileInput"+mercado);
     const file = fileInput.files[0];
 
     if (!file) {
@@ -11,7 +11,7 @@ async function uploadFile() {
     formData.append("file", file);
 
     try {
-        const response = await fetch("https://api-economarket.onrender.com/files/upload", {
+        const response = await fetchFallback("/upload/"+mercado, {
             method: "POST",
             body: formData
         });

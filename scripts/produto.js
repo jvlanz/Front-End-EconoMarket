@@ -1,7 +1,7 @@
 async function alterarProduto(produtoRequest) {
     const token = sessionStorage.getItem("token");
 
-    const resposta = await fetch("https://api-economarket.onrender.com/produto/"+produtoRequest.id, {
+    const resposta = await fetchFallback("/produto/"+produtoRequest.id, {
         method: "POST",
         headers: {
             "Authorization": `Bearer ${token}`,

@@ -1,10 +1,10 @@
 function inserirContato() {
 
     const token = sessionStorage.getItem("token");
-    if (!token) {
+//  if (!token) {
 //      window.location.href = "paginaLogin.html";
-        return;
-    }
+//      return;
+//  }
 
 
     return fetch('contato.html')
@@ -36,7 +36,7 @@ async function enviarMensagem(evento) {
 
     try {
 
-        const resposta = await fetch("https://api-economarket.onrender.com/contato", {
+        const resposta = await fetchFallback("/contato", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -65,7 +65,7 @@ async function preencherDados() {
     const token = sessionStorage.getItem("token");
 
     if (!token) {
-        window.location.href = "paginaLogin.html";
+//      window.location.href = "paginaLogin.html";
         return;
     }
 

@@ -1,42 +1,58 @@
 async function preencherProdutos(args) { // args é um objeto, que pode ter os parâmetros 'id' e 'busca'
     const token = sessionStorage.getItem("token");
-
-    const resposta = await fetch("https://api-economarket.onrender.com/produtos");
-    if (!resposta.ok) {
-        console.error("Erro ao buscar produtos");
-        return;
-    }
-    const produtos = await resposta.json();
-
-    const respostaP = await fetch("https://api-economarket.onrender.com/promocoes");
-    if (!respostaP.ok) {
-        console.error("Erro ao buscar promoções");
-        return;
-    }
-    const promocoes = await respostaP.json();
-
-    cliente = { id: null }
-    cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
-    if (token != null) {
-        const respostaC = await fetch("https://api-economarket.onrender.com/auth/cliente", {
-            method: "GET",
-            headers: { "Authorization": `Bearer ${token}` }
-        });
-        if (!respostaC.ok) {
-            console.error("Erro ao buscar cliente");
-        }
-        cliente = await respostaC.json();
-//      listaCompra = cliente.listaCompra
-    }
-
     const container = document.getElementById("categoria-geral");
+    let limite = 100 // número máximo de produtos a serem mostrados na página: 100 se estiver mostrando uma categoria, senão 15 por categoria (só 10 são mostrados...)
 
-    // subcontainer para favoritos, inicialmente invisível
-    subcontainerFav = document.createElement("div");
+    // --- INÍCIO DO SKELETON SCREEN ---
+    const skeletonContainer = document.createElement("div");
+    skeletonContainer.setAttribute("class", "skeleton-container");
+    for (let i = 0; i < 8; i++) {
+        const skeletonCard = document.createElement("div");
+        skeletonCard.setAttribute("class", "skeleton-card");
+        skeletonContainer.appendChild(skeletonCard);
+    }
+    container.appendChild(skeletonContainer);
+    // --- FIM DO SKELETON SCREEN ---
+
+//  try {
+        const resposta = await fetchFallback("/produtos");
+        if (!resposta.ok) {
+            console.error("Erro ao buscar produtos");
+            return;
+        }
+        const produtos = await resposta.json();
+
+        const respostaP = await fetchFallback("/promocoes");
+        if (!respostaP.ok) {
+            console.error("Erro ao buscar promoções");
+            return;
+        }
+        const promocoes = await respostaP.json();
+
+        cliente = { id: null }
+        cliente.listaCompra = JSON.parse(sessionStorage.getItem("listaCompra")) || []
+        if (token != null) {
+            const respostaC = await fetchFallback("/auth/cliente", {
+                method: "GET",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            if (!respostaC.ok) {
+                console.error("Erro ao buscar cliente");
+            }
+            cliente = await respostaC.json();
+        }
+
+        // REMOVE OS SKELETONS antes de renderizar os produtos reais
+        if (container.contains(skeletonContainer)){
+            container.removeChild(skeletonContainer);
+        }
+
+        // subcontainer para favoritos, inicialmente invisível
+    const subcontainerFav = document.createElement("div");
     subcontainerFav.setAttribute("class", "produtos-display-grid")
-    tituloFav = document.createElement('h2')
+    const tituloFav = document.createElement('h2')
     tituloFav.setAttribute("class", "titulo-secao");
-    tituloFav.innerHTML = 'Produtos favoritos'
+    tituloFav.textContent = 'Produtos favoritos'
     container.appendChild(tituloFav)
     container.appendChild(subcontainerFav);
     tituloFav.style.display = 'none'
@@ -48,9 +64,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
     }
 
     // subcontainer para promocoes, inicialmente invisível
-    subcontainerPromo = document.createElement("div");
+    const subcontainerPromo = document.createElement("div");
     subcontainerPromo.setAttribute("class", "container1 fundoDestaque")
-    tituloPromo = document.createElement('h2')
+    const tituloPromo = document.createElement('h2')
     tituloPromo.setAttribute("class", "titulo-secao promocao");
     tituloPromo.innerHTML = 'Promoções do Dia'
     container.appendChild(tituloPromo)
@@ -62,6 +78,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         // filtrar por categoria
         if ((args.id != 0 && args.id != null) && args.id != produto.categoria.id) return
+        if (args.id==null && args.busca==null) limite = 15
 
         // filtrar por busca
         let subcontainer = document.getElementById("busca"); // usar mesmo subcontainer para todos os resultados da busca
@@ -71,7 +88,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                     subcontainer = document.createElement("div");
                     subcontainer.setAttribute("id", "busca");
                     subcontainer.setAttribute("class", "container1")
-                    tituloCat = document.createElement('h2')
+                    const tituloCat = document.createElement('h2')
                     tituloCat.setAttribute("class", "titulo-secao");
                     tituloCat.innerHTML = 'Resultados da busca'
                     container.appendChild(tituloCat)
@@ -85,9 +102,9 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         if (subcontainer == null) {
             subcontainer = document.createElement("div");
             subcontainer.setAttribute("id", "categoria" + produto.categoria.id);
-            tituloCat = document.createElement('h2')
+            const tituloCat = document.createElement('h2')
             tituloCat.setAttribute("class", "titulo-secao");
-            tituloCat.innerHTML = produto.categoria.categoria
+            tituloCat.textContent = produto.categoria.categoria
             if (args.id != null)
                 subcontainer.setAttribute("class", "produtos-display-grid")
             else {
@@ -97,6 +114,8 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
             container.appendChild(tituloCat)
             container.appendChild(subcontainer);
         }
+
+        if (subcontainer.children.length>=limite) return
 
         if (args.id==0) {
             tituloCat.style.display = 'none'
@@ -123,7 +142,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         const botaoRemCarrinho = document.createElement("button");
         botaoRemCarrinho.setAttribute("class", "btn-rem");
         botaoRemCarrinho.id = 'rem' + produto.id
-        botaoRemCarrinho.innerHTML = "–";
+        botaoRemCarrinho.textContent = "–";
         botaoRemCarrinho.onclick = () => { removerQuantidadePagina(cliente.id, produto.id, produto.valorMedida, produto.medida) }
         botaoRemCarrinho.style.display = 'none'
         divQtd.appendChild(botaoRemCarrinho);
@@ -137,16 +156,16 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
         botaoAddCarrinho.setAttribute("class", "btn-add");
         botaoAddCarrinho.id = 'add' + produto.id
         botaoAddCarrinho.onclick = () => { adicionarQuantidadePagina(cliente.id, produto.id, produto.valorMedida, produto.medida) }
-        botaoAddCarrinho.innerHTML = "+";
+        botaoAddCarrinho.textContent = "+";
         divQtd.appendChild(botaoAddCarrinho);
 
-        for (n = 0; n < cliente.listaCompra.length; n++) {
+        for (let n = 0; n < cliente.listaCompra.length; n++) {
             if (cliente.listaCompra[n].produto.id == produto.id) {
                 botaoRemCarrinho.style.display = ''
                 if ( cliente.listaCompra[n].quantidade % 1 > 0)
-                    quant.innerHTML = cliente.listaCompra[n].quantidade.toFixed(2).replace('.',',') + ' ' +produto.medida
+                    quant.textContent = cliente.listaCompra[n].quantidade.toFixed(2).replace('.',',') + ' ' +produto.medida
                 else
-                    quant.innerHTML = cliente.listaCompra[n].quantidade + ' ' + produto.medida
+                    quant.textContent = cliente.listaCompra[n].quantidade + ' ' + produto.medida
                 break
             }
         }
@@ -157,24 +176,24 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 
         const faixaPrecos = document.createElement("div");
         faixaPrecos.setAttribute("class", "preco-produto");
-        faixaPrecos.innerHTML = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.', ',');
+        faixaPrecos.textContent = `R$ ${produto.precoMin}–${produto.precoMax}`.replaceAll('.', ',');
         link2.appendChild(faixaPrecos);
 
         const nome = document.createElement("div");
         nome.setAttribute("class", "nome-produto");
         nome.id = "nome" + produto.id;
-        nome.innerHTML = produto.descricao;
+        nome.textContent = produto.descricao;
         link2.appendChild(nome);
 
         if (token != null) { // cliente logado
             const botaoFavorito = document.createElement("button");
             botaoFavorito.id = 'fav' + produto.id;
             botaoFavorito.className = "btn-favorito";
-            botaoFavorito.innerHTML = "♡";
+            botaoFavorito.textContent = "♡";
             card.appendChild(botaoFavorito);
             cliente.favoritos.forEach(favorito => {
                 if (favorito.produto.id == produto.id) {
-                    botaoFavorito.innerHTML = "♥";
+                    botaoFavorito.textContent = "♥";
                     clonarCartao(card, 'fav', subcontainerFav, `${produto.id}`, `${cliente.id}`)
                 }
             })
@@ -188,7 +207,7 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
                 if ((promocao.preco.produtoMarca.produto.id == produto.id)) {
                     if (document.getElementById('promonome'+produto.id)==null)
                         clonarCartao(card, 'promo', subcontainerPromo, `${produto.id}`, `${cliente.id}`)
-                    nomePromo = document.getElementById('promonome' + produto.id)
+                    const nomePromo = document.getElementById('promonome' + produto.id)
                     nomePromo.innerHTML += "<br>" + promocao.preco.mercado.nome
                 }
             })
@@ -198,19 +217,19 @@ async function preencherProdutos(args) { // args é um objeto, que pode ter os p
 }
 
 function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente) {
-    cloneCard = card.cloneNode(true)
-    nome = cloneCard.getElementsByClassName('nome-produto')[0]
+    const cloneCard = card.cloneNode(true)
+    const nome = cloneCard.getElementsByClassName('nome-produto')[0]
     nome.id = prefixo + nome.id
-    remover = cloneCard.getElementsByClassName('btn-rem')[0]
+    const remover = cloneCard.getElementsByClassName('btn-rem')[0]
     remover.id = prefixo + remover.id
     remover.onclick = document.getElementById('rem'+idProduto).onclick
-    quantidade = cloneCard.getElementsByClassName('quantidade-produto')[0]
+    const quantidade = cloneCard.getElementsByClassName('quantidade-produto')[0]
     quantidade.id = prefixo + quantidade.id
-    adicionar = cloneCard.getElementsByClassName('btn-add')[0]
+    const adicionar = cloneCard.getElementsByClassName('btn-add')[0]
     adicionar.id = prefixo + adicionar.id
     adicionar.onclick = document.getElementById('add'+idProduto).onclick
     if (idCliente != "null") {
-        cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
+        const cloneFavorito = cloneCard.getElementsByClassName('btn-favorito')[0]
         cloneFavorito.id = prefixo + cloneFavorito.id
         cloneFavorito.onclick = () => { toggleFavorito(idProduto, idCliente) }
     }
@@ -218,25 +237,25 @@ function clonarCartao(card, prefixo, subcontainer, idProduto, idCliente) {
 }
 
 async function toggleFavorito(idProduto, idCliente) {
-    botaoFavorito = document.getElementById('fav' + idProduto)
-    cloneFavorito = document.getElementById('favfav' + idProduto)
-    promoFavorito = document.getElementById('promofav' + idProduto)
-    idFav = null
+    const botaoFavorito = document.getElementById('fav' + idProduto)
+    const cloneFavorito = document.getElementById('favfav' + idProduto)
+    const promoFavorito = document.getElementById('promofav' + idProduto)
+    let idFav = null
     cliente.favoritos.forEach(favorito => {
         if (favorito.produto.id == idProduto)
             idFav = favorito.id
     })
     if (idFav==null) {
-        favDB = await incluirFavorito(idProduto, idCliente)
+        const favDB = await incluirFavorito(idProduto, idCliente)
         cliente.favoritos.push(favDB)
-        botaoFavorito.innerHTML = "♥";
+        botaoFavorito.textContent = "♥";
         if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♥";
         if (promoFavorito != null)
             promoFavorito.innerHTML = "♥";
     } else {
         removerFavorito(idFav)
-        botaoFavorito.innerHTML = "♡";
+        botaoFavorito.textContent = "♡";
         if (cloneFavorito != null)
             cloneFavorito.innerHTML = "♡";
         if (promoFavorito != null)
@@ -245,7 +264,7 @@ async function toggleFavorito(idProduto, idCliente) {
 }
 
 function filtrar(nomeProduto, filtros) {
-    res = true
+    let res = true
     filtros.split(' ').forEach(filtro => {
         if (!nomeProduto.toLowerCase().includes(filtro.toLowerCase()))
             res = false
@@ -257,15 +276,15 @@ function filtrar(nomeProduto, filtros) {
 async function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medida) {
     if (quantidade==1 && medida=='kg')
         quantidade = 0.1
-    quant = document.getElementById('quantidade' + idProduto)
-    fquant = document.getElementById('favquantidade' + idProduto) || quant
-    pquant = document.getElementById('promoquantidade' + idProduto) || quant
+    const quant = document.getElementById('quantidade' + idProduto)
+    const fquant = document.getElementById('favquantidade' + idProduto) || quant
+    const pquant = document.getElementById('promoquantidade' + idProduto) || quant
     quant.innerHTML = await adicionarQuantidade(idCliente, idProduto, quantidade, medida)
     fquant.innerHTML = quant.innerHTML
     pquant.innerHTML = quant.innerHTML
-    botaoRemCarrinho = document.getElementById('rem' + idProduto)
-    fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
-    pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
+    const botaoRemCarrinho = document.getElementById('rem' + idProduto)
+    const fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
+    const pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
     botaoRemCarrinho.style.display = ''
     fbotaoRemCarrinho.style.display = ''
     pbotaoRemCarrinho.style.display = ''
@@ -274,16 +293,16 @@ async function adicionarQuantidadePagina(idCliente, idProduto, quantidade, medid
 async function removerQuantidadePagina(idCliente, idProduto, quantidade, medida) {
     if (quantidade==1 && medida=='kg')
         quantidade = 0.1
-    quant = document.getElementById('quantidade' + idProduto)
-    fquant = document.getElementById('favquantidade' + idProduto) || quant
-    pquant = document.getElementById('promoquantidade' + idProduto) || quant
+    const quant = document.getElementById('quantidade' + idProduto)
+    const fquant = document.getElementById('favquantidade' + idProduto) || quant
+    const pquant = document.getElementById('promoquantidade' + idProduto) || quant
     quant.innerHTML = await removerQuantidade(idCliente, idProduto, quantidade, medida)
     fquant.innerHTML = quant.innerHTML
     pquant.innerHTML = quant.innerHTML
     if (quant.innerHTML=='') {
-        botaoRemCarrinho = document.getElementById('rem' + idProduto)
-        fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
-        pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
+        const botaoRemCarrinho = document.getElementById('rem' + idProduto)
+        const fbotaoRemCarrinho = document.getElementById('favrem' + idProduto) || botaoRemCarrinho
+        const pbotaoRemCarrinho = document.getElementById('promorem' + idProduto) || botaoRemCarrinho
         botaoRemCarrinho.style.display = 'none'
         fbotaoRemCarrinho.style.display = 'none'
         pbotaoRemCarrinho.style.display = 'none'

@@ -7,6 +7,7 @@
     <title>Pagina de Administração</title>
     <script src="../scripts/inserirHeader.js"></script>
     <script src="../scripts/inserirContato.js"></script>
+    <script src="../scripts/fetchFallback.js"></script>
     <script src="../scripts/checarToken.js"></script>
     <script src="../scripts/paginaAdmin.js"></script>
     <script src="../scripts/upload.js"></script>
@@ -28,8 +29,25 @@
     </script>
 
     <p>Selecione um arquivo *.csv contendo a lista de preços de produtos a serem atualizados:</p>
-    <input style='width:80%' type="file" id="fileInput" />
-    <button class="botao" onclick="uploadFile()">Upload</button>
+    <br><span><strong>Koch</strong></span>
+    <input style='width:80%' type="file" id="fileInputKoch" />
+    <button class="botao" onclick="uploadFile('Koch')">Upload</button>
+
+    <br><span><strong>Angeloni</strong></span>
+    <input style='width:80%' type="file" id="fileInputAngeloni" />
+    <button class="botao" onclick="uploadFile('Angeloni')">Upload</button>
+
+    <br><span><strong>Giassi</strong></span>
+    <input style='width:80%' type="file" id="fileInputGiassi" />
+    <button class="botao" onclick="uploadFile('Giassi')">Upload</button>
+
+    <br><span><strong>Cooper</strong></span>
+    <input style='width:80%' type="file" id="fileInputCooper" />
+    <button class="botao" onclick="uploadFile('Cooper')">Upload</button>
+
+    <br><span><strong>Atacadão</strong></span>
+    <input style='width:80%' type="file" id="fileInputAtacadao" />
+    <button class="botao" onclick="uploadFile('Atacadao')">Upload</button>
 
     <br>
     <br>

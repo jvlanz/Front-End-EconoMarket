@@ -16,7 +16,7 @@ function inserirHeader() {
 
             const token = sessionStorage.getItem("token");
             if (token != null) {
-                fetch("https://api-economarket.onrender.com/auth/cliente", {
+                fetchFallback("/auth/cliente", {
                     method: "GET",
                     headers: { "Authorization": `Bearer ${token}` }
                 })
@@ -61,7 +61,7 @@ function abrirLogin() {
 }
 
 function scrollNav(valor) {
-    const navMenu = document.querySelector('.nav-menu');
+    const navMenu = document.querySelector('.meio');
     navMenu.scrollBy({
         left: valor,
         behavior: 'smooth'
